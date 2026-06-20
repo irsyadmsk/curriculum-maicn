@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Program Tahunan — Portal Kurikulum MA ICN</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+.section { padding: 44px 0; }
+.section h2 { font-size: 1.2rem; font-weight: 800; color: var(--g1); margin-bottom: 6px; }
+.section .desc { font-size: 0.85rem; color: var(--d3); margin-bottom: 20px; max-width: 640px; line-height: 1.6; }
+
+.prota-table { width: 100%; border-collapse: collapse; background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); font-size: 0.85rem; margin-bottom: 30px; }
+.prota-table th { background: var(--g1); color: var(--white); text-align: left; padding: 12px 14px; font-weight: 700; }
+.prota-table td { padding: 12px 14px; border-bottom: 1px solid var(--d5); vertical-align: top; }
+.prota-table tr:last-child td { border-bottom: none; }
+
+.month-cell { font-weight: 800; color: var(--g2); width: 140px; }
+.kegiatan-title { font-weight: 700; color: var(--g1); margin-bottom: 4px; }
+.pj-text { font-size: 0.75rem; color: var(--d3); display: flex; align-items: center; gap: 4px; }
+.waktu-text { font-family: 'DM Mono', monospace; font-size: 0.8rem; color: var(--d2); }
+
+.badge { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+.badge-terlaksana { background: #E8F5E9; color: #2E7D32; border: 1px solid #A5D6A7; }
+.badge-berlangsung { background: #E3F2FD; color: #1565C0; border: 1px solid #90CAF9; }
+.badge-terjadwal { background: #FFF8E1; color: #F57F17; border: 1px solid #FFE082; }
+.badge-tentatif { background: var(--d5); color: var(--d3); border: 1px solid #CFD8DC; }
+
+.reveal { opacity: 0; transform: translateY(15px); transition: 0.5s ease-out; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+@media(max-width: 800px) { .prota-table { display: block; overflow-x: auto; white-space: nowrap; } }
+</style>
+<script src="data.js"></script>
+<script src="assets/app.js"></script>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a href="index.html" class="nav-brand">
+    <img src="assets/iconmaicn.png" alt="Logo" style="height:24px;">
+    Portal Kurikulum
+  </a>
+  <button class="hamburger">☰</button>
+  <div class="nav-links">
+    <a href="index.html">Beranda</a>
+    <a href="profil.html">Profil</a>
+    <a href="struktur.html">Struktur</a>
+    <a href="kalender.html">Kalender</a>
+    <a href="prota.html">Prota</a>
+    <a href="posem.html">Posem</a>
+    <a href="dokumen.html">Dokumen</a>
+  </div>
+</nav>
+
+<div class="hdr">
+  <div class="backbar"><div class="wrap"><a href="index.html">&larr; Beranda Portal Kurikulum</a></div></div>
+  <div class="wrap hdr-top">
+    <div class="eyebrow">Prota</div>
+    <h1>Program Tahunan (Prota)</h1>
+    <p>Linimasa kegiatan dan program kerja madrasah selama satu tahun pelajaran.</p>
+  </div>
+</div>
+
+<div class="wrap section">
+  <h2>Linimasa Kegiatan Tahunan</h2>
+  <p class="desc">Daftar kegiatan utama madrasah berdasarkan bulan pelaksanaan beserta status terkini.</p>
+  
+  <table class="prota-table">
+    <thead>
+      <tr>
+        <th>Bulan</th>
+        <th>Program / Kegiatan</th>
+        <th>Penanggung Jawab</th>
+        <th>Waktu Pelaksanaan</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody id="prota-body">
+      <!-- Injected by JS -->
+    </tbody>
+  </table>
+</div>
+
+<footer class="footer">
+  <div class="wrap" style="text-align: center; line-height: 1.5;">
+    <strong>MA Insan Cendekia Nusantara Purwakarta</strong> &middot; Portal Kurikulum<br>
+    Waka Kurikulum: <span id="footer-waka"></span>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const MD = window.MASTER_DATA;
+  if (!MD || !MD.program_tahunan) return;
+
+  document.getElementById('footer-waka').textContent = MD.meta.waka_kurikulum;
+
+  const tbody = document.getElementById('prota-body');
+  let html = '';
+  let currentMonth = '';
+
+  function getBadgeClass(status) {
+    const s = status.toLowerCase();
+    if (s.includes('terlaksana')) return 'badge-terlaksana';
+    if (s.includes('berlangsung')) return 'badge-berlangsung';
+    if (s.includes('terjadwal')) return 'badge-terjadwal';
+    return 'badge-tentatif';
+  }
+
+  MD.program_tahunan.forEach((item, index) => {
+    let showMonth = item.bulan !== currentMonth;
+    if (showMonth) currentMonth = item.bulan;
+
+    let monthHtml = showMonth ? `<td class="month-cell">${item.bulan}</td>` : `<td></td>`;
+    
+    html += `<tr class="reveal" style="transition-delay: ${(index % 10) * 30}ms">
+      ${monthHtml}
+      <td><div class="kegiatan-title">${item.kegiatan}</div></td>
+      <td><div class="pj-text">👤 ${item.penanggung_jawab}</div></td>
+      <td class="waktu-text">${item.waktu}</td>
+      <td><span class="badge ${getBadgeClass(item.status)}">${item.status}</span></td>
+    </tr>`;
+  });
+
+  tbody.innerHTML = html;
+
+  if ('IntersectionObserver' in window) {
+    const newRevealElements = document.querySelectorAll('.reveal:not(.visible)');
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -50px 0px', threshold: 0.1 });
+    newRevealElements.forEach(el => observer.observe(el));
+  }
+});
+</script>
+</body>
+</html>

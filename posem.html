@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Program Semester — Portal Kurikulum MA ICN</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+.section { padding: 44px 0; }
+.section h2 { font-size: 1.2rem; font-weight: 800; color: var(--g1); margin-bottom: 6px; }
+.section .desc { font-size: 0.85rem; color: var(--d3); margin-bottom: 20px; max-width: 640px; line-height: 1.6; }
+
+.posem-table { width: 100%; border-collapse: collapse; background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); font-size: 0.85rem; margin-bottom: 40px; }
+.posem-table th { background: var(--g1); color: var(--white); text-align: left; padding: 12px 14px; font-weight: 700; }
+.posem-table td { padding: 10px 14px; border-bottom: 1px solid var(--d5); vertical-align: middle; }
+.posem-table tr:last-child td { border-bottom: none; }
+
+.minggu-text { font-family: 'DM Mono', monospace; font-weight: 700; color: var(--g2); }
+.periode-text { font-size: 0.8rem; color: var(--d3); }
+.he-text { font-family: 'DM Mono', monospace; font-weight: 600; text-align: center; }
+
+/* Visual markers */
+.row-asesmen { background: #F3E5F5 !important; }
+.row-asesmen td { border-bottom-color: #E1BEE7; }
+.row-asesmen .asesmen-label { color: #6A1B9A; font-weight: 700; }
+
+.row-libur { background: #FFEBEE !important; }
+.row-libur td { border-bottom-color: #FFCDD2; }
+.row-libur .program-text { color: #C62828; font-weight: 600; }
+
+.row-efektif { background: #FFFFFF; }
+.row-efektif:nth-child(even) { background: #FAFAF7; }
+
+.reveal { opacity: 0; transform: translateY(15px); transition: 0.4s ease-out; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+@media(max-width: 800px) { .posem-table { display: block; overflow-x: auto; white-space: nowrap; } }
+</style>
+<script src="data.js"></script>
+<script src="assets/app.js"></script>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a href="index.html" class="nav-brand">
+    <img src="assets/iconmaicn.png" alt="Logo" style="height:24px;">
+    Portal Kurikulum
+  </a>
+  <button class="hamburger">☰</button>
+  <div class="nav-links">
+    <a href="index.html">Beranda</a>
+    <a href="profil.html">Profil</a>
+    <a href="struktur.html">Struktur</a>
+    <a href="kalender.html">Kalender</a>
+    <a href="prota.html">Prota</a>
+    <a href="posem.html">Posem</a>
+    <a href="dokumen.html">Dokumen</a>
+  </div>
+</nav>
+
+<div class="hdr">
+  <div class="backbar"><div class="wrap"><a href="index.html">&larr; Beranda Portal Kurikulum</a></div></div>
+  <div class="wrap hdr-top">
+    <div class="eyebrow">Posem</div>
+    <h1>Program Semester (Posem)</h1>
+    <p>Distribusi program bulanan dan pemetaan minggu efektif per semester.</p>
+  </div>
+</div>
+
+<div class="wrap section">
+  <h2>Semester Ganjil</h2>
+  <p class="desc">Rincian kegiatan per minggu selama Semester Ganjil.</p>
+  <table class="posem-table" id="table-ganjil">
+    <thead>
+      <tr>
+        <th>Minggu Ke-</th>
+        <th>Periode</th>
+        <th style="text-align:center">Hari Efektif</th>
+        <th>Program Bulanan</th>
+        <th>Asesmen</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <h2>Semester Genap</h2>
+  <p class="desc">Rincian kegiatan per minggu selama Semester Genap.</p>
+  <table class="posem-table" id="table-genap">
+    <thead>
+      <tr>
+        <th>Minggu Ke-</th>
+        <th>Periode</th>
+        <th style="text-align:center">Hari Efektif</th>
+        <th>Program Bulanan</th>
+        <th>Asesmen</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
+
+<footer class="footer">
+  <div class="wrap" style="text-align: center; line-height: 1.5;">
+    <strong>MA Insan Cendekia Nusantara Purwakarta</strong> &middot; Portal Kurikulum<br>
+    Waka Kurikulum: <span id="footer-waka"></span>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const MD = window.MASTER_DATA;
+  if (!MD || !MD.program_semester) return;
+
+  document.getElementById('footer-waka').textContent = MD.meta.waka_kurikulum;
+
+  function renderTable(tbodyId, dataArray) {
+    const tbody = document.querySelector(`#${tbodyId} tbody`);
+    let html = '';
+
+    dataArray.forEach((item, index) => {
+      let rowClass = 'row-efektif';
+      let asesmenLabel = item.asesmen === '-' ? '-' : `<span class="asesmen-label">${item.asesmen}</span>`;
+      
+      // Visual markers
+      if (item.asesmen && item.asesmen !== '-' && (item.asesmen.includes('STS') || item.asesmen.includes('SAS'))) {
+        rowClass = 'row-asesmen';
+      } else if (item.hari_efektif === 0) {
+        rowClass = 'row-libur';
+      }
+
+      html += `<tr class="${rowClass} reveal" style="transition-delay: ${(index % 10) * 30}ms">
+        <td class="minggu-text">${item.minggu}</td>
+        <td class="periode-text">${item.periode}</td>
+        <td class="he-text">${item.hari_efektif}</td>
+        <td class="program-text">${item.program}</td>
+        <td>${asesmenLabel}</td>
+      </tr>`;
+    });
+
+    tbody.innerHTML = html;
+  }
+
+  renderTable('table-ganjil', MD.program_semester.ganjil);
+  renderTable('table-genap', MD.program_semester.genap);
+
+  if ('IntersectionObserver' in window) {
+    const newRevealElements = document.querySelectorAll('.reveal:not(.visible)');
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -50px 0px', threshold: 0.1 });
+    newRevealElements.forEach(el => observer.observe(el));
+  }
+});
+</script>
+</body>
+</html>

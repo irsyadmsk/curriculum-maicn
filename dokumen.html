@@ -3,56 +3,142 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Dokumen & Agenda — Portal Kurikulum MA ICN</title>
+<title>Dokumen Rujukan — Portal Kurikulum MA ICN</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
 <style>
-:root{--g1:#1A4731;--g2:#2D6A4F;--g3:#52B788;--gold:#C9A227;--gold-l:#F5E6C0;
-  --cream:#F7F4EE;--white:#fff;--d1:#1E2A22;--d3:#718089;--d5:#E8EDE9;--radius:10px}
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--cream);color:var(--d1)}
-a{color:inherit}
-.wrap{max-width:980px;margin:0 auto;padding:0 32px}
-:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
-.hdr{background:linear-gradient(135deg,var(--g1) 0%,var(--g2) 60%,#1F5C3A 100%);padding:0 0 30px}
-.backbar{background:rgba(0,0,0,.12)}
-.backbar a{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:700;
-  color:rgba(255,255,255,.85);text-decoration:none;padding:10px 0}
-.backbar a:hover{color:var(--white)}
-.hdr-top{padding-top:26px}
-.eyebrow{font-size:.72rem;font-weight:700;color:var(--gold-l);text-transform:uppercase;letter-spacing:1.2px}
-.hdr h1{font-size:clamp(1.5rem,3vw,2.1rem);font-weight:800;color:var(--white);margin-top:8px;letter-spacing:-.4px}
-.hdr p{font-size:.88rem;color:rgba(255,255,255,.72);margin-top:8px;max-width:600px;line-height:1.6}
-.section{padding:48px 0 60px}
-.placeholder{background:var(--white);border:1.5px dashed var(--d5);border-radius:var(--radius);
-  padding:28px 26px;font-size:.85rem;color:var(--d3);line-height:1.7;max-width:640px}
-.placeholder strong{color:var(--g1)}
-.placeholder ul{margin:14px 0 0 18px}
-.footer{background:var(--g1);color:rgba(255,255,255,.7);padding:22px 0;font-size:.7rem;margin-top:8px}
-.footer strong{color:var(--white)}
+.section { padding: 44px 0; }
+.section-title { font-size: 1.3rem; font-weight: 800; color: var(--g1); margin-bottom: 8px; }
+.section-desc { font-size: 0.85rem; color: var(--d3); margin-bottom: 24px; line-height: 1.6; max-width: 600px; }
+
+.doc-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.doc-card { background: var(--white); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); border: 1px solid var(--d5); display: flex; flex-direction: column; gap: 12px; transition: 0.2s; border-left: 4px solid var(--g3); }
+.doc-card:hover { border-color: var(--g3); box-shadow: 0 8px 20px rgba(26, 71, 49, 0.12); transform: translateY(-4px); }
+.doc-icon { font-size: 2.2rem; line-height: 1; }
+.doc-card h3 { font-size: 1.15rem; font-weight: 800; color: var(--g1); }
+.doc-card p { font-size: 0.85rem; color: var(--d2); line-height: 1.6; flex-grow: 1; }
+
+.btn-download { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: var(--g5); color: var(--g1); font-weight: 700; font-size: 0.85rem; padding: 12px; border-radius: 6px; text-decoration: none; transition: 0.2s; border: 1px solid #A5D6A7; margin-top: 10px; }
+.btn-download:hover { background: var(--g1); color: var(--white); border-color: var(--g1); }
+
+.reveal { opacity: 0; transform: translateY(20px); transition: 0.5s ease-out; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+@media(max-width: 768px) { .doc-grid { grid-template-columns: 1fr; } }
 </style>
+<script src="data.js"></script>
+<script src="assets/app.js"></script>
 </head>
 <body>
+
+<nav class="top-nav">
+  <a href="index.html" class="nav-brand">
+    <img src="assets/iconmaicn.png" alt="Logo" style="height:24px;">
+    Portal Kurikulum
+  </a>
+  <button class="hamburger">☰</button>
+  <div class="nav-links">
+    <a href="index.html">Beranda</a>
+    <a href="profil.html">Profil</a>
+    <a href="struktur.html">Struktur</a>
+    <a href="kalender.html">Kalender</a>
+    <a href="prota.html">Prota</a>
+    <a href="posem.html">Posem</a>
+    <a href="dokumen.html" class="active">Dokumen</a>
+  </div>
+</nav>
+
 <div class="hdr">
   <div class="backbar"><div class="wrap"><a href="index.html">&larr; Beranda Portal Kurikulum</a></div></div>
   <div class="wrap hdr-top">
-    <div class="eyebrow">Dokumen & Agenda</div>
-    <h1>Pusat unduhan dan agenda akademik</h1>
-    <p>Dokumen kurikulum resmi serta agenda kegiatan akademik yang sedang berjalan.</p>
+    <div class="eyebrow">Pusat Unduhan</div>
+    <h1>Dokumen Rujukan & Administrasi</h1>
+    <p>Akses cepat ke pusat data kurikulum, salinan regulasi madrasah, dan perangkat ajar guru pendidik.</p>
   </div>
 </div>
-<div class="wrap"><div class="section">
-  <div class="placeholder">
-    <strong>Halaman dalam pengembangan.</strong> Bagian ini akan memuat:
-    <ul>
-      <li>Kurikulum Operasional Satuan Pendidikan (KOSP)</li>
-      <li>Alur Tujuan Pembelajaran (ATP) / silabus per mata pelajaran</li>
-      <li>Perangkat ajar dan kegiatan kokurikuler</li>
-      <li>Agenda dan pengumuman akademik berjalan</li>
-    </ul>
+
+<div class="wrap section">
+  <h2 class="section-title">Repositori Kurikulum</h2>
+  <p class="section-desc">Gunakan tautan di bawah ini untuk mengunduh dokumen-dokumen vital terkait pembelajaran di MA Insan Cendekia Nusantara.</p>
+  
+  <div class="doc-grid">
+    
+    <!-- KOSP -->
+    <div class="doc-card reveal" style="transition-delay: 0ms;">
+      <div class="doc-icon">📘</div>
+      <h3>Dokumen KOSP</h3>
+      <p>Kurikulum Operasional Satuan Pendidikan (KOSP) Tahun Pelajaran berjalan secara utuh. Mencakup visi, struktur lengkap, landasan rasional, hingga standar kelulusan.</p>
+      <!-- Slot tautan kosong untuk diisi kemudian -->
+      <a href="#" class="btn-download" target="_blank" rel="noopener noreferrer">
+        Unduh KOSP (PDF)
+      </a>
+    </div>
+
+    <!-- ATP/Silabus -->
+    <div class="doc-card reveal" style="transition-delay: 50ms;">
+      <div class="doc-icon">📚</div>
+      <h3>ATP & Silabus Mata Pelajaran</h3>
+      <p>Alur Tujuan Pembelajaran (ATP) dan pemetaan Capaian Pembelajaran (CP) terbaru dari Kemenag untuk seluruh rumpun mata pelajaran umum, PAI, dan lintas minat.</p>
+      <!-- Slot tautan kosong untuk diisi kemudian -->
+      <a href="#" class="btn-download" target="_blank" rel="noopener noreferrer">
+        Akses Folder Silabus (Drive)
+      </a>
+    </div>
+
+    <!-- Perangkat Ajar & Kokurikuler -->
+    <div class="doc-card reveal" style="transition-delay: 100ms;">
+      <div class="doc-icon">📂</div>
+      <h3>Perangkat Ajar & Kokurikuler</h3>
+      <p>Kumpulan Modul Ajar (RPP Plus), lembar kerja peserta didik, hingga modul pelaksanaan kokurikuler dan ekstrakurikuler khusus asrama.</p>
+      <!-- Slot tautan kosong untuk diisi kemudian -->
+      <a href="#" class="btn-download" target="_blank" rel="noopener noreferrer">
+        Akses Perangkat Ajar (Drive)
+      </a>
+    </div>
+
+    <!-- Agenda Akademik -->
+    <div class="doc-card reveal" style="transition-delay: 150ms;">
+      <div class="doc-icon">📅</div>
+      <h3>Agenda Akademik</h3>
+      <p>Salinan SK Dirjen, cetakan format PDF resolusi tinggi dari Kalender Akademik, Program Tahunan (Prota), dan Program Semester (Posem) resmi.</p>
+      <!-- Slot tautan kosong untuk diisi kemudian -->
+      <a href="#" class="btn-download" target="_blank" rel="noopener noreferrer">
+        Unduh Arsip Agenda (ZIP)
+      </a>
+    </div>
+
   </div>
-</div></div>
-<div class="footer"><div class="wrap">
-  <strong>MA Insan Cendekia Nusantara Purwakarta</strong> · Portal Kurikulum · Waka Kurikulum: <strong>Muhammad Irsyad Sirojul Khoeir, S.Sos., M.Sos.</strong>
-</div></div>
+</div>
+
+<footer class="footer">
+  <div class="wrap" style="text-align: center; line-height: 1.5;">
+    <strong>MA Insan Cendekia Nusantara Purwakarta</strong> &middot; Portal Kurikulum<br>
+    Waka Kurikulum: <span id="footer-waka"></span>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const MD = window.MASTER_DATA;
+  if (!MD) return;
+
+  // Render text yang diperlukan dari master data
+  document.getElementById('footer-waka').textContent = MD.meta.waka_kurikulum;
+
+  // Trigger Intersection Observer untuk efek reveal
+  if ('IntersectionObserver' in window) {
+    const newRevealElements = document.querySelectorAll('.reveal:not(.visible)');
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -50px 0px', threshold: 0.1 });
+    newRevealElements.forEach(el => observer.observe(el));
+  }
+});
+</script>
 </body>
 </html>
