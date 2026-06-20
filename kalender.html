@@ -7,53 +7,131 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/styles.css">
 <style>
-.cal-filters { display: flex; justify-content: center; gap: 12px; margin-bottom: 40px; flex-wrap: wrap; }
-.filter-btn { padding: 8px 24px; border-radius: 100px; font-weight: 700; font-size: 0.9rem; border: 1px solid var(--border); background: var(--surface); color: var(--text-secondary); cursor: pointer; transition: 0.3s; }
-.filter-btn:hover { border-color: var(--primary); color: var(--primary); }
-.filter-btn.active { background: var(--primary); color: var(--surface); border-color: var(--primary); box-shadow: var(--shadow-sm); }
-
-.legend-bar { display: flex; justify-content: center; gap: 16px; margin-bottom: 40px; flex-wrap: wrap; }
-.legend-item { font-size: 0.85rem; font-weight: 700; display: flex; align-items: center; gap: 6px; color: var(--text-secondary); }
-.legend-dot { width: 12px; height: 12px; border-radius: 50%; }
-
-.month-block { margin-bottom: 60px; }
-.month-title { font-size: 1.5rem; font-weight: 800; color: var(--primary); margin-bottom: 24px; display: flex; align-items: center; gap: 16px; justify-content: center; }
-.sem-badge { font-size: 0.75rem; font-weight: 800; padding: 6px 16px; border-radius: 20px; background: var(--accent-light); color: #7F6000; letter-spacing: 1px; text-transform: uppercase; }
-
-.cal-wrapper { background: var(--surface); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-md); border: 1px solid var(--border); }
-.cal-days { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; margin-bottom: 16px; font-weight: 800; color: var(--text-secondary); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
-.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
-.cal-cell { aspect-ratio: 1; border-radius: var(--radius-sm); border: 1px solid var(--border); padding: 8px; position: relative; transition: 0.3s; display: flex; flex-direction: column; }
-.cal-cell.empty { border: none; background: transparent; }
-.cal-cell:not(.empty):hover { border-color: var(--primary); box-shadow: var(--shadow-sm); transform: scale(1.02); z-index: 10; background: var(--surface); }
-
-.cal-date-num { font-weight: 800; font-size: 1.1rem; color: var(--text-primary); margin-bottom: auto; }
-.cal-cell.today { background: var(--accent-light); border-color: var(--accent); }
-.cal-cell.today .cal-date-num { color: #7F6000; }
-
-.cal-event-dot { width: 8px; height: 8px; border-radius: 50%; position: absolute; bottom: 8px; right: 8px; }
-.cal-event-text { font-size: 0.65rem; font-weight: 700; background: var(--bg); padding: 2px 6px; border-radius: 4px; margin-top: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer; border-left: 2px solid transparent; }
-.cal-event-text:hover { filter: brightness(0.95); }
-
-/* Event Colors */
-.c-he { color: var(--primary); border-left-color: var(--primary); }
-.c-he-bg { background: var(--primary); }
-.c-ln { color: #dc2626; border-left-color: #dc2626; }
-.c-ln-bg { background: #dc2626; }
-.c-ks { color: #d97706; border-left-color: #d97706; }
-.c-ks-bg { background: #d97706; }
-.c-as { color: #2563eb; border-left-color: #2563eb; }
-.c-as-bg { background: #2563eb; }
-.c-pr { color: #7c3aed; border-left-color: #7c3aed; }
-.c-pr-bg { background: #7c3aed; }
-
-@media (max-width: 768px) {
-  .cal-wrapper { padding: 16px; }
-  .cal-cell { padding: 4px; }
-  .cal-date-num { font-size: 0.9rem; }
-  .cal-event-text { display: none; /* Hide text on mobile, rely on dots */ }
-  .cal-days { font-size: 0.7rem; }
+/* ─── AKALENDER INLINE OVERRIDES (To preserve the exact aesthetic of Akalender) ─── */
+:root {
+  --radius: 10px;
+  --g1:#1A4731;--g2:#2D6A4F;--g3:#52B788;--g4:#B7E4C7;--g5:#D8F3DC;
+  --r1:#9B1D20;--r2:#C41E3A;
+  --gold:#C9A227;--gold-l:#F5E6C0;
+  --cream:#F7F4EE;--white:#fff;
+  --d1:#1E2A22;--d2:#3D4F42;--d3:#718089;--d4:#A8B5AB;--d5:#E8EDE9;
 }
+
+/* ─── TIMELINE STRIP ────── */
+.timeline { background: var(--g1); padding: 0 32px; border-radius: var(--radius-lg); margin-top: 20px; overflow: hidden; margin-bottom: 40px;}
+.timeline-inner { width: 100%; display: flex; height: 8px; gap: 1px; border-radius: 0 0 8px 8px; overflow: hidden; }
+.tl-seg { flex: 1; height: 100%; transition: opacity .2s; }
+.tl-seg:hover { opacity: .7; }
+
+/* ─── TABS ───────────────────────────────── */
+.tab-bar{ max-width:1264px; margin:0 auto 20px;}
+.tab-nav{display:flex;gap:4px;border-bottom:2px solid var(--d5)}
+.tab-btn{padding:10px 22px;font-size:.9rem;font-weight:700;color:var(--d3);
+  background:none;border:none;cursor:pointer;border-bottom:2px solid transparent;
+  margin-bottom:-2px;transition:all .2s;border-radius:6px 6px 0 0;letter-spacing:.3px; font-family: inherit;}
+.tab-btn:hover{color:var(--g1);background:var(--g5)}
+.tab-btn.active{color:var(--g1);border-bottom-color:var(--g2);background:var(--surface)}
+
+/* ─── TAB CONTENT ────────────────────────── */
+.tab-content{display:none;}
+.tab-content.active{display:block; animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);}
+@keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ─── SECTION HEADER ─────────────────────── */
+.sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px}
+.sec-title{font-size:1.15rem;font-weight:800;color:var(--g1)}
+.sec-sub{font-size:.85rem;color:var(--d3);margin-top:2px;font-weight:500}
+.filter-group{display:flex;gap:6px}
+.filter-btn{padding:6px 16px;border-radius:20px;border:1.5px solid var(--d5);
+  background:var(--surface);font-size:.8rem;font-weight:600;color:var(--d3);
+  cursor:pointer;transition:all .2s; font-family: inherit;}
+.filter-btn:hover{border-color:var(--g3);color:var(--g2)}
+.filter-btn.active{background:var(--g1);border-color:var(--g1);color:var(--white)}
+
+/* ─── CALENDAR GRID ─────────────────────── */
+.cal-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(320px, 1fr));gap:24px}
+.month-card{background:var(--surface);border-radius:var(--radius);
+  box-shadow:var(--shadow);overflow:hidden;transition:box-shadow .2s}
+.month-card:hover{box-shadow:var(--shadow-md)}
+.month-card.sem-ganjil{border-top:4px solid var(--g2)}
+.month-card.sem-genap{border-top:4px solid var(--gold)}
+.month-card.sem-pra{border-top:4px solid var(--d3)}
+.month-card.sem-libur{border-top:4px solid var(--r2)}
+
+.month-head{background:var(--g1);padding:14px 18px;
+  display:flex;align-items:center;justify-content:space-between}
+.month-name{font-size:1rem;font-weight:800;color:var(--white);letter-spacing:-.2px}
+.month-sem{font-size:.7rem;color:rgba(255,255,255,.9);font-weight:700;
+  background:rgba(255,255,255,.15);padding:4px 10px;border-radius:10px}
+
+.day-headers{display:grid;grid-template-columns:repeat(7,1fr);
+  background:var(--g5);padding:6px 10px;gap:2px}
+.day-hdr{text-align:center;font-size:.7rem;font-weight:800;color:var(--g2);
+  padding:4px 0;text-transform:uppercase;letter-spacing:.4px}
+.day-hdr.weekend{color:var(--r2)}
+
+.date-grid{display:grid;grid-template-columns:repeat(7,1fr);padding:10px;gap:4px}
+.date-cell{aspect-ratio:1;border-radius:6px;display:flex;align-items:center;
+  justify-content:center;font-size:.9rem;font-weight:800;cursor:pointer;
+  position:relative;transition:transform .15s, box-shadow .15s;line-height:1}
+.date-cell:not(.empty):hover{transform:scale(1.15);z-index:2;box-shadow:0 4px 12px rgba(0,0,0,.2)}
+.date-cell.empty{background:transparent; cursor: default;}
+.date-cell.today{box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--gold);}
+
+/* Month events (Pills) */
+.month-events{padding:10px;border-top:1px solid var(--d5); background: var(--bg);}
+.event-pill{display:flex;align-items:center;gap:6px;padding:4px 0;
+  font-size:.75rem;color:var(--d2);font-weight:600;overflow:hidden}
+.event-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.event-txt{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ─── LEGEND ─────────────────────────────── */
+.legend-wrap{margin-top:40px;background:var(--surface);border-radius:var(--radius-md);
+  box-shadow:var(--shadow);overflow:hidden; border: 1px solid var(--border);}
+.legend-toggle{display:flex;align-items:center;justify-content:space-between;
+  padding:16px 24px;cursor:pointer;user-select:none; background: var(--bg);}
+.legend-title{font-size:.95rem;font-weight:800;color:var(--g1)}
+.legend-arrow{font-size:.9rem;color:var(--d3);transition:transform .3s}
+.legend-arrow.open{transform:rotate(180deg)}
+.legend-body{display:none;padding:20px 24px;border-top:1px solid var(--d5)}
+.legend-body.open{display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:12px}
+.leg-item{display:flex;align-items:center;gap:10px;padding:6px 0}
+.leg-dot{width:16px;height:16px;border-radius:4px;flex-shrink:0}
+.leg-lbl{font-size:.8rem;color:var(--d2);font-weight:600}
+
+/* ─── HARI EFEKTIF ───────────────────────── */
+.he-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(400px, 1fr));gap:24px}
+.he-card{background:var(--surface);border-radius:var(--radius-lg);padding:24px;
+  box-shadow:var(--shadow-md); border: 1px solid var(--border);}
+.he-card-title{font-size:.95rem;font-weight:800;color:var(--g1);margin-bottom:20px;
+  padding-bottom:12px;border-bottom:1px solid var(--d5)}
+.he-bar-row{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.he-bulan{font-size:.8rem;font-weight:700;color:var(--d2);width:120px;flex-shrink:0}
+.he-bars{flex:1;display:flex;gap:4px;height:24px}
+.he-bar{height:100%;border-radius:4px;display:flex;align-items:center;
+  justify-content:center;font-size:.65rem;font-weight:800;color:var(--white);
+  transition:width .5s ease;min-width:4px}
+.he-nums{font-size:.75rem;color:var(--d3);font-weight:700;width:60px;text-align:right;flex-shrink:0}
+.he-legend-row{display:flex;gap:16px;margin-top:20px;padding-top:16px;border-top:1px solid var(--d5); flex-wrap: wrap;}
+.he-leg-item{display:flex;align-items:center;gap:6px;font-size:.75rem;font-weight:700;color:var(--d2)}
+.he-leg-dot{width:12px;height:12px;border-radius:3px}
+
+/* ─── MINGGU EFEKTIF ─────────────────────── */
+.me-row{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.me-bulan{font-size:.8rem;font-weight:700;color:var(--d2);width:120px;flex-shrink:0}
+.me-track{flex:1;height:28px;background:var(--d5);border-radius:6px;position:relative;overflow:hidden;display:flex}
+.me-ef{background:var(--g2);height:100%;border-radius:6px 0 0 6px;
+  display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;color:var(--white)}
+.me-tdk{background:var(--r2);height:100%;
+  display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;color:var(--white)}
+.me-nums{font-size:.75rem;font-weight:800;width:55px;text-align:right;flex-shrink:0}
+.me-nums span{color:var(--g2)}
+.me-ket{font-size:.7rem;color:var(--d3);margin-top:-6px;margin-bottom:12px;
+  padding-left:132px;font-style:italic; font-weight: 500;}
+
+/* Modal Adjustments */
+.modal-box { padding: 40px; }
+.m-badge { background: var(--bg); padding: 6px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 800; color: var(--d2); margin-bottom: 16px; display: inline-block;}
 </style>
 <script src="data.js"></script>
 <script src="assets/app.js"></script>
@@ -81,28 +159,98 @@
 <div class="page-header">
   <div class="container">
     <h1 class="animate-up">Kalender Akademik</h1>
-    <p class="animate-up delay-100">Jelajahi agenda lengkap pendidikan madrasah dalam satu tahun ajaran secara interaktif.</p>
+    <p class="animate-up delay-100">Kalender operasional pendidikan Madrasah Aliyah Insan Cendekia Nusantara.</p>
   </div>
 </div>
 
 <div class="container">
   
-  <div class="cal-filters animate-up delay-200">
-    <button class="filter-btn active" onclick="filterSemester('Semua', this)">Tahun Penuh</button>
-    <button class="filter-btn" onclick="filterSemester('Ganjil', this)">Semester Ganjil</button>
-    <button class="filter-btn" onclick="filterSemester('Genap', this)">Semester Genap</button>
+  <div class="timeline animate-up delay-200">
+    <div class="timeline-inner" id="tl-strip"></div>
   </div>
 
-  <div class="legend-bar animate-up delay-300">
-    <div class="legend-item"><div class="legend-dot c-he-bg"></div> Pembelajaran</div>
-    <div class="legend-item"><div class="legend-dot c-ln-bg"></div> Libur</div>
-    <div class="legend-item"><div class="legend-dot c-as-bg"></div> Asesmen / Ujian</div>
-    <div class="legend-item"><div class="legend-dot c-ks-bg"></div> Kegiatan Khusus</div>
-    <div class="legend-item"><div class="legend-dot c-pr-bg"></div> Program Lain</div>
+  <div class="tab-bar animate-up delay-300">
+    <div class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab('kalender',this)">📅 Kalender Akademik</button>
+      <button class="tab-btn" onclick="switchTab('hari',this)">📊 Hari Efektif</button>
+      <button class="tab-btn" onclick="switchTab('minggu',this)">📈 Minggu Efektif</button>
+    </div>
   </div>
 
-  <div id="calendar-wrapper">
-    <!-- Rendered by JS -->
+  <!-- TAB: KALENDER -->
+  <div class="tab-content active" id="tab-kalender">
+    <div class="sec-hdr">
+      <div>
+        <div class="sec-title">Kalender TP 2026/2027</div>
+        <div class="sec-sub">Klik pada tanggal mana pun untuk melihat rincian agenda.</div>
+      </div>
+      <div class="filter-group">
+        <button class="filter-btn active" onclick="filterSem('all',this)">Semua</button>
+        <button class="filter-btn" onclick="filterSem('Pra TA',this)">Pra TA</button>
+        <button class="filter-btn" onclick="filterSem('Ganjil',this)">Ganjil</button>
+        <button class="filter-btn" onclick="filterSem('Genap',this)">Genap</button>
+      </div>
+    </div>
+    
+    <div class="cal-grid" id="cal-grid"></div>
+
+    <div class="legend-wrap">
+      <div class="legend-toggle" onclick="toggleLegend()">
+        <span class="legend-title">🎨 Legenda Warna Kategori</span>
+        <span class="legend-arrow" id="leg-arrow">▼</span>
+      </div>
+      <div class="legend-body" id="leg-body"></div>
+    </div>
+  </div>
+
+  <!-- TAB: HARI EFEKTIF -->
+  <div class="tab-content" id="tab-hari">
+    <div class="sec-hdr">
+      <div>
+        <div class="sec-title">Analisis Hari Efektif</div>
+        <div class="sec-sub">Alokasi KBM murni vs Asesmen per bulan.</div>
+      </div>
+    </div>
+    <div class="he-grid">
+      <div class="he-card">
+        <div class="he-card-title">📚 Semester Ganjil</div>
+        <div id="he-ganjil"></div>
+        <div class="he-legend-row">
+          <div class="he-leg-item"><div class="he-leg-dot" style="background:#548235"></div>Pembelajaran</div>
+          <div class="he-leg-item"><div class="he-leg-dot" style="background:#7030A0"></div>Asesmen</div>
+          <div class="he-leg-item"><div class="he-leg-dot" style="background:#E8EDE9"></div>Lainnya/Libur</div>
+        </div>
+      </div>
+      <div class="he-card">
+        <div class="he-card-title">📗 Semester Genap</div>
+        <div id="he-genap"></div>
+        <div class="he-legend-row">
+          <div class="he-leg-item"><div class="he-leg-dot" style="background:#548235"></div>Pembelajaran</div>
+          <div class="he-leg-item"><div class="he-leg-dot" style="background:#7030A0"></div>Asesmen</div>
+          <div class="he-leg-item"><div class="he-leg-dot" style="background:#E8EDE9"></div>Lainnya/Libur</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: MINGGU EFEKTIF -->
+  <div class="tab-content" id="tab-minggu">
+    <div class="sec-hdr">
+      <div>
+        <div class="sec-title">Analisis Minggu Efektif</div>
+        <div class="sec-sub">Satu minggu dinyatakan efektif apabila memuat minimal 1 hari pembelajaran/KBM murni.</div>
+      </div>
+    </div>
+    <div class="he-grid">
+      <div class="he-card">
+        <div class="he-card-title">📅 Semester Ganjil</div>
+        <div id="me-ganjil"></div>
+      </div>
+      <div class="he-card">
+        <div class="he-card-title">📅 Semester Genap</div>
+        <div id="me-genap"></div>
+      </div>
+    </div>
   </div>
 
 </div>
@@ -114,161 +262,291 @@
   </div>
 </footer>
 
-<!-- Public Detail Modal -->
+<!-- EVENT MODAL -->
 <div class="modal-overlay" id="modal-event">
   <div class="modal-box">
     <button class="btn-close" onclick="window.AppUtils.closeModal('modal-event')">&times;</button>
-    <h3 id="modal-ev-title" style="font-size: 1.5rem; color: var(--primary); margin-bottom: 8px; padding-right: 20px;">Detail Agenda</h3>
-    <div id="modal-ev-date" style="font-weight: 800; color: var(--accent); margin-bottom: 24px; font-size: 0.95rem;">-</div>
+    <div class="m-badge" id="modal-ev-cat">Kategori</div>
+    <h3 id="modal-ev-title" style="font-size: 1.6rem; color: var(--primary); margin-bottom: 8px;">Detail Agenda</h3>
+    <div id="modal-ev-date" style="font-weight: 800; color: var(--accent); margin-bottom: 24px; font-size: 1rem;">-</div>
     
     <div style="background: var(--bg); border-radius: var(--radius-md); padding: 24px; border: 1px solid var(--border);">
-      <div style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 700; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;">Keterangan / Aktivitas</div>
+      <div style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 800; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;">Keterangan Tambahan</div>
       <p id="modal-ev-desc" style="font-size: 1.05rem; font-weight: 500; line-height: 1.6; color: var(--text-primary);">-</p>
-    </div>
-    
-    <div style="margin-top: 24px; text-align: center;">
-      <button class="btn btn-primary" onclick="window.AppUtils.closeModal('modal-event')">Tutup Jendela</button>
     </div>
   </div>
 </div>
 
 <script>
-let globalMonthsData = [];
+let MD;
 
 document.addEventListener('DOMContentLoaded', () => {
-  const MD = window.MASTER_DATA;
-  if (!MD || !MD.kalender_harian) return;
+  MD = window.MASTER_DATA;
+  if (!MD) return;
 
-  const data = MD.kalender_harian;
-  
+  buildTimeline();
+  buildCalendar();
+  buildLegend();
+  buildHE();
+  buildME();
+});
+
+/* ═══ TABS & FILTERS ════════════════════════════════════════════════ */
+window.switchTab = function(id, btn) {
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+};
+
+window.filterSem = function(sem, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  buildCalendar(sem);
+};
+
+window.toggleLegend = function() {
+  const body=document.getElementById('leg-body');
+  const arrow=document.getElementById('leg-arrow');
+  body.classList.toggle('open');
+  arrow.classList.toggle('open');
+};
+
+/* ═══ MODAL ACTION ══════════════════════════════════════════════════ */
+window.openDayDetail = function(catLabel, title, dateStr, desc) {
+  document.getElementById('modal-ev-cat').innerText = catLabel;
+  document.getElementById('modal-ev-title').innerText = title || "Tidak ada agenda khusus";
+  document.getElementById('modal-ev-date').innerText = dateStr;
+  document.getElementById('modal-ev-desc').innerText = desc || "Tidak ada catatan tambahan untuk agenda ini.";
+  window.AppUtils.openModal('modal-event');
+};
+
+/* ═══ LOGIC ═════════════════════════════════════════════════════════ */
+const MONTH_NAMES = ['','Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+const DAY_NAMES = ['Min','Sen','Sel','Rab','Kam','Jum','Sab'];
+
+function daysInMonth(y,m){ return new Date(y,m,0).getDate(); }
+function firstDay(y,m){ return new Date(y,m-1,1).getDay(); } // 0=Sun
+
+function buildTimeline(){
+  const el = document.getElementById('tl-strip');
+  const sorted = Object.entries(MD.kalender_harian).sort((a,b)=>a[0].localeCompare(b[0]));
+  sorted.forEach(([d,v])=>{
+    const c = MD.warna_kategori[v.c] || MD.warna_kategori.default;
+    const seg = document.createElement('div');
+    seg.className='tl-seg';
+    seg.style.background = c.bg;
+    el.appendChild(seg);
+  });
+}
+
+function buildCalendar(semFilter='all') {
+  const grid = document.getElementById('cal-grid');
+  grid.innerHTML='';
+  const today = new Date().toISOString().split('T')[0];
+
+  // Derive months from data
   const monthMap = new Map();
-  Object.keys(data).forEach(dateStr => {
+  Object.keys(MD.kalender_harian).forEach(dateStr => {
     const prefix = dateStr.substring(0, 7);
-    if (!monthMap.has(prefix)) monthMap.set(prefix, []);
-    monthMap.get(prefix).push({ dateStr, event: data[dateStr] });
+    if (!monthMap.has(prefix)) monthMap.set(prefix, { sem: null });
+    // determine sem from the first non-empty event's phase
+    let evt = MD.kalender_harian[dateStr];
+    if(evt.p && !monthMap.get(prefix).sem) {
+      if(evt.p.toLowerCase().includes('pra')) monthMap.get(prefix).sem = 'Pra TA';
+      else if(evt.p.toLowerCase().includes('ganjil')) monthMap.get(prefix).sem = 'Ganjil';
+      else if(evt.p.toLowerCase().includes('genap')) monthMap.get(prefix).sem = 'Genap';
+    }
   });
 
   const sortedPrefixes = Array.from(monthMap.keys()).sort();
-  const monthNames = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+  
+  sortedPrefixes.forEach(prefix => {
+    let [yr, mo] = prefix.split('-');
+    yr = parseInt(yr, 10);
+    mo = parseInt(mo, 10);
+    let sem = monthMap.get(prefix).sem || (mo >= 7 ? 'Ganjil' : 'Genap');
 
-  globalMonthsData = sortedPrefixes.map(prefix => {
-    let [yyyy, mm] = prefix.split('-');
-    let year = parseInt(yyyy, 10);
-    let monthIdx = parseInt(mm, 10) - 1;
-    let title = `${monthNames[monthIdx]} ${year}`;
-    let semester = (monthIdx >= 6) ? 'Ganjil' : 'Genap';
+    if(semFilter!=='all' && !sem.includes(semFilter)) return;
+
+    const semClass = sem.includes('Libur') ? 'sem-libur' :
+                     sem.includes('Ganjil') ? 'sem-ganjil' :
+                     sem.includes('Genap') ? 'sem-genap' : 'sem-pra';
     
-    return { prefix, year, monthIdx, title, semester, events: monthMap.get(prefix) };
-  });
+    const card = document.createElement('div');
+    card.className=`month-card ${semClass} animate-up`;
 
-  renderCalendars('Semua');
-});
+    // Header
+    const mh = document.createElement('div');
+    mh.className='month-head';
+    mh.innerHTML=`<span class="month-name">${MONTH_NAMES[mo]} ${yr}</span>
+      <span class="month-sem">${sem}</span>`;
+    card.appendChild(mh);
 
-function renderCalendars(filterSem) {
-  const wrapper = document.getElementById('calendar-wrapper');
-  let html = '';
+    // Day headers
+    const dh = document.createElement('div');
+    dh.className='day-headers';
+    DAY_NAMES.forEach((d,i)=>{
+      const c=document.createElement('div');
+      c.className='day-hdr'+(i===0||i===6?' weekend':'');
+      c.textContent=d; dh.appendChild(c);
+    });
+    card.appendChild(dh);
 
-  globalMonthsData.forEach((m, idx) => {
-    if (filterSem !== 'Semua' && m.semester !== filterSem) return;
+    // Date grid
+    const dg = document.createElement('div');
+    dg.className='date-grid';
+    const fd = firstDay(yr,mo);
+    const total = daysInMonth(yr,mo);
+    for(let i=0;i<fd;i++){
+      const e=document.createElement('div'); e.className='date-cell empty'; dg.appendChild(e);
+    }
+    
+    const eventMap = {};
+    for(let d=1;d<=total;d++){
+      const dStr=`${yr}-${String(mo).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+      const info = MD.kalender_harian[dStr];
+      const cell=document.createElement('div');
+      cell.className='date-cell';
+      
+      if(dStr===today) cell.classList.add('today');
+      
+      let safeTitle = "", safeDesc = "", safeCat = "Umum", displayDate = `${d} ${MONTH_NAMES[mo]} ${yr}`;
+      
+      if(info){
+        const c = MD.warna_kategori[info.c] || MD.warna_kategori.default;
+        cell.style.background = c.bg;
+        cell.style.color = c.text || '#fff';
+        
+        safeTitle = (info.l || '').replace(/'/g, "\\'");
+        safeDesc = (info.s || '').replace(/'/g, "\\'");
+        safeCat = c.label;
 
-    html += `
-      <div class="month-block animate-up">
-        <div class="month-title">
-          ${m.title} <span class="sem-badge">${m.semester}</span>
-        </div>
-        <div class="cal-wrapper">
-          <div class="cal-days">
-            <div>Sn</div><div>Sl</div><div>Rb</div><div>Km</div><div>Jm</div><div>Sb</div><div>Mg</div>
-          </div>
-          <div class="cal-grid">
-            ${generateGrid(m.year, m.monthIdx, m.events)}
-          </div>
-        </div>
-      </div>
-    `;
-  });
-
-  wrapper.innerHTML = html;
-
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver((entries, obs) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-          obs.unobserve(entry.target);
+        // Collect events for pills (exclude mingguan)
+        if(info.l && info.c !== 'libur_mingguan') {
+          if(!eventMap[info.c]) eventMap[info.c]={label:info.l, count:0, color:c.bg};
+          eventMap[info.c].count++;
         }
+      } else {
+        cell.style.background = '#F0F0F0';
+        cell.style.color = '#aaa';
+      }
+      
+      cell.textContent = d;
+      
+      // Click interaction
+      cell.onclick = () => openDayDetail(safeCat, safeTitle, displayDate, safeDesc);
+      
+      dg.appendChild(cell);
+    }
+    card.appendChild(dg);
+
+    // Event pills
+    const evts = Object.values(eventMap).slice(0, 4);
+    if(evts.length){
+      const ep = document.createElement('div');
+      ep.className='month-events';
+      evts.forEach(e=>{
+        const pill=document.createElement('div');
+        pill.className='event-pill';
+        pill.innerHTML=`<div class="event-dot" style="background:${e.color}"></div>
+          <div class="event-txt">${e.label}</div>`;
+        ep.appendChild(pill);
       });
-    }, { rootMargin: '0px 0px -50px 0px', threshold: 0.1 });
-    document.querySelectorAll('.animate-up').forEach(el => observer.observe(el));
-  }
-}
-
-function generateGrid(year, monthIdx, events) {
-  let firstDay = new Date(year, monthIdx, 1).getDay();
-  let padDays = firstDay === 0 ? 6 : firstDay - 1;
-  let numDays = new Date(year, monthIdx + 1, 0).getDate();
-  let html = '';
-
-  for (let i = 0; i < padDays; i++) html += `<div class="cal-cell empty"></div>`;
-
-  let eventMap = {};
-  events.forEach(e => { eventMap[e.dateStr] = e.event; });
-
-  for (let i = 1; i <= numDays; i++) {
-    let dateStr = `${year}-${String(monthIdx+1).padStart(2,'0')}-${String(i).padStart(2,'0')}`;
-    let evt = eventMap[dateStr];
-    
-    let eventHtml = '';
-    let dotHtml = '';
-    
-    if (evt) {
-      let cat = evt.c;
-      let cssCls = 'c-pr';
-      if (cat === 'he') cssCls = 'c-he';
-      else if (cat === 'ln' || cat === 'cb' || cat === 'lm') cssCls = 'c-ln';
-      else if (cat === 'ks' || cat === 'pr') cssCls = 'c-ks';
-      else if (cat === 'as') cssCls = 'c-as';
-      
-      let safeTitle = (evt.l || '').replace(/'/g, "\\'");
-      let safeDesc = (evt.s || '').replace(/'/g, "\\'");
-      let displayDate = `${i} ${globalMonthsData.find(m => m.year === year && m.monthIdx === monthIdx).title}`;
-      
-      dotHtml = `<div class="cal-event-dot ${cssCls}-bg"></div>`;
-      eventHtml = `<div class="cal-event-text ${cssCls}" onclick="openEv(event, '${safeTitle}', '${displayDate}', '${safeDesc}')">${evt.l}</div>`;
+      card.appendChild(ep);
     }
 
-    let isToday = (dateStr === '2026-07-21') ? 'today' : ''; 
-    
-    html += `
-      <div class="cal-cell ${isToday}">
-        <div class="cal-date-num">${i}</div>
-        ${eventHtml}
-        ${dotHtml}
-      </div>
-    `;
+    grid.appendChild(card);
+  });
+
+  // Re-init observer for new animated items
+  if(window.AppUtils && typeof window.AppUtils.initObserver === 'function') {
+      window.AppUtils.initObserver(); // if you had one, otherwise native below
+  } else {
+      const obs = new IntersectionObserver((entries, o) => entries.forEach(e => {
+          if(e.isIntersecting) { e.target.classList.add('in-view'); o.unobserve(e.target); }
+      }), { rootMargin: '0px 0px -50px 0px', threshold: 0.1 });
+      document.querySelectorAll('.animate-up:not(.in-view)').forEach(el => obs.observe(el));
+  }
+}
+
+function buildLegend(){
+  const el = document.getElementById('leg-body');
+  el.innerHTML = '';
+  // Flatten legenda groups
+  MD.legenda_kelompok.forEach(group => {
+     const gDiv = document.createElement('div');
+     gDiv.style.marginBottom = "10px";
+     gDiv.style.fontWeight = "800";
+     gDiv.style.color = "var(--primary)";
+     gDiv.style.gridColumn = "1 / -1";
+     gDiv.innerText = group.judul;
+     el.appendChild(gDiv);
+
+     group.items.forEach(k => {
+        const v = MD.warna_kategori[k];
+        if(!v) return;
+        const item = document.createElement('div');
+        item.className = 'leg-item';
+        item.innerHTML = `<div class="leg-dot" style="background:${v.bg}; border:1px solid rgba(0,0,0,.1);"></div><div class="leg-lbl">${v.label}</div>`;
+        el.appendChild(item);
+     });
+  });
+}
+
+function buildHE(){
+  function renderBars(months, targetId) {
+    const el = document.getElementById(targetId);
+    el.innerHTML = '';
+    const maxDays = 31;
+    months.forEach(bln => {
+      const row = MD.hari_efektif.find(h => h.bulan === bln);
+      if(!row) return;
+      const pemb = row.pemb_ef; const asm = row.asesmen; const rest = row.total - pemb - asm;
+      const pct = (v) => Math.max(0, (v/maxDays*100).toFixed(1));
+      
+      el.innerHTML += `
+        <div class="he-bar-row">
+          <div class="he-bulan">${bln.replace(' 2026','').replace(' 2027','')}</div>
+          <div class="he-bars">
+            <div class="he-bar" style="background:#548235; width:${pct(pemb)}%">${pemb>3?pemb:''}</div>
+            <div class="he-bar" style="background:#7030A0; width:${pct(asm)}%">${asm>3?asm:''}</div>
+            <div class="he-bar" style="background:#E8EDE9; width:${pct(rest)}%; color:#aaa">${rest>3?rest:''}</div>
+          </div>
+          <div class="he-nums">${pemb} <span style="color:#7030A0">+${asm}</span></div>
+        </div>`;
+    });
   }
   
-  let totalCells = padDays + numDays;
-  let remaining = totalCells % 7;
-  if (remaining !== 0) {
-    for (let i = 0; i < (7 - remaining); i++) html += `<div class="cal-cell empty"></div>`;
+  const ganjil = MD.hari_efektif.filter(h => h.semester.includes('Ganjil')).map(h=>h.bulan);
+  const genap = MD.hari_efektif.filter(h => h.semester.includes('Genap')).map(h=>h.bulan);
+  renderBars(ganjil, 'he-ganjil');
+  renderBars(genap, 'he-genap');
+}
+
+function buildME(){
+  function renderME(semWord, targetId) {
+    const el = document.getElementById(targetId);
+    el.innerHTML = '';
+    const data = MD.minggu_efektif.filter(m => m.semester.includes(semWord));
+    const maxW = 5;
+    data.forEach(m => {
+      const efPct = (m.ef / maxW * 100).toFixed(0);
+      const tdkPct = (m.tdk / maxW * 100).toFixed(0);
+      el.innerHTML += `
+        <div class="me-row">
+          <div class="me-bulan">${m.bulan.replace(' 2026','').replace(' 2027','')}</div>
+          <div class="me-track">
+            <div class="me-ef" style="width:${efPct}%">${m.ef>0?m.ef:''}</div>
+            <div class="me-tdk" style="width:${tdkPct}%">${m.tdk>0?m.tdk:''}</div>
+          </div>
+          <div class="me-nums"><span>${m.ef}</span>/${m.kal}</div>
+        </div>
+        <div class="me-ket">${m.ket}</div>`;
+    });
   }
-
-  return html;
-}
-
-window.filterSemester = function(sem, el) {
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  el.classList.add('active');
-  renderCalendars(sem);
-}
-
-window.openEv = function(e, title, fullDate, desc) {
-  e.stopPropagation();
-  document.getElementById('modal-ev-title').innerText = title;
-  document.getElementById('modal-ev-date').innerText = fullDate;
-  document.getElementById('modal-ev-desc').innerText = desc || "Kegiatan rutin tanpa catatan tambahan.";
-  window.AppUtils.openModal('modal-event');
+  renderME('Ganjil', 'me-ganjil');
+  renderME('Genap', 'me-genap');
 }
 </script>
 </body>
