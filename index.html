@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Portal Kurikulum — MA Insan Cendekia Nusantara</title>
+<meta name="description" content="Portal Kurikulum MA Insan Cendekia Nusantara Purwakarta — kalender akademik, profil & regulasi, struktur beban belajar, serta dokumen dan agenda kurikulum.">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --g1:#1A4731;--g2:#2D6A4F;--g3:#52B788;--g4:#B7E4C7;--g5:#D8F3DC;
+  --r1:#9B1D20;--r2:#C41E3A;
+  --gold:#C9A227;--gold-l:#F5E6C0;--lime:#C8D44C;
+  --cream:#F7F4EE;--white:#fff;
+  --d1:#1E2A22;--d2:#3D4F42;--d3:#718089;--d4:#A8B5AB;--d5:#E8EDE9;
+  --radius:10px;--shadow:0 2px 12px rgba(26,71,49,.10);
+  --shadow-md:0 4px 24px rgba(26,71,49,.16);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--cream);color:var(--d1);min-height:100vh}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 32px}
+
+/* ─── STICKY UTILITY BAR ─────────────────── */
+.utility{position:fixed;top:0;left:0;right:0;z-index:50;
+  background:rgba(26,71,49,.96);backdrop-filter:blur(6px);
+  transform:translateY(-100%);transition:transform .35s ease;
+  border-bottom:1px solid rgba(255,255,255,.08)}
+.utility.show{transform:translateY(0)}
+.utility-inner{max-width:1200px;margin:0 auto;padding:10px 32px;
+  display:flex;align-items:center;gap:14px}
+.utility-mark{width:30px;height:30px;flex-shrink:0}
+.utility-name{font-size:.78rem;font-weight:700;color:var(--white);letter-spacing:-.2px}
+.utility-spacer{flex:1}
+.utility-link{font-size:.74rem;font-weight:600;color:var(--gold-l);
+  padding:7px 16px;border-radius:20px;border:1px solid rgba(201,162,39,.4);
+  white-space:nowrap;transition:background .2s}
+.utility-link:hover{background:rgba(201,162,39,.15)}
+.utility-top{font-size:.7rem;font-weight:600;color:rgba(255,255,255,.6);
+  display:flex;align-items:center;gap:4px;cursor:pointer;background:none;border:none}
+.utility-top:hover{color:var(--white)}
+
+/* ─── HERO ───────────────────────────────── */
+.hero{position:relative;overflow:hidden;
+  background:linear-gradient(150deg,var(--g1) 0%,var(--g2) 65%,#1F5C3A 100%);
+  padding:64px 0 56px}
+.hero::before{content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events:none}
+.hero-star{position:absolute;right:-60px;top:50%;transform:translateY(-50%);
+  width:520px;height:520px;opacity:.05;pointer-events:none}
+@media(prefers-reduced-motion:no-preference){
+  .hero-star{animation:breathe 8s ease-in-out infinite}
+}
+@keyframes breathe{0%,100%{opacity:.05;transform:translateY(-50%) scale(1)}50%{opacity:.08;transform:translateY(-50%) scale(1.03)}}
+.hero-inner{position:relative;z-index:1}
+.hero-top{display:flex;align-items:center;gap:16px;margin-bottom:34px}
+.hero-mark{width:60px;height:60px;flex-shrink:0;
+  filter:drop-shadow(0 2px 6px rgba(0,0,0,.25))}
+.hero-top-text p{font-size:.72rem;font-weight:600;color:rgba(255,255,255,.65);
+  text-transform:uppercase;letter-spacing:1px}
+.hero-top-text h2{font-size:.95rem;font-weight:700;color:var(--white);margin-top:2px}
+.hero-badges{margin-left:auto;display:flex;flex-direction:column;gap:5px;align-items:flex-end}
+.badge{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);
+  color:rgba(255,255,255,.9);font-size:.66rem;font-weight:600;
+  padding:3px 11px;border-radius:20px;white-space:nowrap}
+.badge.gold{background:rgba(201,162,39,.25);border-color:rgba(201,162,39,.5);color:var(--gold-l)}
+
+.hero-eyebrow{font-size:.76rem;font-weight:700;color:var(--gold-l);
+  text-transform:uppercase;letter-spacing:1.5px;margin-bottom:14px}
+.hero h1{font-size:clamp(1.9rem,4vw,3rem);font-weight:800;color:var(--white);
+  letter-spacing:-.5px;line-height:1.12;max-width:680px}
+.hero-lead{font-size:1.02rem;color:rgba(255,255,255,.78);margin-top:18px;
+  max-width:540px;line-height:1.65;font-weight:400}
+.hero-cta{display:flex;gap:12px;margin-top:32px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;
+  border-radius:8px;font-size:.85rem;font-weight:700;transition:all .2s;border:none;cursor:pointer}
+.btn-primary{background:var(--gold);color:#3B2E05}
+.btn-primary:hover{background:#DCB746;transform:translateY(-1px)}
+.btn-ghost{background:rgba(255,255,255,.08);color:var(--white);border:1px solid rgba(255,255,255,.3)}
+.btn-ghost:hover{background:rgba(255,255,255,.16)}
+
+/* ─── STATS ──────────────────────────────── */
+.stats{padding:0 0 8px;margin-top:-30px;position:relative;z-index:2}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.stat-card{background:var(--white);border-radius:var(--radius);padding:18px 20px;
+  box-shadow:var(--shadow-md);border-left:4px solid var(--g2);
+  opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+.stat-card.visible{opacity:1;transform:translateY(0)}
+.stat-card.red{border-left-color:var(--r2)}
+.stat-card.gold{border-left-color:var(--gold)}
+.stat-card.gray{border-left-color:var(--d3)}
+.stat-num{font-size:2rem;font-weight:800;color:var(--g1);line-height:1;font-family:'DM Mono',monospace}
+.stat-card.red .stat-num{color:var(--r1)}
+.stat-card.gold .stat-num{color:#7F6000}
+.stat-card.gray .stat-num{color:var(--d2)}
+.stat-label{font-size:.72rem;font-weight:700;color:var(--d2);margin-top:5px;
+  text-transform:uppercase;letter-spacing:.4px}
+.stat-sub{font-size:.7rem;color:var(--d4);margin-top:2px}
+
+/* ─── SECTION HEADING ────────────────────── */
+.section{padding:64px 0}
+.section-head{max-width:560px;margin:0 auto 36px}
+.section-head .eyebrow{font-size:.72rem;font-weight:700;color:var(--g2);
+  text-transform:uppercase;letter-spacing:1.2px;margin-bottom:8px}
+.section-head h2{font-size:1.7rem;font-weight:800;color:var(--g1);letter-spacing:-.4px}
+.section-head p{font-size:.92rem;color:var(--d3);margin-top:10px;line-height:1.6}
+
+/* ─── PORTAL CARDS ───────────────────────── */
+.portal-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.portal-card{display:block;background:var(--white);border-radius:14px;
+  padding:26px 26px 22px;box-shadow:var(--shadow);border:1px solid var(--d5);
+  position:relative;overflow:hidden;transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease;
+  opacity:0;transform:translateY(18px)}
+.portal-card.visible{opacity:1;transform:translateY(0);
+  transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease,opacity .5s ease}
+.portal-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:var(--g3)}
+.portal-card:hover .star-badge .sq{transform:rotate(8deg)}
+.portal-card:hover .star-badge .sq2{transform:rotate(53deg)}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.star-badge{position:relative;width:54px;height:54px;flex-shrink:0}
+.star-badge .sq,.star-badge .sq2{position:absolute;inset:0;border-radius:9px;
+  background:var(--g1);transition:transform .35s ease}
+.star-badge .sq2{transform:rotate(45deg)}
+.star-badge.amber .sq,.star-badge.amber .sq2{background:#7F6000}
+.star-badge svg{position:relative;z-index:1;width:30px;height:30px;
+  margin:12px;color:var(--gold-l)}
+.status-tag{font-size:.64rem;font-weight:700;padding:4px 10px;border-radius:20px;
+  text-transform:uppercase;letter-spacing:.4px;white-space:nowrap;flex-shrink:0}
+.status-tag.ready{background:var(--g5);color:var(--g1)}
+.status-tag.soon{background:var(--d5);color:var(--d3)}
+.portal-card h3{font-size:1.12rem;font-weight:700;color:var(--g1);margin-top:16px}
+.portal-card p{font-size:.85rem;color:var(--d3);margin-top:6px;line-height:1.55}
+.card-arrow{display:inline-flex;align-items:center;gap:5px;font-size:.78rem;
+  font-weight:700;color:var(--g2);margin-top:16px}
+.portal-card:hover .card-arrow{color:var(--g1)}
+.card-arrow svg{width:14px;height:14px;transition:transform .2s}
+.portal-card:hover .card-arrow svg{transform:translateX(3px)}
+
+/* ─── FOOTER ─────────────────────────────── */
+.footer{background:var(--g1);color:rgba(255,255,255,.7);
+  padding:28px 0;font-size:.7rem;margin-top:8px}
+.footer-inner{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px}
+.footer strong{color:var(--white)}
+.footer-ref{color:rgba(255,255,255,.5)}
+
+@media(max-width:900px){
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .portal-grid{grid-template-columns:1fr}
+  .hero-star{width:380px;height:380px;right:-100px}
+}
+@media(max-width:600px){
+  .wrap{padding:0 18px}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .hero{padding:48px 0 44px}
+  .hero-badges{display:none}
+  .utility-name{display:none}
+  .hero-star{opacity:.04}
+}
+</style>
+</head>
+<body>
+
+<!-- SHARED LOGO MARK -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="icn-mark" viewBox="0 0 160 160">
+      <rect x="6" y="6" width="148" height="148" rx="20" fill="#C41E3A"/>
+      <rect x="6" y="6" width="148" height="148" rx="20" fill="#C41E3A" transform="rotate(45 80 80)"/>
+      <rect x="16" y="16" width="128" height="128" rx="17" fill="#fff"/>
+      <rect x="16" y="16" width="128" height="128" rx="17" fill="#fff" transform="rotate(45 80 80)"/>
+      <rect x="24" y="24" width="112" height="112" rx="15" fill="#1A4731"/>
+      <rect x="24" y="24" width="112" height="112" rx="15" fill="#1A4731" transform="rotate(45 80 80)"/>
+      <path d="M62,68 L62,55 Q62,42 80,42 Q98,42 98,55 L98,68" fill="none" stroke="#C8D44C" stroke-width="4" stroke-linecap="round"/>
+      <line x1="80" y1="42" x2="80" y2="33" stroke="#C8D44C" stroke-width="4" stroke-linecap="round"/>
+      <path d="M48,84 Q48,76 64,77 L80,80 L80,109 L64,107 Q48,105 48,97 Z" fill="#F5E6C0" stroke="#1A4731" stroke-width="1.6"/>
+      <path d="M112,84 Q112,76 96,77 L80,80 L80,109 L96,107 Q112,105 112,97 Z" fill="#F5E6C0" stroke="#1A4731" stroke-width="1.6"/>
+      <line x1="80" y1="80" x2="80" y2="109" stroke="#1A4731" stroke-width="1.2"/>
+      <path d="M77,109 L83,109 L80,120 Z" fill="#C41E3A"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- STICKY UTILITY BAR -->
+<div class="utility" id="utility">
+  <div class="utility-inner">
+    <svg class="utility-mark" viewBox="0 0 160 160"><use href="#icn-mark"/></svg>
+    <span class="utility-name">MA Insan Cendekia Nusantara</span>
+    <span class="utility-spacer"></span>
+    <button class="utility-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Beranda</button>
+    <a class="utility-link" href="kalender.html">Kalender akademik</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <svg class="hero-star" viewBox="0 0 160 160" aria-hidden="true">
+    <rect x="6" y="6" width="148" height="148" rx="22" fill="#F5E6C0"/>
+    <rect x="6" y="6" width="148" height="148" rx="22" fill="#F5E6C0" transform="rotate(45 80 80)"/>
+  </svg>
+  <div class="wrap hero-inner">
+    <div class="hero-top">
+      <svg class="hero-mark" viewBox="0 0 160 160"><use href="#icn-mark"/></svg>
+      <div class="hero-top-text">
+        <p>Madrasah Aliyah</p>
+        <h2>Insan Cendekia Nusantara</h2>
+      </div>
+      <div class="hero-badges">
+        <span class="badge gold">✅ Kalender Definitif</span>
+        <span class="badge">No. MA-ICN/KAL-AK/2026-2027/001</span>
+      </div>
+    </div>
+
+    <div class="hero-eyebrow">Portal Kurikulum</div>
+    <h1>Satu rumah untuk seluruh tata kelola kurikulum madrasah</h1>
+    <p class="hero-lead">Pusat informasi kalender akademik, profil & regulasi, struktur beban belajar, serta dokumen dan agenda kurikulum Tahun Pelajaran 2026/2027 — Purwakarta.</p>
+
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="kalender.html">
+        Buka kalender akademik
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a class="btn btn-ghost" href="profil.html">Tentang kurikulum</a>
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="wrap stats">
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-num" data-target="161">0</div>
+      <div class="stat-label">Hari pemb. efektif</div>
+      <div class="stat-sub">KBM murni, bukan asesmen</div>
+    </div>
+    <div class="stat-card red">
+      <div class="stat-num" data-target="19">0</div>
+      <div class="stat-label">Hari asesmen</div>
+      <div class="stat-sub">STS + SAS Ganjil & Genap</div>
+    </div>
+    <div class="stat-card gold">
+      <div class="stat-num" data-target="35">0</div>
+      <div class="stat-label">Minggu efektif</div>
+      <div class="stat-sub">Ganjil 18 · Genap 17 minggu</div>
+    </div>
+    <div class="stat-card gray">
+      <div class="stat-num" data-target="1527" data-format="id">0</div>
+      <div class="stat-label">Estimasi total JP</div>
+      <div class="stat-sub">Sen–Kam 10 JP · Jum 8 JP</div>
+    </div>
+  </div>
+</div>
+
+<!-- PORTAL GRID -->
+<div class="section" id="portal">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Jelajahi portal</div>
+      <h2>Empat ruang utama kurikulum</h2>
+      <p>Disusun mengikuti alur kerja Wakil Kepala Madrasah Bidang Kurikulum — dari landasan, perencanaan waktu, beban belajar, hingga dokumentasi.</p>
+    </div>
+
+    <div class="portal-grid">
+      <a class="portal-card" href="profil.html">
+        <div class="card-top">
+          <div class="star-badge">
+            <div class="sq"></div><div class="sq2"></div>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h10v18l-5-3-5 3V3z"/></svg>
+          </div>
+          <span class="status-tag soon">Segera hadir</span>
+        </div>
+        <h3>Profil & regulasi</h3>
+        <p>Visi-misi, 8 Dimensi Profil Lulusan, Panca Cinta ICN, dan landasan hukum kurikulum.</p>
+        <span class="card-arrow">Lihat selengkapnya
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+
+      <a class="portal-card" href="kalender.html">
+        <div class="card-top">
+          <div class="star-badge">
+            <div class="sq"></div><div class="sq2"></div>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+          </div>
+          <span class="status-tag ready">Tersedia</span>
+        </div>
+        <h3>Kalender akademik</h3>
+        <p>Kalender interaktif TP 2026/2027 lengkap dengan rincian hari dan minggu efektif.</p>
+        <span class="card-arrow">Buka kalender
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+
+      <a class="portal-card" href="struktur.html">
+        <div class="card-top">
+          <div class="star-badge amber">
+            <div class="sq"></div><div class="sq2"></div>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V12M12 20V4M20 20v-8"/></svg>
+          </div>
+          <span class="status-tag soon">Segera hadir</span>
+        </div>
+        <h3>Struktur & beban belajar</h3>
+        <p>Distribusi jam pelajaran per mata pelajaran dan kebijakan asesmen.</p>
+        <span class="card-arrow">Lihat selengkapnya
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+
+      <a class="portal-card" href="dokumen.html">
+        <div class="card-top">
+          <div class="star-badge">
+            <div class="sq"></div><div class="sq2"></div>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/></svg>
+          </div>
+          <span class="status-tag soon">Segera hadir</span>
+        </div>
+        <h3>Dokumen & agenda</h3>
+        <p>KOSP, ATP/silabus, perangkat ajar, dan agenda akademik berjalan.</p>
+        <span class="card-arrow">Lihat selengkapnya
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="wrap footer-inner">
+    <div>
+      <strong>MA Insan Cendekia Nusantara Purwakarta</strong> · Portal Kurikulum
+    </div>
+    <div class="footer-ref">
+      Ref: SK Dirjen Pendidikan Islam No. 4860 Tahun 2026 · Waka Kurikulum: <strong>Muhammad Irsyad Sirojul Khoeir, S.Sos., M.Sos.</strong>
+    </div>
+  </div>
+</div>
+
+<script>
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* sticky utility bar */
+const utility = document.getElementById('utility');
+window.addEventListener('scroll', () => {
+  utility.classList.toggle('show', window.scrollY > 420);
+}, { passive: true });
+
+/* count-up stats */
+function formatNum(n, fmt) {
+  return fmt === 'id' ? n.toLocaleString('id-ID') : String(n);
+}
+function countUp(el) {
+  const target = parseInt(el.dataset.target, 10);
+  const fmt = el.dataset.format;
+  if (reduceMotion) { el.textContent = formatNum(target, fmt); return; }
+  const dur = 900;
+  const start = performance.now();
+  function tick(now) {
+    const p = Math.min(1, (now - start) / dur);
+    const eased = 1 - Math.pow(1 - p, 3);
+    el.textContent = formatNum(Math.round(target * eased), fmt);
+    if (p < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+/* scroll reveal */
+const revealEls = document.querySelectorAll('.stat-card, .portal-card');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      setTimeout(() => {
+        el.classList.add('visible');
+        if (el.classList.contains('stat-card')) countUp(el.querySelector('.stat-num'));
+      }, reduceMotion ? 0 : i * 70);
+      io.unobserve(el);
+    }
+  });
+}, { threshold: 0.2 });
+revealEls.forEach(el => io.observe(el));
+</script>
+</body>
+</html>

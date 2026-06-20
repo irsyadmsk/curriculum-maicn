@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kalender Akademik MA ICN 2026/2027</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --g1:#1A4731;--g2:#2D6A4F;--g3:#52B788;--g4:#B7E4C7;--g5:#D8F3DC;
+  --r1:#9B1D20;--r2:#C41E3A;
+  --gold:#C9A227;--gold-l:#F5E6C0;
+  --cream:#F7F4EE;--white:#fff;
+  --d1:#1E2A22;--d2:#3D4F42;--d3:#718089;--d4:#A8B5AB;--d5:#E8EDE9;
+  --radius:10px;--shadow:0 2px 12px rgba(26,71,49,.10);
+  --shadow-md:0 4px 24px rgba(26,71,49,.14);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--cream);color:var(--d1);min-height:100vh}
+
+/* ─── HEADER ─────────────────────────────── */
+.hdr{background:linear-gradient(135deg,var(--g1) 0%,var(--g2) 60%,#1F5C3A 100%);
+  padding:28px 32px 20px;position:relative;overflow:hidden}
+.hdr::before{content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events:none}
+.hdr-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:20px}
+.logo-circle{width:60px;height:60px;background:var(--white);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  box-shadow:0 0 0 3px rgba(255,255,255,.3)}
+.logo-circle svg{width:36px;height:36px}
+.hdr-text h1{font-size:1.35rem;font-weight:800;color:var(--white);letter-spacing:-.3px;line-height:1.2}
+.hdr-text p{font-size:.78rem;color:rgba(255,255,255,.72);margin-top:3px;font-weight:500}
+.hdr-badges{margin-left:auto;display:flex;flex-direction:column;gap:5px;align-items:flex-end}
+.badge{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);
+  color:rgba(255,255,255,.9);font-size:.68rem;font-weight:600;
+  padding:3px 10px;border-radius:20px;white-space:nowrap}
+.badge.gold{background:rgba(201,162,39,.25);border-color:rgba(201,162,39,.5);color:var(--gold-l)}
+
+/* ─── TIMELINE STRIP (DNA signature) ────── */
+.timeline{padding:0 32px;background:var(--g1)}
+.timeline-inner{max-width:1200px;margin:0 auto;display:flex;height:8px;gap:1px;
+  border-radius:0 0 8px 8px;overflow:hidden}
+.tl-seg{flex:1;height:100%;transition:opacity .2s}
+.tl-seg:hover{opacity:.7}
+
+/* ─── STATS ──────────────────────────────── */
+.stats{padding:20px 32px 0}
+.stats-inner{max-width:1200px;margin:0 auto;display:grid;
+  grid-template-columns:repeat(4,1fr);gap:14px}
+.stat-card{background:var(--white);border-radius:var(--radius);padding:16px 18px;
+  box-shadow:var(--shadow);border-left:4px solid var(--g2);position:relative;overflow:hidden}
+.stat-card::after{content:'';position:absolute;right:-10px;top:-10px;
+  width:60px;height:60px;border-radius:50%;opacity:.07}
+.stat-card.red{border-left-color:var(--r2)}
+.stat-card.gold{border-left-color:var(--gold)}
+.stat-card.gray{border-left-color:var(--d3)}
+.stat-num{font-size:2rem;font-weight:800;color:var(--g1);line-height:1;font-family:'DM Mono',monospace}
+.stat-card.red .stat-num{color:var(--r1)}
+.stat-card.gold .stat-num{color:#7F6000}
+.stat-card.gray .stat-num{color:var(--d2)}
+.stat-label{font-size:.72rem;font-weight:600;color:var(--d3);margin-top:4px;text-transform:uppercase;letter-spacing:.5px}
+.stat-sub{font-size:.68rem;color:var(--d4);margin-top:2px}
+
+/* ─── TABS ───────────────────────────────── */
+.tab-bar{padding:20px 32px 0;max-width:1264px;margin:0 auto}
+.tab-nav{display:flex;gap:4px;border-bottom:2px solid var(--d5)}
+.tab-btn{padding:10px 22px;font-size:.82rem;font-weight:700;color:var(--d3);
+  background:none;border:none;cursor:pointer;border-bottom:2px solid transparent;
+  margin-bottom:-2px;transition:all .2s;border-radius:6px 6px 0 0;letter-spacing:.3px}
+.tab-btn:hover{color:var(--g1);background:var(--g5)}
+.tab-btn.active{color:var(--g1);border-bottom-color:var(--g2);background:var(--white)}
+
+/* ─── TAB CONTENT ────────────────────────── */
+.tab-content{display:none;padding:24px 32px;max-width:1264px;margin:0 auto}
+.tab-content.active{display:block}
+
+/* ─── SECTION HEADER ─────────────────────── */
+.sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px}
+.sec-title{font-size:1.05rem;font-weight:800;color:var(--g1)}
+.sec-sub{font-size:.75rem;color:var(--d3);margin-top:2px;font-weight:500}
+.filter-group{display:flex;gap:6px}
+.filter-btn{padding:5px 14px;border-radius:20px;border:1.5px solid var(--d5);
+  background:var(--white);font-size:.75rem;font-weight:600;color:var(--d3);
+  cursor:pointer;transition:all .2s}
+.filter-btn:hover{border-color:var(--g3);color:var(--g2)}
+.filter-btn.active{background:var(--g1);border-color:var(--g1);color:var(--white)}
+
+/* ─── CALENDAR GRID ─────────────────────── */
+.cal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.month-card{background:var(--white);border-radius:var(--radius);
+  box-shadow:var(--shadow);overflow:hidden;transition:box-shadow .2s}
+.month-card:hover{box-shadow:var(--shadow-md)}
+.month-card.sem-ganjil{border-top:3px solid var(--g2)}
+.month-card.sem-genap{border-top:3px solid var(--gold)}
+.month-card.sem-pra{border-top:3px solid var(--d3)}
+.month-card.sem-libur{border-top:3px solid var(--r2)}
+
+.month-head{background:var(--g1);padding:10px 14px;
+  display:flex;align-items:center;justify-content:space-between}
+.month-name{font-size:.88rem;font-weight:800;color:var(--white);letter-spacing:-.2px}
+.month-sem{font-size:.65rem;color:rgba(255,255,255,.7);font-weight:600;
+  background:rgba(255,255,255,.12);padding:2px 8px;border-radius:10px}
+
+.day-headers{display:grid;grid-template-columns:repeat(7,1fr);
+  background:var(--g5);padding:4px 8px;gap:2px}
+.day-hdr{text-align:center;font-size:.6rem;font-weight:700;color:var(--g2);
+  padding:3px 0;text-transform:uppercase;letter-spacing:.4px}
+.day-hdr.weekend{color:var(--r2)}
+
+.date-grid{display:grid;grid-template-columns:repeat(7,1fr);padding:6px 8px 8px;gap:2px}
+.date-cell{aspect-ratio:1;border-radius:5px;display:flex;align-items:center;
+  justify-content:center;font-size:.72rem;font-weight:700;cursor:default;
+  position:relative;transition:transform .15s;line-height:1}
+.date-cell:not(.empty):hover{transform:scale(1.15);z-index:2;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.date-cell.empty{background:transparent}
+.date-cell.today{ring:2px solid var(--gold);outline:2px solid var(--gold);outline-offset:1px}
+
+/* Tooltip */
+.date-cell[data-tip]:hover::after{
+  content:attr(data-tip);
+  position:absolute;bottom:calc(100% + 5px);left:50%;transform:translateX(-50%);
+  background:var(--d1);color:var(--white);padding:4px 8px;
+  border-radius:5px;font-size:.62rem;font-weight:500;
+  white-space:nowrap;z-index:100;pointer-events:none;
+  box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.date-cell[data-tip]:hover::before{
+  content:'';position:absolute;bottom:calc(100% + 2px);left:50%;transform:translateX(-50%);
+  border:4px solid transparent;border-top-color:var(--d1);z-index:101;pointer-events:none}
+
+/* Month events */
+.month-events{padding:6px 8px 8px;border-top:1px solid var(--d5)}
+.event-pill{display:flex;align-items:center;gap:5px;padding:3px 0;
+  font-size:.62rem;color:var(--d2);font-weight:500;overflow:hidden}
+.event-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.event-txt{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ─── LEGEND ─────────────────────────────── */
+.legend-wrap{margin-top:20px;background:var(--white);border-radius:var(--radius);
+  box-shadow:var(--shadow);overflow:hidden}
+.legend-toggle{display:flex;align-items:center;justify-content:space-between;
+  padding:12px 18px;cursor:pointer;user-select:none}
+.legend-title{font-size:.82rem;font-weight:700;color:var(--g1)}
+.legend-arrow{font-size:.8rem;color:var(--d3);transition:transform .3s}
+.legend-arrow.open{transform:rotate(180deg)}
+.legend-body{display:none;padding:12px 18px;border-top:1px solid var(--d5)}
+.legend-body.open{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.leg-item{display:flex;align-items:center;gap:7px;padding:4px 0}
+.leg-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0}
+.leg-lbl{font-size:.68rem;color:var(--d2);font-weight:500}
+
+/* ─── HARI EFEKTIF ───────────────────────── */
+.he-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.he-card{background:var(--white);border-radius:var(--radius);padding:18px 20px;
+  box-shadow:var(--shadow)}
+.he-card-title{font-size:.8rem;font-weight:700;color:var(--g1);margin-bottom:14px;
+  padding-bottom:8px;border-bottom:1px solid var(--d5)}
+.he-bar-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.he-bulan{font-size:.7rem;font-weight:600;color:var(--d2);width:110px;flex-shrink:0}
+.he-bars{flex:1;display:flex;gap:3px;height:18px}
+.he-bar{height:100%;border-radius:3px;display:flex;align-items:center;
+  justify-content:center;font-size:.58rem;font-weight:700;color:var(--white);
+  transition:width .5s ease;min-width:4px}
+.he-nums{font-size:.65rem;color:var(--d3);font-weight:600;width:50px;text-align:right;flex-shrink:0}
+.he-legend-row{display:flex;gap:12px;margin-top:14px;padding-top:10px;border-top:1px solid var(--d5)}
+.he-leg-item{display:flex;align-items:center;gap:5px;font-size:.66rem;font-weight:600;color:var(--d2)}
+.he-leg-dot{width:10px;height:10px;border-radius:2px}
+
+/* Summary totals */
+.totals-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+.total-box{background:var(--g1);color:var(--white);border-radius:8px;padding:14px 16px;text-align:center}
+.total-box.alt{background:var(--gold);color:var(--d1)}
+.total-box.alt2{background:var(--r1);color:var(--white)}
+.total-n{font-size:1.8rem;font-weight:800;font-family:'DM Mono',monospace;line-height:1}
+.total-l{font-size:.65rem;font-weight:600;margin-top:4px;opacity:.85;text-transform:uppercase;letter-spacing:.4px}
+
+/* ─── MINGGU EFEKTIF ─────────────────────── */
+.me-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.me-card{background:var(--white);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow)}
+.me-card-title{font-size:.8rem;font-weight:700;color:var(--g1);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--d5)}
+
+.me-row{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+.me-bulan{font-size:.7rem;font-weight:600;color:var(--d2);width:110px;flex-shrink:0}
+.me-track{flex:1;height:22px;background:var(--d5);border-radius:4px;position:relative;overflow:hidden;display:flex}
+.me-ef{background:var(--g2);height:100%;border-radius:4px 0 0 4px;
+  display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;color:var(--white)}
+.me-tdk{background:var(--r2);height:100%;
+  display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;color:var(--white)}
+.me-rest{background:var(--d5);height:100%;border-radius:0 4px 4px 0}
+.me-nums{font-size:.65rem;font-weight:700;width:45px;text-align:right;flex-shrink:0}
+.me-nums span{color:var(--g2)}
+.me-ket{font-size:.6rem;color:var(--d3);margin-top:-4px;margin-bottom:6px;
+  padding-left:118px;font-style:italic}
+
+.sem-summary{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:0}
+.sem-box{border-radius:8px;padding:16px;text-align:center}
+.sem-box.ganjil{background:linear-gradient(135deg,var(--g1),var(--g2));color:var(--white)}
+.sem-box.genap{background:linear-gradient(135deg,#7F6000,var(--gold));color:var(--white)}
+.sem-n{font-size:2.4rem;font-weight:800;line-height:1;font-family:'DM Mono',monospace}
+.sem-l{font-size:.7rem;font-weight:700;margin-top:4px;opacity:.88;text-transform:uppercase;letter-spacing:.5px}
+.sem-detail{font-size:.65rem;opacity:.75;margin-top:6px}
+
+/* ─── FOOTER ─────────────────────────────── */
+.footer{background:var(--g1);color:rgba(255,255,255,.7);text-align:center;
+  padding:16px 32px;font-size:.68rem;margin-top:32px}
+.footer strong{color:var(--white)}
+
+/* ─── BACK-TO-HOME BAR ──────────────────── */
+.backbar{background:rgba(0,0,0,.12)}
+.backbar-inner{max-width:1200px;margin:0 auto;padding:8px 32px}
+.backbar a{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;
+  font-weight:700;color:rgba(255,255,255,.85);text-decoration:none}
+.backbar a:hover{color:var(--white)}
+
+@media(max-width:900px){
+  .stats-inner,.cal-grid{grid-template-columns:repeat(2,1fr)}
+  .legend-body.open{grid-template-columns:repeat(2,1fr)}
+  .he-grid,.me-grid{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .stats-inner{grid-template-columns:repeat(2,1fr)}
+  .cal-grid{grid-template-columns:1fr}
+  .tab-btn{padding:8px 12px;font-size:.75rem}
+  .hdr,.stats,.tab-bar,.tab-content{padding-left:16px;padding-right:16px}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="backbar"><div class="backbar-inner">
+    <a href="index.html">&larr; Beranda Portal Kurikulum</a>
+  </div></div>
+  <div class="hdr-inner">
+    <div class="logo-circle">
+      <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 2L4 10v16l14 8 14-8V10L18 2z" fill="#1A4731" stroke="#C9A227" stroke-width="1.5"/>
+        <rect x="11" y="12" width="14" height="10" rx="1" fill="#fff"/>
+        <line x1="18" y1="12" x2="18" y2="22" stroke="#1A4731" stroke-width="1.5"/>
+        <path d="M14 12 Q14 9 18 9 Q22 9 22 12" stroke="#C9A227" stroke-width="1.5" fill="none"/>
+      </svg>
+    </div>
+    <div class="hdr-text">
+      <h1>Kalender Akademik MA Insan Cendekia Nusantara</h1>
+      <p>Tahun Pelajaran 2026/2027 &nbsp;·&nbsp; Purwakarta &nbsp;·&nbsp; SK Dirjen PI No. 4860/2026</p>
+    </div>
+    <div class="hdr-badges">
+      <span class="badge gold">✅ DEFINITIF</span>
+      <span class="badge">No. MA-ICN/KAL-AK/2026-2027/001</span>
+    </div>
+  </div>
+</div>
+
+<!-- TIMELINE DNA STRIP -->
+<div class="timeline">
+  <div class="timeline-inner" id="tl-strip"></div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stats-inner">
+    <div class="stat-card">
+      <div class="stat-num" id="s-pemb">161</div>
+      <div class="stat-label">Hari Pemb. Efektif</div>
+      <div class="stat-sub">KBM murni (bukan asesmen)</div>
+    </div>
+    <div class="stat-card red">
+      <div class="stat-num">19</div>
+      <div class="stat-label">Hari Asesmen</div>
+      <div class="stat-sub">STS + SAS Ganjil & Genap</div>
+    </div>
+    <div class="stat-card gold">
+      <div class="stat-num">35</div>
+      <div class="stat-label">Minggu Efektif</div>
+      <div class="stat-sub">Ganjil 18 · Genap 17 minggu</div>
+    </div>
+    <div class="stat-card gray">
+      <div class="stat-num" style="font-size:1.5rem">1.527</div>
+      <div class="stat-label">Estimasi JP</div>
+      <div class="stat-sub">Sen–Kam 10 JP · Jum 8 JP</div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB NAV -->
+<div class="tab-bar">
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="switchTab('kalender',this)">📅 Kalender Akademik</button>
+    <button class="tab-btn" onclick="switchTab('hari',this)">📊 Hari Efektif</button>
+    <button class="tab-btn" onclick="switchTab('minggu',this)">📈 Minggu Efektif</button>
+  </div>
+</div>
+
+<!-- TAB: KALENDER -->
+<div class="tab-content active" id="tab-kalender">
+  <div class="sec-hdr">
+    <div>
+      <div class="sec-title">Kalender Akademik TP 2026/2027</div>
+      <div class="sec-sub">Juni 2026 – Juni 2027 · 13 bulan · hover pada tanggal untuk keterangan</div>
+    </div>
+    <div class="filter-group">
+      <button class="filter-btn active" onclick="filterSem('all',this)">Semua</button>
+      <button class="filter-btn" onclick="filterSem('Pra TA+Ganjil',this)">Pra TA</button>
+      <button class="filter-btn" onclick="filterSem('Ganjil',this)">Ganjil</button>
+      <button class="filter-btn" onclick="filterSem('Genap',this)">Genap</button>
+    </div>
+  </div>
+  <div class="cal-grid" id="cal-grid"></div>
+
+  <!-- LEGEND -->
+  <div class="legend-wrap" style="margin-top:20px">
+    <div class="legend-toggle" onclick="toggleLegend()">
+      <span class="legend-title">🎨 Legenda Warna Kategori</span>
+      <span class="legend-arrow" id="leg-arrow">▼</span>
+    </div>
+    <div class="legend-body" id="leg-body"></div>
+  </div>
+</div>
+
+<!-- TAB: HARI EFEKTIF -->
+<div class="tab-content" id="tab-hari">
+  <div class="sec-hdr">
+    <div>
+      <div class="sec-title">Analisis Hari Efektif per Bulan</div>
+      <div class="sec-sub">Pembelajaran Efektif (KBM murni) · Asesmen · Estimasi JP</div>
+    </div>
+  </div>
+  <div class="he-grid">
+    <div class="he-card">
+      <div class="he-card-title">📚 Semester Ganjil — Hari Efektif per Bulan</div>
+      <div id="he-ganjil"></div>
+      <div class="he-legend-row">
+        <div class="he-leg-item"><div class="he-leg-dot" style="background:#548235"></div>Pemb. Efektif</div>
+        <div class="he-leg-item"><div class="he-leg-dot" style="background:#7030A0"></div>Asesmen</div>
+        <div class="he-leg-item"><div class="he-leg-dot" style="background:#E8EDE9"></div>Lainnya/Libur</div>
+      </div>
+    </div>
+    <div class="he-card">
+      <div class="he-card-title">📗 Semester Genap — Hari Efektif per Bulan</div>
+      <div id="he-genap"></div>
+      <div class="he-legend-row">
+        <div class="he-leg-item"><div class="he-leg-dot" style="background:#548235"></div>Pemb. Efektif</div>
+        <div class="he-leg-item"><div class="he-leg-dot" style="background:#7030A0"></div>Asesmen</div>
+        <div class="he-leg-item"><div class="he-leg-dot" style="background:#E8EDE9"></div>Lainnya/Libur</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="totals-row">
+    <div class="total-box">
+      <div class="total-n">161</div>
+      <div class="total-l">Hari Pemb. Efektif</div>
+    </div>
+    <div class="total-box alt">
+      <div class="total-n">1.527</div>
+      <div class="total-l">Estimasi Total JP</div>
+    </div>
+    <div class="total-box alt2">
+      <div class="total-n">19</div>
+      <div class="total-l">Hari Asesmen (STS+SAS)</div>
+    </div>
+  </div>
+
+  <!-- JP Table -->
+  <div class="he-card" style="margin-top:16px">
+    <div class="he-card-title">⏱ Tabel Lengkap Hari & JP per Bulan</div>
+    <div style="overflow-x:auto">
+      <table style="width:100%;border-collapse:collapse;font-size:.73rem">
+        <thead>
+          <tr style="background:var(--g1);color:var(--white)">
+            <th style="padding:8px 12px;text-align:left;font-weight:700">Bulan</th>
+            <th style="padding:8px 12px;text-align:center;font-weight:700">Semester</th>
+            <th style="padding:8px 12px;text-align:center;font-weight:700">Total Hari</th>
+            <th style="padding:8px 12px;text-align:center;font-weight:700">Pemb. Efektif</th>
+            <th style="padding:8px 12px;text-align:center;font-weight:700">Asesmen</th>
+            <th style="padding:8px 12px;text-align:center;font-weight:700">Libur Mingguan</th>
+            <th style="padding:8px 12px;text-align:center;font-weight:700">Libur Nas/Cuti</th>
+            <th style="padding:8px 12px;text-align:center;font-weight:700">Est. JP</th>
+          </tr>
+        </thead>
+        <tbody id="he-table"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- TAB: MINGGU EFEKTIF -->
+<div class="tab-content" id="tab-minggu">
+  <div class="sec-hdr">
+    <div>
+      <div class="sec-title">Analisis Minggu Efektif per Semester</div>
+      <div class="sec-sub">Minggu efektif = minggu Senin–Jumat yang memuat ≥1 hari Pembelajaran Efektif</div>
+    </div>
+  </div>
+
+  <div class="sem-summary" style="margin-bottom:20px">
+    <div class="sem-box ganjil">
+      <div class="sem-n">18</div>
+      <div class="sem-l">Minggu Efektif Ganjil</div>
+      <div class="sem-detail">dari 23 minggu kalender · 13 Jul–20 Des 2026</div>
+    </div>
+    <div class="sem-box genap">
+      <div class="sem-n">17</div>
+      <div class="sem-l">Minggu Efektif Genap</div>
+      <div class="sem-detail">dari 24 minggu kalender · 4 Jan–20 Jun 2027</div>
+    </div>
+  </div>
+
+  <div class="me-grid">
+    <div class="me-card">
+      <div class="me-card-title">📅 Semester Ganjil — Rincian per Bulan</div>
+      <div id="me-ganjil"></div>
+    </div>
+    <div class="me-card">
+      <div class="me-card-title">📅 Semester Genap — Rincian per Bulan</div>
+      <div id="me-genap"></div>
+    </div>
+  </div>
+
+  <!-- Keterangan minggu tidak efektif -->
+  <div class="he-card" style="margin-top:16px">
+    <div class="he-card-title">🚫 Minggu Tidak Efektif — Rincian</div>
+    <div id="me-tidak"></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <strong>MA Insan Cendekia Nusantara Purwakarta</strong> &nbsp;·&nbsp;
+  Kalender Akademik TP 2026/2027 &nbsp;·&nbsp; No. Dok: MA-ICN/KAL-AK/2026-2027/001 &nbsp;·&nbsp;
+  Ref: SK Dirjen Pendidikan Islam No. 4860 Tahun 2026 &nbsp;·&nbsp;
+  Waka Kurikulum: <strong>Muhammad Irsyad Sirojul Khoeir, S.Sos., M.Sos.</strong>
+</div>
+
+<script>
+/* ═══ DATA ══════════════════════════════════════════════════════════ */
+const D = {"2026-06-20":{"c":"kedatangan_timur","l":"Kedatangan Peserta Didik Indonesia Timur & Wilayah","s":"","p":"Program Pra Tahun Ajaran"},"2026-06-21":{"c":"kedatangan_timur","l":"Kedatangan Peserta Didik Indonesia Timur & Wilayah","s":"","p":"Program Pra Tahun Ajaran"},"2026-06-22":{"c":"mat_orientasi","l":"Orientasi","s":"","p":"Program Pra Tahun Ajaran"},"2026-06-23":{"c":"mat_pre","l":"Pra-Tes Matrikulasi Tahap I","s":"","p":"Program Pra Tahun Ajaran"},"2026-06-24":{"c":"mat_kbm","l":"Matrikulasi Tahap I","s":"","p":"Program Pra Tahun Ajaran"},"2026-06-25":{"c":"mat_kbm","l":"Matrikulasi Tahap I","s":"","p":"Program Pra Tahun Ajaran"},"2026-06-26":{"c":"mat_kbm","l":"Matrikulasi Tahap I","s":"","p":"Program Pra Tahun Ajaran"},"2026-06-27":{"c":"libur_mingguan","l":"Libur Mingguan","s":"","p":"Program Pra Tahun Ajaran"},"2026-06-28":{"c":"libur_mingguan","l":"Libur Mingguan","s":"","p":"Program Pra Tahun Ajaran"},"2026-06-29":{"c":"mat_kbm","l":"Matrikulasi Tahap I","s":"","p":"Program Pra Tahun Ajaran"},"2026-06-30":{"c":"mat_kbm","l":"Matrikulasi Tahap I","s":"","p":"Program Pra Tahun Ajaran"},"2026-07-01":{"c":"mat_kbm","l":"Matrikulasi Tahap I","s":"","p":"Program Pra Tahun Ajaran"},"2026-07-02":{"c":"mat_kbm","l":"Matrikulasi Tahap I","s":"","p":"Program Pra Tahun Ajaran"},"2026-07-03":{"c":"mat_post","l":"Pasca-Tes Matrikulasi Tahap I","s":"","p":"Program Pra Tahun Ajaran"},"2026-07-04":{"c":"kedatangan_reguler","l":"Kedatangan Peserta Didik Reguler","s":"","p":"Program Pra Tahun Ajaran"},"2026-07-05":{"c":"kedatangan_reguler","l":"Kedatangan Peserta Didik Reguler","s":"","p":"Program Pra Tahun Ajaran"},"2026-07-06":{"c":"kedatangan_reguler","l":"Masa Ta'aruf Murid Madrasah (MATSAMA)","s":"","p":"Program Pra Tahun Ajaran"},"2026-07-07":{"c":"kedatangan_reguler","l":"Masa Ta'aruf Murid Madrasah (MATSAMA)","s":"","p":"Program Pra Tahun Ajaran"},"2026-07-08":{"c":"kedatangan_reguler","l":"Masa Ta'aruf Murid Madrasah (MATSAMA)","s":"","p":"Program Pra Tahun Ajaran"},"2026-07-09":{"c":"kedatangan_reguler","l":"Pra-Tes Matrikulasi Tahap II","s":"","p":"Program Pra Tahun Ajaran"},"2026-07-10":{"c":"mat_kbm","l":"Matrikulasi Tahap II","s":"","p":"Program Pra Tahun Ajaran"},"2026-07-11":{"c":"libur_mingguan","l":"Libur Mingguan","s":"","p":"Program Pra Tahun Ajaran"},"2026-07-12":{"c":"libur_mingguan","l":"Libur Mingguan","s":"","p":"Program Pra Tahun Ajaran"},"2026-07-13":{"c":"mat_kbm","l":"Matrikulasi Tahap II","s":"","p":"masuk tahun ajaran"},"2026-07-14":{"c":"mat_kbm","l":"Matrikulasi Tahap II","s":"","p":""},"2026-07-15":{"c":"mat_kbm","l":"Matrikulasi Tahap II","s":"","p":""},"2026-07-16":{"c":"mat_kbm","l":"Matrikulasi Tahap II","s":"","p":""},"2026-07-17":{"c":"mat_post","l":"Pasca-Tes Matrikulasi Tahap II","s":"","p":""},"2026-07-18":{"c":"mat_eval","l":"Evaluasi dan Penutupan Matrikulasi","s":"","p":""},"2026-07-19":{"c":"libur_mingguan","l":"Persiapan Pembelajaran Semester Ganjil","s":"","p":""},"2026-07-20":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-07-21":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-07-22":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-07-23":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-07-24":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-07-25":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GANJIL","p":""},"2026-07-26":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GANJIL","p":""},"2026-07-27":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-07-28":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-07-29":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-07-30":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-07-31":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-08-01":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GANJIL","p":""},"2026-08-02":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GANJIL","p":""},"2026-08-03":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-08-04":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-08-05":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-08-06":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-08-07":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-08-08":{"c":"libur_mingguan","l":"Ceramah / Pengajian (Ust. Abdul Somad)","s":"GANJIL","p":""},"2026-08-09":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GANJIL","p":""},"2026-08-10":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-08-11":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-08-12":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-08-13":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-08-14":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-08-15":{"c":"libur_mingguan","l":"Open House – Hari Terakhir Karantina & Awal Pesiar","s":"GANJIL","p":""},"2026-08-16":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GANJIL","p":""},"2026-08-17":{"c":"libur_nasional","l":"Hari Ulang Tahun Kemerdekaan Republik Indonesia ke","s":"GANJIL","p":""},"2026-08-18":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-08-19":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-08-20":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-08-21":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-08-22":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GANJIL","p":""},"2026-08-23":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GANJIL","p":""},"2026-08-24":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-08-25":{"c":"libur_nasional","l":"Maulid Nabi Muhammad SAW / Program DKM","s":"GANJIL","p":""},"2026-08-26":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-08-27":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-08-28":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-08-29":{"c":"libur_mingguan","l":"LDKS","s":"GANJIL","p":""},"2026-08-30":{"c":"libur_mingguan","l":"LDKS","s":"GANJIL","p":""},"2026-08-31":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-09-01":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-09-02":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-09-03":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-09-04":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-09-05":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GANJIL","p":""},"2026-09-06":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GANJIL","p":""},"2026-09-07":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-09-08":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-09-09":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-09-10":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-09-11":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-09-12":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GANJIL","p":""},"2026-09-13":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GANJIL","p":""},"2026-09-14":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-09-15":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-09-16":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-09-17":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-09-18":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-09-19":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GANJIL","p":""},"2026-09-20":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GANJIL","p":""},"2026-09-21":{"c":"sts","l":"Sumatif Tengah Semester (STS) Ganjil","s":"GANJIL","p":""},"2026-09-22":{"c":"sts","l":"Sumatif Tengah Semester (STS) Ganjil","s":"GANJIL","p":""},"2026-09-23":{"c":"sts","l":"Sumatif Tengah Semester (STS) Ganjil","s":"GANJIL","p":""},"2026-09-24":{"c":"sts","l":"Sumatif Tengah Semester (STS) Ganjil","s":"GANJIL","p":""},"2026-09-25":{"c":"sts","l":"Sumatif Tengah Semester (STS) Ganjil","s":"GANJIL","p":""},"2026-09-26":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GANJIL","p":""},"2026-09-27":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GANJIL","p":""},"2026-09-28":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-09-29":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-09-30":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-10-01":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-10-02":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-10-03":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GANJIL","p":""},"2026-10-04":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GANJIL","p":""},"2026-10-05":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-10-06":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-10-07":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-10-08":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-10-09":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-10-10":{"c":"libur_mingguan","l":"Pelatihan / Workshop Kesiswaan","s":"GANJIL","p":""},"2026-10-11":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GANJIL","p":""},"2026-10-12":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-10-13":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-10-14":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-10-15":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-10-16":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-10-17":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GANJIL","p":""},"2026-10-18":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GANJIL","p":""},"2026-10-19":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-10-20":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-10-21":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-10-22":{"c":"boarding","l":"Acara Keasramaan (Panitia Khusus)","s":"GANJIL","p":""},"2026-10-23":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-10-24":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GANJIL","p":""},"2026-10-25":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GANJIL","p":""},"2026-10-26":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-10-27":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-10-28":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-10-29":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-10-30":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-10-31":{"c":"libur_mingguan","l":"Puncak Bulan Bahasa","s":"GANJIL","p":""},"2026-11-01":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GANJIL","p":""},"2026-11-02":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-11-03":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-11-04":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-11-05":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-11-06":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-11-07":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GANJIL","p":""},"2026-11-08":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GANJIL","p":""},"2026-11-09":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-11-10":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-11-11":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-11-12":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-11-13":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-11-14":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GANJIL","p":""},"2026-11-15":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GANJIL","p":""},"2026-11-16":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-11-17":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-11-18":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-11-19":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-11-20":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-11-21":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GANJIL","p":""},"2026-11-22":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GANJIL","p":""},"2026-11-23":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-11-24":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-11-25":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-11-26":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-11-27":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GANJIL","p":""},"2026-11-28":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GANJIL","p":""},"2026-11-29":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GANJIL","p":""},"2026-11-30":{"c":"sas","l":"Sumatif Akhir Semester (SAS) Ganjil","s":"GANJIL","p":""},"2026-12-01":{"c":"sas","l":"Sumatif Akhir Semester (SAS) Ganjil","s":"GANJIL","p":""},"2026-12-02":{"c":"sas","l":"Sumatif Akhir Semester (SAS) Ganjil","s":"GANJIL","p":""},"2026-12-03":{"c":"sas","l":"Sumatif Akhir Semester (SAS) Ganjil","s":"GANJIL","p":""},"2026-12-04":{"c":"sas","l":"Sumatif Akhir Semester (SAS) Ganjil","s":"GANJIL","p":""},"2026-12-05":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GANJIL","p":""},"2026-12-06":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GANJIL","p":""},"2026-12-07":{"c":"remedial","l":"Remedial dan Pengayaan","s":"GANJIL","p":""},"2026-12-08":{"c":"remedial","l":"Remedial dan Pengayaan","s":"GANJIL","p":""},"2026-12-09":{"c":"remedial","l":"Remedial dan Pengayaan","s":"GANJIL","p":""},"2026-12-10":{"c":"remedial","l":"Remedial dan Pengayaan","s":"GANJIL","p":""},"2026-12-11":{"c":"remedial","l":"Remedial dan Pengayaan","s":"GANJIL","p":""},"2026-12-12":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GANJIL","p":""},"2026-12-13":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GANJIL","p":""},"2026-12-14":{"c":"kesiswaan","l":"Class Meeting & Pekan Olahraga Madrasah","s":"GANJIL","p":""},"2026-12-15":{"c":"kesiswaan","l":"Class Meeting & Pekan Olahraga Madrasah","s":"GANJIL","p":""},"2026-12-16":{"c":"kesiswaan","l":"Class Meeting & Pekan Olahraga Madrasah","s":"GANJIL","p":""},"2026-12-17":{"c":"kesiswaan","l":"Class Meeting & Haflah Taqrim","s":"GANJIL","p":""},"2026-12-18":{"c":"rapor","l":"Pembagian Rapor Semester Ganjil","s":"GANJIL","p":""},"2026-12-19":{"c":"libur_mingguan","l":"Libur Mingguan","s":"","p":""},"2026-12-20":{"c":"libur_mingguan","l":"Penutupan dan Rihlah Guru","s":"","p":""},"2026-12-21":{"c":"libur_semester","l":"Libur Semester Ganjil","s":"","p":""},"2026-12-22":{"c":"libur_semester","l":"Libur Semester Ganjil","s":"","p":""},"2026-12-23":{"c":"libur_semester","l":"Libur Semester Ganjil","s":"","p":""},"2026-12-24":{"c":"libur_semester","l":"Libur Semester Ganjil","s":"","p":""},"2026-12-25":{"c":"libur_nasional","l":"Hari Raya Natal","s":"","p":""},"2026-12-26":{"c":"cuti_bersama","l":"Cuti Bersama Hari Raya Natal","s":"","p":""},"2026-12-27":{"c":"libur_mingguan","l":"Libur Mingguan","s":"","p":""},"2026-12-28":{"c":"libur_semester","l":"Libur Semester Ganjil","s":"","p":""},"2026-12-29":{"c":"libur_semester","l":"Libur Semester Ganjil","s":"","p":""},"2026-12-30":{"c":"libur_semester","l":"Libur Semester Ganjil","s":"","p":""},"2026-12-31":{"c":"libur_semester","l":"Libur Semester Ganjil","s":"","p":""},"2027-01-01":{"c":"libur_nasional","l":"Tahun Baru Masehi 2027","s":"","p":""},"2027-01-02":{"c":"kedatangan_reguler","l":"Kedatangan Peserta Didik Semester Genap","s":"","p":""},"2027-01-03":{"c":"kedatangan_reguler","l":"Kedatangan Peserta Didik Semester Genap","s":"","p":""},"2027-01-04":{"c":"pembelajaran","l":"Awal Masuk Semester Genap","s":"GENAP","p":""},"2027-01-05":{"c":"libur_nasional","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-01-06":{"c":"pembelajaran","l":"Hari Efektif","s":"GENAP","p":""},"2027-01-07":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-01-08":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-01-09":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GENAP","p":""},"2027-01-10":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GENAP","p":""},"2027-01-11":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-01-12":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-01-13":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-01-14":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-01-15":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-01-16":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GENAP","p":""},"2027-01-17":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GENAP","p":""},"2027-01-18":{"c":"libur_nasional","l":"Hari Libur Nasional (SEMENTARA)","s":"GENAP","p":""},"2027-01-19":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-01-20":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-01-21":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-01-22":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-01-23":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GENAP","p":""},"2027-01-24":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GENAP","p":""},"2027-01-25":{"c":"unggulan","l":"Pekan Lomba Sains, Art, Sport, Religion & Language","s":"GENAP","p":""},"2027-01-26":{"c":"unggulan","l":"Pekan Lomba Sains, Art, Sport, Religion & Language","s":"GENAP","p":""},"2027-01-27":{"c":"unggulan","l":"Pekan Lomba Sains, Art, Sport, Religion & Language","s":"GENAP","p":""},"2027-01-28":{"c":"unggulan","l":"Pekan Lomba Sains, Art, Sport, Religion & Language","s":"GENAP","p":""},"2027-01-29":{"c":"unggulan","l":"Pekan Lomba Sains, Art, Sport, Religion & Language","s":"GENAP","p":""},"2027-01-30":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GENAP","p":""},"2027-01-31":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GENAP","p":""},"2027-02-01":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-02-02":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-02-03":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-02-04":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-02-05":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-02-06":{"c":"libur_nasional","l":"Tahun Baru Imlek 2578","s":"GENAP","p":""},"2027-02-07":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GENAP","p":""},"2027-02-08":{"c":"libur_nasional","l":"Libur Awal Ramadan 1448 H (Perkiraan)","s":"GENAP","p":""},"2027-02-09":{"c":"libur_nasional","l":"Libur Awal Ramadan 1448 H (Perkiraan)","s":"GENAP","p":""},"2027-02-10":{"c":"libur_nasional","l":"Libur Awal Ramadan 1448 H (Perkiraan)","s":"GENAP","p":""},"2027-02-11":{"c":"pembelajaran","l":"Pembelajaran Ramadan – Syahrun Ma'al Qur'an","s":"GENAP","p":""},"2027-02-12":{"c":"pembelajaran","l":"Pembelajaran Ramadan – Syahrun Ma'al Qur'an","s":"GENAP","p":""},"2027-02-13":{"c":"libur_mingguan","l":"Syahrun Ma'al Qur'an & Daurah Al-Qur'an","s":"GENAP","p":""},"2027-02-14":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GENAP","p":""},"2027-02-15":{"c":"pembelajaran","l":"Pembelajaran Ramadan – Sanlat","s":"GENAP","p":""},"2027-02-16":{"c":"pembelajaran","l":"Pembelajaran Ramadan – Sanlat","s":"GENAP","p":""},"2027-02-17":{"c":"pembelajaran","l":"Pembelajaran Ramadan – Sanlat","s":"GENAP","p":""},"2027-02-18":{"c":"pembelajaran","l":"Pembelajaran Ramadan – Sanlat","s":"GENAP","p":""},"2027-02-19":{"c":"pembelajaran","l":"Pembelajaran Ramadan – Sanlat","s":"GENAP","p":""},"2027-02-20":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GENAP","p":""},"2027-02-21":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GENAP","p":""},"2027-02-22":{"c":"pembelajaran","l":"Pembelajaran Ramadan – Sanlat","s":"GENAP","p":""},"2027-02-23":{"c":"pembelajaran","l":"Pembelajaran Ramadan – Sanlat","s":"GENAP","p":""},"2027-02-24":{"c":"pembelajaran","l":"Pembelajaran Ramadan – Nuzulul Qur'an","s":"GENAP","p":""},"2027-02-25":{"c":"pembelajaran","l":"Pembelajaran Ramadan – Sanlat","s":"GENAP","p":""},"2027-02-26":{"c":"pembelajaran","l":"Pembelajaran Ramadan – Sanlat","s":"GENAP","p":""},"2027-02-27":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GENAP","p":""},"2027-02-28":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GENAP","p":""},"2027-03-01":{"c":"sts","l":"Sumatif Tengah Semester (STS) Genap","s":"GENAP","p":""},"2027-03-02":{"c":"sts","l":"Sumatif Tengah Semester (STS) Genap","s":"GENAP","p":""},"2027-03-03":{"c":"sts","l":"Sumatif Tengah Semester (STS) Genap","s":"GENAP","p":""},"2027-03-04":{"c":"sts","l":"Sumatif Tengah Semester (STS) Genap","s":"GENAP","p":""},"2027-03-05":{"c":"sts","l":"Sumatif Tengah Semester (STS) Genap","s":"GENAP","p":""},"2027-03-06":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GENAP","p":""},"2027-03-07":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GENAP","p":""},"2027-03-08":{"c":"libur_nasional","l":"Libur Menjelang Idul Fitri","s":"GENAP","p":""},"2027-03-09":{"c":"cuti_bersama","l":"Cuti Bersama Menjelang Idul Fitri/ Hari Raya Nyepi","s":"GENAP","p":""},"2027-03-10":{"c":"libur_nasional","l":"Hari Raya Idul Fitri 1 Syawal 1448 H (Perkiraan) m","s":"GENAP","p":""},"2027-03-11":{"c":"libur_nasional","l":"Hari Raya Idul Fitri 1 Syawal 1448 H (Perkiraan) m","s":"GENAP","p":""},"2027-03-12":{"c":"cuti_bersama","l":"Cuti Bersama Idul Fitri","s":"GENAP","p":""},"2027-03-13":{"c":"cuti_bersama","l":"Cuti Bersama Idul Fitri","s":"GENAP","p":""},"2027-03-14":{"c":"cuti_bersama","l":"Cuti Bersama Idul Fitri","s":"GENAP","p":""},"2027-03-15":{"c":"libur_nasional","l":"Libur Nasional / Cuti Bersama","s":"GENAP","p":""},"2027-03-16":{"c":"libur_nasional","l":"Libur Nasional / Cuti Bersama","s":"GENAP","p":""},"2027-03-17":{"c":"libur_nasional","l":"Libur Nasional / Cuti Bersama","s":"GENAP","p":""},"2027-03-18":{"c":"libur_nasional","l":"Libur Nasional / Cuti Bersama","s":"GENAP","p":""},"2027-03-19":{"c":"libur_nasional","l":"Libur Nasional / Cuti Bersama","s":"GENAP","p":""},"2027-03-20":{"c":"boarding","l":"Kembali ke Asrama Pasca Idul Fitri","s":"GENAP","p":""},"2027-03-21":{"c":"boarding","l":"Kembali ke Asrama Pasca Idul Fitri","s":"GENAP","p":""},"2027-03-22":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-03-23":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-03-24":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-03-25":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-03-26":{"c":"libur_nasional","l":"Wafat Yesus Kristus & Muhadharah Kubra","s":"GENAP","p":""},"2027-03-27":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GENAP","p":""},"2027-03-28":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GENAP","p":""},"2027-03-29":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-03-30":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-03-31":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-04-01":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-04-02":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-04-03":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GENAP","p":""},"2027-04-04":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GENAP","p":""},"2027-04-05":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-04-06":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-04-07":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-04-08":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-04-09":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-04-10":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GENAP","p":""},"2027-04-11":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GENAP","p":""},"2027-04-12":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-04-13":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-04-14":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-04-15":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-04-16":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-04-17":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GENAP","p":""},"2027-04-18":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GENAP","p":""},"2027-04-19":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-04-20":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-04-21":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-04-22":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-04-23":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-04-24":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GENAP","p":""},"2027-04-25":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GENAP","p":""},"2027-04-26":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-04-27":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-04-28":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-04-29":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-04-30":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-05-01":{"c":"libur_nasional","l":"Hari Buruh Internasional","s":"GENAP","p":""},"2027-05-02":{"c":"libur_mingguan","l":"Hari Pendidikan Nasional","s":"GENAP","p":""},"2027-05-03":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-05-04":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-05-05":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-05-06":{"c":"libur_nasional","l":"Kenaikan Yesus Kristus","s":"GENAP","p":""},"2027-05-07":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-05-08":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GENAP","p":""},"2027-05-09":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GENAP","p":""},"2027-05-10":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-05-11":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-05-12":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-05-13":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-05-14":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-05-15":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GENAP","p":""},"2027-05-16":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GENAP","p":""},"2027-05-17":{"c":"libur_nasional","l":"Hari Raya Idul Adha 1448 H (Perkiraan)","s":"GENAP","p":""},"2027-05-18":{"c":"cuti_bersama","l":"Cuti Bersama Idul Adha (Perkiraan)","s":"GENAP","p":""},"2027-05-19":{"c":"cuti_bersama","l":"Cuti Bersama Idul Adha (Perkiraan)","s":"GENAP","p":""},"2027-05-20":{"c":"libur_nasional","l":"Hari Raya Waisak & Hari Kebangkitan Nasional","s":"GENAP","p":""},"2027-05-21":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-05-22":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GENAP","p":""},"2027-05-23":{"c":"libur_mingguan","l":"Libur Mingguan","s":"GENAP","p":""},"2027-05-24":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-05-25":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-05-26":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-05-27":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-05-28":{"c":"pembelajaran","l":"Pembelajaran Efektif","s":"GENAP","p":""},"2027-05-29":{"c":"libur_mingguan","l":"Libur Mingguan","s":"","p":""},"2027-05-30":{"c":"libur_mingguan","l":"Libur Mingguan","s":"","p":""},"2027-05-31":{"c":"sas","l":"Sumatif Akhir Semester (SAS) Genap","s":"","p":""},"2027-06-01":{"c":"libur_nasional","l":"Hari Lahir Pancasila","s":"","p":""},"2027-06-02":{"c":"sas","l":"Sumatif Akhir Semester (SAS) Genap","s":"","p":""},"2027-06-03":{"c":"sas","l":"Sumatif Akhir Semester (SAS) Genap","s":"","p":""},"2027-06-04":{"c":"sas","l":"Sumatif Akhir Semester (SAS) Genap","s":"","p":""},"2027-06-05":{"c":"libur_mingguan","l":"Libur Mingguan","s":"","p":""},"2027-06-06":{"c":"libur_mingguan","l":"1 Muharram 1449 H","s":"","p":""},"2027-06-07":{"c":"madrasah","l":"Penyelesaian Penilaian & Pengolahan Rapor","s":"","p":""},"2027-06-08":{"c":"remedial","l":"Pengayaan dan Remedial","s":"","p":""},"2027-06-09":{"c":"remedial","l":"Pengayaan dan Remedial","s":"","p":""},"2027-06-10":{"c":"remedial","l":"Pengayaan dan Remedial","s":"","p":""},"2027-06-11":{"c":"remedial","l":"Pengayaan dan Remedial","s":"","p":""},"2027-06-12":{"c":"libur_mingguan","l":"Libur Mingguan","s":"","p":""},"2027-06-13":{"c":"libur_mingguan","l":"Libur Mingguan","s":"","p":""},"2027-06-14":{"c":"kesiswaan","l":"Class Meeting & Pekan Olahraga Madrasah","s":"","p":""},"2027-06-15":{"c":"kesiswaan","l":"Class Meeting & Pekan Olahraga Madrasah","s":"","p":""},"2027-06-16":{"c":"kesiswaan","l":"Class Meeting & Pekan Olahraga Madrasah","s":"","p":""},"2027-06-17":{"c":"kesiswaan","l":"Class Meeting & Panggung Gembira","s":"","p":""},"2027-06-18":{"c":"rapor","l":"Pembagian Rapor Akhir Tahun Pelajaran","s":"","p":""},"2027-06-19":{"c":"libur_semester","l":"Libur Akhir Tahun Pelajaran","s":"","p":""},"2027-06-20":{"c":"libur_semester","l":"Libur Akhir Tahun Pelajaran","s":"","p":""}};
+const HE = [{"bulan":"Juni 2026","semester":"Pra TA+Ganjil","total":11,"pemb_ef":0,"asesmen":0,"libur_ming":2,"libur_nas":0,"jp":0},{"bulan":"Juli 2026","semester":"Ganjil","total":31,"pemb_ef":10,"asesmen":0,"libur_ming":5,"libur_nas":0,"jp":96},{"bulan":"Agustus 2026","semester":"Ganjil","total":31,"pemb_ef":19,"asesmen":0,"libur_ming":10,"libur_nas":2,"jp":182},{"bulan":"September 2026","semester":"Ganjil","total":30,"pemb_ef":17,"asesmen":5,"libur_ming":8,"libur_nas":0,"jp":164},{"bulan":"Oktober 2026","semester":"Ganjil","total":31,"pemb_ef":21,"asesmen":0,"libur_ming":9,"libur_nas":0,"jp":200},{"bulan":"November 2026","semester":"Ganjil","total":30,"pemb_ef":20,"asesmen":1,"libur_ming":9,"libur_nas":0,"jp":192},{"bulan":"Desember 2026","semester":"Ganjil/Libur","total":31,"pemb_ef":0,"asesmen":4,"libur_ming":7,"libur_nas":10,"jp":0},{"bulan":"Januari 2027","semester":"Genap","total":31,"pemb_ef":13,"asesmen":0,"libur_ming":8,"libur_nas":3,"jp":124},{"bulan":"Februari 2027","semester":"Genap","total":28,"pemb_ef":17,"asesmen":0,"libur_ming":7,"libur_nas":4,"jp":162},{"bulan":"Maret 2027","semester":"Genap","total":31,"pemb_ef":7,"asesmen":5,"libur_ming":4,"libur_nas":13,"jp":70},{"bulan":"April 2027","semester":"Genap","total":30,"pemb_ef":22,"asesmen":0,"libur_ming":8,"libur_nas":0,"jp":210},{"bulan":"Mei 2027","semester":"Genap","total":31,"pemb_ef":15,"asesmen":1,"libur_ming":9,"libur_nas":6,"jp":142},{"bulan":"Juni 2027","semester":"Genap/Libur","total":20,"pemb_ef":0,"asesmen":3,"libur_ming":4,"libur_nas":3,"jp":0}];
+const ME = [{"bulan":"Juli 2026","semester":"Ganjil","kal":3,"ef":2,"tdk":1,"ket":"W1: MATSAMA/Matrikulasi"},{"bulan":"Agustus 2026","semester":"Ganjil","kal":5,"ef":5,"tdk":0,"ket":"HUT RI & Maulid Nabi dalam pekan ef"},{"bulan":"September 2026","semester":"Ganjil","kal":4,"ef":3,"tdk":1,"ket":"W11: STS Ganjil"},{"bulan":"Oktober 2026","semester":"Ganjil","kal":4,"ef":4,"tdk":0,"ket":"Semua pekan efektif"},{"bulan":"November 2026","semester":"Ganjil","kal":5,"ef":4,"tdk":1,"ket":"W21: ASAS Ganjil (mulai 30 Nov)"},{"bulan":"Desember 2026","semester":"Ganjil/Libur","kal":2,"ef":0,"tdk":2,"ket":"Remedial & Class Meeting & Rapor"},{"bulan":"Januari 2027","semester":"Genap","kal":4,"ef":3,"tdk":1,"ket":"W4: Program Unggulan ICN"},{"bulan":"Februari 2027","semester":"Genap","kal":4,"ef":4,"tdk":0,"ket":"Semua pekan efektif"},{"bulan":"Maret 2027","semester":"Genap","kal":5,"ef":2,"tdk":3,"ket":"STS + Libur Idul Fitri (3 pekan)"},{"bulan":"April 2027","semester":"Genap","kal":4,"ef":4,"tdk":0,"ket":"Semua pekan efektif"},{"bulan":"Mei 2027","semester":"Genap","kal":5,"ef":4,"tdk":1,"ket":"W22: ASAS Genap (31 Mei)"},{"bulan":"Juni 2027","semester":"Genap/Libur","kal":2,"ef":0,"tdk":2,"ket":"Remedial & Class Meeting & Rapor"}];
+
+const COL = {
+  pembelajaran:      {b:'#548235',f:'#fff',lbl:'Pembelajaran Efektif'},
+  sts:               {b:'#7030A0',f:'#fff',lbl:'Asesmen Sumatif Tengah Sem.'},
+  sas:               {b:'#3E006F',f:'#fff',lbl:'Asesmen Sumatif Akhir Sem.'},
+  mat_orientasi:     {b:'#FFD700',f:'#333',lbl:'Matrikulasi – Orientasi'},
+  mat_pre:           {b:'#FF6347',f:'#fff',lbl:'Matrikulasi – Pra-Tes'},
+  mat_kbm:           {b:'#FFA500',f:'#333',lbl:'Matrikulasi – KBM'},
+  mat_post:          {b:'#C00000',f:'#fff',lbl:'Matrikulasi – Pasca-Tes'},
+  mat_eval:          {b:'#8B4513',f:'#fff',lbl:'Matrikulasi – Evaluasi'},
+  matsama:           {b:'#00838F',f:'#fff',lbl:'MATSAMA / PLM'},
+  remedial:          {b:'#FFD700',f:'#333',lbl:'Remedial & Pengayaan'},
+  class_meeting:     {b:'#A9D18E',f:'#333',lbl:'Class Meeting'},
+  rapor:             {b:'#002060',f:'#fff',lbl:'Pembagian Rapor'},
+  kesiswaan:         {b:'#ED7D31',f:'#333',lbl:'Kegiatan Kesiswaan'},
+  unggulan:          {b:'#C9A227',f:'#333',lbl:'Program Unggulan ICN'},
+  boarding:          {b:'#4472C4',f:'#fff',lbl:'Program Keasramaan'},
+  kedatangan_timur:  {b:'#1F77B4',f:'#fff',lbl:'Kedatangan – Indonesia Timur'},
+  kedatangan_reguler:{b:'#6AAFE6',f:'#333',lbl:'Kedatangan – Reguler'},
+  kedatangan_pasca:  {b:'#2E6F97',f:'#fff',lbl:'Kedatangan – Pasca Libur'},
+  libur_nasional:    {b:'#C00000',f:'#fff',lbl:'Libur Nasional'},
+  cuti_bersama:      {b:'#FF8080',f:'#333',lbl:'Cuti Bersama'},
+  libur_semester:    {b:'#7F7F7F',f:'#fff',lbl:'Libur Semester / Akhir TA'},
+  libur_mingguan:    {b:'#F0F0F0',f:'#aaa',lbl:'Libur Mingguan'},
+  madrasah:          {b:'#9B59B6',f:'#fff',lbl:'Kegiatan Madrasah'},
+  'default':         {b:'#E8EDE9',f:'#555',lbl:'Lainnya'}
+};
+
+const MONTHS = [
+  [2026,6,'Pra TA+Ganjil'],[2026,7,'Ganjil'],[2026,8,'Ganjil'],
+  [2026,9,'Ganjil'],[2026,10,'Ganjil'],[2026,11,'Ganjil'],
+  [2026,12,'Ganjil/Libur'],[2027,1,'Genap'],[2027,2,'Genap'],
+  [2027,3,'Genap'],[2027,4,'Genap'],[2027,5,'Genap'],[2027,6,'Genap/Libur']
+];
+const MONTH_NAMES = ['','Januari','Februari','Maret','April','Mei','Juni',
+  'Juli','Agustus','September','Oktober','November','Desember'];
+const DAY_NAMES = ['Min','Sen','Sel','Rab','Kam','Jum','Sab'];
+
+/* ═══ TIMELINE DNA ══════════════════════════════════════════════════ */
+function buildTimeline(){
+  const el = document.getElementById('tl-strip');
+  const sorted = Object.entries(D).sort((a,b)=>a[0].localeCompare(b[0]));
+  sorted.forEach(([d,v])=>{
+    const c = COL[v.c] || COL.default;
+    const seg = document.createElement('div');
+    seg.className='tl-seg';
+    seg.style.background=c.b;
+    seg.title=`${d}: ${v.l||v.c}`;
+    el.appendChild(seg);
+  });
+}
+
+/* ═══ CALENDAR ══════════════════════════════════════════════════════ */
+function daysInMonth(y,m){return new Date(y,m,0).getDate()}
+function firstDay(y,m){return new Date(y,m-1,1).getDay()} // 0=Sun
+
+function buildCalendar(semFilter='all'){
+  const grid = document.getElementById('cal-grid');
+  grid.innerHTML='';
+  const today = new Date().toISOString().split('T')[0];
+
+  MONTHS.forEach(([yr,mo,sem])=>{
+    const semKey = sem.split('/')[0];
+    if(semFilter!=='all' && !sem.includes(semFilter)) return;
+
+    const semClass = sem.includes('Libur') ? 'sem-libur' :
+                     sem.includes('Ganjil') ? 'sem-ganjil' :
+                     sem.includes('Genap') ? 'sem-genap' : 'sem-pra';
+    const card = document.createElement('div');
+    card.className=`month-card ${semClass}`;
+
+    // Header
+    const mh = document.createElement('div');
+    mh.className='month-head';
+    mh.innerHTML=`<span class="month-name">${MONTH_NAMES[mo]} ${yr}</span>
+      <span class="month-sem">${sem}</span>`;
+    card.appendChild(mh);
+
+    // Day headers
+    const dh = document.createElement('div');
+    dh.className='day-headers';
+    DAY_NAMES.forEach((d,i)=>{
+      const c=document.createElement('div');
+      c.className='day-hdr'+(i===0||i===6?' weekend':'');
+      c.textContent=d; dh.appendChild(c);
+    });
+    card.appendChild(dh);
+
+    // Date grid
+    const dg = document.createElement('div');
+    dg.className='date-grid';
+    const fd = firstDay(yr,mo);
+    const total = daysInMonth(yr,mo);
+    for(let i=0;i<fd;i++){
+      const e=document.createElement('div'); e.className='date-cell empty'; dg.appendChild(e);
+    }
+    
+    // Gather events for pills
+    const eventMap={};
+    
+    for(let d=1;d<=total;d++){
+      const dStr=`${yr}-${String(mo).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+      const info=D[dStr];
+      const cell=document.createElement('div');
+      cell.className='date-cell';
+      
+      if(dStr===today) cell.classList.add('today');
+      
+      if(info){
+        const c=COL[info.c]||COL.default;
+        cell.style.background=c.b;
+        cell.style.color=c.f;
+        if(info.l && info.c!=='libur_mingguan') {
+          cell.setAttribute('data-tip',info.l);
+          // Collect events (skip mingguan)
+          const ck=info.c;
+          if(!eventMap[ck]) eventMap[ck]={label:info.l,count:0,color:c.b};
+          eventMap[ck].count++;
+        }
+      } else {
+        cell.style.background='#F0F0F0';
+        cell.style.color='#aaa';
+      }
+      cell.textContent=d;
+      dg.appendChild(cell);
+    }
+    card.appendChild(dg);
+
+    // Event pills (max 4)
+    const evts=Object.values(eventMap).slice(0,4);
+    if(evts.length){
+      const ep=document.createElement('div');
+      ep.className='month-events';
+      evts.forEach(e=>{
+        const pill=document.createElement('div');
+        pill.className='event-pill';
+        pill.innerHTML=`<div class="event-dot" style="background:${e.color}"></div>
+          <div class="event-txt">${e.label}</div>`;
+        ep.appendChild(pill);
+      });
+      card.appendChild(ep);
+    }
+
+    grid.appendChild(card);
+  });
+}
+
+/* ═══ HARI EFEKTIF ══════════════════════════════════════════════════ */
+function buildHE(){
+  const ganjilMonths=['Juli 2026','Agustus 2026','September 2026','Oktober 2026','November 2026','Desember 2026'];
+  const genapMonths=['Januari 2027','Februari 2027','Maret 2027','April 2027','Mei 2027','Juni 2027'];
+  
+  function renderHEBars(months,targetId){
+    const el=document.getElementById(targetId);
+    const maxDays=31;
+    months.forEach(bln=>{
+      const row=HE.find(h=>h.bulan===bln);
+      if(!row) return;
+      const pemb=row.pemb_ef; const asm=row.asesmen; const rest=row.total-pemb-asm;
+      const pct=(v)=>Math.max(0,(v/maxDays*100).toFixed(1));
+      el.innerHTML+=`
+        <div class="he-bar-row">
+          <div class="he-bulan">${bln.replace(' 2026','').replace(' 2027','')}</div>
+          <div class="he-bars">
+            <div class="he-bar" style="background:#548235;width:${pct(pemb)}%">${pemb>3?pemb:''}</div>
+            <div class="he-bar" style="background:#7030A0;width:${pct(asm)}%">${asm>3?asm:''}</div>
+            <div class="he-bar" style="background:#E8EDE9;width:${pct(rest)}%;color:#aaa">${rest>3?rest:''}</div>
+          </div>
+          <div class="he-nums">${pemb} <span style="color:#7030A0">+${asm}</span></div>
+        </div>`;
+    });
+  }
+  
+  renderHEBars(ganjilMonths,'he-ganjil');
+  renderHEBars(genapMonths,'he-genap');
+
+  // Full table
+  const tbody=document.getElementById('he-table');
+  let totalPemb=0,totalAsm=0,totalJP=0;
+  HE.forEach((h,i)=>{
+    totalPemb+=h.pemb_ef; totalAsm+=h.asesmen; totalJP+=h.jp;
+    const bg=i%2===0?'#F8FAF8':'#FFFFFF';
+    const semColor=h.semester.includes('Genap')?'#7F6000':h.semester.includes('Ganjil')?'#1A4731':'#555';
+    tbody.innerHTML+=`<tr style="background:${bg}">
+      <td style="padding:7px 12px;font-weight:600">${h.bulan}</td>
+      <td style="padding:7px 12px;text-align:center;font-weight:600;color:${semColor}">${h.semester}</td>
+      <td style="padding:7px 12px;text-align:center">${h.total}</td>
+      <td style="padding:7px 12px;text-align:center;font-weight:700;color:#548235">${h.pemb_ef}</td>
+      <td style="padding:7px 12px;text-align:center;font-weight:700;color:#7030A0">${h.asesmen}</td>
+      <td style="padding:7px 12px;text-align:center;color:#888">${h.libur_ming}</td>
+      <td style="padding:7px 12px;text-align:center;color:#C00000">${h.libur_nas}</td>
+      <td style="padding:7px 12px;text-align:center;font-weight:700;font-family:monospace">${h.jp}</td>
+    </tr>`;
+  });
+  tbody.innerHTML+=`<tr style="background:#1A4731;color:#fff;font-weight:700">
+    <td colspan="3" style="padding:8px 12px">TOTAL TP 2026/2027</td>
+    <td style="padding:8px 12px;text-align:center">${totalPemb}</td>
+    <td style="padding:8px 12px;text-align:center">${totalAsm}</td>
+    <td colspan="2" style="padding:8px 12px;text-align:center">—</td>
+    <td style="padding:8px 12px;text-align:center;font-family:monospace">${totalJP.toLocaleString('id')}</td>
+  </tr>`;
+}
+
+/* ═══ MINGGU EFEKTIF ════════════════════════════════════════════════ */
+function buildME(){
+  const ganjil=ME.filter(m=>m.semester==='Ganjil');
+  const genap=ME.filter(m=>m.semester==='Genap');
+  
+  function renderME(data,targetId){
+    const el=document.getElementById(targetId);
+    const maxW=5;
+    data.forEach(m=>{
+      const efPct=(m.ef/maxW*100).toFixed(0);
+      const tdkPct=(m.tdk/maxW*100).toFixed(0);
+      el.innerHTML+=`
+        <div class="me-row">
+          <div class="me-bulan">${m.bulan.replace(' 2026','').replace(' 2027','')}</div>
+          <div class="me-track">
+            <div class="me-ef" style="width:${efPct}%">${m.ef>0?m.ef:''}</div>
+            <div class="me-tdk" style="width:${tdkPct}%">${m.tdk>0?m.tdk:''}</div>
+          </div>
+          <div class="me-nums"><span>${m.ef}</span>/${m.kal}</div>
+        </div>
+        <div class="me-ket">${m.ket}</div>`;
+    });
+  }
+  
+  renderME(ganjil,'me-ganjil');
+  renderME(genap,'me-genap');
+
+  // Tidak efektif details
+  const el=document.getElementById('me-tidak');
+  const tidak=ME.filter(m=>m.tdk>0);
+  el.innerHTML=`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;font-size:.72rem">`;
+  tidak.forEach(m=>{
+    el.innerHTML+=`<div style="background:#FFF5F5;border-left:3px solid #C41E3A;padding:10px 12px;border-radius:6px">
+      <div style="font-weight:700;color:#9B1D20">${m.bulan}</div>
+      <div style="color:#555;margin-top:4px">${m.tdk} minggu tidak efektif</div>
+      <div style="color:#888;margin-top:3px;font-style:italic">${m.ket}</div>
+    </div>`;
+  });
+  el.innerHTML+='</div>';
+}
+
+/* ═══ LEGEND ════════════════════════════════════════════════════════ */
+function buildLegend(){
+  const el=document.getElementById('leg-body');
+  Object.entries(COL).forEach(([k,v])=>{
+    el.innerHTML+=`<div class="leg-item">
+      <div class="leg-dot" style="background:${v.b};border:1px solid rgba(0,0,0,.1)"></div>
+      <div class="leg-lbl">${v.lbl}</div>
+    </div>`;
+  });
+}
+
+function toggleLegend(){
+  const body=document.getElementById('leg-body');
+  const arrow=document.getElementById('leg-arrow');
+  body.classList.toggle('open');
+  arrow.classList.toggle('open');
+}
+
+/* ═══ TABS & FILTERS ════════════════════════════════════════════════ */
+function switchTab(id,btn){
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function filterSem(sem,btn){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  buildCalendar(sem);
+}
+
+/* ═══ INIT ══════════════════════════════════════════════════════════ */
+buildTimeline();
+buildCalendar();
+buildLegend();
+buildHE();
+buildME();
+</script>
+</body>
+</html>
