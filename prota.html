@@ -3,141 +3,162 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Program Tahunan — Portal Kurikulum MA ICN</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<title>Program Tahunan — Curriculum OS</title>
 <link rel="stylesheet" href="assets/styles.css">
 <style>
-.section { padding: 44px 0; }
-.section h2 { font-size: 1.2rem; font-weight: 800; color: var(--g1); margin-bottom: 6px; }
-.section .desc { font-size: 0.85rem; color: var(--d3); margin-bottom: 20px; max-width: 640px; line-height: 1.6; }
+.section-header { margin-bottom: 24px; display: flex; justify-content: space-between; align-items: flex-end; }
+.section-header h2 { font-size: 1.5rem; color: var(--text-primary); margin-bottom: 8px; }
+.section-header p { color: var(--text-secondary); font-size: 0.95rem; }
 
-.prota-table { width: 100%; border-collapse: collapse; background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); font-size: 0.85rem; margin-bottom: 30px; }
-.prota-table th { background: var(--g1); color: var(--white); text-align: left; padding: 12px 14px; font-weight: 700; }
-.prota-table td { padding: 12px 14px; border-bottom: 1px solid var(--d5); vertical-align: top; }
-.prota-table tr:last-child td { border-bottom: none; }
+.timeline-container { position: relative; max-width: 900px; margin: 0 auto 40px auto; }
+.timeline-container::before { content: ''; position: absolute; left: 140px; top: 0; bottom: 0; width: 2px; background: var(--border); }
 
-.month-cell { font-weight: 800; color: var(--g2); width: 140px; }
-.kegiatan-title { font-weight: 700; color: var(--g1); margin-bottom: 4px; }
-.pj-text { font-size: 0.75rem; color: var(--d3); display: flex; align-items: center; gap: 4px; }
-.waktu-text { font-family: 'DM Mono', monospace; font-size: 0.8rem; color: var(--d2); }
+.timeline-item { display: flex; gap: 40px; margin-bottom: 32px; position: relative; }
+.timeline-month { width: 100px; text-align: right; flex-shrink: 0; padding-top: 16px; font-weight: 800; color: var(--primary); font-size: 1.1rem; }
+.timeline-node { width: 16px; height: 16px; background: var(--surface); border: 4px solid var(--accent); border-radius: 50%; position: absolute; left: 133px; top: 20px; z-index: 2; box-shadow: 0 0 0 4px var(--bg); }
+.timeline-content { flex-grow: 1; background: var(--surface); border-radius: var(--radius-card); padding: 24px; box-shadow: var(--shadow-1); border: 1px solid var(--border-light); transition: 0.3s; }
+.timeline-content:hover { transform: translateX(8px); box-shadow: var(--shadow-2); border-color: var(--primary-light); }
+.timeline-title { font-size: 1.1rem; font-weight: 800; color: var(--text-primary); margin-bottom: 8px; }
+.timeline-meta { display: flex; gap: 16px; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 16px; }
+.timeline-meta div { display: flex; align-items: center; gap: 6px; }
 
-.badge { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
-.badge-terlaksana { background: #E8F5E9; color: #2E7D32; border: 1px solid #A5D6A7; }
-.badge-berlangsung { background: #E3F2FD; color: #1565C0; border: 1px solid #90CAF9; }
-.badge-terjadwal { background: #FFF8E1; color: #F57F17; border: 1px solid #FFE082; }
-.badge-tentatif { background: var(--d5); color: var(--d3); border: 1px solid #CFD8DC; }
-
-.reveal { opacity: 0; transform: translateY(15px); transition: 0.5s ease-out; }
-.reveal.visible { opacity: 1; transform: translateY(0); }
-
-@media(max-width: 800px) { .prota-table { display: block; overflow-x: auto; white-space: nowrap; } }
+@media (max-width: 768px) {
+  .timeline-container::before { left: 20px; }
+  .timeline-item { flex-direction: column; gap: 16px; }
+  .timeline-month { width: auto; text-align: left; padding-left: 40px; padding-top: 0; font-size: 1rem; }
+  .timeline-node { left: 13px; top: 2px; }
+  .timeline-content { margin-left: 40px; }
+}
 </style>
 <script src="data.js"></script>
 <script src="assets/app.js"></script>
 </head>
 <body>
 
-<nav class="top-nav">
-  <a href="index.html" class="nav-brand">
-    <img src="assets/iconmaicn.png" alt="Logo" style="height:24px;">
-    Portal Kurikulum
-  </a>
-  <button class="hamburger">☰</button>
-  <div class="nav-links">
-    <a href="index.html">Beranda</a>
-    <a href="profil.html">Profil</a>
-    <a href="struktur.html">Struktur</a>
-    <a href="kalender.html">Kalender</a>
-    <a href="prota.html">Prota</a>
-    <a href="posem.html">Posem</a>
-    <a href="dokumen.html">Dokumen</a>
-  </div>
-</nav>
-
-<div class="hdr">
-  <div class="backbar"><div class="wrap"><a href="index.html">&larr; Beranda Portal Kurikulum</a></div></div>
-  <div class="wrap hdr-top">
-    <div class="eyebrow">Prota</div>
-    <h1>Program Tahunan (Prota)</h1>
-    <p>Linimasa kegiatan dan program kerja madrasah selama satu tahun pelajaran.</p>
-  </div>
-</div>
-
-<div class="wrap section">
-  <h2>Linimasa Kegiatan Tahunan</h2>
-  <p class="desc">Daftar kegiatan utama madrasah berdasarkan bulan pelaksanaan beserta status terkini.</p>
+<div class="app-layout">
   
-  <table class="prota-table">
-    <thead>
-      <tr>
-        <th>Bulan</th>
-        <th>Program / Kegiatan</th>
-        <th>Penanggung Jawab</th>
-        <th>Waktu Pelaksanaan</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody id="prota-body">
-      <!-- Injected by JS -->
-    </tbody>
-  </table>
-</div>
+  <aside class="sidebar" id="app-sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand">
+        <img src="assets/iconmaicn.png" alt="MA ICN">
+        <span>Curriculum OS</span>
+      </div>
+    </div>
+    <div class="sidebar-menu">
+      <div style="font-size: 0.7rem; font-weight: 700; color: var(--text-secondary); margin: 10px 0 5px 16px; text-transform: uppercase;">Menu Utama</div>
+      <a href="index.html" class="nav-item"><span class="nav-icon">📊</span> Dashboard</a>
+      <a href="kalender.html" class="nav-item"><span class="nav-icon">📅</span> Kalender Akademik</a>
+      <a href="struktur.html" class="nav-item"><span class="nav-icon">🏗️</span> Struktur & Jadwal</a>
+      <a href="modul.html" class="nav-item"><span class="nav-icon">📚</span> Modul Ajar</a>
+      
+      <div style="font-size: 0.7rem; font-weight: 700; color: var(--text-secondary); margin: 20px 0 5px 16px; text-transform: uppercase;">Perencanaan</div>
+      <a href="prota.html" class="nav-item active"><span class="nav-icon">📑</span> Program Tahunan</a>
+      <a href="posem.html" class="nav-item"><span class="nav-icon">📋</span> Program Semester</a>
+      
+      <div style="font-size: 0.7rem; font-weight: 700; color: var(--text-secondary); margin: 20px 0 5px 16px; text-transform: uppercase;">Administrasi</div>
+      <a href="dokumen.html" class="nav-item"><span class="nav-icon">📁</span> File Explorer</a>
+      <a href="profil.html" class="nav-item"><span class="nav-icon">🏫</span> Profil & Regulasi</a>
+    </div>
+  </aside>
 
-<footer class="footer">
-  <div class="wrap" style="text-align: center; line-height: 1.5;">
-    <strong>MA Insan Cendekia Nusantara Purwakarta</strong> &middot; Portal Kurikulum<br>
-    Waka Kurikulum: <span id="footer-waka"></span>
-  </div>
-</footer>
+  <main class="main-wrapper">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="btn-mobile-menu" id="btn-mobile-menu">☰</button>
+        <div class="global-search">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="global-search-input" placeholder="Cari program tahunan...">
+        </div>
+      </div>
+      <div class="topbar-right">
+        <div class="top-action"><span class="badge-dot"></span>🔔</div>
+        <div class="user-profile">
+          <div class="user-avatar">MK</div>
+        </div>
+      </div>
+    </header>
+
+    <div class="content-area">
+      
+      <div class="section-header motion-fade-up">
+        <div>
+          <h2>Program Tahunan (Prota)</h2>
+          <p>Linimasa kegiatan strategis madrasah selama satu tahun pelajaran.</p>
+        </div>
+        <button class="btn btn-primary">+ Tambah Program</button>
+      </div>
+
+      <div class="timeline-container" id="timeline-container">
+        <!-- Injected -->
+      </div>
+
+    </div>
+  </main>
+
+  <nav class="bottom-nav">
+    <div class="bottom-nav-inner">
+      <a href="index.html" class="bnav-item"><span class="bnav-icon">📊</span>Dashboard</a>
+      <a href="kalender.html" class="bnav-item"><span class="bnav-icon">📅</span>Kalender</a>
+      <a href="prota.html" class="bnav-item active"><span class="bnav-icon">📑</span>Prota</a>
+      <a href="posem.html" class="bnav-item"><span class="bnav-icon">📋</span>Posem</a>
+    </div>
+  </nav>
+
+</div>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   const MD = window.MASTER_DATA;
   if (!MD || !MD.program_tahunan) return;
 
-  document.getElementById('footer-waka').textContent = MD.meta.waka_kurikulum;
-
-  const tbody = document.getElementById('prota-body');
+  const container = document.getElementById('timeline-container');
   let html = '';
   let currentMonth = '';
 
   function getBadgeClass(status) {
     const s = status.toLowerCase();
-    if (s.includes('terlaksana')) return 'badge-terlaksana';
-    if (s.includes('berlangsung')) return 'badge-berlangsung';
-    if (s.includes('terjadwal')) return 'badge-terjadwal';
-    return 'badge-tentatif';
+    if (s.includes('terlaksana')) return 'pill green';
+    if (s.includes('berlangsung')) return 'pill blue';
+    if (s.includes('terjadwal')) return 'pill yellow';
+    return 'pill'; // default outline/gray
   }
 
   MD.program_tahunan.forEach((item, index) => {
     let showMonth = item.bulan !== currentMonth;
     if (showMonth) currentMonth = item.bulan;
 
-    let monthHtml = showMonth ? `<td class="month-cell">${item.bulan}</td>` : `<td></td>`;
+    let monthDisplay = showMonth ? item.bulan : '';
+    let nodeColor = showMonth ? 'var(--accent)' : 'var(--border)';
     
-    html += `<tr class="reveal" style="transition-delay: ${(index % 10) * 30}ms">
-      ${monthHtml}
-      <td><div class="kegiatan-title">${item.kegiatan}</div></td>
-      <td><div class="pj-text">👤 ${item.penanggung_jawab}</div></td>
-      <td class="waktu-text">${item.waktu}</td>
-      <td><span class="badge ${getBadgeClass(item.status)}">${item.status}</span></td>
-    </tr>`;
+    html += `
+      <div class="timeline-item motion-fade-up" style="transition-delay: ${(index % 10) * 30}ms">
+        <div class="timeline-month">${monthDisplay}</div>
+        <div class="timeline-node" style="border-color: ${nodeColor}"></div>
+        <div class="timeline-content">
+          <div class="timeline-title">${item.kegiatan}</div>
+          <div class="timeline-meta">
+            <div><span style="font-size: 1.1rem;">👤</span> ${item.penanggung_jawab}</div>
+            <div><span style="font-size: 1.1rem;">🕒</span> <span style="font-family:'DM Mono', monospace;">${item.waktu}</span></div>
+          </div>
+          <span class="${getBadgeClass(item.status)}">${item.status}</span>
+        </div>
+      </div>
+    `;
   });
 
-  tbody.innerHTML = html;
+  container.innerHTML = html;
 
-  if ('IntersectionObserver' in window) {
-    const newRevealElements = document.querySelectorAll('.reveal:not(.visible)');
+  setTimeout(() => {
     const observer = new IntersectionObserver((entries, obs) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
+          entry.target.classList.add('in-view');
           obs.unobserve(entry.target);
         }
       });
     }, { rootMargin: '0px 0px -50px 0px', threshold: 0.1 });
-    newRevealElements.forEach(el => observer.observe(el));
-  }
+    document.querySelectorAll('.motion-fade-up').forEach(el => observer.observe(el));
+  }, 100);
 });
 </script>
 </body>

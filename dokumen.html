@@ -3,142 +3,226 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Dokumen Rujukan — Portal Kurikulum MA ICN</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<title>File Explorer — Curriculum OS</title>
 <link rel="stylesheet" href="assets/styles.css">
 <style>
-.section { padding: 44px 0; }
-.section-title { font-size: 1.3rem; font-weight: 800; color: var(--g1); margin-bottom: 8px; }
-.section-desc { font-size: 0.85rem; color: var(--d3); margin-bottom: 24px; line-height: 1.6; max-width: 600px; }
+/* File Explorer Specific Styles */
+.drive-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+.drive-actions { display: flex; gap: 12px; }
 
-.doc-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-.doc-card { background: var(--white); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); border: 1px solid var(--d5); display: flex; flex-direction: column; gap: 12px; transition: 0.2s; border-left: 4px solid var(--g3); }
-.doc-card:hover { border-color: var(--g3); box-shadow: 0 8px 20px rgba(26, 71, 49, 0.12); transform: translateY(-4px); }
-.doc-icon { font-size: 2.2rem; line-height: 1; }
-.doc-card h3 { font-size: 1.15rem; font-weight: 800; color: var(--g1); }
-.doc-card p { font-size: 0.85rem; color: var(--d2); line-height: 1.6; flex-grow: 1; }
+/* Breadcrumb */
+.breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 1.2rem; font-weight: 700; color: var(--text-primary); }
+.breadcrumb-item { cursor: pointer; color: var(--text-secondary); transition: 0.2s; }
+.breadcrumb-item:hover { color: var(--primary); }
+.breadcrumb-separator { color: var(--border); font-weight: 400; }
 
-.btn-download { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: var(--g5); color: var(--g1); font-weight: 700; font-size: 0.85rem; padding: 12px; border-radius: 6px; text-decoration: none; transition: 0.2s; border: 1px solid #A5D6A7; margin-top: 10px; }
-.btn-download:hover { background: var(--g1); color: var(--white); border-color: var(--g1); }
+/* Grid View */
+.file-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; margin-bottom: 32px; }
+.file-card { background: var(--surface); border: 1px solid var(--border-light); border-radius: var(--radius-btn); padding: 16px; cursor: pointer; transition: all 0.2s; position: relative; }
+.file-card:hover { border-color: var(--primary-light); background: var(--surface-hover); transform: translateY(-3px); box-shadow: var(--shadow-1); }
+.file-icon { font-size: 2.5rem; margin-bottom: 12px; display: inline-block; }
+.file-name { font-size: 0.95rem; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.file-meta { font-size: 0.75rem; color: var(--text-secondary); display: flex; justify-content: space-between; }
 
-.reveal { opacity: 0; transform: translateY(20px); transition: 0.5s ease-out; }
-.reveal.visible { opacity: 1; transform: translateY(0); }
+/* Table View (Hidden by default, can be toggled via JS if needed, but we'll stick to Grid as requested visually) */
 
-@media(max-width: 768px) { .doc-grid { grid-template-columns: 1fr; } }
+/* Folder styles */
+.folder-card { display: flex; align-items: center; gap: 12px; background: var(--surface); border: 1px solid var(--border); padding: 16px; border-radius: var(--radius-btn); transition: 0.2s; cursor: pointer; }
+.folder-card:hover { border-color: var(--primary); background: var(--surface-hover); }
+.folder-icon { font-size: 1.5rem; }
+.folder-name { font-weight: 700; font-size: 0.95rem; color: var(--text-primary); }
+
+/* Quick Actions Overlay (Drive Style) */
+.file-actions { position: absolute; right: 10px; top: 10px; opacity: 0; transition: 0.2s; display: flex; gap: 4px; }
+.file-card:hover .file-actions { opacity: 1; }
+.btn-icon { background: var(--surface); border: 1px solid var(--border); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; cursor: pointer; color: var(--text-secondary); transition: 0.2s; }
+.btn-icon:hover { background: var(--primary); color: white; border-color: var(--primary); }
+
+.section-title { font-size: 0.9rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px; margin-top: 32px; border-bottom: 1px solid var(--border-light); padding-bottom: 8px; }
+
+/* File Preview Modal Overrides */
+.pv-modal .modal-content { max-width: 900px; height: 85vh; display: flex; flex-direction: column; }
+.pv-modal .modal-body { flex-grow: 1; padding: 0; background: #F1F5F9; display: flex; align-items: center; justify-content: center; }
 </style>
 <script src="data.js"></script>
 <script src="assets/app.js"></script>
 </head>
 <body>
 
-<nav class="top-nav">
-  <a href="index.html" class="nav-brand">
-    <img src="assets/iconmaicn.png" alt="Logo" style="height:24px;">
-    Portal Kurikulum
-  </a>
-  <button class="hamburger">☰</button>
-  <div class="nav-links">
-    <a href="index.html">Beranda</a>
-    <a href="profil.html">Profil</a>
-    <a href="struktur.html">Struktur</a>
-    <a href="kalender.html">Kalender</a>
-    <a href="prota.html">Prota</a>
-    <a href="posem.html">Posem</a>
-    <a href="dokumen.html" class="active">Dokumen</a>
-  </div>
-</nav>
-
-<div class="hdr">
-  <div class="backbar"><div class="wrap"><a href="index.html">&larr; Beranda Portal Kurikulum</a></div></div>
-  <div class="wrap hdr-top">
-    <div class="eyebrow">Pusat Unduhan</div>
-    <h1>Dokumen Rujukan & Administrasi</h1>
-    <p>Akses cepat ke pusat data kurikulum, salinan regulasi madrasah, dan perangkat ajar guru pendidik.</p>
-  </div>
-</div>
-
-<div class="wrap section">
-  <h2 class="section-title">Repositori Kurikulum</h2>
-  <p class="section-desc">Gunakan tautan di bawah ini untuk mengunduh dokumen-dokumen vital terkait pembelajaran di MA Insan Cendekia Nusantara.</p>
+<div class="app-layout">
   
-  <div class="doc-grid">
-    
-    <!-- KOSP -->
-    <div class="doc-card reveal" style="transition-delay: 0ms;">
-      <div class="doc-icon">📘</div>
-      <h3>Dokumen KOSP</h3>
-      <p>Kurikulum Operasional Satuan Pendidikan (KOSP) Tahun Pelajaran berjalan secara utuh. Mencakup visi, struktur lengkap, landasan rasional, hingga standar kelulusan.</p>
-      <!-- Slot tautan kosong untuk diisi kemudian -->
-      <a href="#" class="btn-download" target="_blank" rel="noopener noreferrer">
-        Unduh KOSP (PDF)
-      </a>
+  <aside class="sidebar" id="app-sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand">
+        <img src="assets/iconmaicn.png" alt="MA ICN">
+        <span>Curriculum OS</span>
+      </div>
     </div>
-
-    <!-- ATP/Silabus -->
-    <div class="doc-card reveal" style="transition-delay: 50ms;">
-      <div class="doc-icon">📚</div>
-      <h3>ATP & Silabus Mata Pelajaran</h3>
-      <p>Alur Tujuan Pembelajaran (ATP) dan pemetaan Capaian Pembelajaran (CP) terbaru dari Kemenag untuk seluruh rumpun mata pelajaran umum, PAI, dan lintas minat.</p>
-      <!-- Slot tautan kosong untuk diisi kemudian -->
-      <a href="#" class="btn-download" target="_blank" rel="noopener noreferrer">
-        Akses Folder Silabus (Drive)
-      </a>
+    <div class="sidebar-menu">
+      <div style="font-size: 0.7rem; font-weight: 700; color: var(--text-secondary); margin: 10px 0 5px 16px; text-transform: uppercase;">Menu Utama</div>
+      <a href="index.html" class="nav-item"><span class="nav-icon">📊</span> Dashboard</a>
+      <a href="kalender.html" class="nav-item"><span class="nav-icon">📅</span> Kalender Akademik</a>
+      <a href="struktur.html" class="nav-item"><span class="nav-icon">🏗️</span> Struktur & Jadwal</a>
+      <a href="modul.html" class="nav-item"><span class="nav-icon">📚</span> Modul Ajar</a>
+      
+      <div style="font-size: 0.7rem; font-weight: 700; color: var(--text-secondary); margin: 20px 0 5px 16px; text-transform: uppercase;">Perencanaan</div>
+      <a href="prota.html" class="nav-item"><span class="nav-icon">📑</span> Program Tahunan</a>
+      <a href="posem.html" class="nav-item"><span class="nav-icon">📋</span> Program Semester</a>
+      
+      <div style="font-size: 0.7rem; font-weight: 700; color: var(--text-secondary); margin: 20px 0 5px 16px; text-transform: uppercase;">Administrasi</div>
+      <a href="dokumen.html" class="nav-item active"><span class="nav-icon">📁</span> File Explorer</a>
+      <a href="profil.html" class="nav-item"><span class="nav-icon">🏫</span> Profil & Regulasi</a>
     </div>
+  </aside>
 
-    <!-- Perangkat Ajar & Kokurikuler -->
-    <div class="doc-card reveal" style="transition-delay: 100ms;">
-      <div class="doc-icon">📂</div>
-      <h3>Perangkat Ajar & Kokurikuler</h3>
-      <p>Kumpulan Modul Ajar (RPP Plus), lembar kerja peserta didik, hingga modul pelaksanaan kokurikuler dan ekstrakurikuler khusus asrama.</p>
-      <!-- Slot tautan kosong untuk diisi kemudian -->
-      <a href="#" class="btn-download" target="_blank" rel="noopener noreferrer">
-        Akses Perangkat Ajar (Drive)
-      </a>
+  <main class="main-wrapper">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="btn-mobile-menu" id="btn-mobile-menu">☰</button>
+        <div class="global-search">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="global-search-input" placeholder="Cari di Drive Kurikulum...">
+        </div>
+      </div>
+      <div class="topbar-right">
+        <div class="top-action"><span class="badge-dot"></span>🔔</div>
+        <div class="user-profile">
+          <div class="user-avatar">MK</div>
+        </div>
+      </div>
+    </header>
+
+    <div class="content-area">
+      
+      <div class="drive-header motion-fade-up">
+        <div class="breadcrumb">
+          <span class="breadcrumb-item">My Drive</span>
+          <span class="breadcrumb-separator">/</span>
+          <span style="color: var(--primary);">Kurikulum MA ICN</span>
+        </div>
+        <div class="drive-actions">
+          <button class="btn btn-outline" style="padding: 8px 16px;">⊞ View</button>
+          <button class="btn btn-primary" onclick="alert('Membuka dialog upload... (Mockup)')">↑ Upload File</button>
+        </div>
+      </div>
+
+      <!-- Folders -->
+      <div class="section-title motion-fade-up" style="transition-delay: 50ms;">Folders</div>
+      <div class="file-grid motion-fade-up" style="transition-delay: 100ms; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));">
+        <div class="folder-card">
+          <div class="folder-icon">📁</div>
+          <div class="folder-name">Regulasi & KMA</div>
+        </div>
+        <div class="folder-card">
+          <div class="folder-icon">📂</div>
+          <div class="folder-name">KOSP 2026</div>
+        </div>
+        <div class="folder-card">
+          <div class="folder-icon">📁</div>
+          <div class="folder-name">ATP & Silabus</div>
+        </div>
+        <div class="folder-card">
+          <div class="folder-icon">📁</div>
+          <div class="folder-name">Perangkat Ajar</div>
+        </div>
+      </div>
+
+      <!-- Files -->
+      <div class="section-title motion-fade-up" style="transition-delay: 150ms;">Recent Files</div>
+      <div class="file-grid" id="file-grid">
+        
+        <div class="file-card motion-scale" style="transition-delay: 200ms;" onclick="window.previewFile('KOSP MA ICN 2026.pdf')">
+          <div class="file-actions" onclick="event.stopPropagation()">
+            <button class="btn-icon" title="Preview" onclick="window.previewFile('KOSP MA ICN 2026.pdf')">👁</button>
+            <button class="btn-icon" title="Download">↓</button>
+            <button class="btn-icon" title="Share">🔗</button>
+            <button class="btn-icon" title="Favorite">☆</button>
+          </div>
+          <div class="file-icon">📄</div>
+          <div class="file-name">KOSP MA ICN 2026.pdf</div>
+          <div class="file-meta"><span>PDF Document</span><span>2.4 MB</span></div>
+        </div>
+
+        <div class="file-card motion-scale" style="transition-delay: 250ms;" onclick="window.previewFile('Kalender Akademik TP 2026.png')">
+          <div class="file-actions" onclick="event.stopPropagation()">
+            <button class="btn-icon" title="Preview" onclick="window.previewFile('Kalender Akademik TP 2026.png')">👁</button>
+            <button class="btn-icon" title="Download">↓</button>
+            <button class="btn-icon" title="Share">🔗</button>
+            <button class="btn-icon" title="Favorite">☆</button>
+          </div>
+          <div class="file-icon">🖼️</div>
+          <div class="file-name">Kalender Akademik TP 2026.png</div>
+          <div class="file-meta"><span>Image</span><span>1.2 MB</span></div>
+        </div>
+
+        <div class="file-card motion-scale" style="transition-delay: 300ms;" onclick="window.previewFile('SK Pembagian Tugas.pdf')">
+          <div class="file-actions" onclick="event.stopPropagation()">
+            <button class="btn-icon" title="Preview" onclick="window.previewFile('SK Pembagian Tugas.pdf')">👁</button>
+            <button class="btn-icon" title="Download">↓</button>
+            <button class="btn-icon" title="Share">🔗</button>
+            <button class="btn-icon" title="Favorite">☆</button>
+          </div>
+          <div class="file-icon">📑</div>
+          <div class="file-name">SK Pembagian Tugas.pdf</div>
+          <div class="file-meta"><span>PDF Document</span><span>850 KB</span></div>
+        </div>
+
+        <div class="file-card motion-scale" style="transition-delay: 350ms;" onclick="window.previewFile('Jadwal Pelajaran Fix.xlsx')">
+          <div class="file-actions" onclick="event.stopPropagation()">
+            <button class="btn-icon" title="Preview" onclick="window.previewFile('Jadwal Pelajaran Fix.xlsx')">👁</button>
+            <button class="btn-icon" title="Download">↓</button>
+            <button class="btn-icon" title="Share">🔗</button>
+            <button class="btn-icon" title="Favorite">☆</button>
+          </div>
+          <div class="file-icon">📊</div>
+          <div class="file-name">Jadwal Pelajaran Fix.xlsx</div>
+          <div class="file-meta"><span>Spreadsheet</span><span>120 KB</span></div>
+        </div>
+
+      </div>
+
     </div>
+  </main>
 
-    <!-- Agenda Akademik -->
-    <div class="doc-card reveal" style="transition-delay: 150ms;">
-      <div class="doc-icon">📅</div>
-      <h3>Agenda Akademik</h3>
-      <p>Salinan SK Dirjen, cetakan format PDF resolusi tinggi dari Kalender Akademik, Program Tahunan (Prota), dan Program Semester (Posem) resmi.</p>
-      <!-- Slot tautan kosong untuk diisi kemudian -->
-      <a href="#" class="btn-download" target="_blank" rel="noopener noreferrer">
-        Unduh Arsip Agenda (ZIP)
-      </a>
+  <nav class="bottom-nav">
+    <div class="bottom-nav-inner">
+      <a href="index.html" class="bnav-item"><span class="bnav-icon">📊</span>Dashboard</a>
+      <a href="kalender.html" class="bnav-item"><span class="bnav-icon">📅</span>Kalender</a>
+      <a href="modul.html" class="bnav-item"><span class="bnav-icon">📚</span>Modul</a>
+      <a href="dokumen.html" class="bnav-item active"><span class="bnav-icon">📁</span>Dokumen</a>
     </div>
+  </nav>
 
-  </div>
 </div>
 
-<footer class="footer">
-  <div class="wrap" style="text-align: center; line-height: 1.5;">
-    <strong>MA Insan Cendekia Nusantara Purwakarta</strong> &middot; Portal Kurikulum<br>
-    Waka Kurikulum: <span id="footer-waka"></span>
+<!-- Universal File Preview Modal -->
+<div class="modal-overlay pv-modal" id="modal-file-preview">
+  <div class="modal-content">
+    <div class="modal-header">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div style="width: 32px; height: 32px; background: var(--surface-hover); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">👁️</div>
+        <h3 id="pv-file-title" style="font-size: 1.1rem;">Preview File</h3>
+      </div>
+      <div style="display: flex; gap: 12px; align-items: center;">
+        <button class="btn btn-outline" style="padding: 6px 12px; font-size: 0.8rem;">↓ Download</button>
+        <button class="btn-close">&times;</button>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div style="text-align: center; color: var(--text-secondary);">
+        <div style="font-size: 4rem; margin-bottom: 20px; opacity: 0.5;">📄</div>
+        <p>File Viewer Render Area</p>
+        <p style="font-size: 0.8rem;">(Integrasi PDF.js / Google Drive Viewer)</p>
+      </div>
+    </div>
   </div>
-</footer>
+</div>
 
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-  const MD = window.MASTER_DATA;
-  if (!MD) return;
-
-  // Render text yang diperlukan dari master data
-  document.getElementById('footer-waka').textContent = MD.meta.waka_kurikulum;
-
-  // Trigger Intersection Observer untuk efek reveal
-  if ('IntersectionObserver' in window) {
-    const newRevealElements = document.querySelectorAll('.reveal:not(.visible)');
-    const observer = new IntersectionObserver((entries, obs) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          obs.unobserve(entry.target);
-        }
-      });
-    }, { rootMargin: '0px 0px -50px 0px', threshold: 0.1 });
-    newRevealElements.forEach(el => observer.observe(el));
-  }
-});
+window.previewFile = function(filename) {
+  document.getElementById('pv-file-title').innerText = filename;
+  window.AppUtils.openModal('modal-file-preview');
+}
 </script>
 </body>
 </html>
