@@ -3,255 +3,208 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Dashboard — Portal Kurikulum MA ICN</title>
+<title>Beranda — Curriculum OS</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/styles.css">
 <style>
-/* Dashboard Specific Layout */
-.dashboard-hero { background: var(--surface); border-radius: var(--radius-card); padding: 32px; margin-bottom: 32px; box-shadow: var(--shadow-2); border: 1px solid var(--border-light); position: relative; overflow: hidden; display: flex; justify-content: space-between; align-items: center; }
-.dashboard-hero::after { content: ''; position: absolute; right: -50px; top: -50px; width: 300px; height: 300px; background: radial-gradient(circle, var(--accent-light) 0%, transparent 70%); opacity: 0.4; pointer-events: none; }
-.hero-content h1 { font-size: 2rem; color: var(--primary-dark); margin-bottom: 8px; }
-.hero-content p { color: var(--text-secondary); font-size: 1.05rem; }
+/* Hero Section */
+.hero {
+  position: relative; padding: 180px 0 120px; text-align: center; color: var(--surface);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background-image: radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px);
+  background-size: 30px 30px; opacity: 0.5;
+}
+.hero-badge {
+  display: inline-block; background: var(--accent); color: var(--surface);
+  padding: 6px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 800;
+  letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px;
+  box-shadow: var(--shadow-glow);
+}
+.hero h1 {
+  font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800; letter-spacing: -1.5px;
+  margin-bottom: 16px; line-height: 1.1; position: relative; z-index: 2;
+}
+.hero p {
+  font-size: 1.1rem; color: rgba(255,255,255,0.9); font-weight: 500;
+  max-width: 600px; margin: 0 auto; line-height: 1.6; position: relative; z-index: 2;
+}
 
-.quick-stats { display: flex; gap: 24px; }
-.q-stat { text-align: center; }
-.q-stat-num { font-size: 2.5rem; font-weight: 800; color: var(--primary); font-family: 'Inter', sans-serif; line-height: 1; }
-.q-stat-label { font-size: 0.75rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; margin-top: 8px; }
+/* Stats */
+.stats-container {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 16px;
+  margin-top: -60px; position: relative; z-index: 10;
+}
+.stat-card {
+  background: var(--surface); border-radius: var(--radius-lg); padding: 24px;
+  box-shadow: var(--shadow-md); border-top: 4px solid var(--accent);
+  text-align: center; flex: 1 1 180px; max-width: 220px; transition: 0.3s;
+}
+.stat-card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(26, 71, 49, 0.15); }
+.stat-card.c-red { border-top-color: #dc2626; }
+.stat-card.c-blue { border-top-color: #2563eb; }
+.stat-card.c-green { border-top-color: var(--primary); }
+.stat-card.c-purple { border-top-color: #7c3aed; }
 
-/* Grid System */
-.bento-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; margin-bottom: 32px; }
-.bento-col-4 { grid-column: span 4; }
-.bento-col-8 { grid-column: span 8; }
-.bento-col-6 { grid-column: span 6; }
-.bento-col-12 { grid-column: span 12; }
+.stat-num {
+  font-size: 2.5rem; font-weight: 800; color: var(--primary); line-height: 1;
+  font-family: 'DM Mono', monospace; margin-bottom: 8px;
+}
+.stat-card.c-red .stat-num { color: #dc2626; }
+.stat-card.c-blue .stat-num { color: #2563eb; }
+.stat-card.c-green .stat-num { color: var(--primary); }
+.stat-card.c-purple .stat-num { color: #7c3aed; }
 
-/* Widgets */
-.widget-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-.widget-title { font-size: 1.1rem; font-weight: 800; color: var(--text-primary); }
+.stat-label { font-size: 0.8rem; font-weight: 800; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; }
+.stat-sub { font-size: 0.75rem; color: #64748b; margin-top: 6px; }
 
-/* Activity List */
-.activity-list { display: flex; flex-direction: column; gap: 16px; }
-.activity-item { display: flex; gap: 16px; align-items: flex-start; }
-.act-icon { width: 36px; height: 36px; border-radius: 50%; background: var(--info-bg); color: var(--info); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1.1rem; }
-.act-icon.green { background: var(--success-bg); color: var(--success); }
-.act-icon.yellow { background: var(--warning-bg); color: #B45309; }
-.act-content h4 { font-size: 0.9rem; margin-bottom: 2px; }
-.act-content p { font-size: 0.8rem; color: var(--text-secondary); }
+/* Menus */
+.section-title { text-align: center; font-size: 2rem; font-weight: 800; color: var(--primary); margin: 80px 0 40px; }
+.menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-bottom: 80px; }
+.menu-card {
+  background: var(--surface); border-radius: var(--radius-lg); padding: 32px;
+  box-shadow: var(--shadow-sm); border: 1px solid var(--border);
+  transition: all 0.3s; display: flex; flex-direction: column; gap: 16px;
+}
+.menu-card:hover {
+  transform: translateY(-8px); box-shadow: var(--shadow-md); border-color: var(--accent);
+}
+.menu-icon {
+  width: 56px; height: 56px; background: var(--bg); color: var(--primary);
+  border-radius: 16px; display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; font-weight: 800; font-family: 'DM Mono', monospace;
+}
+.menu-card:hover .menu-icon { background: var(--primary); color: var(--surface); }
+.menu-card h3 { font-size: 1.2rem; font-weight: 800; color: var(--primary); }
+.menu-card p { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; }
 
-/* Mini Chart Simulation */
-.progress-container { margin-top: 16px; }
-.progress-bar { height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; margin-bottom: 8px; }
-.progress-fill { height: 100%; background: var(--primary); border-radius: 4px; width: 65%; }
-
-@media (max-width: 1024px) { .bento-col-4, .bento-col-8 { grid-column: span 12; } }
-@media (max-width: 768px) { .dashboard-hero { flex-direction: column; align-items: flex-start; gap: 24px; } }
 </style>
 <script src="data.js"></script>
 <script src="assets/app.js"></script>
 </head>
 <body>
 
-<div class="app-layout">
-  
-  <!-- Sidebar Desktop -->
-  <aside class="sidebar" id="app-sidebar">
-    <div class="sidebar-header">
-      <div class="sidebar-brand">
-        <img src="assets/iconmaicn.png" alt="MA ICN">
-        <span>Curriculum OS</span>
-      </div>
-    </div>
-    <div class="sidebar-menu">
-      <div style="font-size: 0.7rem; font-weight: 700; color: var(--text-secondary); margin: 10px 0 5px 16px; text-transform: uppercase;">Menu Utama</div>
-      <a href="index.html" class="nav-item active"><span class="nav-icon">📊</span> Dashboard</a>
-      <a href="kalender.html" class="nav-item"><span class="nav-icon">📅</span> Kalender Akademik</a>
-      <a href="struktur.html" class="nav-item"><span class="nav-icon">🏗️</span> Struktur & Jadwal</a>
-      <a href="modul.html" class="nav-item"><span class="nav-icon">📚</span> Modul Ajar</a>
-      
-      <div style="font-size: 0.7rem; font-weight: 700; color: var(--text-secondary); margin: 20px 0 5px 16px; text-transform: uppercase;">Perencanaan</div>
-      <a href="prota.html" class="nav-item"><span class="nav-icon">📑</span> Program Tahunan</a>
-      <a href="posem.html" class="nav-item"><span class="nav-icon">📋</span> Program Semester</a>
-      
-      <div style="font-size: 0.7rem; font-weight: 700; color: var(--text-secondary); margin: 20px 0 5px 16px; text-transform: uppercase;">Administrasi</div>
-      <a href="dokumen.html" class="nav-item"><span class="nav-icon">📁</span> File Explorer</a>
-      <a href="profil.html" class="nav-item"><span class="nav-icon">🏫</span> Profil & Regulasi</a>
-    </div>
-  </aside>
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-brand">
+    <img src="assets/iconmaicn.png" alt="Logo">
+    MA ICN
+  </a>
+  <button class="nav-toggle" id="nav-toggle">☰</button>
+  <div class="nav-links" id="nav-links">
+    <a href="index.html" class="active">Beranda</a>
+    <a href="profil.html">Profil</a>
+    <a href="struktur.html">Struktur</a>
+    <a href="kalender.html">Kalender</a>
+    <a href="prota.html">Prota</a>
+    <a href="posem.html">Posem</a>
+    <a href="modul.html">Modul</a>
+    <a href="dokumen.html">Dokumen</a>
+  </div>
+</nav>
 
-  <main class="main-wrapper">
-    <!-- Topbar -->
-    <header class="topbar">
-      <div class="topbar-left">
-        <button class="btn-mobile-menu" id="btn-mobile-menu">☰</button>
-        <div class="global-search">
-          <span class="search-icon">🔍</span>
-          <input type="text" id="global-search-input" placeholder="Cari modul, agenda, atau dokumen... (Tekan Enter)">
-        </div>
-      </div>
-      <div class="topbar-right">
-        <div class="top-action"><span class="badge-dot"></span>🔔</div>
-        <div class="user-profile">
-          <div class="user-avatar">MK</div>
-          <div class="user-info">
-            <span class="user-name" id="user-name-display">M. Irsyad</span>
-            <span class="user-role">Waka Kurikulum</span>
-          </div>
-        </div>
-      </div>
-    </header>
-
-    <!-- Main Content Area -->
-    <div class="content-area">
-      
-      <!-- Hero -->
-      <div class="dashboard-hero motion-scale">
-        <div class="hero-content">
-          <span class="pill green" style="margin-bottom: 12px;" id="status-badge">Tahun Aktif 2026/2027</span>
-          <h1>Assalamu'alaikum, <br>Selamat Datang.</h1>
-          <p>Pusat Kendali Kurikulum MA Insan Cendekia Nusantara.</p>
-        </div>
-        <div class="quick-stats">
-          <div class="q-stat">
-            <div class="q-stat-num stat-num" id="stat-he" data-target="0">0</div>
-            <div class="q-stat-label">Hari Efektif</div>
-          </div>
-          <div class="q-stat">
-            <div class="q-stat-num stat-num" id="stat-jp" data-target="0" data-format="id">0</div>
-            <div class="q-stat-label">Total JP</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Widgets -->
-      <div class="bento-grid">
-        
-        <!-- Widget 1: Kalender Hari Ini -->
-        <div class="saas-card bento-col-4 motion-fade-up">
-          <div class="widget-header">
-            <h3 class="widget-title">📅 Tanggal Hari Ini</h3>
-            <a href="kalender.html" style="font-size: 0.8rem; font-weight: 700;">Lihat Full</a>
-          </div>
-          <div style="font-size: 3rem; font-weight: 800; color: var(--primary); line-height: 1;">21</div>
-          <div style="font-size: 1.1rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 20px;">Juni 2026</div>
-          <div class="pill blue">Agenda: Rapat Awal Tahun</div>
-        </div>
-
-        <!-- Widget 2: Ringkasan Kurikulum -->
-        <div class="saas-card bento-col-8 motion-fade-up" style="transition-delay: 100ms;">
-          <div class="widget-header">
-            <h3 class="widget-title">📈 Progres Semester Ganjil</h3>
-          </div>
-          <p style="font-size: 0.9rem;">Total target waktu pembelajaran efektif telah diplot. Asesmen sumatif mulai terjadwal.</p>
-          <div class="progress-container">
-            <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 6px;">
-              <span>Kesiapan Modul Ajar</span>
-              <span>65%</span>
-            </div>
-            <div class="progress-bar"><div class="progress-fill"></div></div>
-          </div>
-          
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px;">
-             <div style="background: var(--surface-hover); padding: 12px; border-radius: 12px; border: 1px solid var(--border-light);">
-               <div style="font-size: 0.8rem; color: var(--text-secondary); font-weight: 600;">Total Modul</div>
-               <div style="font-size: 1.5rem; font-weight: 800; color: var(--primary);">22</div>
-             </div>
-             <div style="background: var(--surface-hover); padding: 12px; border-radius: 12px; border: 1px solid var(--border-light);">
-               <div style="font-size: 0.8rem; color: var(--text-secondary); font-weight: 600;">Hari Sumatif</div>
-               <div style="font-size: 1.5rem; font-weight: 800; color: var(--danger);" class="stat-num" id="stat-sum" data-target="0">0</div>
-             </div>
-          </div>
-        </div>
-
-        <!-- Widget 3: Aktivitas Terbaru -->
-        <div class="saas-card bento-col-6 motion-fade-up" style="transition-delay: 200ms;">
-          <div class="widget-header">
-            <h3 class="widget-title">⚡ Aktivitas Terbaru</h3>
-          </div>
-          <div class="activity-list">
-            <div class="activity-item">
-              <div class="act-icon green">✓</div>
-              <div class="act-content">
-                <h4>Kurikulum Operasional Disahkan</h4>
-                <p>Dokumen KOSP 2026/2027 telah berstatus definitif.</p>
-              </div>
-            </div>
-            <div class="activity-item">
-              <div class="act-icon">📄</div>
-              <div class="act-content">
-                <h4>Modul Fikih Diunggah</h4>
-                <p>Ust. Adi Supihadi memperbarui Modul Ajar Fase E.</p>
-              </div>
-            </div>
-            <div class="activity-item">
-              <div class="act-icon yellow">!</div>
-              <div class="act-content">
-                <h4>Review Kalender Akademik</h4>
-                <p>Penyesuaian jadwal libur nasional idul adha.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Widget 4: Quick Actions -->
-        <div class="saas-card bento-col-6 motion-fade-up" style="transition-delay: 300ms;">
-          <div class="widget-header">
-            <h3 class="widget-title">🚀 Quick Actions</h3>
-          </div>
-          <div style="display: flex; flex-direction: column; gap: 12px;">
-            <a href="modul.html" class="btn btn-primary" style="justify-content: flex-start;">+ Buat Modul Baru</a>
-            <button class="btn btn-outline" style="justify-content: flex-start;" onclick="window.AppUtils.openModal('modal-agenda')">+ Tambah Agenda Kalender</button>
-            <a href="dokumen.html" class="btn btn-outline" style="justify-content: flex-start;">📂 Unggah Dokumen Administrasi</a>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </main>
-
-  <!-- Mobile Bottom Nav -->
-  <nav class="bottom-nav">
-    <div class="bottom-nav-inner">
-      <a href="index.html" class="bnav-item active"><span class="bnav-icon">📊</span>Dashboard</a>
-      <a href="kalender.html" class="bnav-item"><span class="bnav-icon">📅</span>Kalender</a>
-      <a href="modul.html" class="bnav-item"><span class="bnav-icon">📚</span>Modul</a>
-      <a href="dokumen.html" class="bnav-item"><span class="bnav-icon">📁</span>Dokumen</a>
-    </div>
-  </nav>
-
-</div>
-
-<!-- Modal Quick Add Agenda -->
-<div class="modal-overlay" id="modal-agenda">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h3>Tambah Agenda Baru</h3>
-      <button class="btn-close">&times;</button>
-    </div>
-    <div class="modal-body">
-      <p style="margin-bottom: 16px;">(Simulasi) Masukkan detail agenda baru untuk kalender akademik.</p>
-      <input type="text" placeholder="Nama Kegiatan..." style="width: 100%; padding: 12px; border-radius: var(--radius-btn); border: 1px solid var(--border); margin-bottom: 12px; font-family: inherit;">
-      <input type="date" style="width: 100%; padding: 12px; border-radius: var(--radius-btn); border: 1px solid var(--border); font-family: inherit;">
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-outline" onclick="window.AppUtils.closeModal('modal-agenda')">Batal</button>
-      <button class="btn btn-primary" onclick="alert('Disimpan (Mockup)'); window.AppUtils.closeModal('modal-agenda')">Simpan Agenda</button>
-    </div>
+<div class="hero">
+  <div class="container">
+    <div class="hero-badge animate-up" id="hero-badge"></div>
+    <h1 class="animate-up delay-100" id="hero-title">Portal Kurikulum</h1>
+    <p class="animate-up delay-200" id="hero-desc"></p>
   </div>
 </div>
+
+<div class="container">
+  <div class="stats-container" id="stats-container">
+    <!-- Injected -->
+  </div>
+
+  <h2 class="section-title animate-up">Pusat Layanan Informasi</h2>
+  <div class="menu-grid">
+    <a href="profil.html" class="menu-card animate-up">
+      <div class="menu-icon">PR</div>
+      <h3>Profil & Regulasi</h3>
+      <p>Pelajari visi, misi, 8 Dimensi Profil Lulusan, Panca Cinta, serta landasan hukum kurikulum madrasah.</p>
+    </a>
+    <a href="struktur.html" class="menu-card animate-up delay-100">
+      <div class="menu-icon">ST</div>
+      <h3>Struktur & Jadwal</h3>
+      <p>Distribusi 22 mata pelajaran, hitungan beban belajar, formula ketuntasan, dan jadwal harian reguler.</p>
+    </a>
+    <a href="kalender.html" class="menu-card animate-up delay-200">
+      <div class="menu-icon">KA</div>
+      <h3>Kalender Akademik</h3>
+      <p>Simulasi interaktif tanggal-tanggal penting, hari efektif, dan libur tahunan.</p>
+    </a>
+    <a href="prota.html" class="menu-card animate-up">
+      <div class="menu-icon">PT</div>
+      <h3>Program Tahunan</h3>
+      <p>Pemetaan dan status terkini seluruh program kerja strategis madrasah dalam satu tahun penuh.</p>
+    </a>
+    <a href="posem.html" class="menu-card animate-up delay-100">
+      <div class="menu-icon">PS</div>
+      <h3>Program Semester</h3>
+      <p>Rincian agenda bulanan terpecah untuk Semester Ganjil dan Genap beserta penempatan momen asesmen.</p>
+    </a>
+    <a href="modul.html" class="menu-card animate-up delay-200">
+      <div class="menu-icon">MA</div>
+      <h3>Modul Ajar</h3>
+      <p>Akses pustaka digital perangkat ajar dan modul pendukung untuk semua mata pelajaran.</p>
+    </a>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <strong id="footer-madrasah">MA Insan Cendekia Nusantara Purwakarta</strong>
+    Pusat Informasi Akademik & Kurikulum<br><br>
+    Waka Kurikulum: <span id="footer-waka"></span> &middot; Dokumen: <span id="footer-doc"></span>
+  </div>
+</footer>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   const MD = window.MASTER_DATA;
   if (!MD) return;
 
-  // Hydrate Data
-  document.getElementById('status-badge').textContent = `Tahun Pelajaran ${MD.meta.tahun_pelajaran} · ${MD.meta.status}`;
-  document.getElementById('stat-he').setAttribute('data-target', MD.headline.hari_efektif);
-  document.getElementById('stat-jp').setAttribute('data-target', MD.headline.total_jp);
-  document.getElementById('stat-sum').setAttribute('data-target', MD.headline.hari_sumatif);
-  
-  // Set User Info based on meta
-  document.getElementById('user-name-display').textContent = MD.meta.waka_kurikulum.split(',')[0];
+  // Hero Section
+  document.getElementById('hero-badge').textContent = `STATUS: ${MD.meta.status}`;
+  document.getElementById('hero-title').textContent = MD.meta.madrasah;
+  document.getElementById('hero-desc').textContent = `Pusat informasi kurikulum dan rekam jejak akademik interaktif untuk Tahun Pelajaran ${MD.meta.tahun_pelajaran}. Dirancang untuk menyajikan data secara transparan dan estetik.`;
+
+  // Footer Section
+  document.getElementById('footer-madrasah').textContent = MD.meta.madrasah;
+  document.getElementById('footer-waka').textContent = MD.meta.waka_kurikulum;
+  document.getElementById('footer-doc').textContent = MD.meta.no_dokumen;
+
+  // Stats
+  const hl = MD.headline;
+  document.getElementById('stats-container').innerHTML = `
+    <div class="stat-card animate-up">
+      <div class="stat-num" data-target="${hl.hari_efektif}">0</div>
+      <div class="stat-label">Hari Efektif</div>
+      <div class="stat-sub">Total PBM Murni</div>
+    </div>
+    <div class="stat-card c-green animate-up delay-100">
+      <div class="stat-num" data-target="${hl.total_jp}">0</div>
+      <div class="stat-label">Total JP</div>
+      <div class="stat-sub">Sen–Kam 10 JP · Jum 8 JP</div>
+    </div>
+    <div class="stat-card c-purple animate-up delay-200">
+      <div class="stat-num" data-target="${hl.minggu_efektif}">0</div>
+      <div class="stat-label">Minggu Efektif</div>
+      <div class="stat-sub">Ganjil ${hl.minggu_ganjil} · Genap ${hl.minggu_genap}</div>
+    </div>
+    <div class="stat-card c-red animate-up delay-300">
+      <div class="stat-num" data-target="${hl.hari_sumatif}">0</div>
+      <div class="stat-label">Hari Sumatif</div>
+      <div class="stat-sub">STS ${hl.sumatif_sts} · SAS ${hl.sumatif_sas}</div>
+    </div>
+    <div class="stat-card c-blue animate-up delay-300">
+      <div class="stat-num" data-target="${hl.jumlah_rombel}">0</div>
+      <div class="stat-label">Rombel</div>
+      <div class="stat-sub">Fase E / Kelas X</div>
+    </div>
+  `;
 });
 </script>
 </body>

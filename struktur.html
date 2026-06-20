@@ -4,230 +4,162 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Struktur & Jadwal — Curriculum OS</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/styles.css">
 <style>
-/* Struktur Specific Styles */
-.section-header { margin-bottom: 24px; display: flex; justify-content: space-between; align-items: flex-end; }
-.section-header h2 { font-size: 1.5rem; color: var(--text-primary); margin-bottom: 8px; }
-.section-header p { color: var(--text-secondary); font-size: 0.95rem; }
+.section-title { font-size: 2rem; font-weight: 800; color: var(--primary); margin: 60px 0 30px; text-align: center; }
 
-.modern-table td.kel-cell { padding: 4px; }
-.kel-badge { font-size: 0.7rem; font-weight: 700; padding: 4px 10px; border-radius: var(--radius-btn); display: inline-block; text-transform: uppercase; }
-.kel-PAI { background: var(--success-bg); color: var(--success); }
-.kel-Umum { background: var(--info-bg); color: var(--info); }
-.kel-MIPA { background: #E0E7FF; color: #4338CA; }
-.kel-IPS { background: var(--warning-bg); color: #B45309; }
-.kel-Seni { background: #FCE7F3; color: #BE185D; }
-.kel-PJOK { background: var(--danger-bg); color: var(--danger); }
-.kel-Bahasa { background: #F3E8FF; color: #7E22CE; }
-.kel-TIK { background: #F1F5F9; color: #475569; }
-.kel-BK { background: #FEF3C7; color: #D97706; }
+.kel-badge { padding: 6px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+.kel-PAI { background: #dcfce7; color: #166534; }
+.kel-Umum { background: #e0f2fe; color: #0369a1; }
+.kel-MIPA { background: #ede9fe; color: #5b21b6; }
+.kel-IPS { background: #ffedd5; color: #9a3412; }
+.kel-Seni { background: #fce7f3; color: #9d174d; }
+.kel-PJOK { background: #fee2e2; color: #991b1b; }
+.kel-Bahasa { background: #fae8ff; color: #86198f; }
+.kel-TIK { background: #f1f5f9; color: #334155; }
+.kel-BK { background: #fef9c3; color: #854d0e; }
+.badge-rekrut { background: #fee2e2; color: #dc2626; padding: 4px 8px; border-radius: 8px; font-size: 0.75rem; font-weight: 700; }
 
-.badge-rekrut { display: inline-flex; align-items: center; gap: 4px; background: var(--danger-bg); color: var(--danger); font-size: 0.75rem; font-weight: 700; padding: 4px 8px; border-radius: 8px; border: 1px solid #FECACA; }
+/* Data Table Container */
+.table-wrap { background: var(--surface); border-radius: var(--radius-lg); padding: 24px; box-shadow: var(--shadow-sm); overflow-x: auto; border: 1px solid var(--border); }
 
-.beban-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 40px; }
-.beban-card { background: var(--surface); border-radius: var(--radius-card); padding: 32px; box-shadow: var(--shadow-1); border: 1px solid var(--border-light); }
-.beban-card h3 { font-size: 1.25rem; color: var(--primary); margin-bottom: 20px; }
-.beban-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px dashed var(--border); font-size: 0.95rem; }
-.beban-item strong { color: var(--text-primary); }
-.beban-item span { font-weight: 600; color: var(--primary); }
-.formula-box { background: var(--primary-dark); color: var(--accent); font-family: 'DM Mono', monospace; font-size: 0.85rem; padding: 16px; border-radius: var(--radius-btn); margin-top: 16px; line-height: 1.6; border: 1px solid rgba(255,255,255,0.1); }
+/* Beban & Jadwal Grid */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 60px; }
+.info-card { background: var(--surface); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-md); border-top: 4px solid var(--accent); }
+.info-card h3 { font-size: 1.3rem; color: var(--primary); margin-bottom: 24px; }
+.info-item { display: flex; justify-content: space-between; padding: 16px 0; border-bottom: 1px dashed var(--border); font-size: 1.05rem; }
+.info-item:last-child { border-bottom: none; }
+.info-item strong { color: var(--text-primary); font-weight: 800; }
+.info-item span { color: var(--primary); font-family: 'DM Mono', monospace; font-weight: 700; font-size: 1.2rem; }
 
-.jadwal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 40px; }
-.jadwal-col { background: var(--surface); border-radius: var(--radius-card); box-shadow: var(--shadow-1); overflow: hidden; border: 1px solid var(--border-light); }
-.jadwal-hdr { background: var(--primary-light); color: white; padding: 16px 24px; font-weight: 800; font-size: 1.1rem; text-align: center; }
-.jadwal-list { list-style: none; padding: 0; margin: 0; }
-.jadwal-list li { display: flex; font-size: 0.9rem; border-bottom: 1px solid var(--border-light); transition: 0.2s; }
-.jadwal-list li:hover { background: var(--surface-hover); }
-.j-time { width: 120px; padding: 16px; font-family: 'Inter', sans-serif; font-weight: 700; color: var(--text-primary); background: var(--bg); flex-shrink: 0; border-right: 1px solid var(--border-light); }
-.j-act { padding: 16px; color: var(--text-secondary); font-weight: 600; flex-grow: 1; }
+.kktp-box { background: var(--bg); padding: 16px; border-radius: var(--radius-md); text-align: center; border: 1px solid var(--border); flex: 1; }
+.kktp-box .lbl { font-size: 0.8rem; font-weight: 800; color: var(--text-secondary); text-transform: uppercase; }
+.kktp-box .val { font-size: 2rem; font-weight: 800; color: var(--primary); font-family: 'DM Mono', monospace; }
 
-.j-ibadah { background: var(--warning-bg) !important; }
-.j-ibadah .j-time { background: transparent; color: #B45309; border-right-color: rgba(180, 83, 9, 0.2); }
-.j-ibadah .j-act { color: #B45309; font-weight: 800; }
+/* Jadwal Harian */
+.jadwal-hdr { background: var(--primary); color: var(--surface); padding: 16px; font-weight: 800; text-align: center; border-radius: var(--radius-md) var(--radius-md) 0 0; }
+.jadwal-list { list-style: none; border: 1px solid var(--border); border-top: none; border-radius: 0 0 var(--radius-md) var(--radius-md); background: var(--surface); }
+.jadwal-list li { display: flex; border-bottom: 1px solid var(--border); }
+.jadwal-list li:last-child { border-bottom: none; }
+.j-time { padding: 16px; width: 130px; border-right: 1px solid var(--border); font-family: 'DM Mono', monospace; font-weight: 700; color: var(--primary); background: rgba(26,71,49,0.02); }
+.j-act { padding: 16px; font-weight: 600; color: var(--text-primary); }
+.j-ibadah { background: #fffbeb !important; }
+.j-ibadah .j-time { color: #d97706; background: transparent; }
+.j-ibadah .j-act { color: #d97706; font-weight: 800; }
 
-@media (max-width: 1024px) { .beban-grid, .jadwal-grid { grid-template-columns: 1fr; } }
+@media (max-width: 900px) { .grid-2 { grid-template-columns: 1fr; } }
 </style>
 <script src="data.js"></script>
 <script src="assets/app.js"></script>
 </head>
 <body>
 
-<div class="app-layout">
-  
-  <aside class="sidebar" id="app-sidebar">
-    <div class="sidebar-header">
-      <div class="sidebar-brand">
-        <img src="assets/iconmaicn.png" alt="MA ICN">
-        <span>Curriculum OS</span>
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-brand">
+    <img src="assets/iconmaicn.png" alt="Logo">
+    MA ICN
+  </a>
+  <button class="nav-toggle" id="nav-toggle">☰</button>
+  <div class="nav-links" id="nav-links">
+    <a href="index.html">Beranda</a>
+    <a href="profil.html">Profil</a>
+    <a href="struktur.html" class="active">Struktur</a>
+    <a href="kalender.html">Kalender</a>
+    <a href="prota.html">Prota</a>
+    <a href="posem.html">Posem</a>
+    <a href="modul.html">Modul</a>
+    <a href="dokumen.html">Dokumen</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <h1 class="animate-up">Struktur & Jadwal</h1>
+    <p class="animate-up delay-100">Pemetaan beban ajar, kriteria ketuntasan, dan alokasi waktu kegiatan belajar mengajar.</p>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="grid-2">
+    <div class="info-card animate-up delay-200">
+      <h3>Beban Belajar Mingguan</h3>
+      <div id="beban-container"></div>
+    </div>
+    <div class="info-card animate-up delay-300">
+      <h3>Kriteria Ketuntasan (KKTP)</h3>
+      <div style="display:flex; gap:16px; margin-bottom:24px;" id="kktp-container"></div>
+      <div style="font-size:0.9rem; color:var(--text-secondary); background:var(--bg); padding:16px; border-radius:var(--radius-sm); border:1px solid var(--border);">
+        <strong>Formula Rapor:</strong><br>
+        <span style="font-family:'DM Mono', monospace; color:var(--primary);" id="formula-text"></span>
       </div>
     </div>
-    <div class="sidebar-menu">
-      <div style="font-size: 0.7rem; font-weight: 700; color: var(--text-secondary); margin: 10px 0 5px 16px; text-transform: uppercase;">Menu Utama</div>
-      <a href="index.html" class="nav-item"><span class="nav-icon">📊</span> Dashboard</a>
-      <a href="kalender.html" class="nav-item"><span class="nav-icon">📅</span> Kalender Akademik</a>
-      <a href="struktur.html" class="nav-item active"><span class="nav-icon">🏗️</span> Struktur & Jadwal</a>
-      <a href="modul.html" class="nav-item"><span class="nav-icon">📚</span> Modul Ajar</a>
-      
-      <div style="font-size: 0.7rem; font-weight: 700; color: var(--text-secondary); margin: 20px 0 5px 16px; text-transform: uppercase;">Perencanaan</div>
-      <a href="prota.html" class="nav-item"><span class="nav-icon">📑</span> Program Tahunan</a>
-      <a href="posem.html" class="nav-item"><span class="nav-icon">📋</span> Program Semester</a>
-      
-      <div style="font-size: 0.7rem; font-weight: 700; color: var(--text-secondary); margin: 20px 0 5px 16px; text-transform: uppercase;">Administrasi</div>
-      <a href="dokumen.html" class="nav-item"><span class="nav-icon">📁</span> File Explorer</a>
-      <a href="profil.html" class="nav-item"><span class="nav-icon">🏫</span> Profil & Regulasi</a>
-    </div>
-  </aside>
+  </div>
 
-  <main class="main-wrapper">
-    <header class="topbar">
-      <div class="topbar-left">
-        <button class="btn-mobile-menu" id="btn-mobile-menu">☰</button>
-        <div class="global-search">
-          <span class="search-icon">🔍</span>
-          <input type="text" id="global-search-input" placeholder="Cari mata pelajaran, guru, atau jadwal...">
-        </div>
-      </div>
-      <div class="topbar-right">
-        <div class="top-action"><span class="badge-dot"></span>🔔</div>
-        <div class="user-profile">
-          <div class="user-avatar">MK</div>
-        </div>
-      </div>
-    </header>
+  <h2 class="section-title animate-up">Distribusi Mata Pelajaran</h2>
+  <div class="table-wrap animate-up delay-100">
+    <table class="data-table" id="dist-table">
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Mata Pelajaran</th>
+          <th>Kelompok</th>
+          <th>Guru Pengampu</th>
+          <th style="text-align:center">JP/Minggu</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
 
-    <div class="content-area">
-      
-      <div class="section-header motion-fade-up">
-        <div>
-          <h2>Distribusi Mata Pelajaran</h2>
-          <p>Pemetaan jam pelajaran (JP) dan guru pengampu per kelompok mata pelajaran.</p>
-        </div>
-        <button class="btn btn-outline">↓ Ekspor Excel</button>
-      </div>
-
-      <div class="table-responsive motion-fade-up" style="margin-bottom: 40px; transition-delay: 50ms;">
-        <table class="modern-table" id="dist-table">
-          <thead>
-            <tr>
-              <th>No</th>
-              <th>Mata Pelajaran</th>
-              <th>Kelompok</th>
-              <th>Guru Pengampu</th>
-              <th style="text-align:center">JP/Kls</th>
-              <th style="text-align:center">JP 4Kls</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Injected -->
-          </tbody>
-        </table>
-      </div>
-
-      <div class="section-header motion-fade-up">
-        <div>
-          <h2>Beban Belajar & Asesmen</h2>
-          <p>Rincian beban JP per minggu dan kebijakan penilaian/ketuntasan.</p>
-        </div>
-      </div>
-
-      <div class="beban-grid motion-fade-up" id="beban-container" style="transition-delay: 100ms;">
-        <!-- Injected -->
-      </div>
-
-      <div class="section-header motion-fade-up">
-        <div>
-          <h2>Jadwal Harian Reguler</h2>
-          <p>Alokasi waktu KBM dan kegiatan ibadah harian madrasah.</p>
-        </div>
-      </div>
-
-      <div class="jadwal-grid motion-fade-up" id="jadwal-container" style="transition-delay: 150ms;">
-        <!-- Injected -->
-      </div>
-
-    </div>
-  </main>
-
-  <nav class="bottom-nav">
-    <div class="bottom-nav-inner">
-      <a href="index.html" class="bnav-item"><span class="bnav-icon">📊</span>Dashboard</a>
-      <a href="struktur.html" class="bnav-item active"><span class="bnav-icon">🏗️</span>Struktur</a>
-      <a href="modul.html" class="bnav-item"><span class="bnav-icon">📚</span>Modul</a>
-      <a href="dokumen.html" class="bnav-item"><span class="bnav-icon">📁</span>Dokumen</a>
-    </div>
-  </nav>
+  <h2 class="section-title animate-up">Jadwal Harian Reguler</h2>
+  <div class="grid-2" id="jadwal-container" style="margin-bottom: 0;"></div>
 
 </div>
+
+<footer>
+  <div class="container">
+    <strong id="footer-madrasah">MA Insan Cendekia Nusantara Purwakarta</strong>
+    Pusat Informasi Akademik & Kurikulum
+  </div>
+</footer>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   const MD = window.MASTER_DATA;
   if (!MD) return;
 
-  // 1. Render Distribusi JP
+  // Beban
+  const beban = MD.struktur_beban;
+  document.getElementById('beban-container').innerHTML = Object.entries(beban.beban_per_minggu).map(([k,v]) => `
+    <div class="info-item"><strong>${k}</strong><span>${v} JP</span></div>
+  `).join('');
+  document.getElementById('kktp-container').innerHTML = Object.entries(beban.kktp).map(([k,v]) => `
+    <div class="kktp-box"><div class="lbl">${k}</div><div class="val">${v}</div></div>
+  `).join('');
+  document.getElementById('formula-text').innerText = beban.formula_rapor;
+
+  // Distribusi
   const tbody = document.querySelector('#dist-table tbody');
   let distHtml = '';
-  let totJP = 0, tot4K = 0;
-
   MD.distribusi_jp.forEach(r => {
     let kelKey = r.kelompok.replace(/[^a-zA-Z]/g, '');
     let guru = r.guru;
     if (guru === 'Dalam Proses Rekrutmen' || r.mapel.toLowerCase().includes('ekonomi')) {
-      guru = `<span class="badge-rekrut"><span>⚠</span> Rekrutmen</span>`;
+      guru = `<span class="badge-rekrut">Dalam Penugasan</span>`;
     }
-    
     distHtml += `<tr>
-      <td data-label="No" style="font-weight:700; color:var(--text-secondary); width: 60px;">${String(r.no).padStart(2,'0')}</td>
-      <td data-label="Mata Pelajaran" style="font-weight:700;">${r.mapel}</td>
-      <td data-label="Kelompok" class="kel-cell"><span class="kel-badge kel-${kelKey}">${r.kelompok}</span></td>
-      <td data-label="Guru Pengampu">${guru}</td>
-      <td data-label="JP/Minggu/Kls" style="text-align:center; font-family:'Inter',sans-serif; font-weight:700; color:var(--primary);">${r.jp_minggu_kelas}</td>
-      <td data-label="JP 4 Kelas" style="text-align:center; font-family:'Inter',sans-serif; font-weight:700;">${r.total_jp_minggu_4kelas}</td>
+      <td>${String(r.no).padStart(2,'0')}</td>
+      <td style="font-weight:700;">${r.mapel}</td>
+      <td><span class="kel-badge kel-${kelKey}">${r.kelompok}</span></td>
+      <td>${guru}</td>
+      <td style="text-align:center; font-family:'DM Mono',monospace; font-weight:800; color:var(--primary); font-size:1.1rem;">${r.jp_minggu_kelas}</td>
     </tr>`;
-    
-    totJP += r.jp_minggu_kelas;
-    tot4K += r.total_jp_minggu_4kelas;
   });
-
-  distHtml += `<tr style="background: var(--surface-hover); border-top: 2px solid var(--border);">
-    <td colspan="4" style="text-align:right; font-weight:800; color:var(--primary);">TOTAL BEBAN MENGAJAR</td>
-    <td style="text-align:center; font-family:'Inter',sans-serif; font-weight:800; font-size: 1.1rem; color:var(--primary);">${totJP}</td>
-    <td style="text-align:center; font-family:'Inter',sans-serif; font-weight:800; font-size: 1.1rem; color:var(--text-primary);">${tot4K}</td>
-  </tr>`;
   tbody.innerHTML = distHtml;
 
-  // 2. Render Beban Belajar
-  const beban = MD.struktur_beban;
-  document.getElementById('beban-container').innerHTML = `
-    <div class="beban-card">
-      <h3>Beban Belajar per Minggu</h3>
-      <div class="beban-item"><strong>Kelas X</strong><span>${beban.beban_per_minggu['Kelas X']} JP</span></div>
-      <div class="beban-item"><strong>Kelas XI</strong><span>${beban.beban_per_minggu['Kelas XI']} JP</span></div>
-      <div class="beban-item"><strong>Kelas XII</strong><span>${beban.beban_per_minggu['Kelas XII']} JP</span></div>
-      <p style="margin-top:16px; font-size:0.85rem; color:var(--text-secondary);">* Termasuk intrakurikuler dan kokurikuler (4 JP/minggu).</p>
-    </div>
-    <div class="beban-card">
-      <h3>Asesmen & Kriteria Ketuntasan</h3>
-      <div style="display:flex; gap:16px; margin-bottom: 20px;">
-        <div style="flex:1; background:var(--surface-hover); padding:16px; border-radius:12px; border:1px solid var(--border-light); text-align:center;">
-          <div style="font-size:0.8rem; font-weight:700; color:var(--text-secondary);">KKTP X</div>
-          <div style="font-size:1.5rem; font-weight:800; color:var(--success);">${beban.kktp['Kelas X']}</div>
-        </div>
-        <div style="flex:1; background:var(--surface-hover); padding:16px; border-radius:12px; border:1px solid var(--border-light); text-align:center;">
-          <div style="font-size:0.8rem; font-weight:700; color:var(--text-secondary);">KKTP XI</div>
-          <div style="font-size:1.5rem; font-weight:800; color:var(--success);">${beban.kktp['Kelas XI']}</div>
-        </div>
-        <div style="flex:1; background:var(--surface-hover); padding:16px; border-radius:12px; border:1px solid var(--border-light); text-align:center;">
-          <div style="font-size:0.8rem; font-weight:700; color:var(--text-secondary);">KKTP XII</div>
-          <div style="font-size:1.5rem; font-weight:800; color:var(--success);">${beban.kktp['Kelas XII']}</div>
-        </div>
-      </div>
-      <div class="formula-box">${beban.formula_rapor}</div>
-    </div>
-  `;
-
-  // 3. Render Jadwal
+  // Jadwal
   const jadwal = MD.jadwal_harian;
   function isIbadah(text) {
     const t = text.toLowerCase();
@@ -241,33 +173,16 @@ document.addEventListener('DOMContentLoaded', () => {
       </li>
     `).join('');
   }
-
   document.getElementById('jadwal-container').innerHTML = `
-    <div class="jadwal-col">
+    <div class="animate-up">
       <div class="jadwal-hdr">Senin &ndash; Kamis (${jadwal.senin_kamis.total_jp} JP)</div>
       <ul class="jadwal-list">${renderSlot(jadwal.senin_kamis.slot)}</ul>
     </div>
-    <div class="jadwal-col">
-      <div class="jadwal-hdr" style="background:var(--primary-dark);">Jumat (${jadwal.jumat.total_jp} JP)</div>
+    <div class="animate-up delay-100">
+      <div class="jadwal-hdr" style="background:var(--accent); color:#fff;">Jumat (${jadwal.jumat.total_jp} JP)</div>
       <ul class="jadwal-list">${renderSlot(jadwal.jumat.slot)}</ul>
     </div>
-    <div style="grid-column: 1 / -1; background: var(--info-bg); color: var(--info); padding: 16px; border-radius: var(--radius-btn); font-weight: 600; font-size: 0.9rem; text-align: center;">
-      ℹ️ Catatan: ${jadwal.catatan} Durasi 1 JP = ${jadwal.durasi_jp_menit} menit.
-    </div>
   `;
-
-  // Re-run observer
-  setTimeout(() => {
-    const observer = new IntersectionObserver((entries, obs) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-          obs.unobserve(entry.target);
-        }
-      });
-    }, { rootMargin: '0px 0px -50px 0px', threshold: 0.1 });
-    document.querySelectorAll('.motion-fade-up, .motion-scale').forEach(el => observer.observe(el));
-  }, 100);
 });
 </script>
 </body>

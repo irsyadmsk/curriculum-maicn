@@ -4,156 +4,85 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Modul Ajar — Curriculum OS</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/styles.css">
 <style>
-/* Modul Specific Styles */
-.header-actions { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
-.view-modes { display: flex; gap: 8px; }
-.view-btn { padding: 8px 12px; border-radius: var(--radius-btn); background: var(--surface); border: 1px solid var(--border); color: var(--text-secondary); cursor: pointer; transition: 0.2s; }
-.view-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+.modul-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; margin-bottom: 80px; }
+.modul-card { background: var(--surface); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--border); transition: 0.3s; display: flex; flex-direction: column; cursor: pointer; }
+.modul-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-md); border-color: var(--accent); }
+.modul-thumb { height: 160px; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+.modul-thumb::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,0.2) 1px, transparent 1px); background-size: 20px 20px; }
+.modul-icon { font-size: 3rem; color: var(--accent); position: relative; z-index: 2; }
+.modul-info { padding: 24px; display: flex; flex-direction: column; flex-grow: 1; }
+.m-tag { font-size: 0.7rem; font-weight: 800; color: var(--primary); background: var(--bg); padding: 6px 12px; border-radius: 20px; align-self: flex-start; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px; }
+.m-title { font-size: 1.2rem; font-weight: 800; color: var(--text-primary); margin-bottom: 8px; line-height: 1.3; }
+.m-guru { margin-top: auto; padding-top: 16px; border-top: 1px dashed var(--border); font-size: 0.85rem; font-weight: 700; color: var(--text-secondary); display: flex; align-items: center; gap: 8px; }
 
-/* Filter Bar */
-.modul-filter { display: flex; gap: 16px; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border-light); overflow-x: auto; }
-.modul-filter select { padding: 8px 16px; border-radius: var(--radius-btn); border: 1px solid var(--border); background: var(--surface); font-family: inherit; font-size: 0.85rem; color: var(--text-primary); outline: none; }
-.modul-filter select:focus { border-color: var(--primary); }
-
-/* Netflix/Notion Grid */
-.modul-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
-.modul-card { background: var(--surface); border-radius: var(--radius-card); border: 1px solid var(--border-light); overflow: hidden; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: var(--shadow-1); display: flex; flex-direction: column; cursor: pointer; position: relative; }
-.modul-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-2); border-color: var(--primary-light); }
-.modul-thumb { height: 140px; background: linear-gradient(135deg, var(--surface-hover) 0%, var(--border-light) 100%); position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-.modul-thumb img { width: 100%; height: 100%; object-fit: cover; opacity: 0.5; transition: 0.3s; }
-.modul-card:hover .modul-thumb img { opacity: 0.8; transform: scale(1.05); }
-
-/* Hover Overlay Actions */
-.modul-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.7); display: flex; align-items: center; justify-content: center; gap: 12px; opacity: 0; transition: 0.3s; }
-.modul-thumb:hover .modul-overlay { opacity: 1; }
-.btn-overlay { width: 40px; height: 40px; border-radius: 50%; background: var(--surface); color: var(--primary); border: none; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; cursor: pointer; transition: 0.2s; transform: translateY(10px); }
-.modul-thumb:hover .btn-overlay { transform: translateY(0); }
-.btn-overlay:hover { background: var(--primary); color: white; transform: scale(1.1); }
-.btn-overlay:nth-child(2) { transition-delay: 50ms; }
-.btn-overlay:nth-child(3) { transition-delay: 100ms; }
-
-.modul-info { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; }
-.m-tag { font-size: 0.7rem; font-weight: 700; color: var(--info); background: var(--info-bg); padding: 4px 10px; border-radius: 12px; display: inline-block; align-self: flex-start; margin-bottom: 10px; text-transform: uppercase; }
-.m-title { font-size: 1.1rem; font-weight: 800; color: var(--text-primary); margin-bottom: 6px; line-height: 1.4; }
-.m-meta { font-size: 0.8rem; color: var(--text-secondary); display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
-.m-guru { margin-top: auto; padding-top: 16px; border-top: 1px solid var(--border-light); font-size: 0.85rem; font-weight: 600; color: var(--text-primary); display: flex; align-items: center; gap: 8px; }
-.m-avatar { width: 24px; height: 24px; border-radius: 50%; background: var(--primary-light); color: white; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: 800; }
-
-/* Iframe Preview Modal */
-.iframe-container { width: 100%; height: 60vh; background: var(--surface-hover); border-radius: var(--radius-btn); border: 1px solid var(--border); overflow: hidden; display: flex; align-items: center; justify-content: center; color: var(--text-secondary); font-size: 0.9rem; }
-.iframe-container iframe { width: 100%; height: 100%; border: none; }
+/* Filter */
+.filter-bar { display: flex; gap: 16px; margin-bottom: 40px; overflow-x: auto; padding-bottom: 8px; justify-content: center; }
+.filter-select { padding: 10px 20px; border-radius: 100px; border: 1px solid var(--border); font-family: inherit; font-size: 0.9rem; font-weight: 600; color: var(--text-primary); background: var(--surface); outline: none; transition: 0.3s; cursor: pointer; }
+.filter-select:hover { border-color: var(--primary); }
 </style>
 <script src="data.js"></script>
 <script src="assets/app.js"></script>
 </head>
 <body>
 
-<div class="app-layout">
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-brand">
+    <img src="assets/iconmaicn.png" alt="Logo">
+    MA ICN
+  </a>
+  <button class="nav-toggle" id="nav-toggle">☰</button>
+  <div class="nav-links" id="nav-links">
+    <a href="index.html">Beranda</a>
+    <a href="profil.html">Profil</a>
+    <a href="struktur.html">Struktur</a>
+    <a href="kalender.html">Kalender</a>
+    <a href="prota.html">Prota</a>
+    <a href="posem.html">Posem</a>
+    <a href="modul.html" class="active">Modul</a>
+    <a href="dokumen.html">Dokumen</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <h1 class="animate-up">Pustaka Modul Ajar</h1>
+    <p class="animate-up delay-100">Kumpulan perangkat ajar publik dan modul panduan belajar untuk peserta didik.</p>
+  </div>
+</div>
+
+<div class="container">
   
-  <aside class="sidebar" id="app-sidebar">
-    <div class="sidebar-header">
-      <div class="sidebar-brand">
-        <img src="assets/iconmaicn.png" alt="MA ICN">
-        <span>Curriculum OS</span>
-      </div>
-    </div>
-    <div class="sidebar-menu">
-      <div style="font-size: 0.7rem; font-weight: 700; color: var(--text-secondary); margin: 10px 0 5px 16px; text-transform: uppercase;">Menu Utama</div>
-      <a href="index.html" class="nav-item"><span class="nav-icon">📊</span> Dashboard</a>
-      <a href="kalender.html" class="nav-item"><span class="nav-icon">📅</span> Kalender Akademik</a>
-      <a href="struktur.html" class="nav-item"><span class="nav-icon">🏗️</span> Struktur & Jadwal</a>
-      <a href="modul.html" class="nav-item active"><span class="nav-icon">📚</span> Modul Ajar</a>
-      
-      <div style="font-size: 0.7rem; font-weight: 700; color: var(--text-secondary); margin: 20px 0 5px 16px; text-transform: uppercase;">Perencanaan</div>
-      <a href="prota.html" class="nav-item"><span class="nav-icon">📑</span> Program Tahunan</a>
-      <a href="posem.html" class="nav-item"><span class="nav-icon">📋</span> Program Semester</a>
-      
-      <div style="font-size: 0.7rem; font-weight: 700; color: var(--text-secondary); margin: 20px 0 5px 16px; text-transform: uppercase;">Administrasi</div>
-      <a href="dokumen.html" class="nav-item"><span class="nav-icon">📁</span> File Explorer</a>
-      <a href="profil.html" class="nav-item"><span class="nav-icon">🏫</span> Profil & Regulasi</a>
-    </div>
-  </aside>
+  <div class="filter-bar animate-up delay-200">
+    <select class="filter-select"><option>Semua Kelas</option><option>Kelas X</option></select>
+    <select class="filter-select"><option>Semua Rumpun</option><option>MIPA</option><option>PAI</option><option>Bahasa</option></select>
+  </div>
 
-  <main class="main-wrapper">
-    <header class="topbar">
-      <div class="topbar-left">
-        <button class="btn-mobile-menu" id="btn-mobile-menu">☰</button>
-        <div class="global-search">
-          <span class="search-icon">🔍</span>
-          <input type="text" id="global-search-input" placeholder="Cari modul, guru, mapel...">
-        </div>
-      </div>
-      <div class="topbar-right">
-        <div class="top-action"><span class="badge-dot"></span>🔔</div>
-        <div class="user-profile">
-          <div class="user-avatar">MK</div>
-        </div>
-      </div>
-    </header>
-
-    <div class="content-area">
-      
-      <div class="header-actions motion-fade-up">
-        <div>
-          <h2>Modul Ajar</h2>
-          <p>Kelola dan pratinjau seluruh perangkat ajar kurikulum.</p>
-        </div>
-        <div style="display: flex; gap: 12px;">
-          <div class="view-modes">
-            <button class="view-btn active">Grid</button>
-            <button class="view-btn">List</button>
-          </div>
-          <button class="btn btn-primary">+ Modul Baru</button>
-        </div>
-      </div>
-
-      <div class="modul-filter motion-fade-up" style="transition-delay: 100ms;">
-        <select><option>Semua Kelas</option><option>Kelas X</option></select>
-        <select><option>Semua Kelompok</option><option>PAI</option><option>MIPA</option><option>Umum</option></select>
-        <select><option>Semua Status</option><option>Selesai</option><option>Revisi</option></select>
-      </div>
-
-      <div class="modul-grid" id="modul-grid">
-        <!-- Injected by JS -->
-      </div>
-
-    </div>
-  </main>
-
-  <!-- Mobile Bottom Nav -->
-  <nav class="bottom-nav">
-    <div class="bottom-nav-inner">
-      <a href="index.html" class="bnav-item"><span class="bnav-icon">📊</span>Dashboard</a>
-      <a href="kalender.html" class="bnav-item"><span class="bnav-icon">📅</span>Kalender</a>
-      <a href="modul.html" class="bnav-item active"><span class="bnav-icon">📚</span>Modul</a>
-      <a href="dokumen.html" class="bnav-item"><span class="bnav-icon">📁</span>Dokumen</a>
-    </div>
-  </nav>
+  <div class="modul-grid" id="modul-grid">
+    <!-- Injected by JS -->
+  </div>
 
 </div>
 
-<!-- Preview Modal -->
+<footer>
+  <div class="container">
+    <strong id="footer-madrasah">MA Insan Cendekia Nusantara Purwakarta</strong>
+    Pusat Informasi Akademik & Kurikulum
+  </div>
+</footer>
+
 <div class="modal-overlay" id="modal-preview">
-  <div class="modal-content" style="max-width: 800px; width: 95%;">
-    <div class="modal-header">
-      <div style="display: flex; align-items: center; gap: 12px;">
-        <h3 id="pv-title">Preview Modul</h3>
-        <span class="pill green" style="font-size: 0.6rem;">Tersemat</span>
-      </div>
-      <button class="btn-close">&times;</button>
+  <div class="modal-box" style="max-width: 800px; width: 95%;">
+    <button class="btn-close" onclick="window.AppUtils.closeModal('modal-preview')">&times;</button>
+    <h3 id="pv-title" style="font-size: 1.5rem; color: var(--primary); margin-bottom: 24px; padding-right: 20px;">Preview Modul</h3>
+    <div style="background: var(--bg); border-radius: var(--radius-md); padding: 40px; text-align: center; border: 1px solid var(--border);">
+      <div style="font-size: 4rem; margin-bottom: 16px;">📚</div>
+      <p style="color: var(--text-secondary); font-weight: 600;">(Simulasi Dokumen Embed PDF / GDocs)</p>
     </div>
-    <div class="modal-body" style="padding: 16px;">
-      <div class="iframe-container" id="iframe-wrap">
-        <!-- Mock iframe for preview -->
-        [ Area Link Sematan / Iframe ]<br>
-        Dokumen Google Docs, Canva, atau PDF akan dirender langsung di sini.
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-outline" onclick="window.AppUtils.closeModal('modal-preview')">Tutup</button>
-      <button class="btn btn-primary">Buka Tab Baru</button>
+    <div style="margin-top: 24px; text-align: center;">
+      <button class="btn btn-primary" onclick="window.AppUtils.closeModal('modal-preview')">Tutup Pratinjau</button>
     </div>
   </div>
 </div>
@@ -166,32 +95,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const grid = document.getElementById('modul-grid');
   let html = '';
 
-  // Generate mockup cards based on distribusi_jp data to show real subjects and teachers
   MD.distribusi_jp.forEach((r, i) => {
-    let delay = (i % 6) * 50; // Staggered reveal
     let guru = r.guru;
-    if(guru.includes('Rekrutmen')) guru = "Guru Pengganti (TBD)";
-    let inisial = guru.substring(0, 2).toUpperCase();
-
+    if(guru.includes('Rekrutmen')) guru = "Dalam Penugasan";
+    
     html += `
-    <div class="modul-card motion-fade-up" style="transition-delay: ${delay}ms;">
+    <div class="modul-card animate-up" onclick="window.AppUtils.openModal('modal-preview'); document.getElementById('pv-title').innerText = 'Modul: ${r.mapel}';">
       <div class="modul-thumb">
-        <div style="font-family:'DM Mono', monospace; font-size: 3rem; color: var(--border); font-weight:800; opacity:0.3;">${r.kelompok}</div>
-        <div class="modul-overlay">
-          <button class="btn-overlay" onclick="window.previewModul('${r.mapel}')" title="Preview">👁</button>
-          <button class="btn-overlay" title="Edit">✎</button>
-          <button class="btn-overlay" title="Copy Link">🔗</button>
-        </div>
+        <div class="modul-icon">📖</div>
       </div>
       <div class="modul-info">
         <span class="m-tag">${r.kelompok}</span>
-        <h3 class="m-title">Modul Ajar ${r.mapel}</h3>
-        <div class="m-meta"><span>📍 Fase E (Kelas X)</span></div>
-        <div class="m-meta"><span>🕒 Semester Ganjil 2026</span></div>
-        <div class="m-guru">
-          <div class="m-avatar">${inisial}</div>
-          <span>${guru}</span>
-        </div>
+        <h3 class="m-title">${r.mapel}</h3>
+        <div class="m-guru">👤 ${guru}</div>
       </div>
     </div>
     `;
@@ -199,11 +115,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   grid.innerHTML = html;
 });
-
-window.previewModul = function(mapel) {
-  document.getElementById('pv-title').innerText = "Preview: " + mapel;
-  window.AppUtils.openModal('modal-preview');
-};
 </script>
 </body>
 </html>

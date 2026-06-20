@@ -4,45 +4,55 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Kalender Akademik — Curriculum OS</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/styles.css">
 <style>
-/* Calendar Specific SaaS Styles */
-.cal-header-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
-.cal-title-group { display: flex; align-items: center; gap: 16px; }
-.cal-title-group h2 { font-size: 1.5rem; margin: 0; }
-.cal-view-toggles { display: flex; background: var(--surface-hover); border: 1px solid var(--border); border-radius: var(--radius-btn); padding: 4px; }
-.cal-view-btn { padding: 6px 16px; border-radius: 10px; font-size: 0.85rem; font-weight: 600; cursor: pointer; border: none; background: transparent; color: var(--text-secondary); transition: 0.2s; }
-.cal-view-btn.active { background: var(--surface); color: var(--primary); box-shadow: var(--shadow-1); }
+.cal-filters { display: flex; justify-content: center; gap: 12px; margin-bottom: 40px; flex-wrap: wrap; }
+.filter-btn { padding: 8px 24px; border-radius: 100px; font-weight: 700; font-size: 0.9rem; border: 1px solid var(--border); background: var(--surface); color: var(--text-secondary); cursor: pointer; transition: 0.3s; }
+.filter-btn:hover { border-color: var(--primary); color: var(--primary); }
+.filter-btn.active { background: var(--primary); color: var(--surface); border-color: var(--primary); box-shadow: var(--shadow-sm); }
 
-.filter-bar { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
-.filter-pill { padding: 6px 16px; border-radius: var(--radius-full); font-size: 0.8rem; font-weight: 600; cursor: pointer; border: 1px solid var(--border); background: var(--surface); color: var(--text-secondary); transition: 0.2s; }
-.filter-pill:hover { border-color: var(--text-secondary); }
-.filter-pill.active { border-color: var(--primary); background: var(--primary); color: var(--surface); }
+.legend-bar { display: flex; justify-content: center; gap: 16px; margin-bottom: 40px; flex-wrap: wrap; }
+.legend-item { font-size: 0.85rem; font-weight: 700; display: flex; align-items: center; gap: 6px; color: var(--text-secondary); }
+.legend-dot { width: 12px; height: 12px; border-radius: 50%; }
 
-/* Notion/Google Calendar Grid */
-.calendar-container { background: var(--surface); border-radius: var(--radius-card); border: 1px solid var(--border-light); box-shadow: var(--shadow-1); overflow: hidden; display: flex; flex-direction: column; }
-.calendar-days-header { display: grid; grid-template-columns: repeat(7, 1fr); background: var(--surface-hover); border-bottom: 1px solid var(--border-light); }
-.day-name { padding: 12px; text-align: center; font-size: 0.8rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; }
+.month-block { margin-bottom: 60px; }
+.month-title { font-size: 1.5rem; font-weight: 800; color: var(--primary); margin-bottom: 24px; display: flex; align-items: center; gap: 16px; justify-content: center; }
+.sem-badge { font-size: 0.75rem; font-weight: 800; padding: 6px 16px; border-radius: 20px; background: var(--accent-light); color: #7F6000; letter-spacing: 1px; text-transform: uppercase; }
 
-.calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); grid-auto-rows: minmax(120px, auto); }
-.cal-cell { border-right: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); padding: 8px; transition: background 0.2s; cursor: pointer; position: relative; }
-.cal-cell:nth-child(7n) { border-right: none; }
-.cal-cell:hover { background: var(--surface-hover); }
-.cal-date-num { font-size: 0.9rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px; display: inline-block; width: 28px; height: 28px; text-align: center; line-height: 28px; border-radius: 50%; }
-.cal-cell.today .cal-date-num { background: var(--primary); color: var(--surface); }
+.cal-wrapper { background: var(--surface); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-md); border: 1px solid var(--border); }
+.cal-days { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; margin-bottom: 16px; font-weight: 800; color: var(--text-secondary); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
+.cal-cell { aspect-ratio: 1; border-radius: var(--radius-sm); border: 1px solid var(--border); padding: 8px; position: relative; transition: 0.3s; display: flex; flex-direction: column; }
+.cal-cell.empty { border: none; background: transparent; }
+.cal-cell:not(.empty):hover { border-color: var(--primary); box-shadow: var(--shadow-sm); transform: scale(1.02); z-index: 10; background: var(--surface); }
 
-/* Event Blocks */
-.cal-event { padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; border-left: 3px solid transparent; transition: transform 0.1s; }
-.cal-event:hover { transform: scale(1.02); filter: brightness(0.95); }
-.event-pembelajaran { background: var(--success-bg); color: var(--success); border-left-color: var(--success); }
-.event-libur { background: var(--danger-bg); color: var(--danger); border-left-color: var(--danger); }
-.event-kegiatan { background: var(--warning-bg); color: #B45309; border-left-color: var(--warning); }
-.event-asesmen { background: var(--info-bg); color: var(--info); border-left-color: var(--info); }
-.event-program { background: #F3E8FF; color: #7E22CE; border-left-color: #9333EA; }
+.cal-date-num { font-weight: 800; font-size: 1.1rem; color: var(--text-primary); margin-bottom: auto; }
+.cal-cell.today { background: var(--accent-light); border-color: var(--accent); }
+.cal-cell.today .cal-date-num { color: #7F6000; }
+
+.cal-event-dot { width: 8px; height: 8px; border-radius: 50%; position: absolute; bottom: 8px; right: 8px; }
+.cal-event-text { font-size: 0.65rem; font-weight: 700; background: var(--bg); padding: 2px 6px; border-radius: 4px; margin-top: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer; border-left: 2px solid transparent; }
+.cal-event-text:hover { filter: brightness(0.95); }
+
+/* Event Colors */
+.c-he { color: var(--primary); border-left-color: var(--primary); }
+.c-he-bg { background: var(--primary); }
+.c-ln { color: #dc2626; border-left-color: #dc2626; }
+.c-ln-bg { background: #dc2626; }
+.c-ks { color: #d97706; border-left-color: #d97706; }
+.c-ks-bg { background: #d97706; }
+.c-as { color: #2563eb; border-left-color: #2563eb; }
+.c-as-bg { background: #2563eb; }
+.c-pr { color: #7c3aed; border-left-color: #7c3aed; }
+.c-pr-bg { background: #7c3aed; }
 
 @media (max-width: 768px) {
-  .calendar-grid { grid-auto-rows: minmax(80px, auto); }
-  .cal-event { font-size: 0.65rem; padding: 2px 4px; }
+  .cal-wrapper { padding: 16px; }
+  .cal-cell { padding: 4px; }
+  .cal-date-num { font-size: 0.9rem; }
+  .cal-event-text { display: none; /* Hide text on mobile, rely on dots */ }
+  .cal-days { font-size: 0.7rem; }
 }
 </style>
 <script src="data.js"></script>
@@ -50,218 +60,214 @@
 </head>
 <body>
 
-<div class="app-layout">
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-brand">
+    <img src="assets/iconmaicn.png" alt="Logo">
+    MA ICN
+  </a>
+  <button class="nav-toggle" id="nav-toggle">☰</button>
+  <div class="nav-links" id="nav-links">
+    <a href="index.html">Beranda</a>
+    <a href="profil.html">Profil</a>
+    <a href="struktur.html">Struktur</a>
+    <a href="kalender.html" class="active">Kalender</a>
+    <a href="prota.html">Prota</a>
+    <a href="posem.html">Posem</a>
+    <a href="modul.html">Modul</a>
+    <a href="dokumen.html">Dokumen</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <h1 class="animate-up">Kalender Akademik</h1>
+    <p class="animate-up delay-100">Jelajahi agenda lengkap pendidikan madrasah dalam satu tahun ajaran secara interaktif.</p>
+  </div>
+</div>
+
+<div class="container">
   
-  <!-- Sidebar -->
-  <aside class="sidebar" id="app-sidebar">
-    <div class="sidebar-header">
-      <div class="sidebar-brand">
-        <img src="assets/iconmaicn.png" alt="MA ICN">
-        <span>Curriculum OS</span>
-      </div>
-    </div>
-    <div class="sidebar-menu">
-      <div style="font-size: 0.7rem; font-weight: 700; color: var(--text-secondary); margin: 10px 0 5px 16px; text-transform: uppercase;">Menu Utama</div>
-      <a href="index.html" class="nav-item"><span class="nav-icon">📊</span> Dashboard</a>
-      <a href="kalender.html" class="nav-item active"><span class="nav-icon">📅</span> Kalender Akademik</a>
-      <a href="struktur.html" class="nav-item"><span class="nav-icon">🏗️</span> Struktur & Jadwal</a>
-      <a href="modul.html" class="nav-item"><span class="nav-icon">📚</span> Modul Ajar</a>
-      
-      <div style="font-size: 0.7rem; font-weight: 700; color: var(--text-secondary); margin: 20px 0 5px 16px; text-transform: uppercase;">Perencanaan</div>
-      <a href="prota.html" class="nav-item"><span class="nav-icon">📑</span> Program Tahunan</a>
-      <a href="posem.html" class="nav-item"><span class="nav-icon">📋</span> Program Semester</a>
-      
-      <div style="font-size: 0.7rem; font-weight: 700; color: var(--text-secondary); margin: 20px 0 5px 16px; text-transform: uppercase;">Administrasi</div>
-      <a href="dokumen.html" class="nav-item"><span class="nav-icon">📁</span> File Explorer</a>
-      <a href="profil.html" class="nav-item"><span class="nav-icon">🏫</span> Profil & Regulasi</a>
-    </div>
-  </aside>
+  <div class="cal-filters animate-up delay-200">
+    <button class="filter-btn active" onclick="filterSemester('Semua', this)">Tahun Penuh</button>
+    <button class="filter-btn" onclick="filterSemester('Ganjil', this)">Semester Ganjil</button>
+    <button class="filter-btn" onclick="filterSemester('Genap', this)">Semester Genap</button>
+  </div>
 
-  <main class="main-wrapper">
-    <header class="topbar">
-      <div class="topbar-left">
-        <button class="btn-mobile-menu" id="btn-mobile-menu">☰</button>
-        <div class="global-search">
-          <span class="search-icon">🔍</span>
-          <input type="text" id="global-search-input" placeholder="Cari event di kalender...">
-        </div>
-      </div>
-      <div class="topbar-right">
-        <div class="top-action"><span class="badge-dot"></span>🔔</div>
-        <div class="user-profile">
-          <div class="user-avatar">MK</div>
-        </div>
-      </div>
-    </header>
+  <div class="legend-bar animate-up delay-300">
+    <div class="legend-item"><div class="legend-dot c-he-bg"></div> Pembelajaran</div>
+    <div class="legend-item"><div class="legend-dot c-ln-bg"></div> Libur</div>
+    <div class="legend-item"><div class="legend-dot c-as-bg"></div> Asesmen / Ujian</div>
+    <div class="legend-item"><div class="legend-dot c-ks-bg"></div> Kegiatan Khusus</div>
+    <div class="legend-item"><div class="legend-dot c-pr-bg"></div> Program Lain</div>
+  </div>
 
-    <div class="content-area">
-      
-      <div class="cal-header-bar motion-fade-up">
-        <div class="cal-title-group">
-          <h2>Juli 2026</h2>
-          <span class="pill green">Semester Ganjil</span>
-        </div>
-        <div style="display: flex; gap: 12px; align-items: center;">
-          <div class="cal-view-toggles">
-            <button class="cal-view-btn active">Bulan</button>
-            <button class="cal-view-btn">Minggu</button>
-            <button class="cal-view-btn">Timeline</button>
-          </div>
-          <button class="btn btn-primary" onclick="window.AppUtils.openModal('modal-event')">+ Tambah</button>
-        </div>
-      </div>
-
-      <div class="filter-bar motion-fade-up" style="transition-delay: 100ms;">
-        <button class="filter-pill active">Semua</button>
-        <button class="filter-pill"><span style="color:var(--success)">●</span> Pembelajaran</button>
-        <button class="filter-pill"><span style="color:var(--danger)">●</span> Libur</button>
-        <button class="filter-pill"><span style="color:var(--info)">●</span> Asesmen</button>
-        <button class="filter-pill"><span style="color:#B45309">●</span> Kegiatan Sekolah</button>
-      </div>
-
-      <!-- Calendar Body -->
-      <div class="calendar-container motion-fade-up" style="transition-delay: 200ms;">
-        <div class="calendar-days-header">
-          <div class="day-name">Senin</div>
-          <div class="day-name">Selasa</div>
-          <div class="day-name">Rabu</div>
-          <div class="day-name">Kamis</div>
-          <div class="day-name">Jumat</div>
-          <div class="day-name">Sabtu</div>
-          <div class="day-name">Minggu</div>
-        </div>
-        
-        <div class="calendar-grid" id="cal-grid">
-          <!-- Populated by JS for simulation -->
-        </div>
-      </div>
-
-    </div>
-  </main>
-
-  <!-- Mobile Bottom Nav -->
-  <nav class="bottom-nav">
-    <div class="bottom-nav-inner">
-      <a href="index.html" class="bnav-item"><span class="bnav-icon">📊</span>Dashboard</a>
-      <a href="kalender.html" class="bnav-item active"><span class="bnav-icon">📅</span>Kalender</a>
-      <a href="modul.html" class="bnav-item"><span class="bnav-icon">📚</span>Modul</a>
-      <a href="dokumen.html" class="bnav-item"><span class="bnav-icon">📁</span>Dokumen</a>
-    </div>
-  </nav>
+  <div id="calendar-wrapper">
+    <!-- Rendered by JS -->
+  </div>
 
 </div>
 
-<!-- Premium Event Modal -->
-<div class="modal-overlay" id="modal-event">
-  <div class="modal-content">
-    <div class="modal-header" style="background: var(--surface);">
-      <div>
-        <h3 id="modal-ev-title" style="margin-bottom: 4px;">Detail Agenda</h3>
-        <span class="pill blue" id="modal-ev-cat">Kategori</span>
-      </div>
-      <button class="btn-close">&times;</button>
-    </div>
-    <div class="modal-body">
-      <div style="display: flex; gap: 16px; margin-bottom: 20px; align-items: center;">
-        <div style="width: 48px; height: 48px; background: var(--surface-hover); border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid var(--border);">
-          <span style="font-size: 0.7rem; font-weight: 700; color: var(--danger); text-transform: uppercase;">Jul</span>
-          <span style="font-size: 1.1rem; font-weight: 800; line-height: 1;" id="modal-ev-date">10</span>
-        </div>
-        <div>
-          <div style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 600;">Waktu Pelaksanaan</div>
-          <div style="font-size: 0.95rem; font-weight: 700; color: var(--text-primary);">Sepanjang Hari</div>
-        </div>
-      </div>
-      
-      <div style="margin-bottom: 16px;">
-        <div style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 600; margin-bottom: 4px;">Penanggung Jawab</div>
-        <div style="display: flex; align-items: center; gap: 8px;">
-          <div style="width: 24px; height: 24px; background: var(--primary-light); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: bold;">WK</div>
-          <span style="font-size: 0.9rem; font-weight: 600;">Waka Kurikulum</span>
-        </div>
-      </div>
+<footer>
+  <div class="container">
+    <strong id="footer-madrasah">MA Insan Cendekia Nusantara Purwakarta</strong>
+    Pusat Informasi Akademik & Kurikulum
+  </div>
+</footer>
 
-      <div>
-        <div style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 600; margin-bottom: 4px;">Deskripsi / Catatan</div>
-        <p style="font-size: 0.9rem; background: var(--surface-hover); padding: 12px; border-radius: var(--radius-btn); border: 1px solid var(--border-light);">
-          Data diambil secara dinamis dari master-data.json berdasarkan tanggal yang dipilih.
-        </p>
-      </div>
+<!-- Public Detail Modal -->
+<div class="modal-overlay" id="modal-event">
+  <div class="modal-box">
+    <button class="btn-close" onclick="window.AppUtils.closeModal('modal-event')">&times;</button>
+    <h3 id="modal-ev-title" style="font-size: 1.5rem; color: var(--primary); margin-bottom: 8px; padding-right: 20px;">Detail Agenda</h3>
+    <div id="modal-ev-date" style="font-weight: 800; color: var(--accent); margin-bottom: 24px; font-size: 0.95rem;">-</div>
+    
+    <div style="background: var(--bg); border-radius: var(--radius-md); padding: 24px; border: 1px solid var(--border);">
+      <div style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 700; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;">Keterangan / Aktivitas</div>
+      <p id="modal-ev-desc" style="font-size: 1.05rem; font-weight: 500; line-height: 1.6; color: var(--text-primary);">-</p>
     </div>
-    <div class="modal-footer" style="background: var(--surface);">
-      <button class="btn btn-outline" style="color: var(--danger); border-color: transparent; margin-right: auto;">Hapus</button>
-      <button class="btn btn-outline" onclick="window.AppUtils.closeModal('modal-event')">Tutup</button>
-      <button class="btn btn-primary">Edit Agenda</button>
+    
+    <div style="margin-top: 24px; text-align: center;">
+      <button class="btn btn-primary" onclick="window.AppUtils.closeModal('modal-event')">Tutup Jendela</button>
     </div>
   </div>
 </div>
 
 <script>
+let globalMonthsData = [];
+
 document.addEventListener('DOMContentLoaded', () => {
   const MD = window.MASTER_DATA;
-  if (!MD) return;
+  if (!MD || !MD.kalender_harian) return;
 
-  // Render dummy grid for July 2026 as proof of concept using the new SaaS UI
-  // Note: Full logic remains untouched, just UI mapping to new CSS.
-  const grid = document.getElementById('cal-grid');
+  const data = MD.kalender_harian;
+  
+  const monthMap = new Map();
+  Object.keys(data).forEach(dateStr => {
+    const prefix = dateStr.substring(0, 7);
+    if (!monthMap.has(prefix)) monthMap.set(prefix, []);
+    monthMap.get(prefix).push({ dateStr, event: data[dateStr] });
+  });
+
+  const sortedPrefixes = Array.from(monthMap.keys()).sort();
+  const monthNames = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+
+  globalMonthsData = sortedPrefixes.map(prefix => {
+    let [yyyy, mm] = prefix.split('-');
+    let year = parseInt(yyyy, 10);
+    let monthIdx = parseInt(mm, 10) - 1;
+    let title = `${monthNames[monthIdx]} ${year}`;
+    let semester = (monthIdx >= 6) ? 'Ganjil' : 'Genap';
+    
+    return { prefix, year, monthIdx, title, semester, events: monthMap.get(prefix) };
+  });
+
+  renderCalendars('Semua');
+});
+
+function renderCalendars(filterSem) {
+  const wrapper = document.getElementById('calendar-wrapper');
   let html = '';
-  
-  // Empty cells for padding before July 1 (Wednesday)
-  html += `<div class="cal-cell" style="background: var(--surface-hover);"></div>`;
-  html += `<div class="cal-cell" style="background: var(--surface-hover);"></div>`;
-  
-  for (let i = 1; i <= 31; i++) {
-    let dateStr = `2026-07-${i.toString().padStart(2, '0')}`;
-    let eventObj = MD.kalender_harian[dateStr];
+
+  globalMonthsData.forEach((m, idx) => {
+    if (filterSem !== 'Semua' && m.semester !== filterSem) return;
+
+    html += `
+      <div class="month-block animate-up">
+        <div class="month-title">
+          ${m.title} <span class="sem-badge">${m.semester}</span>
+        </div>
+        <div class="cal-wrapper">
+          <div class="cal-days">
+            <div>Sn</div><div>Sl</div><div>Rb</div><div>Km</div><div>Jm</div><div>Sb</div><div>Mg</div>
+          </div>
+          <div class="cal-grid">
+            ${generateGrid(m.year, m.monthIdx, m.events)}
+          </div>
+        </div>
+      </div>
+    `;
+  });
+
+  wrapper.innerHTML = html;
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -50px 0px', threshold: 0.1 });
+    document.querySelectorAll('.animate-up').forEach(el => observer.observe(el));
+  }
+}
+
+function generateGrid(year, monthIdx, events) {
+  let firstDay = new Date(year, monthIdx, 1).getDay();
+  let padDays = firstDay === 0 ? 6 : firstDay - 1;
+  let numDays = new Date(year, monthIdx + 1, 0).getDate();
+  let html = '';
+
+  for (let i = 0; i < padDays; i++) html += `<div class="cal-cell empty"></div>`;
+
+  let eventMap = {};
+  events.forEach(e => { eventMap[e.dateStr] = e.event; });
+
+  for (let i = 1; i <= numDays; i++) {
+    let dateStr = `${year}-${String(monthIdx+1).padStart(2,'0')}-${String(i).padStart(2,'0')}`;
+    let evt = eventMap[dateStr];
     
     let eventHtml = '';
-    if (eventObj) {
-      let cat = eventObj.c;
-      // Map MD category to SaaS classes
-      let cssCls = 'event-program';
-      if (cat === 'he') cssCls = 'event-pembelajaran';
-      if (cat === 'ln' || cat === 'cb' || cat === 'lm') cssCls = 'event-libur';
-      if (cat === 'ks') cssCls = 'event-kegiatan';
-      if (cat === 'as') cssCls = 'event-asesmen';
+    let dotHtml = '';
+    
+    if (evt) {
+      let cat = evt.c;
+      let cssCls = 'c-pr';
+      if (cat === 'he') cssCls = 'c-he';
+      else if (cat === 'ln' || cat === 'cb' || cat === 'lm') cssCls = 'c-ln';
+      else if (cat === 'ks' || cat === 'pr') cssCls = 'c-ks';
+      else if (cat === 'as') cssCls = 'c-as';
       
-      eventHtml = `<div class="cal-event ${cssCls}" onclick="openEv(event, '${eventObj.l}', '${cssCls}', ${i})">${eventObj.l}</div>`;
+      let safeTitle = (evt.l || '').replace(/'/g, "\\'");
+      let safeDesc = (evt.s || '').replace(/'/g, "\\'");
+      let displayDate = `${i} ${globalMonthsData.find(m => m.year === year && m.monthIdx === monthIdx).title}`;
+      
+      dotHtml = `<div class="cal-event-dot ${cssCls}-bg"></div>`;
+      eventHtml = `<div class="cal-event-text ${cssCls}" onclick="openEv(event, '${safeTitle}', '${displayDate}', '${safeDesc}')">${evt.l}</div>`;
     }
 
-    let isToday = (i === 21) ? 'today' : ''; // Mock today
+    let isToday = (dateStr === '2026-07-21') ? 'today' : ''; 
+    
     html += `
       <div class="cal-cell ${isToday}">
-        <span class="cal-date-num">${i}</span>
-        <div style="display:flex; flex-direction:column; gap:2px; margin-top:4px;">
-          ${eventHtml}
-        </div>
+        <div class="cal-date-num">${i}</div>
+        ${eventHtml}
+        ${dotHtml}
       </div>
     `;
   }
   
-  grid.innerHTML = html;
-});
+  let totalCells = padDays + numDays;
+  let remaining = totalCells % 7;
+  if (remaining !== 0) {
+    for (let i = 0; i < (7 - remaining); i++) html += `<div class="cal-cell empty"></div>`;
+  }
 
-// Global open event function
-window.openEv = function(e, title, cls, date) {
+  return html;
+}
+
+window.filterSemester = function(sem, el) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  renderCalendars(sem);
+}
+
+window.openEv = function(e, title, fullDate, desc) {
   e.stopPropagation();
   document.getElementById('modal-ev-title').innerText = title;
-  document.getElementById('modal-ev-date').innerText = date;
-  
-  let catText = "Agenda";
-  if (cls.includes('pembelajaran')) catText = "Pembelajaran";
-  if (cls.includes('libur')) catText = "Libur";
-  if (cls.includes('kegiatan')) catText = "Kegiatan";
-  if (cls.includes('asesmen')) catText = "Asesmen";
-  
-  const catEl = document.getElementById('modal-ev-cat');
-  catEl.innerText = catText;
-  catEl.className = 'pill ' + (
-    catText === 'Libur' ? 'red' :
-    catText === 'Pembelajaran' ? 'green' :
-    catText === 'Kegiatan' ? 'yellow' :
-    catText === 'Asesmen' ? 'blue' : 'purple'
-  );
-
+  document.getElementById('modal-ev-date').innerText = fullDate;
+  document.getElementById('modal-ev-desc').innerText = desc || "Kegiatan rutin tanpa catatan tambahan.";
   window.AppUtils.openModal('modal-event');
 }
 </script>

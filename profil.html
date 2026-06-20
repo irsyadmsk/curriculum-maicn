@@ -4,205 +4,141 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Profil & Regulasi — Curriculum OS</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/styles.css">
 <style>
-.profile-hero { background: var(--surface); border-radius: var(--radius-card); padding: 40px; margin-bottom: 32px; box-shadow: var(--shadow-1); border: 1px solid var(--border-light); text-align: center; }
-.profile-hero h1 { font-size: 2.5rem; color: var(--primary-dark); margin-bottom: 12px; }
-.profile-hero p { color: var(--text-secondary); max-width: 600px; margin: 0 auto; font-size: 1.1rem; }
-
-.section-header { margin-bottom: 24px; }
-.section-header h2 { font-size: 1.5rem; color: var(--text-primary); margin-bottom: 8px; }
-.section-header p { color: var(--text-secondary); font-size: 0.95rem; }
-
-/* Grid Dimensi */
-.dim-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; margin-bottom: 40px; }
-.dim-card { background: var(--surface); border-radius: var(--radius-card); padding: 20px; box-shadow: var(--shadow-1); border-top: 4px solid var(--accent); transition: 0.3s; }
-.dim-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-2); }
-.dim-n { font-family: 'Inter', sans-serif; font-size: 0.8rem; font-weight: 700; color: var(--accent); background: var(--accent-light); display: inline-block; padding: 4px 10px; border-radius: 12px; margin-bottom: 12px; }
-.dim-t { font-size: 0.95rem; font-weight: 700; color: var(--text-primary); line-height: 1.4; }
-
-/* Panca Cinta */
-.cinta-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-bottom: 40px; }
-.cinta-item { background: var(--surface); border-radius: var(--radius-btn); padding: 20px 24px; box-shadow: var(--shadow-1); display: flex; gap: 20px; align-items: center; border: 1px solid var(--border-light); transition: 0.2s; }
-.cinta-item:hover { border-color: var(--primary); background: var(--surface-hover); }
-.cinta-n { font-family: 'Inter', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--primary); background: var(--primary-light); color: white; width: 48px; height: 48px; border-radius: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.cinta-content h3 { font-size: 1.1rem; font-weight: 800; color: var(--text-primary); margin-bottom: 4px; }
-.cinta-content p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; }
+.content-box { background: var(--surface); border-radius: var(--radius-lg); padding: 40px; box-shadow: var(--shadow-md); margin-bottom: 60px; border: 1px solid var(--border); }
+.content-box h2 { font-size: 1.8rem; color: var(--primary); margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
+.content-box h2::before { content: ''; width: 6px; height: 30px; background: var(--accent); border-radius: 6px; }
 
 /* Visi Misi */
-.vm-box { background: var(--surface); border-radius: var(--radius-card); padding: 32px; box-shadow: var(--shadow-1); border: 1px solid var(--border-light); margin-bottom: 40px; }
-.vm-box h3 { font-size: 1.2rem; color: var(--primary); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
-.vm-box h3::before { content: ''; width: 8px; height: 24px; background: var(--accent); border-radius: 4px; }
-.vm-box p { font-size: 1.05rem; font-weight: 500; color: var(--text-primary); line-height: 1.6; margin-bottom: 24px; font-style: italic; }
-.vm-box ul { list-style: none; padding-left: 0; }
-.vm-box li { position: relative; padding-left: 24px; margin-bottom: 12px; font-size: 0.95rem; color: var(--text-secondary); line-height: 1.5; }
-.vm-box li::before { content: '•'; position: absolute; left: 0; color: var(--primary); font-size: 1.5rem; line-height: 1; top: -2px; }
+.vm-text { font-size: 1.2rem; font-weight: 600; color: var(--text-primary); line-height: 1.8; margin-bottom: 32px; font-style: italic; text-align: center; color: var(--primary-dark); }
+.misi-list { list-style: none; }
+.misi-list li { position: relative; padding-left: 32px; margin-bottom: 16px; font-size: 1.05rem; color: var(--text-secondary); }
+.misi-list li::before { content: '✦'; position: absolute; left: 0; color: var(--accent); font-size: 1.2rem; }
+
+/* Dimensi Grid */
+.dim-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+.dim-card { padding: 24px; border-radius: var(--radius-md); background: var(--bg); border: 1px solid var(--border); text-align: center; transition: 0.3s; }
+.dim-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-sm); border-color: var(--accent); background: var(--surface); }
+.dim-num { font-size: 2rem; font-weight: 800; color: rgba(201, 162, 39, 0.3); font-family: 'DM Mono', monospace; line-height: 1; margin-bottom: 8px; }
+.dim-title { font-size: 1rem; font-weight: 800; color: var(--text-primary); }
+
+/* Cinta Grid */
+.cinta-grid { display: flex; flex-direction: column; gap: 16px; }
+.cinta-card { display: flex; align-items: center; gap: 24px; padding: 24px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); transition: 0.3s; }
+.cinta-card:hover { transform: translateX(10px); border-color: var(--primary); box-shadow: var(--shadow-sm); }
+.cinta-icon { width: 64px; height: 64px; border-radius: 50%; background: var(--primary-light); color: var(--surface); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; font-weight: 800; flex-shrink: 0; }
+.cinta-text h3 { font-size: 1.2rem; font-weight: 800; color: var(--primary); margin-bottom: 4px; }
+.cinta-text p { font-size: 0.95rem; color: var(--text-secondary); }
+
+/* Table */
+.law-table { width: 100%; border-collapse: collapse; }
+.law-table th, .law-table td { padding: 16px; text-align: left; border-bottom: 1px solid var(--border); }
+.law-table th { background: var(--bg); font-weight: 800; color: var(--primary); }
+.law-table tr:hover { background: rgba(26,71,49,0.02); }
 </style>
 <script src="data.js"></script>
 <script src="assets/app.js"></script>
 </head>
 <body>
 
-<div class="app-layout">
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-brand">
+    <img src="assets/iconmaicn.png" alt="Logo">
+    MA ICN
+  </a>
+  <button class="nav-toggle" id="nav-toggle">☰</button>
+  <div class="nav-links" id="nav-links">
+    <a href="index.html">Beranda</a>
+    <a href="profil.html" class="active">Profil</a>
+    <a href="struktur.html">Struktur</a>
+    <a href="kalender.html">Kalender</a>
+    <a href="prota.html">Prota</a>
+    <a href="posem.html">Posem</a>
+    <a href="modul.html">Modul</a>
+    <a href="dokumen.html">Dokumen</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <h1 class="animate-up">Profil & Regulasi</h1>
+    <p class="animate-up delay-100">Fondasi Visi, Misi, serta karakter lulusan Madrasah Aliyah Insan Cendekia Nusantara.</p>
+  </div>
+</div>
+
+<div class="container">
   
-  <aside class="sidebar" id="app-sidebar">
-    <div class="sidebar-header">
-      <div class="sidebar-brand">
-        <img src="assets/iconmaicn.png" alt="MA ICN">
-        <span>Curriculum OS</span>
-      </div>
+  <div class="content-box animate-up delay-200">
+    <h2>Visi & Misi</h2>
+    <div id="visi-misi-container"></div>
+  </div>
+
+  <div class="content-box animate-up">
+    <h2>8 Dimensi Profil Lulusan</h2>
+    <div class="dim-grid" id="dimensi-container"></div>
+  </div>
+
+  <div class="content-box animate-up">
+    <h2>Panca Cinta ICN</h2>
+    <div class="cinta-grid" id="cinta-container"></div>
+  </div>
+
+  <div class="content-box animate-up">
+    <h2>Landasan Hukum</h2>
+    <div style="overflow-x: auto;">
+      <table class="law-table">
+        <thead><tr><th>Regulasi</th><th>Perihal</th></tr></thead>
+        <tbody id="law-body"></tbody>
+      </table>
     </div>
-    <div class="sidebar-menu">
-      <div style="font-size: 0.7rem; font-weight: 700; color: var(--text-secondary); margin: 10px 0 5px 16px; text-transform: uppercase;">Menu Utama</div>
-      <a href="index.html" class="nav-item"><span class="nav-icon">📊</span> Dashboard</a>
-      <a href="kalender.html" class="nav-item"><span class="nav-icon">📅</span> Kalender Akademik</a>
-      <a href="struktur.html" class="nav-item"><span class="nav-icon">🏗️</span> Struktur & Jadwal</a>
-      <a href="modul.html" class="nav-item"><span class="nav-icon">📚</span> Modul Ajar</a>
-      
-      <div style="font-size: 0.7rem; font-weight: 700; color: var(--text-secondary); margin: 20px 0 5px 16px; text-transform: uppercase;">Perencanaan</div>
-      <a href="prota.html" class="nav-item"><span class="nav-icon">📑</span> Program Tahunan</a>
-      <a href="posem.html" class="nav-item"><span class="nav-icon">📋</span> Program Semester</a>
-      
-      <div style="font-size: 0.7rem; font-weight: 700; color: var(--text-secondary); margin: 20px 0 5px 16px; text-transform: uppercase;">Administrasi</div>
-      <a href="dokumen.html" class="nav-item"><span class="nav-icon">📁</span> File Explorer</a>
-      <a href="profil.html" class="nav-item active"><span class="nav-icon">🏫</span> Profil & Regulasi</a>
-    </div>
-  </aside>
-
-  <main class="main-wrapper">
-    <header class="topbar">
-      <div class="topbar-left">
-        <button class="btn-mobile-menu" id="btn-mobile-menu">☰</button>
-        <div class="global-search">
-          <span class="search-icon">🔍</span>
-          <input type="text" id="global-search-input" placeholder="Cari regulasi atau landasan hukum...">
-        </div>
-      </div>
-      <div class="topbar-right">
-        <div class="top-action"><span class="badge-dot"></span>🔔</div>
-        <div class="user-profile">
-          <div class="user-avatar">MK</div>
-        </div>
-      </div>
-    </header>
-
-    <div class="content-area">
-      
-      <div class="profile-hero motion-scale">
-        <h1>Profil & Regulasi Madrasah</h1>
-        <p>Fondasi utama kurikulum yang mencakup Visi Misi, Dimensi Lulusan, Panca Cinta, serta Payung Hukum penyelenggaraan pendidikan.</p>
-      </div>
-
-      <div class="section-header motion-fade-up">
-        <h2>Visi & Misi</h2>
-        <p>Arah gerak dan tujuan utama pendidikan MA ICN.</p>
-      </div>
-      <div class="vm-box motion-fade-up" id="visi-misi-container" style="transition-delay: 50ms;">
-        <!-- Injected -->
-      </div>
-
-      <div class="section-header motion-fade-up">
-        <h2>8 Dimensi Profil Lulusan</h2>
-        <p>Target karakter dan kompetensi peserta didik.</p>
-      </div>
-      <div class="dim-grid" id="dimensi-container">
-        <!-- Injected -->
-      </div>
-
-      <div class="section-header motion-fade-up">
-        <h2>Panca Cinta ICN</h2>
-        <p>Lima nilai inti pembentukan karakter asrama dan madrasah.</p>
-      </div>
-      <div class="cinta-grid" id="cinta-container">
-        <!-- Injected -->
-      </div>
-
-      <div class="section-header motion-fade-up">
-        <h2>Landasan Hukum</h2>
-        <p>Kumpulan regulasi dan aturan yang mendasari penyusunan dokumen KOSP.</p>
-      </div>
-      <div class="table-responsive motion-fade-up" style="transition-delay: 100ms; margin-bottom: 40px;">
-        <table class="modern-table">
-          <thead><tr><th>Regulasi</th><th>Perihal</th></tr></thead>
-          <tbody id="law-body">
-            <!-- Injected -->
-          </tbody>
-        </table>
-      </div>
-
-    </div>
-  </main>
-
-  <nav class="bottom-nav">
-    <div class="bottom-nav-inner">
-      <a href="index.html" class="bnav-item"><span class="bnav-icon">📊</span>Dashboard</a>
-      <a href="kalender.html" class="bnav-item"><span class="bnav-icon">📅</span>Kalender</a>
-      <a href="modul.html" class="bnav-item"><span class="bnav-icon">📚</span>Modul</a>
-      <a href="profil.html" class="bnav-item active"><span class="bnav-icon">🏫</span>Profil</a>
-    </div>
-  </nav>
+  </div>
 
 </div>
+
+<footer>
+  <div class="container">
+    <strong id="footer-madrasah">MA Insan Cendekia Nusantara Purwakarta</strong>
+    Pusat Informasi Akademik & Kurikulum
+  </div>
+</footer>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   const MD = window.MASTER_DATA;
   if (!MD || !MD.profil) return;
-
   const prof = MD.profil;
 
   // Visi Misi
-  let misiList = prof.misi.map(m => `<li>${m}</li>`).join('');
   document.getElementById('visi-misi-container').innerHTML = `
-    <h3>Visi</h3>
-    <p>"${prof.visi}"</p>
-    <h3>Misi</h3>
-    <ul>${misiList}</ul>
+    <div class="vm-text">"${prof.visi}"</div>
+    <ul class="misi-list">${prof.misi.map(m => `<li>${m}</li>`).join('')}</ul>
   `;
 
-  // 8 Dimensi
-  let dimHtml = '';
-  prof.delapan_dimensi.forEach((d, i) => {
-    let num = String(i + 1).padStart(2, '0');
-    dimHtml += `<div class="dim-card motion-fade-up" style="transition-delay: ${i * 30}ms">
-      <div class="dim-n">${num}</div>
-      <div class="dim-t">${d}</div>
-    </div>`;
-  });
-  document.getElementById('dimensi-container').innerHTML = dimHtml;
+  // Dimensi
+  document.getElementById('dimensi-container').innerHTML = prof.delapan_dimensi.map((d, i) => `
+    <div class="dim-card">
+      <div class="dim-num">${String(i + 1).padStart(2, '0')}</div>
+      <div class="dim-title">${d}</div>
+    </div>
+  `).join('');
 
-  // Panca Cinta
-  let cintaHtml = '';
-  prof.panca_cinta.forEach((c, i) => {
-    cintaHtml += `<div class="cinta-item motion-fade-up" style="transition-delay: ${i * 40}ms">
-      <div class="cinta-n">${i + 1}</div>
-      <div class="cinta-content">
+  // Cinta
+  document.getElementById('cinta-container').innerHTML = prof.panca_cinta.map((c, i) => `
+    <div class="cinta-card">
+      <div class="cinta-icon">${i + 1}</div>
+      <div class="cinta-text">
         <h3>${c[0]}</h3>
         <p>${c[1]}</p>
       </div>
-    </div>`;
-  });
-  document.getElementById('cinta-container').innerHTML = cintaHtml;
+    </div>
+  `).join('');
 
-  // Landasan Hukum
-  let lawHtml = '';
-  prof.landasan_hukum.forEach(l => {
-    lawHtml += `<tr><td data-label="Regulasi">${l[0]}</td><td data-label="Perihal">${l[1]}</td></tr>`;
-  });
-  document.getElementById('law-body').innerHTML = lawHtml;
-  
-  // Re-run observer for dynamically added elements
-  setTimeout(() => {
-    const observer = new IntersectionObserver((entries, obs) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-          obs.unobserve(entry.target);
-        }
-      });
-    }, { rootMargin: '0px 0px -50px 0px', threshold: 0.1 });
-    document.querySelectorAll('.motion-fade-up, .motion-scale').forEach(el => observer.observe(el));
-  }, 100);
+  // Hukum
+  document.getElementById('law-body').innerHTML = prof.landasan_hukum.map(l => `
+    <tr><td style="font-weight:700; color:var(--text-primary);">${l[0]}</td><td style="color:var(--text-secondary);">${l[1]}</td></tr>
+  `).join('');
 });
 </script>
 </body>
