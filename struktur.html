@@ -41,14 +41,80 @@ a{color:inherit}
   </div>
 </div>
 <div class="wrap"><div class="section">
-  <div class="placeholder">
-    <strong>Halaman dalam pengembangan.</strong> Bagian ini akan memuat:
-    <ul>
-      <li>Distribusi jam pelajaran (JP) per mata pelajaran dan fase</li>
-      <li>Struktur kurikulum per tingkat (Kelas X–XII)</li>
-      <li>Kebijakan asesmen formatif dan sumatif</li>
-      <li>Pemetaan capaian pembelajaran (CP) dan KKTP</li>
-    </ul>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));gap:24px;">
+    <!-- Jam Pelajaran -->
+    <div style="background:var(--white);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);border-top:3px solid var(--g3)">
+      <h2 style="font-size:1.1rem;color:var(--g1);margin-bottom:12px;font-weight:700">Distribusi Jam Pelajaran</h2>
+      <p style="font-size:.85rem;color:var(--d2);line-height:1.6;margin-bottom:12px">Durasi 1 JP = 45 menit. Total beban belajar per minggu:</p>
+      <ul style="font-size:.85rem;color:var(--d2);line-height:1.6;margin-left:18px;margin-bottom:12px">
+        <li><strong>Kelas X:</strong> 52 JP</li>
+        <li><strong>Kelas XI:</strong> 53 JP</li>
+        <li><strong>Kelas XII:</strong> 53 JP</li>
+      </ul>
+      <p style="font-size:.85rem;color:var(--d2);line-height:1.6;margin-bottom:12px">Senin sampai Jumat = 48 JP. Senin sampai Kamis (10x4=40) dan Jumat (8) = 48 JP.<br>4 JP sisa adalah kokurikuler di hari Sabtu, mapel fokus Senin sampai Jumat karena sistem boarding school.</p>
+    </div>
+
+    <!-- Kebijakan Asesmen -->
+    <div style="background:var(--white);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);border-top:3px solid var(--gold)">
+      <h2 style="font-size:1.1rem;color:var(--g1);margin-bottom:12px;font-weight:700">Kebijakan Asesmen</h2>
+      <ul style="font-size:.85rem;color:var(--d2);line-height:1.6;margin-left:18px;margin-bottom:12px">
+        <li><strong>Asesmen Formatif:</strong> Umpan balik, tidak masuk rapor.</li>
+        <li><strong>Asesmen Sumatif:</strong> Sumatif Harian & Sumatif Akhir Semester.</li>
+      </ul>
+      <div style="background:var(--d5);padding:12px;border-radius:6px;font-size:.85rem;color:var(--g1);font-family:'DM Mono', monospace;margin-bottom:16px">
+        Nilai Rapor = (65% × Sumatif Harian) + (35% × Asesmen Akhir Semester)
+      </div>
+      <h3 style="font-size:.95rem;color:var(--g1);margin-bottom:8px;font-weight:700">Kriteria Ketuntasan Tujuan Pembelajaran (KKTP)</h3>
+      <ul style="font-size:.85rem;color:var(--d2);line-height:1.6;margin-left:18px;">
+        <li><strong>Kelas X:</strong> 82</li>
+        <li><strong>Kelas XI:</strong> 85</li>
+        <li><strong>Kelas XII:</strong> 88</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Jadwal Harian -->
+  <div style="background:var(--white);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);border-top:3px solid var(--g1);margin-top:24px">
+    <h2 style="font-size:1.1rem;color:var(--g1);margin-bottom:16px;font-weight:700">Jadwal Harian KBM (Senin - Jumat)</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));gap:24px;">
+      <div>
+        <h3 style="font-size:.95rem;color:var(--g2);margin-bottom:12px;border-bottom:1px solid var(--d5);padding-bottom:6px">Senin - Kamis (10 JP)</h3>
+        <ul style="list-style:none;font-size:.8rem;color:var(--d2);line-height:1.8;padding:0;">
+          <li><strong>07.00 - 07.45:</strong> JP 1 (45 Menit)</li>
+          <li><strong>07.45 - 08.30:</strong> JP 2 (45 Menit)</li>
+          <li><strong>08.30 - 09.15:</strong> JP 3 (45 Menit)</li>
+          <li style="color:var(--gold);font-weight:600"><strong>09.15 - 09.30 (15 Menit):</strong> Istirahat 1 (Shalat Dhuha & Snack Pagi)</li>
+          <li><strong>09.30 - 10.15:</strong> JP 4 (45 Menit)</li>
+          <li><strong>10.15 - 11.00:</strong> JP 5 (45 Menit)</li>
+          <li><strong>11.00 - 11.45:</strong> JP 6 (45 Menit)</li>
+          <li style="color:var(--gold);font-weight:600"><strong>11.45 - 12.45 (60 Menit):</strong> Istirahat 2 (Ishoma) (Makan Siang & Dzuhur Berjamaah)</li>
+          <li><strong>12.45 - 13.30:</strong> JP 7 (45 Menit)</li>
+          <li><strong>13.30 - 14.15:</strong> JP 8 (45 Menit)</li>
+          <li><strong>14.15 - 15.00:</strong> JP 9 (45 Menit)</li>
+          <li><strong>15.00 - 15.45:</strong> JP 10 (45 Menit)</li>
+          <li style="color:var(--gold);font-weight:600"><strong>15.45 - 16.00 (15 Menit):</strong> Shalat Ashar Berjamaah (Seluruh murid di Masjid)</li>
+          <li><strong>16.00:</strong> KBM Formal Selesai (Murid pulang/masuk ekstrakurikuler).</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="font-size:.95rem;color:var(--g2);margin-bottom:12px;border-bottom:1px solid var(--d5);padding-bottom:6px">Jumat (8 JP)</h3>
+        <ul style="list-style:none;font-size:.8rem;color:var(--d2);line-height:1.8;padding:0;">
+          <li style="color:var(--gold);font-weight:600"><strong>07.00 - 07.30:</strong> Kultum Jumat</li>
+          <li><strong>07.30 - 08.15:</strong> JP 1 (45 Menit)</li>
+          <li><strong>08.15 - 09.00:</strong> JP 2 (45 Menit)</li>
+          <li style="color:var(--gold);font-weight:600"><strong>09.00 - 09.15 (15 Menit):</strong> Istirahat 1 (Shalat Dhuha & Snack Pagi)</li>
+          <li><strong>09.15 - 10.00:</strong> JP 3 (45 Menit)</li>
+          <li><strong>10.00 - 10.45:</strong> JP 4 (45 Menit)</li>
+          <li><strong>10.45 - 11.30:</strong> JP 5 (45 Menit)</li>
+          <li style="color:var(--gold);font-weight:600"><strong>11.30 - 13.30:</strong> Istirahat 2 Sholat Jumat dan Ishoma</li>
+          <li><strong>13.30 - 14.15:</strong> JP 6 (45 Menit)</li>
+          <li><strong>14.15 - 15.00:</strong> JP 7 (45 Menit)</li>
+          <li><strong>15.00 - 15.45:</strong> JP 8 (45 Menit)</li>
+          <li style="color:var(--gold);font-weight:600"><strong>15.45 - 16.00 (15 Menit):</strong> Shalat Ashar Berjamaah (Seluruh murid di Masjid)</li>
+          <li><strong>16.00:</strong> KBM Formal Selesai (Murid pulang/masuk ekstrakurikuler).</li>
+        </ul>
+      </div>
+    </div>
   </div>
 </div></div>
 <div class="footer"><div class="wrap">
