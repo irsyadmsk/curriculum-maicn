@@ -3,96 +3,41 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Beranda — Curriculum OS</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<title>Beranda — Curriculum OS · MA ICN</title>
 <link rel="stylesheet" href="assets/styles.css">
-<style>
-/* Hero Section */
-.hero {
-  position: relative; padding: 180px 0 120px; text-align: center; color: var(--surface);
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-  overflow: hidden;
-}
-.hero::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-  background-image: radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px);
-  background-size: 30px 30px; opacity: 0.5;
-}
-.hero-badge {
-  display: inline-block; background: var(--accent); color: var(--surface);
-  padding: 6px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 800;
-  letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px;
-  box-shadow: var(--shadow-glow);
-}
-.hero h1 {
-  font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800; letter-spacing: -1.5px;
-  margin-bottom: 16px; line-height: 1.1; position: relative; z-index: 2;
-}
-.hero p {
-  font-size: 1.1rem; color: rgba(255,255,255,0.9); font-weight: 500;
-  max-width: 600px; margin: 0 auto; line-height: 1.6; position: relative; z-index: 2;
-}
-
-/* Stats */
-.stats-container {
-  display: flex; flex-wrap: wrap; justify-content: center; gap: 16px;
-  margin-top: -60px; position: relative; z-index: 10;
-}
-.stat-card {
-  background: var(--surface); border-radius: var(--radius-lg); padding: 24px;
-  box-shadow: var(--shadow-md); border-top: 4px solid var(--accent);
-  text-align: center; flex: 1 1 180px; max-width: 220px; transition: 0.3s;
-}
-.stat-card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(26, 71, 49, 0.15); }
-.stat-card.c-red { border-top-color: #dc2626; }
-.stat-card.c-blue { border-top-color: #2563eb; }
-.stat-card.c-green { border-top-color: var(--primary); }
-.stat-card.c-purple { border-top-color: #7c3aed; }
-
-.stat-num {
-  font-size: 2.5rem; font-weight: 800; color: var(--primary); line-height: 1;
-  font-family: 'DM Mono', monospace; margin-bottom: 8px;
-}
-.stat-card.c-red .stat-num { color: #dc2626; }
-.stat-card.c-blue .stat-num { color: #2563eb; }
-.stat-card.c-green .stat-num { color: var(--primary); }
-.stat-card.c-purple .stat-num { color: #7c3aed; }
-
-.stat-label { font-size: 0.8rem; font-weight: 800; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; }
-.stat-sub { font-size: 0.75rem; color: #64748b; margin-top: 6px; }
-
-/* Menus */
-.section-title { text-align: center; font-size: 2rem; font-weight: 800; color: var(--primary); margin: 80px 0 40px; }
-.menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-bottom: 80px; }
-.menu-card {
-  background: var(--surface); border-radius: var(--radius-lg); padding: 32px;
-  box-shadow: var(--shadow-sm); border: 1px solid var(--border);
-  transition: all 0.3s; display: flex; flex-direction: column; gap: 16px;
-}
-.menu-card:hover {
-  transform: translateY(-8px); box-shadow: var(--shadow-md); border-color: var(--accent);
-}
-.menu-icon {
-  width: 56px; height: 56px; background: var(--bg); color: var(--primary);
-  border-radius: 16px; display: flex; align-items: center; justify-content: center;
-  font-size: 1.5rem; font-weight: 800; font-family: 'DM Mono', monospace;
-}
-.menu-card:hover .menu-icon { background: var(--primary); color: var(--surface); }
-.menu-card h3 { font-size: 1.2rem; font-weight: 800; color: var(--primary); }
-.menu-card p { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; }
-
-</style>
 <script src="data.js"></script>
 <script src="assets/app.js"></script>
 </head>
 <body>
 
+<!-- Background Blobs -->
+<div class="bg-blobs">
+  <div class="bg-blob"></div>
+  <div class="bg-blob"></div>
+  <div class="bg-blob"></div>
+</div>
+
+<!-- Loading Screen -->
+<div id="loading-screen">
+  <div class="loading-logo">
+    <img src="assets/iconmaicn.png" alt="MA ICN">
+  </div>
+  <div class="loading-ring"></div>
+  <div class="loading-text">Memuat Curriculum OS…</div>
+</div>
+
+<!-- Floating Clock -->
+<div id="floating-clock">
+  <div class="clock-time"></div>
+  <div class="clock-date"></div>
+</div>
+
+<!-- Navbar -->
 <nav class="navbar" id="navbar">
   <a href="index.html" class="nav-brand">
     <img src="assets/iconmaicn.png" alt="Logo">
     MA ICN
   </a>
-  <button class="nav-toggle" id="nav-toggle">☰</button>
   <div class="nav-links" id="nav-links">
     <a href="index.html" class="active">Beranda</a>
     <a href="profil.html">Profil</a>
@@ -103,78 +48,314 @@
     <a href="modul.html">Modul</a>
     <a href="dokumen.html">Dokumen</a>
   </div>
+  <div class="nav-right">
+    <button class="btn-login-nav" id="btn-login-nav">Masuk</button>
+    <button class="nav-toggle" id="nav-toggle">☰</button>
+  </div>
 </nav>
 
-<div class="hero">
+<!-- Page Content -->
+<div class="page-content">
+
+  <!-- ══ HERO ══ -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="container hero-inner">
+      <div class="hero-badge animate-up" id="hero-badge">Status Aktif</div>
+      <h1 class="animate-up delay-100" id="hero-title">
+        Portal <span>Kurikulum</span><br>MA ICN
+      </h1>
+      <p class="hero-sub animate-up delay-200" id="hero-desc">
+        Pusat informasi kurikulum interaktif MA Insan Cendekia Nusantara Purwakarta
+      </p>
+      <p class="hero-warm animate-up delay-300">
+        "Ilmu adalah cahaya yang menerangi jalan, kurikulum adalah peta yang menuntun perjalanan."
+      </p>
+    </div>
+  </section>
+
+  <!-- ══ STATS ══ -->
   <div class="container">
-    <div class="hero-badge animate-up" id="hero-badge"></div>
-    <h1 class="animate-up delay-100" id="hero-title">Portal Kurikulum</h1>
-    <p class="animate-up delay-200" id="hero-desc"></p>
-  </div>
-</div>
-
-<div class="container">
-  <div class="stats-container" id="stats-container">
-    <!-- Injected -->
+    <div class="stats-strip" id="stats-container">
+      <!-- injected -->
+    </div>
   </div>
 
-  <h2 class="section-title animate-up">Pusat Layanan Informasi</h2>
-  <div class="menu-grid">
-    <a href="profil.html" class="menu-card animate-up">
-      <div class="menu-icon">PR</div>
-      <h3>Profil & Regulasi</h3>
-      <p>Pelajari visi, misi, 8 Dimensi Profil Lulusan, Panca Cinta, serta landasan hukum kurikulum madrasah.</p>
-    </a>
-    <a href="struktur.html" class="menu-card animate-up delay-100">
-      <div class="menu-icon">ST</div>
-      <h3>Struktur & Jadwal</h3>
-      <p>Distribusi 22 mata pelajaran, hitungan beban belajar, formula ketuntasan, dan jadwal harian reguler.</p>
-    </a>
-    <a href="kalender.html" class="menu-card animate-up delay-200">
-      <div class="menu-icon">KA</div>
-      <h3>Kalender Akademik</h3>
-      <p>Simulasi interaktif tanggal-tanggal penting, hari efektif, dan libur tahunan.</p>
-    </a>
-    <a href="prota.html" class="menu-card animate-up">
-      <div class="menu-icon">PT</div>
-      <h3>Program Tahunan</h3>
-      <p>Pemetaan dan status terkini seluruh program kerja strategis madrasah dalam satu tahun penuh.</p>
-    </a>
-    <a href="posem.html" class="menu-card animate-up delay-100">
-      <div class="menu-icon">PS</div>
-      <h3>Program Semester</h3>
-      <p>Rincian agenda bulanan terpecah untuk Semester Ganjil dan Genap beserta penempatan momen asesmen.</p>
-    </a>
-    <a href="modul.html" class="menu-card animate-up delay-200">
-      <div class="menu-icon">MA</div>
-      <h3>Modul Ajar</h3>
-      <p>Akses pustaka digital perangkat ajar dan modul pendukung untuk semua mata pelajaran.</p>
-    </a>
+  <!-- ══ ADMIN QUICK PANEL (hanya tampil saat login) ══ -->
+  <div class="container" style="margin-top:40px;">
+    <div class="admin-section" id="admin-section">
+      <div class="admin-header">
+        <div>
+          <span class="admin-tag">Admin Mode</span>
+          <h3 style="margin-top:6px;">Panel Pengelolaan Konten</h3>
+        </div>
+        <button class="btn btn-ghost btn-sm" onclick="AppUtils.openModal('modal-admin')">Buka Panel Lengkap →</button>
+      </div>
+      <p style="font-size:0.85rem;color:var(--text-soft);">
+        Anda masuk sebagai admin. Gunakan panel lengkap untuk mengelola tautan modul, kalender, dan dokumen.
+      </p>
+    </div>
   </div>
-</div>
 
+  <!-- ══ MENU ══ -->
+  <div class="container">
+    <div class="section-header animate-up">
+      <div class="section-tag">Navigasi Utama</div>
+      <h2 class="section-title">Pusat Layanan Informasi</h2>
+      <p class="section-sub">Semua informasi akademik tersaji dengan transparan dan mudah diakses</p>
+    </div>
+
+    <div class="menu-grid">
+      <a href="profil.html" class="menu-card animate-up">
+        <div class="menu-icon">PR</div>
+        <h3>Profil &amp; Regulasi</h3>
+        <p>Visi, misi, 8 Dimensi Profil Lulusan, Panca Cinta, serta landasan hukum kurikulum madrasah.</p>
+        <div class="menu-arrow">Lihat Selengkapnya →</div>
+      </a>
+      <a href="struktur.html" class="menu-card animate-up delay-100">
+        <div class="menu-icon">ST</div>
+        <h3>Struktur &amp; Jadwal</h3>
+        <p>Distribusi 22 mata pelajaran, beban belajar, formula ketuntasan, dan jadwal harian reguler.</p>
+        <div class="menu-arrow">Lihat Selengkapnya →</div>
+      </a>
+      <a href="kalender.html" class="menu-card animate-up delay-200">
+        <div class="menu-icon">KA</div>
+        <h3>Kalender Akademik</h3>
+        <p>Simulasi interaktif tanggal penting, hari efektif, dan libur tahunan secara visual.</p>
+        <div class="menu-arrow">Lihat Selengkapnya →</div>
+      </a>
+      <a href="prota.html" class="menu-card animate-up">
+        <div class="menu-icon">PT</div>
+        <h3>Program Tahunan</h3>
+        <p>Pemetaan dan status terkini seluruh program kerja strategis madrasah dalam satu tahun.</p>
+        <div class="menu-arrow">Lihat Selengkapnya →</div>
+      </a>
+      <a href="posem.html" class="menu-card animate-up delay-100">
+        <div class="menu-icon">PS</div>
+        <h3>Program Semester</h3>
+        <p>Rincian agenda bulanan Semester Ganjil dan Genap beserta penempatan momen asesmen.</p>
+        <div class="menu-arrow">Lihat Selengkapnya →</div>
+      </a>
+      <a href="modul.html" class="menu-card animate-up delay-200">
+        <div class="menu-icon">MA</div>
+        <h3>Modul Ajar</h3>
+        <p>Akses pustaka digital perangkat ajar dan modul pendukung untuk semua mata pelajaran.</p>
+        <div class="menu-arrow">Lihat Selengkapnya →</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- ══ WARM SECTION ══ -->
+  <div class="container">
+    <div class="warm-section animate-up">
+      <div class="warm-inner">
+        <div class="warm-tag">✦ Pesan Hangat</div>
+        <h2>Bersama Membangun<br>Generasi Berilmu &amp; Berkarakter</h2>
+        <p>
+          Selamat datang di Portal Kurikulum <strong>MA Insan Cendekia Nusantara</strong>.
+          Platform ini hadir sebagai jembatan antara rencana pendidikan dengan pelaksanaannya di ruang kelas —
+          transparan, terbuka, dan dapat diakses oleh seluruh warga madrasah.
+        </p>
+        <p>
+          Kepada setiap guru yang telah berdedikasi, setiap siswa yang terus bersemangat belajar,
+          dan setiap orang tua yang senantiasa mendukung — <strong>terima kasih telah menjadi bagian dari perjalanan mulia ini</strong>.
+          Kurikulum bukan sekadar dokumen; ia adalah janji kita bersama untuk masa depan.
+        </p>
+        <p style="margin-top:16px;">
+          — Wakil Kepala Bidang Kurikulum
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ KOMENTAR ══ -->
+  <div class="container">
+    <div class="section-header animate-up">
+      <div class="section-tag">Komunitas</div>
+      <h2 class="section-title">Kesan &amp; Pesan</h2>
+      <p class="section-sub">Bagikan apresiasi, saran, atau pertanyaan Anda untuk kemajuan bersama</p>
+    </div>
+
+    <div class="comment-section">
+      <!-- Form -->
+      <div class="comment-form-card animate-up">
+        <h3>✍ Tulis Komentar</h3>
+        <form id="comment-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nama</label>
+              <input type="text" id="comment-name" placeholder="Nama Anda" required maxlength="60">
+            </div>
+            <div class="form-group">
+              <label>Peran</label>
+              <select id="comment-role">
+                <option value="guru">Guru</option>
+                <option value="siswa">Siswa</option>
+                <option value="orang-tua">Orang Tua</option>
+                <option value="lainnya">Lainnya</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Komentar</label>
+            <textarea id="comment-text" rows="3" placeholder="Tuliskan kesan, saran, atau pertanyaan Anda…" required maxlength="500"></textarea>
+          </div>
+          <button type="submit" class="btn btn-aqua">Kirim Komentar</button>
+        </form>
+      </div>
+
+      <!-- List -->
+      <div class="comment-list" id="comment-list">
+        <div class="comment-empty">✦ Belum ada komentar. Jadilah yang pertama berbagi kesan!</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page-content -->
+
+<!-- ══ FOOTER ══ -->
 <footer>
-  <div class="container">
-    <strong id="footer-madrasah">MA Insan Cendekia Nusantara Purwakarta</strong>
-    Pusat Informasi Akademik & Kurikulum<br><br>
-    Waka Kurikulum: <span id="footer-waka"></span> &middot; Dokumen: <span id="footer-doc"></span>
+  <div class="container footer-inner">
+    <div>
+      <div class="footer-brand">
+        <strong id="footer-madrasah">MA Insan Cendekia Nusantara Purwakarta</strong>
+      </div>
+      <div class="footer-meta">
+        Pusat Informasi Akademik &amp; Kurikulum<br>
+        Waka Kurikulum: <span id="footer-waka"></span> &middot; Dokumen: <span id="footer-doc"></span>
+      </div>
+    </div>
+    <div class="footer-right">
+      <div class="clock-badge" id="footer-year"></div>
+    </div>
   </div>
 </footer>
 
+<!-- Toast -->
+<div id="toast"></div>
+
+<!-- ══ MODAL: LOGIN ══ -->
+<div class="modal-overlay" id="modal-login">
+  <div class="modal-box">
+    <button class="modal-close" data-close-modal="modal-login">✕</button>
+    <div class="modal-logo">
+      <img src="assets/iconmaicn.png" alt="Logo">
+    </div>
+    <div class="modal-title">Masuk Admin</div>
+    <div class="modal-sub">Akses panel pengelolaan kurikulum</div>
+    <div class="login-error" id="login-error"></div>
+    <form id="login-form">
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" id="login-user" placeholder="admin" autocomplete="username" required>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="login-pass" placeholder="••••••••" autocomplete="current-password" required>
+      </div>
+      <button type="submit" class="btn btn-primary btn-full" style="margin-top:8px;">Masuk →</button>
+    </form>
+    <p style="text-align:center;font-size:0.8rem;color:var(--text-soft);margin-top:16px;">
+      Khusus Waka Kurikulum &amp; Administrator
+    </p>
+  </div>
+</div>
+
+<!-- ══ MODAL: ADMIN PANEL ══ -->
+<div class="modal-overlay" id="modal-admin">
+  <div class="modal-box wide">
+    <button class="modal-close" data-close-modal="modal-admin">✕</button>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+      <div>
+        <div class="admin-tag" style="margin-bottom:6px;">Admin Panel</div>
+        <div class="modal-title" style="text-align:left;margin-bottom:0;">Kelola Konten</div>
+      </div>
+      <button class="btn btn-ghost btn-sm" id="btn-logout">Keluar ↗</button>
+    </div>
+
+    <div class="admin-tabs">
+      <button class="admin-tab active" data-tab="embed">📎 Tautan &amp; Modul</button>
+      <button class="admin-tab" data-tab="kaldik">📅 Info Kaldik</button>
+      <button class="admin-tab" data-tab="info">ℹ Info</button>
+    </div>
+
+    <!-- Tab: Embed -->
+    <div class="admin-panel-content active" id="panel-embed">
+      <form id="embed-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Judul Dokumen</label>
+            <input type="text" id="embed-title" placeholder="Contoh: Modul Matematika X" required>
+          </div>
+          <div class="form-group">
+            <label>Kategori</label>
+            <select id="embed-category">
+              <option value="modul">Modul Ajar</option>
+              <option value="kaldik">Kalender Akademik</option>
+              <option value="prota">Program Tahunan</option>
+              <option value="posem">Program Semester</option>
+              <option value="dokumen">Dokumen Lain</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Link Google Drive (tautan bagikan/embed)</label>
+          <input type="url" id="embed-url" placeholder="https://drive.google.com/file/d/..." required>
+        </div>
+        <button type="submit" class="btn btn-aqua btn-sm">Tambah Tautan</button>
+      </form>
+      <div class="embed-list" id="embed-list-admin">
+        <div class="comment-empty">Belum ada tautan tertanam.</div>
+      </div>
+    </div>
+
+    <!-- Tab: Kaldik -->
+    <div class="admin-panel-content" id="panel-kaldik">
+      <p style="font-size:0.9rem;color:var(--text-soft);line-height:1.7;">
+        Untuk mengedit data kalender akademik, prota, dan posem — perbarui file <strong>master-data.json</strong>
+        melalui repository GitHub, atau hubungi tim teknis madrasah.
+        Pada versi mendatang, pengeditan dapat dilakukan langsung dari panel ini.
+      </p>
+      <div class="callout" style="margin-top:16px;">
+        📌 Fitur edit kalender langsung dari browser sedang dalam pengembangan (versi 2.1)
+      </div>
+    </div>
+
+    <!-- Tab: Info -->
+    <div class="admin-panel-content" id="panel-info">
+      <p style="font-size:0.9rem;color:var(--text-soft);line-height:1.7;margin-bottom:12px;">
+        <strong>Curriculum OS v2.0</strong> — Aquamorphic Edition<br>
+        MA Insan Cendekia Nusantara Purwakarta
+      </p>
+      <p style="font-size:0.85rem;color:var(--text-soft);line-height:1.7;">
+        Roadmap mendatang: login multi-guru, upload modul via Google Drive embed,
+        edit kaldik via panel, notifikasi pengumuman, dan dashboard statistik.
+      </p>
+      <div class="callout">
+        🔐 Untuk mengubah password admin, edit variabel <code>AUTH_CONFIG</code> di <code>assets/app.js</code>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SCRIPTS ══ -->
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   const MD = window.MASTER_DATA;
   if (!MD) return;
 
-  // Hero Section
-  document.getElementById('hero-badge').textContent = `STATUS: ${MD.meta.status}`;
-  document.getElementById('hero-title').textContent = MD.meta.madrasah;
-  document.getElementById('hero-desc').textContent = `Pusat informasi kurikulum dan rekam jejak akademik interaktif untuk Tahun Pelajaran ${MD.meta.tahun_pelajaran}. Dirancang untuk menyajikan data secara transparan dan estetik.`;
+  // Hero
+  document.getElementById('hero-badge').textContent = `Status: ${MD.meta.status}`;
+  document.getElementById('hero-title').innerHTML =
+    `Portal <span>Kurikulum</span><br>${MD.meta.madrasah.replace('MA ','MA<br>')}`;
+  document.getElementById('hero-desc').textContent =
+    `Pusat informasi kurikulum interaktif · Tahun Pelajaran ${MD.meta.tahun_pelajaran}`;
 
-  // Footer Section
+  // Footer
   document.getElementById('footer-madrasah').textContent = MD.meta.madrasah;
   document.getElementById('footer-waka').textContent = MD.meta.waka_kurikulum;
   document.getElementById('footer-doc').textContent = MD.meta.no_dokumen;
+  document.getElementById('footer-year').textContent = `TP ${MD.meta.tahun_pelajaran}`;
 
   // Stats
   const hl = MD.headline;
@@ -184,7 +365,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="stat-label">Hari Efektif</div>
       <div class="stat-sub">Total PBM Murni</div>
     </div>
-    <div class="stat-card c-green animate-up delay-100">
+    <div class="stat-card c-gold animate-up delay-100">
       <div class="stat-num" data-target="${hl.total_jp}">0</div>
       <div class="stat-label">Total JP</div>
       <div class="stat-sub">Sen–Kam 10 JP · Jum 8 JP</div>
@@ -199,13 +380,34 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="stat-label">Hari Sumatif</div>
       <div class="stat-sub">STS ${hl.sumatif_sts} · SAS ${hl.sumatif_sas}</div>
     </div>
-    <div class="stat-card c-blue animate-up delay-300">
+    <div class="stat-card c-blue animate-up delay-400">
       <div class="stat-num" data-target="${hl.jumlah_rombel}">0</div>
       <div class="stat-label">Rombel</div>
       <div class="stat-sub">Fase E / Kelas X</div>
     </div>
   `;
+
+  // Re-observe new stat elements
+  if (typeof initScrollReveal === 'function') {
+    // stats added after DOMContentLoaded, re-observe
+  }
+  if ('IntersectionObserver' in window) {
+    const obs2 = new IntersectionObserver((entries, o) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          if (entry.target.classList.contains('stat-num') && !entry.target.dataset.counted) {
+            entry.target.dataset.counted = 'true';
+            window.AppUtils.countUp(entry.target);
+          }
+          o.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin:'0px 0px -40px 0px', threshold:0.08 });
+    document.querySelectorAll('#stats-container .animate-up, #stats-container .stat-num').forEach(el => obs2.observe(el));
+  }
 });
 </script>
+
 </body>
 </html>
