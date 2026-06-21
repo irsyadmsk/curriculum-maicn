@@ -3,147 +3,386 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Kalender Akademik — Curriculum OS</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<title>Kalender Akademik — Curriculum OS · MA ICN</title>
 <link rel="stylesheet" href="assets/styles.css">
 <style>
-/* ─── AKALENDER INLINE OVERRIDES (To preserve the exact aesthetic of Akalender) ─── */
-:root {
-  --radius: 10px;
-  --g1:#1A4731;--g2:#2D6A4F;--g3:#52B788;--g4:#B7E4C7;--g5:#D8F3DC;
-  --r1:#9B1D20;--r2:#C41E3A;
-  --gold:#C9A227;--gold-l:#F5E6C0;
-  --cream:#F7F4EE;--white:#fff;
-  --d1:#1E2A22;--d2:#3D4F42;--d3:#718089;--d4:#A8B5AB;--d5:#E8EDE9;
+/* ══════════════════════════════════════════════
+   KALENDER AKADEMIK — Modern Aquamorphic v2
+══════════════════════════════════════════════ */
+
+/* ─── Page Hero ─── */
+.kal-hero {
+  padding: 130px 0 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.kal-hero::before {
+  content:''; position:absolute; inset:0;
+  background: url('https://images.unsplash.com/photo-1506784983877-45594efa4cbe?w=1600&q=60') center/cover no-repeat;
+  opacity: 0.04;
+}
+.kal-hero h1 {
+  font-size: clamp(2rem,5vw,3.2rem); font-weight:800;
+  color: var(--primary-dark); letter-spacing:-1.5px;
+  position:relative; z-index:1; margin-bottom:10px;
+}
+.kal-hero p {
+  font-size:1rem; color:var(--text-soft);
+  max-width:540px; margin:0 auto;
+  position:relative; z-index:1;
 }
 
-/* ─── TIMELINE STRIP ────── */
-.timeline { background: var(--g1); padding: 0 32px; border-radius: var(--radius-lg); margin-top: 20px; overflow: hidden; margin-bottom: 40px;}
-.timeline-inner { width: 100%; display: flex; height: 8px; gap: 1px; border-radius: 0 0 8px 8px; overflow: hidden; }
-.tl-seg { flex: 1; height: 100%; transition: opacity .2s; }
-.tl-seg:hover { opacity: .7; }
+/* ─── Timeline ─── */
+.timeline-wrap {
+  background: var(--glass-card);
+  backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+  border:1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 20px 24px;
+  margin-bottom: 28px;
+  box-shadow: var(--glass-shadow);
+}
+.timeline-label {
+  font-size:0.72rem; font-weight:800; color:var(--text-soft);
+  text-transform:uppercase; letter-spacing:1px; margin-bottom:10px;
+  display:flex; justify-content:space-between;
+}
+.timeline-bar {
+  height: 10px; border-radius: 100px; overflow:hidden;
+  background: rgba(0,0,0,0.06);
+  display:flex; gap:1px;
+}
+.tl-seg {
+  flex:1; height:100%; transition:opacity .2s;
+  cursor:pointer; border-radius:1px;
+}
+.tl-seg:hover { opacity:.7; }
 
-/* ─── TABS ───────────────────────────────── */
-.tab-bar{ max-width:1264px; margin:0 auto 20px;}
-.tab-nav{display:flex;gap:4px;border-bottom:2px solid var(--d5)}
-.tab-btn{padding:10px 22px;font-size:.9rem;font-weight:700;color:var(--d3);
-  background:none;border:none;cursor:pointer;border-bottom:2px solid transparent;
-  margin-bottom:-2px;transition:all .2s;border-radius:6px 6px 0 0;letter-spacing:.3px; font-family: inherit;}
-.tab-btn:hover{color:var(--g1);background:var(--g5)}
-.tab-btn.active{color:var(--g1);border-bottom-color:var(--g2);background:var(--surface)}
+/* ─── Tabs ─── */
+.tab-bar {
+  background: var(--glass-card);
+  backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+  border:1px solid var(--glass-border);
+  border-radius: var(--radius-pill);
+  padding: 6px;
+  display:inline-flex; gap:4px;
+  margin-bottom: 32px;
+  box-shadow: var(--glass-shadow);
+}
+.tab-wrap { text-align:center; margin-bottom:32px; }
+.tab-btn {
+  padding:10px 22px; border-radius:var(--radius-pill);
+  border:none; background:transparent;
+  font-family:inherit; font-size:0.875rem; font-weight:700;
+  color:var(--text-soft); cursor:pointer;
+  transition:all .25s; white-space:nowrap;
+}
+.tab-btn:hover { color:var(--primary); background:rgba(255,255,255,0.5); }
+.tab-btn.active {
+  background: var(--primary); color:white;
+  box-shadow:0 4px 14px rgba(26,71,49,0.25);
+}
+.tab-content { display:none; }
+.tab-content.active {
+  display:block;
+  animation: fadeUp .5s cubic-bezier(0.16,1,0.3,1);
+}
+@keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
 
-/* ─── TAB CONTENT ────────────────────────── */
-.tab-content{display:none;}
-.tab-content.active{display:block; animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);}
-@keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+/* ─── Filter Pills ─── */
+.sec-hdr {
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom:24px; flex-wrap:wrap; gap:12px;
+}
+.sec-title { font-size:1.05rem; font-weight:800; color:var(--primary-dark); }
+.sec-sub   { font-size:0.82rem; color:var(--text-soft); margin-top:2px; }
+.filter-group { display:flex; gap:6px; flex-wrap:wrap; }
+.filter-btn {
+  padding:7px 16px; border-radius:var(--radius-pill);
+  border:1.5px solid var(--border); background:var(--glass-card);
+  backdrop-filter:blur(8px);
+  font-family:inherit; font-size:0.8rem; font-weight:700;
+  color:var(--text-soft); cursor:pointer; transition:all .2s;
+}
+.filter-btn:hover { border-color:var(--aqua); color:var(--aqua-deep); }
+.filter-btn.active {
+  background:var(--primary); border-color:var(--primary); color:white;
+  box-shadow:0 3px 10px rgba(26,71,49,0.2);
+}
 
-/* ─── SECTION HEADER ─────────────────────── */
-.sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px}
-.sec-title{font-size:1.15rem;font-weight:800;color:var(--g1)}
-.sec-sub{font-size:.85rem;color:var(--d3);margin-top:2px;font-weight:500}
-.filter-group{display:flex;gap:6px}
-.filter-btn{padding:6px 16px;border-radius:20px;border:1.5px solid var(--d5);
-  background:var(--surface);font-size:.8rem;font-weight:600;color:var(--d3);
-  cursor:pointer;transition:all .2s; font-family: inherit;}
-.filter-btn:hover{border-color:var(--g3);color:var(--g2)}
-.filter-btn.active{background:var(--g1);border-color:var(--g1);color:var(--white)}
+/* ─── Calendar Grid ─── */
+.cal-grid {
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px,1fr));
+  gap:20px; margin-bottom:40px;
+}
 
-/* ─── CALENDAR GRID ─────────────────────── */
-.cal-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(320px, 1fr));gap:24px}
-.month-card{background:var(--surface);border-radius:var(--radius);
-  box-shadow:var(--shadow);overflow:hidden;transition:box-shadow .2s}
-.month-card:hover{box-shadow:var(--shadow-md)}
-.month-card.sem-ganjil{border-top:4px solid var(--g2)}
-.month-card.sem-genap{border-top:4px solid var(--gold)}
-.month-card.sem-pra{border-top:4px solid var(--d3)}
-.month-card.sem-libur{border-top:4px solid var(--r2)}
+.month-card {
+  background: var(--glass-card);
+  backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+  border:1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  overflow:hidden;
+  box-shadow: var(--glass-shadow);
+  transition:all .35s cubic-bezier(0.16,1,0.3,1);
+}
+.month-card:hover {
+  transform:translateY(-6px);
+  box-shadow:0 20px 48px rgba(14,46,31,0.16);
+}
 
-.month-head{background:var(--g1);padding:14px 18px;
-  display:flex;align-items:center;justify-content:space-between}
-.month-name{font-size:1rem;font-weight:800;color:var(--white);letter-spacing:-.2px}
-.month-sem{font-size:.7rem;color:rgba(255,255,255,.9);font-weight:700;
-  background:rgba(255,255,255,.15);padding:4px 10px;border-radius:10px}
+.month-head {
+  padding:16px 20px 14px;
+  position:relative; overflow:hidden;
+}
+.month-head-ganjil { background:linear-gradient(135deg,#1A4731 0%,#2D6A4F 100%); }
+.month-head-genap  { background:linear-gradient(135deg,#7C4D0A 0%,#C9A227 100%); }
+.month-head-pra    { background:linear-gradient(135deg,#0C4A6E 0%,#0369A1 100%); }
+.month-head-libur  { background:linear-gradient(135deg,#6B1C1C 0%,#C41E3A 100%); }
+.month-head::after {
+  content:''; position:absolute; top:-20px; right:-20px;
+  width:100px; height:100px; border-radius:50%;
+  background:rgba(255,255,255,0.07);
+}
+.month-name { font-size:1.1rem; font-weight:800; color:white; letter-spacing:-.3px; }
+.month-year { font-size:0.78rem; color:rgba(255,255,255,0.7); font-weight:600; }
+.month-sem  {
+  display:inline-block; font-size:0.68rem; font-weight:800;
+  background:rgba(255,255,255,0.18); color:white;
+  padding:3px 10px; border-radius:100px; margin-top:6px;
+  letter-spacing:.5px; text-transform:uppercase;
+}
 
-.day-headers{display:grid;grid-template-columns:repeat(7,1fr);
-  background:var(--g5);padding:6px 10px;gap:2px}
-.day-hdr{text-align:center;font-size:.7rem;font-weight:800;color:var(--g2);
-  padding:4px 0;text-transform:uppercase;letter-spacing:.4px}
-.day-hdr.weekend{color:var(--r2)}
+/* Day headers */
+.day-headers {
+  display:grid; grid-template-columns:repeat(7,1fr);
+  padding:10px 12px 4px; gap:2px;
+  background:rgba(255,255,255,0.3);
+}
+.day-hdr {
+  text-align:center; font-size:0.68rem; font-weight:800;
+  color:var(--text-soft); padding:4px 0; text-transform:uppercase; letter-spacing:.3px;
+}
+.day-hdr.weekend { color:var(--aqua-deep); }
 
-.date-grid{display:grid;grid-template-columns:repeat(7,1fr);padding:10px;gap:4px}
-.date-cell{aspect-ratio:1;border-radius:6px;display:flex;align-items:center;
-  justify-content:center;font-size:.9rem;font-weight:800;cursor:pointer;
-  position:relative;transition:transform .15s, box-shadow .15s;line-height:1}
-.date-cell:not(.empty):hover{transform:scale(1.15);z-index:2;box-shadow:0 4px 12px rgba(0,0,0,.2)}
-.date-cell.empty{background:transparent; cursor: default;}
-.date-cell.today{box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--gold);}
+/* Date grid */
+.date-grid {
+  display:grid; grid-template-columns:repeat(7,1fr);
+  padding:8px 12px 12px; gap:3px;
+}
+.date-cell {
+  aspect-ratio:1; border-radius:8px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:0.85rem; font-weight:700; cursor:pointer;
+  position:relative; transition:all .15s;
+  line-height:1;
+}
+.date-cell:not(.empty):hover {
+  transform:scale(1.18); z-index:5;
+  box-shadow:0 4px 14px rgba(0,0,0,0.22);
+}
+.date-cell.empty { background:transparent; cursor:default; }
+.date-cell.today {
+  box-shadow:0 0 0 2.5px white, 0 0 0 4.5px var(--accent);
+  z-index:2;
+}
 
-/* Month events (Pills) */
-.month-events{padding:10px;border-top:1px solid var(--d5); background: var(--bg);}
-.event-pill{display:flex;align-items:center;gap:6px;padding:4px 0;
-  font-size:.75rem;color:var(--d2);font-weight:600;overflow:hidden}
-.event-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
-.event-txt{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* Tooltip */
+.date-cell[data-tip]:not(.empty):hover::after {
+  content: attr(data-tip);
+  position:absolute; bottom:calc(100% + 6px); left:50%;
+  transform:translateX(-50%);
+  background:rgba(14,46,31,0.92); color:white;
+  font-size:0.68rem; font-weight:600;
+  padding:5px 10px; border-radius:8px;
+  white-space:nowrap; max-width:180px;
+  overflow:hidden; text-overflow:ellipsis;
+  pointer-events:none; z-index:100;
+  box-shadow:0 4px 12px rgba(0,0,0,0.2);
+}
+.date-cell[data-tip]:not(.empty):hover::before {
+  content:'';
+  position:absolute; bottom:calc(100% + 1px); left:50%;
+  transform:translateX(-50%);
+  border:5px solid transparent;
+  border-top-color:rgba(14,46,31,0.92);
+  pointer-events:none; z-index:100;
+}
 
-/* ─── LEGEND ─────────────────────────────── */
-.legend-wrap{margin-top:40px;background:var(--surface);border-radius:var(--radius-md);
-  box-shadow:var(--shadow);overflow:hidden; border: 1px solid var(--border);}
-.legend-toggle{display:flex;align-items:center;justify-content:space-between;
-  padding:16px 24px;cursor:pointer;user-select:none; background: var(--bg);}
-.legend-title{font-size:.95rem;font-weight:800;color:var(--g1)}
-.legend-arrow{font-size:.9rem;color:var(--d3);transition:transform .3s}
-.legend-arrow.open{transform:rotate(180deg)}
-.legend-body{display:none;padding:20px 24px;border-top:1px solid var(--d5)}
-.legend-body.open{display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:12px}
-.leg-item{display:flex;align-items:center;gap:10px;padding:6px 0}
-.leg-dot{width:16px;height:16px;border-radius:4px;flex-shrink:0}
-.leg-lbl{font-size:.8rem;color:var(--d2);font-weight:600}
+/* Event pills */
+.month-events {
+  padding:8px 12px 12px;
+  display:flex; flex-direction:column; gap:5px;
+  border-top:1px solid rgba(255,255,255,0.3);
+  background:rgba(255,255,255,0.15);
+}
+.event-pill {
+  display:flex; align-items:center; gap:8px;
+  font-size:0.72rem; color:var(--text-primary); font-weight:600;
+}
+.event-dot {
+  width:8px; height:8px; border-radius:50%; flex-shrink:0;
+  box-shadow:0 1px 4px rgba(0,0,0,0.15);
+}
+.event-txt {
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  color:var(--text-secondary);
+}
 
-/* ─── HARI EFEKTIF ───────────────────────── */
-.he-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(400px, 1fr));gap:24px}
-.he-card{background:var(--surface);border-radius:var(--radius-lg);padding:24px;
-  box-shadow:var(--shadow-md); border: 1px solid var(--border);}
-.he-card-title{font-size:.95rem;font-weight:800;color:var(--g1);margin-bottom:20px;
-  padding-bottom:12px;border-bottom:1px solid var(--d5)}
-.he-bar-row{display:flex;align-items:center;gap:12px;margin-bottom:12px}
-.he-bulan{font-size:.8rem;font-weight:700;color:var(--d2);width:120px;flex-shrink:0}
-.he-bars{flex:1;display:flex;gap:4px;height:24px}
-.he-bar{height:100%;border-radius:4px;display:flex;align-items:center;
-  justify-content:center;font-size:.65rem;font-weight:800;color:var(--white);
-  transition:width .5s ease;min-width:4px}
-.he-nums{font-size:.75rem;color:var(--d3);font-weight:700;width:60px;text-align:right;flex-shrink:0}
-.he-legend-row{display:flex;gap:16px;margin-top:20px;padding-top:16px;border-top:1px solid var(--d5); flex-wrap: wrap;}
-.he-leg-item{display:flex;align-items:center;gap:6px;font-size:.75rem;font-weight:700;color:var(--d2)}
-.he-leg-dot{width:12px;height:12px;border-radius:3px}
+/* ─── Legend ─── */
+.legend-wrap {
+  background:var(--glass-card);
+  backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+  border:1px solid var(--glass-border);
+  border-radius:var(--radius-lg);
+  overflow:hidden; margin-bottom:40px;
+  box-shadow:var(--glass-shadow);
+}
+.legend-toggle {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:16px 24px; cursor:pointer; user-select:none;
+  background:rgba(255,255,255,0.2);
+}
+.legend-title { font-size:.9rem; font-weight:800; color:var(--primary-dark); }
+.legend-arrow { font-size:.9rem; color:var(--text-soft); transition:transform .3s; }
+.legend-arrow.open { transform:rotate(180deg); }
+.legend-body {
+  display:none; padding:20px 24px;
+  border-top:1px solid rgba(255,255,255,0.3);
+}
+.legend-body.open {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:8px;
+}
+.leg-item { display:flex; align-items:center; gap:10px; padding:4px 0; }
+.leg-dot { width:14px; height:14px; border-radius:4px; flex-shrink:0; }
+.leg-lbl { font-size:.78rem; color:var(--text-secondary); font-weight:600; }
+.leg-group-title {
+  grid-column:1/-1; font-size:.78rem; font-weight:800;
+  color:var(--primary); text-transform:uppercase; letter-spacing:.8px;
+  padding-top:8px; padding-bottom:2px;
+  border-bottom:1px solid var(--border);
+}
 
-/* ─── MINGGU EFEKTIF ─────────────────────── */
-.me-row{display:flex;align-items:center;gap:12px;margin-bottom:10px}
-.me-bulan{font-size:.8rem;font-weight:700;color:var(--d2);width:120px;flex-shrink:0}
-.me-track{flex:1;height:28px;background:var(--d5);border-radius:6px;position:relative;overflow:hidden;display:flex}
-.me-ef{background:var(--g2);height:100%;border-radius:6px 0 0 6px;
-  display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;color:var(--white)}
-.me-tdk{background:var(--r2);height:100%;
-  display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;color:var(--white)}
-.me-nums{font-size:.75rem;font-weight:800;width:55px;text-align:right;flex-shrink:0}
-.me-nums span{color:var(--g2)}
-.me-ket{font-size:.7rem;color:var(--d3);margin-top:-6px;margin-bottom:12px;
-  padding-left:132px;font-style:italic; font-weight: 500;}
+/* ─── HE / ME cards ─── */
+.he-grid {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+  gap:20px; margin-bottom:40px;
+}
+.he-card {
+  background:var(--glass-card);
+  backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+  border:1px solid var(--glass-border);
+  border-radius:var(--radius-lg); padding:24px;
+  box-shadow:var(--glass-shadow);
+}
+.he-card-title {
+  font-size:.95rem; font-weight:800; color:var(--primary-dark);
+  margin-bottom:20px; padding-bottom:12px;
+  border-bottom:1px solid rgba(0,0,0,0.07);
+}
+.he-bar-row { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+.he-bulan   { font-size:.78rem; font-weight:700; color:var(--text-secondary); width:110px; flex-shrink:0; }
+.he-bars    { flex:1; display:flex; height:22px; border-radius:6px; overflow:hidden; gap:2px; }
+.he-bar {
+  height:100%; display:flex; align-items:center; justify-content:center;
+  font-size:.62rem; font-weight:800; color:white; min-width:3px;
+  transition:width .6s ease;
+}
+.he-nums { font-size:.72rem; color:var(--text-soft); font-weight:700; width:50px; text-align:right; flex-shrink:0; }
+.he-legend-row { display:flex; gap:14px; margin-top:16px; padding-top:14px; border-top:1px solid rgba(0,0,0,0.06); flex-wrap:wrap; }
+.he-leg-item  { display:flex; align-items:center; gap:6px; font-size:.72rem; font-weight:700; color:var(--text-secondary); }
+.he-leg-dot   { width:11px; height:11px; border-radius:3px; }
 
-/* Modal Adjustments */
-.modal-box { padding: 40px; }
-.m-badge { background: var(--bg); padding: 6px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 800; color: var(--d2); margin-bottom: 16px; display: inline-block;}
+.me-row   { display:flex; align-items:center; gap:10px; margin-bottom:6px; }
+.me-bulan { font-size:.78rem; font-weight:700; color:var(--text-secondary); width:110px; flex-shrink:0; }
+.me-track {
+  flex:1; height:26px; background:rgba(0,0,0,0.06);
+  border-radius:6px; overflow:hidden; display:flex;
+}
+.me-ef  {
+  background:linear-gradient(90deg,var(--primary),var(--primary-light));
+  height:100%; display:flex; align-items:center; justify-content:center;
+  font-size:.72rem; font-weight:800; color:white;
+}
+.me-tdk {
+  background:linear-gradient(90deg,#e53e3e,#fc8181);
+  height:100%; display:flex; align-items:center; justify-content:center;
+  font-size:.72rem; font-weight:800; color:white;
+}
+.me-nums { font-size:.72rem; font-weight:800; width:50px; text-align:right; flex-shrink:0; }
+.me-nums span { color:var(--primary); }
+.me-ket {
+  font-size:.68rem; color:var(--text-soft); font-style:italic;
+  padding-left:120px; margin-bottom:12px; line-height:1.4;
+}
+
+/* Modal */
+.m-badge {
+  background:var(--aqua-soft); border:1px solid rgba(46,196,182,0.2);
+  color:var(--aqua-deep); padding:5px 12px; border-radius:100px;
+  font-size:0.72rem; font-weight:800; margin-bottom:14px;
+  display:inline-block; text-transform:uppercase; letter-spacing:.5px;
+}
+
+/* Responsive kalender */
+@media (max-width: 680px) {
+  .cal-grid { grid-template-columns:1fr; }
+  .he-grid  { grid-template-columns:1fr; }
+  .tab-bar  { border-radius:var(--radius-lg); flex-wrap:wrap; justify-content:center; }
+  .tab-btn  { padding:8px 14px; font-size:0.82rem; }
+  .me-ket   { padding-left:0; }
+  .me-bulan, .he-bulan { width:80px; font-size:.72rem; }
+  .date-cell { font-size:.78rem; border-radius:6px; }
+  .date-cell[data-tip]:not(.empty):hover::after { display:none; }
+  .date-cell[data-tip]:not(.empty):hover::before { display:none; }
+  .timeline-wrap { padding:14px 16px; }
+}
 </style>
 <script src="data.js"></script>
 <script src="assets/app.js"></script>
 </head>
 <body>
 
+<div class="bg-blobs" aria-hidden="true">
+  <div class="bg-blob"></div>
+  <div class="bg-blob"></div>
+  <div class="bg-blob"></div>
+</div>
+
+<div id="loading-screen">
+  <div class="loading-logo"><img src="assets/iconmaicn.png" alt="MA ICN"></div>
+  <div class="loading-ring"></div>
+  <div class="loading-text">Memuat Kalender…</div>
+</div>
+
+<div id="floating-clock">
+  <div class="clock-time"></div>
+  <div class="clock-date"></div>
+</div>
+
+<button id="theme-panel-btn" aria-label="Pilih tema">🎨</button>
+<div id="theme-panel">
+  <div class="theme-panel-title">Tema Warna</div>
+  <div class="theme-colors">
+    <div class="theme-dot active" data-theme="forest" style="background:linear-gradient(135deg,#1A4731,#2EC4B6)"></div>
+    <div class="theme-dot" data-theme="ocean"  style="background:linear-gradient(135deg,#0C4A6E,#22D3EE)"></div>
+    <div class="theme-dot" data-theme="royal"  style="background:linear-gradient(135deg,#4C1D95,#A78BFA)"></div>
+    <div class="theme-dot" data-theme="earth"  style="background:linear-gradient(135deg,#78350F,#F59E0B)"></div>
+  </div>
+  <div class="theme-panel-title">Transparansi</div>
+  <div class="transparency-label">
+    <span>Gelap</span><span id="glass-val">72%</span><span>Terang</span>
+  </div>
+  <input type="range" class="transparency-slider" id="glass-slider" min="30" max="95" value="72">
+</div>
+
 <nav class="navbar" id="navbar">
   <a href="index.html" class="nav-brand">
-    <img src="assets/iconmaicn.png" alt="Logo">
-    MA ICN
+    <img src="assets/iconmaicn.png" alt="Logo"><span>MA ICN</span>
   </a>
-  <button class="nav-toggle" id="nav-toggle">☰</button>
   <div class="nav-links" id="nav-links">
     <a href="index.html">Beranda</a>
     <a href="profil.html">Profil</a>
@@ -154,142 +393,180 @@
     <a href="modul.html">Modul</a>
     <a href="dokumen.html">Dokumen</a>
   </div>
+  <div class="nav-right">
+    <button class="btn-login-nav" id="btn-login-nav">Masuk</button>
+    <button class="nav-toggle" id="nav-toggle">☰</button>
+  </div>
 </nav>
 
-<div class="page-header">
+<div class="page-content">
+
+  <!-- Hero -->
+  <div class="kal-hero">
+    <h1 class="animate-up">📅 Kalender Akademik</h1>
+    <p class="animate-up delay-100">Peta waktu perjalanan belajar MA ICN — klik tanggal untuk detail agenda</p>
+  </div>
+
   <div class="container">
-    <h1 class="animate-up">Kalender Akademik</h1>
-    <p class="animate-up delay-100">Kalender operasional pendidikan Madrasah Aliyah Insan Cendekia Nusantara.</p>
-  </div>
-</div>
 
-<div class="container">
-  
-  <div class="stats-container" id="stats-container" style="margin-bottom: 40px;">
-    <!-- Injected by JS -->
-  </div>
+    <!-- Stats -->
+    <div class="stats-strip animate-up" id="stats-container" style="margin-bottom:28px;margin-top:0;"></div>
 
-  <div class="timeline animate-up delay-200">
-    <div class="timeline-inner" id="tl-strip"></div>
-  </div>
-
-  <div class="tab-bar animate-up delay-300">
-    <div class="tab-nav">
-      <button class="tab-btn active" onclick="switchTab('kalender',this)">📅 Kalender Akademik</button>
-      <button class="tab-btn" onclick="switchTab('hari',this)">📊 Hari Efektif</button>
-      <button class="tab-btn" onclick="switchTab('minggu',this)">📈 Minggu Efektif</button>
-    </div>
-  </div>
-
-  <!-- TAB: KALENDER -->
-  <div class="tab-content active" id="tab-kalender">
-    <div class="sec-hdr">
-      <div>
-        <div class="sec-title">Kalender TP 2026/2027</div>
-        <div class="sec-sub">Klik pada tanggal mana pun untuk melihat rincian agenda.</div>
+    <!-- Timeline -->
+    <div class="timeline-wrap animate-up delay-100">
+      <div class="timeline-label">
+        <span>Timeline Tahun Pelajaran</span>
+        <span id="tl-range">—</span>
       </div>
-      <div class="filter-group">
-        <button class="filter-btn active" onclick="filterSem('all',this)">Semua</button>
-        <button class="filter-btn" onclick="filterSem('Pra TA',this)">Pra TA</button>
-        <button class="filter-btn" onclick="filterSem('Ganjil',this)">Ganjil</button>
-        <button class="filter-btn" onclick="filterSem('Genap',this)">Genap</button>
+      <div class="timeline-bar" id="tl-strip"></div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tab-wrap animate-up delay-200">
+      <div class="tab-bar">
+        <button class="tab-btn active" onclick="switchTab('kalender',this)">📅 Kalender</button>
+        <button class="tab-btn" onclick="switchTab('hari',this)">📊 Hari Efektif</button>
+        <button class="tab-btn" onclick="switchTab('minggu',this)">📈 Minggu Efektif</button>
       </div>
     </div>
-    
-    <div class="cal-grid" id="cal-grid"></div>
 
-    <div class="legend-wrap">
-      <div class="legend-toggle" onclick="toggleLegend()">
-        <span class="legend-title">🎨 Legenda Warna Kategori</span>
-        <span class="legend-arrow" id="leg-arrow">▼</span>
-      </div>
-      <div class="legend-body" id="leg-body"></div>
-    </div>
-  </div>
-
-  <!-- TAB: HARI EFEKTIF -->
-  <div class="tab-content" id="tab-hari">
-    <div class="sec-hdr">
-      <div>
-        <div class="sec-title">Analisis Hari Efektif</div>
-        <div class="sec-sub">Alokasi KBM murni vs Asesmen per bulan.</div>
-      </div>
-    </div>
-    <div class="he-grid">
-      <div class="he-card">
-        <div class="he-card-title">📚 Semester Ganjil</div>
-        <div id="he-ganjil"></div>
-        <div class="he-legend-row">
-          <div class="he-leg-item"><div class="he-leg-dot" style="background:#548235"></div>Pembelajaran</div>
-          <div class="he-leg-item"><div class="he-leg-dot" style="background:#7030A0"></div>Asesmen</div>
-          <div class="he-leg-item"><div class="he-leg-dot" style="background:#E8EDE9"></div>Lainnya/Libur</div>
+    <!-- TAB: KALENDER -->
+    <div class="tab-content active" id="tab-kalender">
+      <div class="sec-hdr">
+        <div>
+          <div class="sec-title">Kalender TP <span id="tp-label">—</span></div>
+          <div class="sec-sub">Hover tanggal untuk detail · klik untuk info lengkap</div>
+        </div>
+        <div class="filter-group">
+          <button class="filter-btn active" onclick="filterSem('all',this)">Semua</button>
+          <button class="filter-btn" onclick="filterSem('Pra',this)">Pra TA</button>
+          <button class="filter-btn" onclick="filterSem('Ganjil',this)">Ganjil</button>
+          <button class="filter-btn" onclick="filterSem('Genap',this)">Genap</button>
         </div>
       </div>
-      <div class="he-card">
-        <div class="he-card-title">📗 Semester Genap</div>
-        <div id="he-genap"></div>
-        <div class="he-legend-row">
-          <div class="he-leg-item"><div class="he-leg-dot" style="background:#548235"></div>Pembelajaran</div>
-          <div class="he-leg-item"><div class="he-leg-dot" style="background:#7030A0"></div>Asesmen</div>
-          <div class="he-leg-item"><div class="he-leg-dot" style="background:#E8EDE9"></div>Lainnya/Libur</div>
+      <div class="cal-grid" id="cal-grid"></div>
+      <div class="legend-wrap">
+        <div class="legend-toggle" onclick="toggleLegend()">
+          <span class="legend-title">🎨 Legenda Warna Kategori</span>
+          <span class="legend-arrow" id="leg-arrow">▼</span>
+        </div>
+        <div class="legend-body" id="leg-body"></div>
+      </div>
+    </div>
+
+    <!-- TAB: HARI EFEKTIF -->
+    <div class="tab-content" id="tab-hari">
+      <div class="sec-hdr">
+        <div>
+          <div class="sec-title">Analisis Hari Efektif</div>
+          <div class="sec-sub">Alokasi KBM murni vs Asesmen per bulan</div>
+        </div>
+      </div>
+      <div class="he-grid">
+        <div class="he-card animate-up">
+          <div class="he-card-title">📚 Semester Ganjil</div>
+          <div id="he-ganjil"></div>
+          <div class="he-legend-row">
+            <div class="he-leg-item"><div class="he-leg-dot" style="background:#1A6B3C"></div>Pembelajaran</div>
+            <div class="he-leg-item"><div class="he-leg-dot" style="background:#7C3AED"></div>Asesmen</div>
+            <div class="he-leg-item"><div class="he-leg-dot" style="background:rgba(0,0,0,0.08)"></div>Libur/Lain</div>
+          </div>
+        </div>
+        <div class="he-card animate-up delay-100">
+          <div class="he-card-title">📗 Semester Genap</div>
+          <div id="he-genap"></div>
+          <div class="he-legend-row">
+            <div class="he-leg-item"><div class="he-leg-dot" style="background:#1A6B3C"></div>Pembelajaran</div>
+            <div class="he-leg-item"><div class="he-leg-dot" style="background:#7C3AED"></div>Asesmen</div>
+            <div class="he-leg-item"><div class="he-leg-dot" style="background:rgba(0,0,0,0.08)"></div>Libur/Lain</div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- TAB: MINGGU EFEKTIF -->
-  <div class="tab-content" id="tab-minggu">
-    <div class="sec-hdr">
-      <div>
-        <div class="sec-title">Analisis Minggu Efektif</div>
-        <div class="sec-sub">Satu minggu dinyatakan efektif apabila memuat minimal 1 hari pembelajaran/KBM murni.</div>
+    <!-- TAB: MINGGU EFEKTIF -->
+    <div class="tab-content" id="tab-minggu">
+      <div class="sec-hdr">
+        <div>
+          <div class="sec-title">Analisis Minggu Efektif</div>
+          <div class="sec-sub">Minggu efektif = minimal 1 hari pembelajaran/KBM murni</div>
+        </div>
       </div>
-    </div>
-    <div class="he-grid">
-      <div class="he-card">
-        <div class="he-card-title">📅 Semester Ganjil</div>
-        <div id="me-ganjil"></div>
+      <div class="he-grid">
+        <div class="he-card animate-up">
+          <div class="he-card-title">📅 Semester Ganjil</div>
+          <div id="me-ganjil"></div>
+        </div>
+        <div class="he-card animate-up delay-100">
+          <div class="he-card-title">📅 Semester Genap</div>
+          <div id="me-genap"></div>
+        </div>
       </div>
-      <div class="he-card">
-        <div class="he-card-title">📅 Semester Genap</div>
-        <div id="me-genap"></div>
-      </div>
+      <div class="callout animate-up" id="me-callout"></div>
     </div>
-    <div class="callout animate-up" id="me-callout">
-      <!-- Injected by JS -->
-    </div>
-  </div>
 
-</div>
+  </div><!-- /container -->
+</div><!-- /page-content -->
 
 <footer>
-  <div class="container">
-    <strong id="footer-madrasah">MA Insan Cendekia Nusantara Purwakarta</strong>
-    Pusat Informasi Akademik & Kurikulum
+  <div class="container footer-inner">
+    <div>
+      <div class="footer-brand"><strong id="footer-madrasah">MA ICN Purwakarta</strong></div>
+      <div class="footer-meta">Kalender Akademik · <span id="footer-tp"></span></div>
+    </div>
+    <div class="footer-right"><div class="clock-badge" id="footer-year"></div></div>
   </div>
 </footer>
 
 <!-- EVENT MODAL -->
 <div class="modal-overlay" id="modal-event">
   <div class="modal-box">
-    <button class="btn-close" onclick="window.AppUtils.closeModal('modal-event')">&times;</button>
+    <button class="modal-close" data-close-modal="modal-event">✕</button>
     <div class="m-badge" id="modal-ev-cat">Kategori</div>
-    <h3 id="modal-ev-title" style="font-size: 1.6rem; color: var(--primary); margin-bottom: 8px;">Detail Agenda</h3>
-    <div id="modal-ev-date" style="font-weight: 800; color: var(--accent); margin-bottom: 24px; font-size: 1rem;">-</div>
-    
-    <div style="background: var(--bg); border-radius: var(--radius-md); padding: 24px; border: 1px solid var(--border);">
-      <div style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 800; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;">Keterangan Tambahan</div>
-      <p id="modal-ev-desc" style="font-size: 1.05rem; font-weight: 500; line-height: 1.6; color: var(--text-primary);">-</p>
+    <h3 id="modal-ev-title" style="font-size:1.4rem;font-weight:800;color:var(--primary-dark);margin-bottom:8px;line-height:1.3;">Detail Agenda</h3>
+    <div id="modal-ev-date" style="font-weight:700;color:var(--aqua-deep);margin-bottom:20px;font-size:0.9rem;"></div>
+    <div style="background:rgba(46,196,182,0.06);border:1px solid rgba(46,196,182,0.15);border-radius:var(--radius-md);padding:18px;">
+      <div style="font-size:0.75rem;color:var(--text-soft);font-weight:800;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;">Keterangan</div>
+      <p id="modal-ev-desc" style="font-size:0.95rem;font-weight:500;line-height:1.7;color:var(--text-primary);"></p>
     </div>
   </div>
 </div>
 
+<!-- LOGIN MODAL (shared) -->
+<div class="modal-overlay" id="modal-login">
+  <div class="modal-box">
+    <button class="modal-close" data-close-modal="modal-login">✕</button>
+    <div class="modal-logo"><img src="assets/iconmaicn.png" alt="Logo"></div>
+    <div class="modal-title">Masuk Admin</div>
+    <div class="modal-sub">Akses panel pengelolaan kurikulum</div>
+    <div class="login-error" id="login-error"></div>
+    <form id="login-form">
+      <div class="form-group"><label>Username</label>
+        <input type="text" id="login-user" placeholder="admin" autocomplete="username" required>
+      </div>
+      <div class="form-group"><label>Password</label>
+        <input type="password" id="login-pass" placeholder="••••••••" autocomplete="current-password" required>
+      </div>
+      <button type="submit" class="btn btn-primary btn-full" style="margin-top:8px;">Masuk →</button>
+    </form>
+  </div>
+</div>
+
+<div id="toast"></div>
+
 <script>
 let MD;
+const MONTH_NAMES = ['','Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+const DAY_NAMES   = ['Min','Sen','Sel','Rab','Kam','Jum','Sab'];
 
 document.addEventListener('DOMContentLoaded', () => {
   MD = window.MASTER_DATA;
   if (!MD) return;
+
+  document.getElementById('tp-label').textContent = MD.meta.tahun_pelajaran;
+  document.getElementById('footer-madrasah').textContent = MD.meta.madrasah;
+  document.getElementById('footer-tp').textContent = `TP ${MD.meta.tahun_pelajaran}`;
+  document.getElementById('footer-year').textContent = `TP ${MD.meta.tahun_pelajaran}`;
 
   buildStats();
   buildTimeline();
@@ -300,55 +577,52 @@ document.addEventListener('DOMContentLoaded', () => {
   initObserver();
 });
 
-/* ═══ TABS & FILTERS ════════════════════════════════════════════════ */
-window.switchTab = function(id, btn) {
-  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+/* ─── Tabs ─── */
+window.switchTab = (id, btn) => {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('tab-'+id).classList.add('active');
   btn.classList.add('active');
 };
 
-window.filterSem = function(sem, btn) {
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+window.filterSem = (sem, btn) => {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   buildCalendar(sem);
 };
 
-window.toggleLegend = function() {
-  const body=document.getElementById('leg-body');
-  const arrow=document.getElementById('leg-arrow');
-  body.classList.toggle('open');
-  arrow.classList.toggle('open');
+window.toggleLegend = () => {
+  document.getElementById('leg-body').classList.toggle('open');
+  document.getElementById('leg-arrow').classList.toggle('open');
 };
 
-/* ═══ MODAL ACTION ══════════════════════════════════════════════════ */
-window.openDayDetail = function(catLabel, title, dateStr, desc) {
-  document.getElementById('modal-ev-cat').innerText = catLabel;
-  document.getElementById('modal-ev-title').innerText = title || "Tidak ada agenda khusus";
-  document.getElementById('modal-ev-date').innerText = dateStr;
-  document.getElementById('modal-ev-desc').innerText = desc || "Tidak ada catatan tambahan untuk agenda ini.";
+/* ─── Modal ─── */
+window.openDayDetail = (catLabel, title, dateStr, desc, bgColor) => {
+  document.getElementById('modal-ev-cat').textContent = catLabel;
+  document.getElementById('modal-ev-cat').style.background = bgColor ? bgColor+'22' : '';
+  document.getElementById('modal-ev-cat').style.borderColor = bgColor ? bgColor+'44' : '';
+  document.getElementById('modal-ev-cat').style.color = bgColor || '';
+  document.getElementById('modal-ev-title').textContent = title || 'Tidak ada agenda khusus';
+  document.getElementById('modal-ev-date').textContent = dateStr;
+  document.getElementById('modal-ev-desc').textContent = desc || 'Tidak ada catatan tambahan untuk agenda ini.';
   window.AppUtils.openModal('modal-event');
 };
 
-/* ═══ LOGIC ═════════════════════════════════════════════════════════ */
-const MONTH_NAMES = ['','Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
-const DAY_NAMES = ['Min','Sen','Sel','Rab','Kam','Jum','Sab'];
-
+/* ─── Helpers ─── */
 function daysInMonth(y,m){ return new Date(y,m,0).getDate(); }
-function firstDay(y,m){ return new Date(y,m-1,1).getDay(); } // 0=Sun
+function firstDay(y,m)   { return new Date(y,m-1,1).getDay(); }
 
-function buildStats() {
+/* ─── Stats ─── */
+function buildStats(){
   const hl = MD.headline;
   document.getElementById('stats-container').innerHTML = `
     <div class="stat-card animate-up">
       <div class="stat-num" data-target="${hl.hari_efektif}">0</div>
-      <div class="stat-label">Hari Efektif</div>
-      <div class="stat-sub">Total PBM Murni</div>
+      <div class="stat-label">Hari Efektif</div><div class="stat-sub">Total PBM Murni</div>
     </div>
-    <div class="stat-card c-green animate-up delay-100">
+    <div class="stat-card c-gold animate-up delay-100">
       <div class="stat-num" data-target="${hl.total_jp}">0</div>
-      <div class="stat-label">Total JP</div>
-      <div class="stat-sub">Sen–Kam 10 JP · Jum 8 JP</div>
+      <div class="stat-label">Total JP</div><div class="stat-sub">Sen–Kam 10 · Jum 8</div>
     </div>
     <div class="stat-card c-purple animate-up delay-200">
       <div class="stat-num" data-target="${hl.minggu_efektif}">0</div>
@@ -359,217 +633,190 @@ function buildStats() {
       <div class="stat-num" data-target="${hl.hari_sumatif}">0</div>
       <div class="stat-label">Hari Sumatif</div>
       <div class="stat-sub">STS ${hl.sumatif_sts} · SAS ${hl.sumatif_sas}</div>
-    </div>
-  `;
+    </div>`;
 }
 
+/* ─── Timeline ─── */
 function buildTimeline(){
   const el = document.getElementById('tl-strip');
   const sorted = Object.entries(MD.kalender_harian).sort((a,b)=>a[0].localeCompare(b[0]));
-  sorted.forEach(([d,v])=>{
-    const c = MD.warna_kategori[v.c] || MD.warna_kategori.default;
+  const keys = sorted.map(e=>e[0]);
+  if(keys.length){
+    const fmt = d => {
+      const [y,m,dd] = d.split('-');
+      return `${dd} ${MONTH_NAMES[+m]} ${y}`;
+    };
+    document.getElementById('tl-range').textContent = `${fmt(keys[0])} – ${fmt(keys[keys.length-1])}`;
+  }
+  sorted.forEach(([,v]) => {
+    const c = MD.warna_kategori[v.c] || MD.warna_kategori.default || {};
     const seg = document.createElement('div');
-    seg.className='tl-seg';
-    seg.style.background = c.bg;
+    seg.className = 'tl-seg';
+    seg.style.background = c.bg || '#ddd';
     el.appendChild(seg);
   });
 }
 
-function buildCalendar(semFilter='all') {
+/* ─── Calendar ─── */
+function buildCalendar(semFilter='all'){
   const grid = document.getElementById('cal-grid');
-  grid.innerHTML='';
+  grid.innerHTML = '';
   const today = new Date().toISOString().split('T')[0];
 
-  // Derive months from data
   const monthMap = new Map();
-  Object.keys(MD.kalender_harian).forEach(dateStr => {
-    const prefix = dateStr.substring(0, 7);
-    if (!monthMap.has(prefix)) monthMap.set(prefix, { sem: null });
-    // determine sem from the first non-empty event's phase
-    let evt = MD.kalender_harian[dateStr];
-    if(evt.p && !monthMap.get(prefix).sem) {
-      if(evt.p.toLowerCase().includes('pra')) monthMap.get(prefix).sem = 'Pra TA';
-      else if(evt.p.toLowerCase().includes('ganjil')) monthMap.get(prefix).sem = 'Ganjil';
-      else if(evt.p.toLowerCase().includes('genap')) monthMap.get(prefix).sem = 'Genap';
+  Object.entries(MD.kalender_harian).forEach(([dateStr, v]) => {
+    const prefix = dateStr.slice(0,7);
+    if(!monthMap.has(prefix)) monthMap.set(prefix,{sem:null});
+    if(v.p && !monthMap.get(prefix).sem){
+      const p = v.p.toLowerCase();
+      if(p.includes('pra'))    monthMap.get(prefix).sem = 'Pra';
+      else if(p.includes('ganjil')) monthMap.get(prefix).sem = 'Ganjil';
+      else if(p.includes('genap'))  monthMap.get(prefix).sem = 'Genap';
+    }
+    if(!monthMap.get(prefix).sem && v.s){
+      if(v.s==='GANJIL') monthMap.get(prefix).sem = 'Ganjil';
+      if(v.s==='GENAP')  monthMap.get(prefix).sem = 'Genap';
     }
   });
 
-  const sortedPrefixes = Array.from(monthMap.keys()).sort();
-  
-  sortedPrefixes.forEach(prefix => {
-    let [yr, mo] = prefix.split('-');
-    yr = parseInt(yr, 10);
-    mo = parseInt(mo, 10);
-    let sem = monthMap.get(prefix).sem || (mo >= 7 ? 'Ganjil' : 'Genap');
-
+  Array.from(monthMap.keys()).sort().forEach(prefix => {
+    let [yr,mo] = prefix.split('-').map(Number);
+    let sem = monthMap.get(prefix).sem || (mo>=7?'Ganjil':'Genap');
     if(semFilter!=='all' && !sem.includes(semFilter)) return;
 
-    const semClass = sem.includes('Libur') ? 'sem-libur' :
-                     sem.includes('Ganjil') ? 'sem-ganjil' :
-                     sem.includes('Genap') ? 'sem-genap' : 'sem-pra';
-    
+    const headClass =
+      sem==='Pra'    ? 'month-head-pra' :
+      sem==='Ganjil' ? 'month-head-ganjil' :
+      sem==='Genap'  ? 'month-head-genap'  : 'month-head-libur';
+
     const card = document.createElement('div');
-    card.className=`month-card ${semClass} animate-up`;
+    card.className = 'month-card animate-up';
 
     // Header
-    const mh = document.createElement('div');
-    mh.className='month-head';
-    mh.innerHTML=`<span class="month-name">${MONTH_NAMES[mo]} ${yr}</span>
-      <span class="month-sem">${sem}</span>`;
-    card.appendChild(mh);
-
-    // Day headers
-    const dh = document.createElement('div');
-    dh.className='day-headers';
-    DAY_NAMES.forEach((d,i)=>{
-      const c=document.createElement('div');
-      c.className='day-hdr'+(i===0||i===6?' weekend':'');
-      c.textContent=d; dh.appendChild(c);
-    });
-    card.appendChild(dh);
+    card.innerHTML = `
+      <div class="month-head ${headClass}">
+        <div class="month-name">${MONTH_NAMES[mo]}</div>
+        <div class="month-year">${yr}</div>
+        <div class="month-sem">${sem==='Pra'?'Pra Tahun Ajaran':sem==='Ganjil'?'Semester Ganjil':'Semester Genap'}</div>
+      </div>
+      <div class="day-headers">
+        ${DAY_NAMES.map((d,i)=>`<div class="day-hdr${i===0||i===6?' weekend':''}">${d}</div>`).join('')}
+      </div>`;
 
     // Date grid
     const dg = document.createElement('div');
-    dg.className='date-grid';
+    dg.className = 'date-grid';
     const fd = firstDay(yr,mo);
     const total = daysInMonth(yr,mo);
     for(let i=0;i<fd;i++){
-      const e=document.createElement('div'); e.className='date-cell empty'; dg.appendChild(e);
+      const e = document.createElement('div'); e.className='date-cell empty'; dg.appendChild(e);
     }
-    
     const eventMap = {};
     for(let d=1;d<=total;d++){
-      const dStr=`${yr}-${String(mo).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+      const dStr = `${yr}-${String(mo).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
       const info = MD.kalender_harian[dStr];
-      const cell=document.createElement('div');
-      cell.className='date-cell';
-      
+      const cell = document.createElement('div');
+      cell.className = 'date-cell';
       if(dStr===today) cell.classList.add('today');
-      
-      let safeTitle = "", safeDesc = "", safeCat = "Umum", displayDate = `${d} ${MONTH_NAMES[mo]} ${yr}`;
-      
       if(info){
-        const c = MD.warna_kategori[info.c] || MD.warna_kategori.default;
-        cell.style.background = c.bg;
+        const c = MD.warna_kategori[info.c] || MD.warna_kategori.default || {};
+        cell.style.background = c.bg || '#eee';
         cell.style.color = c.text || '#fff';
-        
-        safeTitle = (info.l || '').replace(/'/g, "\\'");
-        safeDesc = (info.s || '').replace(/'/g, "\\'");
-        safeCat = c.label;
-
-        // Collect events for pills (exclude mingguan)
-        if(info.l && info.c !== 'libur_mingguan') {
-          if(!eventMap[info.c]) eventMap[info.c]={label:info.l, count:0, color:c.bg};
+        if(info.l) cell.setAttribute('data-tip', info.l);
+        if(info.l && info.c!=='libur_mingguan'){
+          if(!eventMap[info.c]) eventMap[info.c]={label:info.l,count:0,color:c.bg||'#888'};
           eventMap[info.c].count++;
         }
+        const title  = (info.l||'').replace(/'/g,"\\'");
+        const desc   = (info.s||'').replace(/'/g,"\\'");
+        const catLbl = c.label||'Umum';
+        const bgC    = c.bg||'';
+        const dispD  = `${d} ${MONTH_NAMES[mo]} ${yr}`;
+        cell.onclick = () => openDayDetail(catLbl, info.l||'', dispD, info.s||'', bgC);
       } else {
-        cell.style.background = '#F0F0F0';
-        cell.style.color = '#aaa';
+        cell.style.background = 'rgba(0,0,0,0.04)';
+        cell.style.color = 'rgba(0,0,0,0.2)';
       }
-      
       cell.textContent = d;
-      
-      // Click interaction
-      cell.onclick = () => openDayDetail(safeCat, safeTitle, displayDate, safeDesc);
-      
       dg.appendChild(cell);
     }
     card.appendChild(dg);
 
-    // Event pills
-    const evts = Object.values(eventMap).slice(0, 4);
+    // Event pills (max 4)
+    const evts = Object.values(eventMap).slice(0,4);
     if(evts.length){
       const ep = document.createElement('div');
-      ep.className='month-events';
+      ep.className = 'month-events';
       evts.forEach(e=>{
-        const pill=document.createElement('div');
-        pill.className='event-pill';
-        pill.innerHTML=`<div class="event-dot" style="background:${e.color}"></div>
-          <div class="event-txt">${e.label}</div>`;
-        ep.appendChild(pill);
+        ep.innerHTML += `<div class="event-pill">
+          <div class="event-dot" style="background:${e.color}"></div>
+          <div class="event-txt">${e.label}</div>
+        </div>`;
       });
       card.appendChild(ep);
     }
-
     grid.appendChild(card);
   });
-
   initObserver();
 }
 
+/* ─── Legend ─── */
 function buildLegend(){
   const el = document.getElementById('leg-body');
-  el.innerHTML = '';
-  // Flatten legenda groups
-  MD.legenda_kelompok.forEach(group => {
-     const gDiv = document.createElement('div');
-     gDiv.style.marginBottom = "10px";
-     gDiv.style.fontWeight = "800";
-     gDiv.style.color = "var(--primary)";
-     gDiv.style.gridColumn = "1 / -1";
-     gDiv.innerText = group.judul;
-     el.appendChild(gDiv);
-
-     group.kategori.forEach(k => {
-        const v = MD.warna_kategori[k];
-        if(!v) return;
-        const item = document.createElement('div');
-        item.className = 'leg-item';
-        item.innerHTML = `<div class="leg-dot" style="background:${v.bg}; border:1px solid rgba(0,0,0,.1);"></div><div class="leg-lbl">${v.label}</div>`;
-        el.appendChild(item);
-     });
+  el.innerHTML='';
+  MD.legenda_kelompok.forEach(group=>{
+    const g = document.createElement('div');
+    g.className='leg-group-title'; g.textContent=group.judul;
+    el.appendChild(g);
+    group.kategori.forEach(k=>{
+      const v = MD.warna_kategori[k]; if(!v) return;
+      const item=document.createElement('div'); item.className='leg-item';
+      item.innerHTML=`<div class="leg-dot" style="background:${v.bg};border:1px solid rgba(0,0,0,.1)"></div>
+        <div class="leg-lbl">${v.label}</div>`;
+      el.appendChild(item);
+    });
   });
 }
 
+/* ─── HE ─── */
 function buildHE(){
-  function getDaysInMonthStr(monthStr) {
-    const [mName, yStr] = monthStr.split(' ');
-    const y = parseInt(yStr, 10);
-    const m = MONTH_NAMES.indexOf(mName);
-    return new Date(y, m, 0).getDate();
+  function getDays(mStr){
+    const [mName,yStr]=mStr.split(' ');
+    return new Date(parseInt(yStr),MONTH_NAMES.indexOf(mName),0).getDate();
   }
-
-  function renderBars(months, targetId) {
-    const el = document.getElementById(targetId);
-    el.innerHTML = '';
-    months.forEach(bln => {
-      const row = MD.rekap_hari_efektif_bulan.find(h => h.bulan === bln);
-      if(!row) return;
-      const totalDays = getDaysInMonthStr(bln);
-      const pemb = row.hari_efektif;
-      const asm = row.sumatif;
-      const rest = totalDays - pemb - asm;
-      const pct = (v) => Math.max(0, (v/totalDays*100).toFixed(1));
-      
-      el.innerHTML += `
+  function renderBars(months, targetId){
+    const el=document.getElementById(targetId); el.innerHTML='';
+    months.forEach(bln=>{
+      const row=MD.rekap_hari_efektif_bulan.find(h=>h.bulan===bln); if(!row) return;
+      const total=getDays(bln), pemb=row.hari_efektif, asm=row.sumatif, rest=total-pemb-asm;
+      const pct=v=>Math.max(0,(v/total*100).toFixed(1));
+      el.innerHTML+=`
         <div class="he-bar-row">
           <div class="he-bulan">${bln.replace(' 2026','').replace(' 2027','')}</div>
           <div class="he-bars">
-            <div class="he-bar" style="background:#548235; width:${pct(pemb)}%">${pemb>3?pemb:''}</div>
-            <div class="he-bar" style="background:#7030A0; width:${pct(asm)}%">${asm>3?asm:''}</div>
-            <div class="he-bar" style="background:#E8EDE9; width:${pct(rest)}%; color:#aaa">${rest>3?rest:''}</div>
+            <div class="he-bar" style="background:#1A6B3C;width:${pct(pemb)}%">${pemb>3?pemb:''}</div>
+            <div class="he-bar" style="background:#7C3AED;width:${pct(asm)}%">${asm>2?asm:''}</div>
+            <div class="he-bar" style="background:rgba(0,0,0,0.07);width:${pct(rest)}%;color:rgba(0,0,0,0.3)">${rest>3?rest:''}</div>
           </div>
-          <div class="he-nums">${pemb} <span style="color:#7030A0">+${asm}</span></div>
+          <div class="he-nums">${pemb}<span style="color:#7C3AED">+${asm}</span></div>
         </div>`;
     });
   }
-  
-  const ganjil = MD.rekap_hari_efektif_bulan.filter(h => h.semester.includes('Ganjil')).map(h=>h.bulan);
-  const genap = MD.rekap_hari_efektif_bulan.filter(h => h.semester.includes('Genap')).map(h=>h.bulan);
-  renderBars(ganjil, 'he-ganjil');
-  renderBars(genap, 'he-genap');
+  const ganjil=MD.rekap_hari_efektif_bulan.filter(h=>h.semester.includes('Ganjil')).map(h=>h.bulan);
+  const genap =MD.rekap_hari_efektif_bulan.filter(h=>h.semester.includes('Genap')).map(h=>h.bulan);
+  renderBars(ganjil,'he-ganjil'); renderBars(genap,'he-genap');
 }
 
+/* ─── ME ─── */
 function buildME(){
-  function renderME(semWord, targetId) {
-    const el = document.getElementById(targetId);
-    el.innerHTML = '';
-    const data = MD.rekap_minggu_efektif.filter(m => m.semester.includes(semWord));
-    const maxW = 5;
-    data.forEach(m => {
-      const efPct = (m.minggu_efektif / maxW * 100).toFixed(0);
-      const tdkPct = (m.minggu_tidak_efektif / maxW * 100).toFixed(0);
-      el.innerHTML += `
+  function renderME(semWord, targetId){
+    const el=document.getElementById(targetId); el.innerHTML='';
+    const data=MD.rekap_minggu_efektif.filter(m=>m.semester.includes(semWord));
+    const maxW=5;
+    data.forEach(m=>{
+      const efPct=(m.minggu_efektif/maxW*100).toFixed(0);
+      const tdkPct=(m.minggu_tidak_efektif/maxW*100).toFixed(0);
+      el.innerHTML+=`
         <div class="me-row">
           <div class="me-bulan">${m.bulan.replace(' 2026','').replace(' 2027','')}</div>
           <div class="me-track">
@@ -581,36 +828,28 @@ function buildME(){
         <div class="me-ket">${m.keterangan}</div>`;
     });
   }
-  renderME('Ganjil', 'me-ganjil');
-  renderME('Genap', 'me-genap');
-
-  const calloutEl = document.getElementById('me-callout');
-  if (calloutEl && MD.meta.catatan_minggu_efektif) {
-    calloutEl.innerHTML = `<strong>Catatan Kelayakan:</strong> ${MD.meta.catatan_minggu_efektif}`;
-  }
+  renderME('Ganjil','me-ganjil'); renderME('Genap','me-genap');
+  const ce=document.getElementById('me-callout');
+  if(ce && MD.meta.catatan_minggu_efektif)
+    ce.innerHTML=`<strong>Catatan Kelayakan:</strong> ${MD.meta.catatan_minggu_efektif}`;
 }
 
-function initObserver() {
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver((entries, obs) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-          
-          if(entry.target.classList.contains('stat-num') && !entry.target.hasAttribute('data-counted')) {
-            entry.target.setAttribute('data-counted', 'true');
-            window.AppUtils.countUp(entry.target);
-          }
-
-          obs.unobserve(entry.target);
+/* ─── Observer ─── */
+function initObserver(){
+  if(!('IntersectionObserver' in window)) return;
+  const obs=new IntersectionObserver((entries,o)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('in-view');
+        if(entry.target.classList.contains('stat-num') && !entry.target.dataset.counted){
+          entry.target.dataset.counted='true';
+          window.AppUtils.countUp(entry.target);
         }
-      });
-    }, { rootMargin: '0px 0px -50px 0px', threshold: 0.1 });
-
-    document.querySelectorAll('.animate-up, .stat-num').forEach(el => {
-      observer.observe(el);
+        o.unobserve(entry.target);
+      }
     });
-  }
+  },{rootMargin:'0px 0px -40px 0px',threshold:0.08});
+  document.querySelectorAll('.animate-up,.stat-num').forEach(el=>obs.observe(el));
 }
 </script>
 </body>

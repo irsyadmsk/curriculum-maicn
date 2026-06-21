@@ -175,6 +175,13 @@ const Embeds = {
   }
 };
 
+// ─── Seed Comments (selalu terlihat publik) ───
+const SEED_COMMENTS = [
+  { id:-1, name:'Bapak Ahmad Fauzi', role:'guru', text:'Alhamdulillah, portal kurikulum ini sangat membantu kami para guru untuk memahami alur pembelajaran sepanjang tahun. Desainnya pun nyaman dilihat. Semoga terus berkembang!', ts:'15/06/2026, 08.30' },
+  { id:-2, name:'Siti Rahmawati', role:'orang-tua', text:'Sebagai orang tua, saya merasa terbantu sekali bisa melihat kalender akademik secara lengkap. Terima kasih MA ICN sudah transparan dalam menyajikan informasi ini.', ts:'17/06/2026, 14.12' },
+  { id:-3, name:'Farhan Al-Ghifari', role:'siswa', text:'Kak, portal ini keren banget! Bisa cek jadwal STS dan SAS dari jauh hari. Desainnya juga modern, betah buka dari HP 👍', ts:'20/06/2026, 19.45' },
+];
+
 // ─── Loading Screen ───
 function initLoadingScreen() {
   const screen = document.getElementById('loading-screen');
@@ -365,7 +372,10 @@ function initCommentForm() {
 function refreshComments() {
   const container = document.getElementById('comment-list');
   if (!container) return;
-  Comments.render(Comments.load(), container, Auth.isLoggedIn());
+  const userComments = Comments.load();
+  // Merge: seed first (always visible), then user comments on top
+  const all = [...userComments, ...SEED_COMMENTS];
+  Comments.render(all, container, Auth.isLoggedIn());
 }
 
 // ─── Scroll Reveal ───
@@ -399,6 +409,75 @@ function initModalBackdrop() {
   });
 }
 
+// ─── Hero Parallax ───
+function initHeroParallax() {
+  const hero = document.querySelector('.hero');
+  const heroBg = document.querySelector('.hero-bg-img');
+  const heroInner = document.querySelector('.hero-inner');
+  if (!hero) return;
+
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    const h = hero.offsetHeight;
+    const progress = Math.min(y / h, 1);
+
+    if (heroBg) heroBg.style.transform = `scale(${1.05 + progress * 0.06}) translateY(${y * 0.25}px)`;
+    if (heroInner) {
+      heroInner.style.transform = `translateY(${y * 0.15}px)`;
+      heroInner.style.opacity = 1 - progress * 1.4;
+    }
+  }, { passive: true });
+}
+
+// ─── Theme Switcher ───
+const THEMES = {
+  forest: { primary:'#1A4731', light:'#2D6A4F', dark:'#0E2E1F', aqua:'#2EC4B6', aquaDeep:'#0A8F85', bg:'linear-gradient(135deg,#dff0e8 0%,#e8f4f0 40%,#eaf3f6 70%,#e0eff5 100%)' },
+  ocean:  { primary:'#0C4A6E', light:'#0369A1', dark:'#072F44', aqua:'#22D3EE', aquaDeep:'#0891B2', bg:'linear-gradient(135deg,#dbeafe 0%,#e0f2fe 50%,#ecfeff 100%)' },
+  royal:  { primary:'#4C1D95', light:'#6D28D9', dark:'#2E1065', aqua:'#A78BFA', aquaDeep:'#7C3AED', bg:'linear-gradient(135deg,#ede9fe 0%,#f3e8ff 50%,#faf5ff 100%)' },
+  earth:  { primary:'#78350F', light:'#B45309', dark:'#451A03', aqua:'#F59E0B', aquaDeep:'#D97706', bg:'linear-gradient(135deg,#fef3c7 0%,#fde68a 10%,#fef9ec 50%,#fff7ed 100%)' },
+};
+
+function applyTheme(name) {
+  const t = THEMES[name];
+  if (!t) return;
+  const root = document.documentElement;
+  root.style.setProperty('--primary',      t.primary);
+  root.style.setProperty('--primary-light', t.light);
+  root.style.setProperty('--primary-dark', t.dark);
+  root.style.setProperty('--aqua',         t.aqua);
+  root.style.setProperty('--aqua-deep',    t.aquaDeep);
+  root.style.setProperty('--bg-mesh',      t.bg);
+  localStorage.setItem('curriculum_theme', name);
+  document.querySelectorAll('.theme-dot').forEach(d => d.classList.toggle('active', d.dataset.theme === name));
+}
+
+function initThemePanel() {
+  const btn = document.getElementById('theme-panel-btn');
+  const panel = document.getElementById('theme-panel');
+  if (!btn || !panel) return;
+
+  btn.addEventListener('click', (e) => { e.stopPropagation(); panel.classList.toggle('open'); });
+  document.addEventListener('click', (e) => { if (!panel.contains(e.target) && e.target !== btn) panel.classList.remove('open'); });
+
+  document.querySelectorAll('.theme-dot').forEach(dot => {
+    dot.addEventListener('click', () => applyTheme(dot.dataset.theme));
+  });
+
+  const slider = document.getElementById('glass-slider');
+  if (slider) {
+    slider.addEventListener('input', () => {
+      const v = slider.value / 100;
+      document.documentElement.style.setProperty('--glass-card', `rgba(255,255,255,${v})`);
+      document.documentElement.style.setProperty('--glass-white', `rgba(255,255,255,${Math.min(v + 0.15, 0.97)})`);
+      document.getElementById('glass-val').textContent = slider.value + '%';
+    });
+  }
+
+  // Restore saved theme
+  const saved = localStorage.getItem('curriculum_theme');
+  if (saved && THEMES[saved]) applyTheme(saved);
+}
+
 // ─── Init ───
 document.addEventListener('DOMContentLoaded', () => {
   initLoadingScreen();
@@ -410,6 +489,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initCommentForm();
   initScrollReveal();
   initModalBackdrop();
+  initHeroParallax();
+  initThemePanel();
   refreshComments();
 
   // Close modal buttons

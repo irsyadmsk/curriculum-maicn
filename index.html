@@ -11,7 +11,7 @@
 <body>
 
 <!-- Background Blobs -->
-<div class="bg-blobs">
+<div class="bg-blobs" aria-hidden="true">
   <div class="bg-blob"></div>
   <div class="bg-blob"></div>
   <div class="bg-blob"></div>
@@ -19,24 +19,39 @@
 
 <!-- Loading Screen -->
 <div id="loading-screen">
-  <div class="loading-logo">
-    <img src="assets/iconmaicn.png" alt="MA ICN">
-  </div>
+  <div class="loading-logo"><img src="assets/iconmaicn.png" alt="MA ICN"></div>
   <div class="loading-ring"></div>
   <div class="loading-text">Memuat Curriculum OS…</div>
 </div>
 
 <!-- Floating Clock -->
-<div id="floating-clock">
+<div id="floating-clock" aria-label="Jam dan tanggal saat ini">
   <div class="clock-time"></div>
   <div class="clock-date"></div>
+</div>
+
+<!-- Theme Panel Button -->
+<button id="theme-panel-btn" aria-label="Pilih tema warna">🎨</button>
+<div id="theme-panel">
+  <div class="theme-panel-title">Tema Warna</div>
+  <div class="theme-colors">
+    <div class="theme-dot active" data-theme="forest" style="background:linear-gradient(135deg,#1A4731,#2EC4B6)" title="Hutan"></div>
+    <div class="theme-dot" data-theme="ocean"  style="background:linear-gradient(135deg,#0C4A6E,#22D3EE)" title="Lautan"></div>
+    <div class="theme-dot" data-theme="royal"  style="background:linear-gradient(135deg,#4C1D95,#A78BFA)" title="Kerajaan"></div>
+    <div class="theme-dot" data-theme="earth"  style="background:linear-gradient(135deg,#78350F,#F59E0B)" title="Bumi"></div>
+  </div>
+  <div class="theme-panel-title">Transparansi Kaca</div>
+  <div class="transparency-label">
+    <span>Gelap</span><span id="glass-val">72%</span><span>Terang</span>
+  </div>
+  <input type="range" class="transparency-slider" id="glass-slider" min="30" max="95" value="72">
 </div>
 
 <!-- Navbar -->
 <nav class="navbar" id="navbar">
   <a href="index.html" class="nav-brand">
     <img src="assets/iconmaicn.png" alt="Logo">
-    MA ICN
+    <span>MA ICN</span>
   </a>
   <div class="nav-links" id="nav-links">
     <a href="index.html" class="active">Beranda</a>
@@ -50,7 +65,7 @@
   </div>
   <div class="nav-right">
     <button class="btn-login-nav" id="btn-login-nav">Masuk</button>
-    <button class="nav-toggle" id="nav-toggle">☰</button>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menu">☰</button>
   </div>
 </nav>
 
@@ -58,42 +73,68 @@
 <div class="page-content">
 
   <!-- ══ HERO ══ -->
-  <section class="hero">
-    <div class="hero-glow"></div>
+  <section class="hero" id="hero-section">
+    <div class="hero-bg-img" aria-hidden="true"></div>
+    <div class="hero-glow" aria-hidden="true"></div>
     <div class="container hero-inner">
       <div class="hero-badge animate-up" id="hero-badge">Status Aktif</div>
       <h1 class="animate-up delay-100" id="hero-title">
-        Portal <span>Kurikulum</span><br>MA ICN
+        Portal <span>Kurikulum</span>
       </h1>
       <p class="hero-sub animate-up delay-200" id="hero-desc">
-        Pusat informasi kurikulum interaktif MA Insan Cendekia Nusantara Purwakarta
+        Pusat informasi kurikulum interaktif MA Insan Cendekia Nusantara
       </p>
       <p class="hero-warm animate-up delay-300">
-        "Ilmu adalah cahaya yang menerangi jalan, kurikulum adalah peta yang menuntun perjalanan."
+        "Ilmu adalah cahaya yang menerangi jalan,<br>kurikulum adalah peta yang menuntun perjalanan."
       </p>
+      <div class="animate-up delay-400" style="margin-top:32px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+        <a href="kalender.html" class="btn btn-aqua">Lihat Kalender →</a>
+        <a href="modul.html" class="btn btn-ghost">Modul Ajar</a>
+      </div>
     </div>
   </section>
 
   <!-- ══ STATS ══ -->
   <div class="container">
-    <div class="stats-strip" id="stats-container">
-      <!-- injected -->
-    </div>
+    <div class="stats-strip" id="stats-container"></div>
   </div>
 
-  <!-- ══ ADMIN QUICK PANEL (hanya tampil saat login) ══ -->
-  <div class="container" style="margin-top:40px;">
+  <!-- ══ ADMIN PANEL (hanya saat login) ══ -->
+  <div class="container" style="margin-top:32px;">
     <div class="admin-section" id="admin-section">
       <div class="admin-header">
         <div>
           <span class="admin-tag">Admin Mode</span>
           <h3 style="margin-top:6px;">Panel Pengelolaan Konten</h3>
         </div>
-        <button class="btn btn-ghost btn-sm" onclick="AppUtils.openModal('modal-admin')">Buka Panel Lengkap →</button>
+        <button class="btn btn-ghost btn-sm" onclick="AppUtils.openModal('modal-admin')">Buka Panel →</button>
       </div>
       <p style="font-size:0.85rem;color:var(--text-soft);">
-        Anda masuk sebagai admin. Gunakan panel lengkap untuk mengelola tautan modul, kalender, dan dokumen.
+        Anda masuk sebagai admin. Gunakan panel lengkap untuk mengelola tautan modul dan dokumen.
       </p>
+    </div>
+  </div>
+
+  <!-- ══ GALERI FOTO ══ -->
+  <div class="container">
+    <div class="section-header animate-up">
+      <div class="section-tag">Suasana Madrasah</div>
+      <h2 class="section-title">Kehidupan di MA ICN</h2>
+      <p class="section-sub">Madrasah berasrama berwawasan global, berakhlak Qur'ani</p>
+    </div>
+    <div class="gallery-strip animate-up">
+      <div class="gallery-img">
+        <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&q=75" alt="Suasana belajar" loading="lazy">
+        <div class="gallery-img-caption">Kegiatan Pembelajaran</div>
+      </div>
+      <div class="gallery-img">
+        <img src="https://images.unsplash.com/photo-1529390079861-591de354faf5?w=600&q=75" alt="Siswa belajar" loading="lazy">
+        <div class="gallery-img-caption">Semangat Belajar Siswa</div>
+      </div>
+      <div class="gallery-img">
+        <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=600&q=75" alt="Gedung madrasah" loading="lazy">
+        <div class="gallery-img-caption">Lingkungan Madrasah</div>
+      </div>
     </div>
   </div>
 
@@ -102,9 +143,8 @@
     <div class="section-header animate-up">
       <div class="section-tag">Navigasi Utama</div>
       <h2 class="section-title">Pusat Layanan Informasi</h2>
-      <p class="section-sub">Semua informasi akademik tersaji dengan transparan dan mudah diakses</p>
+      <p class="section-sub">Semua informasi akademik tersaji transparan dan mudah diakses</p>
     </div>
-
     <div class="menu-grid">
       <a href="profil.html" class="menu-card animate-up">
         <div class="menu-icon">PR</div>
@@ -153,33 +193,34 @@
         <h2>Bersama Membangun<br>Generasi Berilmu &amp; Berkarakter</h2>
         <p>
           Selamat datang di Portal Kurikulum <strong>MA Insan Cendekia Nusantara</strong>.
-          Platform ini hadir sebagai jembatan antara rencana pendidikan dengan pelaksanaannya di ruang kelas —
-          transparan, terbuka, dan dapat diakses oleh seluruh warga madrasah.
+          Platform ini hadir sebagai jembatan antara rencana pendidikan dan pelaksanaannya di ruang kelas —
+          transparan, terbuka, dan dapat diakses seluruh warga madrasah.
         </p>
         <p>
-          Kepada setiap guru yang telah berdedikasi, setiap siswa yang terus bersemangat belajar,
+          Kepada setiap guru yang berdedikasi, setiap siswa yang bersemangat belajar,
           dan setiap orang tua yang senantiasa mendukung — <strong>terima kasih telah menjadi bagian dari perjalanan mulia ini</strong>.
           Kurikulum bukan sekadar dokumen; ia adalah janji kita bersama untuk masa depan.
         </p>
-        <p style="margin-top:16px;">
+        <p style="margin-top:16px;font-size:0.9rem;color:rgba(255,255,255,0.6);">
           — Wakil Kepala Bidang Kurikulum
         </p>
       </div>
     </div>
   </div>
 
-  <!-- ══ KOMENTAR ══ -->
+  <!-- ══ KOMENTAR PUBLIK ══ -->
   <div class="container">
     <div class="section-header animate-up">
-      <div class="section-tag">Komunitas</div>
+      <div class="section-tag">Komunitas Terbuka</div>
       <h2 class="section-title">Kesan &amp; Pesan</h2>
-      <p class="section-sub">Bagikan apresiasi, saran, atau pertanyaan Anda untuk kemajuan bersama</p>
+      <p class="section-sub">Siapapun — guru, siswa, orang tua, maupun masyarakat — bisa berbagi komentar</p>
     </div>
 
     <div class="comment-section">
       <!-- Form -->
       <div class="comment-form-card animate-up">
         <h3>✍ Tulis Komentar</h3>
+        <div class="comment-public-note">🌐 Terbuka untuk semua — tidak perlu login</div>
         <form id="comment-form">
           <div class="form-row">
             <div class="form-group">
@@ -200,13 +241,13 @@
             <label>Komentar</label>
             <textarea id="comment-text" rows="3" placeholder="Tuliskan kesan, saran, atau pertanyaan Anda…" required maxlength="500"></textarea>
           </div>
-          <button type="submit" class="btn btn-aqua">Kirim Komentar</button>
+          <button type="submit" class="btn btn-aqua">Kirim Komentar ✦</button>
         </form>
       </div>
 
       <!-- List -->
       <div class="comment-list" id="comment-list">
-        <div class="comment-empty">✦ Belum ada komentar. Jadilah yang pertama berbagi kesan!</div>
+        <div class="comment-empty">✦ Memuat komentar…</div>
       </div>
     </div>
   </div>
@@ -222,7 +263,7 @@
       </div>
       <div class="footer-meta">
         Pusat Informasi Akademik &amp; Kurikulum<br>
-        Waka Kurikulum: <span id="footer-waka"></span> &middot; Dokumen: <span id="footer-doc"></span>
+        Waka Kurikulum: <span id="footer-waka"></span> &middot; Dok: <span id="footer-doc"></span>
       </div>
     </div>
     <div class="footer-right">
@@ -231,16 +272,13 @@
   </div>
 </footer>
 
-<!-- Toast -->
 <div id="toast"></div>
 
 <!-- ══ MODAL: LOGIN ══ -->
 <div class="modal-overlay" id="modal-login">
   <div class="modal-box">
     <button class="modal-close" data-close-modal="modal-login">✕</button>
-    <div class="modal-logo">
-      <img src="assets/iconmaicn.png" alt="Logo">
-    </div>
+    <div class="modal-logo"><img src="assets/iconmaicn.png" alt="Logo"></div>
     <div class="modal-title">Masuk Admin</div>
     <div class="modal-sub">Akses panel pengelolaan kurikulum</div>
     <div class="login-error" id="login-error"></div>
@@ -265,27 +303,24 @@
 <div class="modal-overlay" id="modal-admin">
   <div class="modal-box wide">
     <button class="modal-close" data-close-modal="modal-admin">✕</button>
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px;">
       <div>
         <div class="admin-tag" style="margin-bottom:6px;">Admin Panel</div>
         <div class="modal-title" style="text-align:left;margin-bottom:0;">Kelola Konten</div>
       </div>
       <button class="btn btn-ghost btn-sm" id="btn-logout">Keluar ↗</button>
     </div>
-
     <div class="admin-tabs">
       <button class="admin-tab active" data-tab="embed">📎 Tautan &amp; Modul</button>
       <button class="admin-tab" data-tab="kaldik">📅 Info Kaldik</button>
       <button class="admin-tab" data-tab="info">ℹ Info</button>
     </div>
-
-    <!-- Tab: Embed -->
     <div class="admin-panel-content active" id="panel-embed">
       <form id="embed-form">
         <div class="form-row">
           <div class="form-group">
             <label>Judul Dokumen</label>
-            <input type="text" id="embed-title" placeholder="Contoh: Modul Matematika X" required>
+            <input type="text" id="embed-title" placeholder="Modul Matematika X" required>
           </div>
           <div class="form-group">
             <label>Kategori</label>
@@ -299,7 +334,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label>Link Google Drive (tautan bagikan/embed)</label>
+          <label>Link Google Drive (embed/share)</label>
           <input type="url" id="embed-url" placeholder="https://drive.google.com/file/d/..." required>
         </div>
         <button type="submit" class="btn btn-aqua btn-sm">Tambah Tautan</button>
@@ -308,56 +343,39 @@
         <div class="comment-empty">Belum ada tautan tertanam.</div>
       </div>
     </div>
-
-    <!-- Tab: Kaldik -->
     <div class="admin-panel-content" id="panel-kaldik">
       <p style="font-size:0.9rem;color:var(--text-soft);line-height:1.7;">
-        Untuk mengedit data kalender akademik, prota, dan posem — perbarui file <strong>master-data.json</strong>
-        melalui repository GitHub, atau hubungi tim teknis madrasah.
-        Pada versi mendatang, pengeditan dapat dilakukan langsung dari panel ini.
+        Untuk mengedit data kalender akademik, perbarui file <strong>master-data.json</strong> via GitHub,
+        atau hubungi tim teknis. Fitur edit langsung sedang dikembangkan (versi 2.1).
       </p>
-      <div class="callout" style="margin-top:16px;">
-        📌 Fitur edit kalender langsung dari browser sedang dalam pengembangan (versi 2.1)
-      </div>
+      <div class="callout" style="margin-top:16px;">📌 Fitur edit kalender langsung dari browser — coming soon</div>
     </div>
-
-    <!-- Tab: Info -->
     <div class="admin-panel-content" id="panel-info">
       <p style="font-size:0.9rem;color:var(--text-soft);line-height:1.7;margin-bottom:12px;">
-        <strong>Curriculum OS v2.0</strong> — Aquamorphic Edition<br>
-        MA Insan Cendekia Nusantara Purwakarta
-      </p>
-      <p style="font-size:0.85rem;color:var(--text-soft);line-height:1.7;">
-        Roadmap mendatang: login multi-guru, upload modul via Google Drive embed,
-        edit kaldik via panel, notifikasi pengumuman, dan dashboard statistik.
+        <strong>Curriculum OS v2.0</strong> — Aquamorphic Edition<br>MA Insan Cendekia Nusantara Purwakarta
       </p>
       <div class="callout">
-        🔐 Untuk mengubah password admin, edit variabel <code>AUTH_CONFIG</code> di <code>assets/app.js</code>
+        🔐 Ubah password: edit <code>AUTH_CONFIG</code> di <code>assets/app.js</code>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ══ SCRIPTS ══ -->
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   const MD = window.MASTER_DATA;
   if (!MD) return;
 
-  // Hero
   document.getElementById('hero-badge').textContent = `Status: ${MD.meta.status}`;
-  document.getElementById('hero-title').innerHTML =
-    `Portal <span>Kurikulum</span><br>${MD.meta.madrasah.replace('MA ','MA<br>')}`;
+  document.getElementById('hero-title').innerHTML = `Portal <span>Kurikulum</span>`;
   document.getElementById('hero-desc').textContent =
-    `Pusat informasi kurikulum interaktif · Tahun Pelajaran ${MD.meta.tahun_pelajaran}`;
+    `${MD.meta.madrasah} · TP ${MD.meta.tahun_pelajaran}`;
 
-  // Footer
   document.getElementById('footer-madrasah').textContent = MD.meta.madrasah;
   document.getElementById('footer-waka').textContent = MD.meta.waka_kurikulum;
   document.getElementById('footer-doc').textContent = MD.meta.no_dokumen;
   document.getElementById('footer-year').textContent = `TP ${MD.meta.tahun_pelajaran}`;
 
-  // Stats
   const hl = MD.headline;
   document.getElementById('stats-container').innerHTML = `
     <div class="stat-card animate-up">
@@ -387,12 +405,8 @@ document.addEventListener('DOMContentLoaded', () => {
     </div>
   `;
 
-  // Re-observe new stat elements
-  if (typeof initScrollReveal === 'function') {
-    // stats added after DOMContentLoaded, re-observe
-  }
   if ('IntersectionObserver' in window) {
-    const obs2 = new IntersectionObserver((entries, o) => {
+    const obs = new IntersectionObserver((entries, o) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('in-view');
@@ -404,10 +418,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     }, { rootMargin:'0px 0px -40px 0px', threshold:0.08 });
-    document.querySelectorAll('#stats-container .animate-up, #stats-container .stat-num').forEach(el => obs2.observe(el));
+    document.querySelectorAll('#stats-container .animate-up, #stats-container .stat-num').forEach(el => obs.observe(el));
   }
 });
 </script>
-
 </body>
 </html>
