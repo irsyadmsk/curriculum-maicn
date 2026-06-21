@@ -1,4 +1,4 @@
-﻿window.MASTER_DATA = {
+window.MASTER_DATA = {
  "meta": {
   "madrasah": "MA Insan Cendekia Nusantara Purwakarta",
   "tahun_pelajaran": "2026/2027",
@@ -13,7 +13,7 @@
    "SK Dirjen Pendidikan Islam No. 4860 Tahun 2026",
    "PP No. 57 Tahun 2021"
   ],
-  "catatan_minggu_efektif": "Minggu efektif Semester Ganjil = 18 (pas batas minimal SK Dirjen PI No. 4860/2026, min. 18 minggu/semester). Total tahun = 36 minggu (pas batas minimal â‰¥36/tahun, PP No. 57/2021). Tidak ada kelonggaran tambahan; setiap pekan efektif yang hilang akan menembus ambang minimal."
+  "catatan_minggu_efektif": "Minggu efektif Semester Ganjil = 18 (pas batas minimal SK Dirjen PI No. 4860/2026, min. 18 minggu/semester). Total tahun = 36 minggu (pas batas minimal ≥36/tahun, PP No. 57/2021). Tidak ada kelonggaran tambahan; setiap pekan efektif yang hilang akan menembus ambang minimal."
  },
  "headline": {
   "hari_efektif": 155,
@@ -369,7 +369,7 @@
   },
   "2026-08-15": {
    "c": "libur_mingguan",
-   "l": "Open House â€“ Hari Terakhir Karantina & Awal Pesiar",
+   "l": "Open House – Hari Terakhir Karantina & Awal Pesiar",
    "s": "GANJIL",
    "p": ""
   },
@@ -381,7 +381,7 @@
   },
   "2026-08-17": {
    "c": "libur_nasional",
-   "l": "Hari Ulang Tahun Kemerdekaan Republik Indonesia ke",
+   "l": "Hari Ulang Tahun Kemerdekaan Republik Indonesia ke-81",
    "s": "GANJIL",
    "p": ""
   },
@@ -1449,13 +1449,13 @@
   },
   "2027-02-11": {
    "c": "pembelajaran",
-   "l": "Pembelajaran Ramadan â€“ Syahrun Ma'al Qur'an",
+   "l": "Pembelajaran Ramadan – Syahrun Ma'al Qur'an",
    "s": "GENAP",
    "p": ""
   },
   "2027-02-12": {
    "c": "pembelajaran",
-   "l": "Pembelajaran Ramadan â€“ Syahrun Ma'al Qur'an",
+   "l": "Pembelajaran Ramadan – Syahrun Ma'al Qur'an",
    "s": "GENAP",
    "p": ""
   },
@@ -1473,31 +1473,31 @@
   },
   "2027-02-15": {
    "c": "pembelajaran",
-   "l": "Pembelajaran Ramadan â€“ Sanlat",
+   "l": "Pembelajaran Ramadan – Sanlat",
    "s": "GENAP",
    "p": ""
   },
   "2027-02-16": {
    "c": "pembelajaran",
-   "l": "Pembelajaran Ramadan â€“ Sanlat",
+   "l": "Pembelajaran Ramadan – Sanlat",
    "s": "GENAP",
    "p": ""
   },
   "2027-02-17": {
    "c": "pembelajaran",
-   "l": "Pembelajaran Ramadan â€“ Sanlat",
+   "l": "Pembelajaran Ramadan – Sanlat",
    "s": "GENAP",
    "p": ""
   },
   "2027-02-18": {
    "c": "pembelajaran",
-   "l": "Pembelajaran Ramadan â€“ Sanlat",
+   "l": "Pembelajaran Ramadan – Sanlat",
    "s": "GENAP",
    "p": ""
   },
   "2027-02-19": {
    "c": "pembelajaran",
-   "l": "Pembelajaran Ramadan â€“ Sanlat",
+   "l": "Pembelajaran Ramadan – Sanlat",
    "s": "GENAP",
    "p": ""
   },
@@ -1515,31 +1515,31 @@
   },
   "2027-02-22": {
    "c": "pembelajaran",
-   "l": "Pembelajaran Ramadan â€“ Sanlat",
+   "l": "Pembelajaran Ramadan – Sanlat",
    "s": "GENAP",
    "p": ""
   },
   "2027-02-23": {
    "c": "pembelajaran",
-   "l": "Pembelajaran Ramadan â€“ Sanlat",
+   "l": "Pembelajaran Ramadan – Sanlat",
    "s": "GENAP",
    "p": ""
   },
   "2027-02-24": {
    "c": "pembelajaran",
-   "l": "Pembelajaran Ramadan â€“ Nuzulul Qur'an",
+   "l": "Pembelajaran Ramadan – Nuzulul Qur'an",
    "s": "GENAP",
    "p": ""
   },
   "2027-02-25": {
    "c": "pembelajaran",
-   "l": "Pembelajaran Ramadan â€“ Sanlat",
+   "l": "Pembelajaran Ramadan – Sanlat",
    "s": "GENAP",
    "p": ""
   },
   "2027-02-26": {
    "c": "pembelajaran",
-   "l": "Pembelajaran Ramadan â€“ Sanlat",
+   "l": "Pembelajaran Ramadan – Sanlat",
    "s": "GENAP",
    "p": ""
   },
@@ -1611,13 +1611,13 @@
   },
   "2027-03-10": {
    "c": "libur_nasional",
-   "l": "Hari Raya Idul Fitri 1 Syawal 1448 H (Perkiraan) m",
+   "l": "Hari Raya Idul Fitri 1 Syawal 1448 H (Perkiraan)",
    "s": "GENAP",
    "p": ""
   },
   "2027-03-11": {
    "c": "libur_nasional",
-   "l": "Hari Raya Idul Fitri 1 Syawal 1448 H (Perkiraan) m",
+   "l": "Hari Raya Idul Fitri 1 Syawal 1448 H (Perkiraan)",
    "s": "GENAP",
    "p": ""
   },
@@ -2092,127 +2092,127 @@
   "2027-05-29": {
    "c": "libur_mingguan",
    "l": "Libur Mingguan",
-   "s": "",
+   "s": "GENAP",
    "p": ""
   },
   "2027-05-30": {
    "c": "libur_mingguan",
    "l": "Libur Mingguan",
-   "s": "",
+   "s": "GENAP",
    "p": ""
   },
   "2027-05-31": {
    "c": "sas",
    "l": "Sumatif Akhir Semester (SAS) Genap",
-   "s": "",
+   "s": "GENAP",
    "p": ""
   },
   "2027-06-01": {
    "c": "libur_nasional",
    "l": "Hari Lahir Pancasila",
-   "s": "",
+   "s": "GENAP",
    "p": ""
   },
   "2027-06-02": {
    "c": "sas",
    "l": "Sumatif Akhir Semester (SAS) Genap",
-   "s": "",
+   "s": "GENAP",
    "p": ""
   },
   "2027-06-03": {
    "c": "sas",
    "l": "Sumatif Akhir Semester (SAS) Genap",
-   "s": "",
+   "s": "GENAP",
    "p": ""
   },
   "2027-06-04": {
    "c": "sas",
    "l": "Sumatif Akhir Semester (SAS) Genap",
-   "s": "",
+   "s": "GENAP",
    "p": ""
   },
   "2027-06-05": {
    "c": "libur_mingguan",
    "l": "Libur Mingguan",
-   "s": "",
+   "s": "GENAP",
    "p": ""
   },
   "2027-06-06": {
    "c": "libur_mingguan",
    "l": "1 Muharram 1449 H",
-   "s": "",
+   "s": "GENAP",
    "p": ""
   },
   "2027-06-07": {
    "c": "madrasah",
    "l": "Penyelesaian Penilaian & Pengolahan Rapor",
-   "s": "",
+   "s": "GENAP",
    "p": ""
   },
   "2027-06-08": {
    "c": "remedial",
    "l": "Pengayaan dan Remedial",
-   "s": "",
+   "s": "GENAP",
    "p": ""
   },
   "2027-06-09": {
    "c": "remedial",
    "l": "Pengayaan dan Remedial",
-   "s": "",
+   "s": "GENAP",
    "p": ""
   },
   "2027-06-10": {
    "c": "remedial",
    "l": "Pengayaan dan Remedial",
-   "s": "",
+   "s": "GENAP",
    "p": ""
   },
   "2027-06-11": {
    "c": "remedial",
    "l": "Pengayaan dan Remedial",
-   "s": "",
+   "s": "GENAP",
    "p": ""
   },
   "2027-06-12": {
    "c": "libur_mingguan",
    "l": "Libur Mingguan",
-   "s": "",
+   "s": "GENAP",
    "p": ""
   },
   "2027-06-13": {
    "c": "libur_mingguan",
    "l": "Libur Mingguan",
-   "s": "",
+   "s": "GENAP",
    "p": ""
   },
   "2027-06-14": {
    "c": "kesiswaan",
    "l": "Class Meeting & Pekan Olahraga Madrasah",
-   "s": "",
+   "s": "GENAP",
    "p": ""
   },
   "2027-06-15": {
    "c": "kesiswaan",
    "l": "Class Meeting & Pekan Olahraga Madrasah",
-   "s": "",
+   "s": "GENAP",
    "p": ""
   },
   "2027-06-16": {
    "c": "kesiswaan",
    "l": "Class Meeting & Pekan Olahraga Madrasah",
-   "s": "",
+   "s": "GENAP",
    "p": ""
   },
   "2027-06-17": {
    "c": "kesiswaan",
    "l": "Class Meeting & Panggung Gembira",
-   "s": "",
+   "s": "GENAP",
    "p": ""
   },
   "2027-06-18": {
    "c": "rapor",
    "l": "Pembagian Rapor Akhir Tahun Pelajaran",
-   "s": "",
+   "s": "GENAP",
    "p": ""
   },
   "2027-06-19": {
@@ -2595,28 +2595,28 @@
    "bulan": "Juni 2026",
    "kegiatan": "Kedatangan & Penyambutan Peserta Didik Baru",
    "penanggung_jawab": "Waka Kesiswaan + TU",
-   "waktu": "20â€“21 Jun; 4â€“5 Jul 2026",
+   "waktu": "20–21 Jun; 4–5 Jul 2026",
    "status": "Terlaksana"
   },
   {
-   "bulan": "Juniâ€“Juli 2026",
-   "kegiatan": "Matrikulasi Tahap I â€“ Pra-Tes, KBM, Pasca-Tes",
+   "bulan": "Juni–Juli 2026",
+   "kegiatan": "Matrikulasi Tahap I – Pra-Tes, KBM, Pasca-Tes",
    "penanggung_jawab": "Waka Kurikulum + Tim Guru",
-   "waktu": "22 Jun â€“ 3 Jul 2026",
+   "waktu": "22 Jun – 3 Jul 2026",
    "status": "Terlaksana"
   },
   {
    "bulan": "Juli 2026",
    "kegiatan": "MATSAMA (Masa Ta'aruf Murid Madrasah)",
    "penanggung_jawab": "Waka Kesiswaan + OSIM",
-   "waktu": "6â€“10 Jul 2026",
+   "waktu": "6–10 Jul 2026",
    "status": "Terlaksana"
   },
   {
    "bulan": "Juli 2026",
-   "kegiatan": "Matrikulasi Reguler â€“ Pra-Tes (13 Jul), KBM (14â€“23 Jul), Pasca-Tes (24 Jul)",
+   "kegiatan": "Matrikulasi Reguler – Pra-Tes (13 Jul), KBM (14–23 Jul), Pasca-Tes (24 Jul)",
    "penanggung_jawab": "Waka Kurikulum + Tim Guru",
-   "waktu": "13â€“24 Jul 2026",
+   "waktu": "13–24 Jul 2026",
    "status": "Terlaksana"
   },
   {
@@ -2627,10 +2627,10 @@
    "status": "Terlaksana"
   },
   {
-   "bulan": "Juliâ€“November 2026",
+   "bulan": "Juli–November 2026",
    "kegiatan": "Pembelajaran Efektif Semester Ganjil",
    "penanggung_jawab": "Seluruh Guru + Waka Kurikulum",
-   "waktu": "27 Jul â€“ 27 Nov 2026",
+   "waktu": "27 Jul – 27 Nov 2026",
    "status": "Berlangsung"
   },
   {
@@ -2644,19 +2644,19 @@
    "bulan": "September 2026",
    "kegiatan": "Sumatif Tengah Semester (STS) Ganjil",
    "penanggung_jawab": "Waka Kurikulum + Tim Guru",
-   "waktu": "21â€“25 Sep 2026",
+   "waktu": "21–25 Sep 2026",
    "status": "Terjadwal"
   },
   {
    "bulan": "Oktober 2026",
-   "kegiatan": "Bulan Bahasa â€“ Puncak Lomba Trilingual",
+   "kegiatan": "Bulan Bahasa – Puncak Lomba Trilingual",
    "penanggung_jawab": "Waka Kurikulum + Guru Bahasa",
-   "waktu": "5â€“31 Okt 2026",
+   "waktu": "5–31 Okt 2026",
    "status": "Terjadwal"
   },
   {
    "bulan": "Oktober 2026",
-   "kegiatan": "Hari Santri Nasional â€“ Acara Keasramaan",
+   "kegiatan": "Hari Santri Nasional – Acara Keasramaan",
    "penanggung_jawab": "Waka Kesiswaan + Boarding",
    "waktu": "22 Okt 2026",
    "status": "Terjadwal"
@@ -2665,35 +2665,35 @@
    "bulan": "November 2026",
    "kegiatan": "Pekan Muraja'ah Al-Qur'an",
    "penanggung_jawab": "Guru Tahfidz + Waka Kesiswaan",
-   "waktu": "16â€“20 Nov 2026",
+   "waktu": "16–20 Nov 2026",
    "status": "Terjadwal"
   },
   {
    "bulan": "November 2026",
    "kegiatan": "Ujian Tahfidz Al-Qur'an Semester Ganjil",
    "penanggung_jawab": "Guru Tahfidz",
-   "waktu": "23â€“27 Nov 2026",
+   "waktu": "23–27 Nov 2026",
    "status": "Terjadwal"
   },
   {
-   "bulan": "Novemberâ€“Desember 2026",
+   "bulan": "November–Desember 2026",
    "kegiatan": "Sumatif Akhir Semester (SAS) Ganjil",
    "penanggung_jawab": "Waka Kurikulum + Tim Guru",
-   "waktu": "30 Nov â€“ 4 Des 2026",
+   "waktu": "30 Nov – 4 Des 2026",
    "status": "Terjadwal"
   },
   {
    "bulan": "Desember 2026",
    "kegiatan": "Remedial dan Pengayaan Semester Ganjil",
    "penanggung_jawab": "Tim Guru",
-   "waktu": "7â€“11 Des 2026",
+   "waktu": "7–11 Des 2026",
    "status": "Terjadwal"
   },
   {
    "bulan": "Desember 2026",
    "kegiatan": "Class Meeting & Haflah Taqrim Semester Ganjil",
    "penanggung_jawab": "Waka Kesiswaan + Panitia",
-   "waktu": "14â€“17 Des 2026",
+   "waktu": "14–17 Des 2026",
    "status": "Terjadwal"
   },
   {
@@ -2705,7 +2705,7 @@
   },
   {
    "bulan": "Januari 2027",
-   "kegiatan": "Awal Masuk Semester Genap â€“ Upacara Bendera",
+   "kegiatan": "Awal Masuk Semester Genap – Upacara Bendera",
    "penanggung_jawab": "Kepala Madrasah + Waka",
    "waktu": "4 Jan 2027",
    "status": "Terjadwal"
@@ -2714,63 +2714,63 @@
    "bulan": "Januari 2027",
    "kegiatan": "Pembelajaran Efektif Semester Genap",
    "penanggung_jawab": "Seluruh Guru + Waka Kurikulum",
-   "waktu": "4 Jan â€“ 28 Mei 2027",
+   "waktu": "4 Jan – 28 Mei 2027",
    "status": "Terjadwal"
   },
   {
    "bulan": "Januari 2027",
-   "kegiatan": "Pekan Lomba SARL â€“ Sains, Art, Sport, Religion & Language",
+   "kegiatan": "Pekan Lomba SARL – Sains, Art, Sport, Religion & Language",
    "penanggung_jawab": "Waka Kesiswaan + Panitia",
-   "waktu": "25â€“29 Jan 2027",
+   "waktu": "25–29 Jan 2027",
    "status": "Terjadwal"
   },
   {
    "bulan": "Februari 2027",
-   "kegiatan": "Program Ramadan â€“ Syahrun Ma'al Qur'an & Sanlat",
+   "kegiatan": "Program Ramadan – Syahrun Ma'al Qur'an & Sanlat",
    "penanggung_jawab": "Waka Kurikulum + Guru Agama",
-   "waktu": "11â€“26 Feb 2027",
+   "waktu": "11–26 Feb 2027",
    "status": "Terjadwal"
   },
   {
    "bulan": "Maret 2027",
    "kegiatan": "Sumatif Tengah Semester (STS) Genap",
    "penanggung_jawab": "Waka Kurikulum + Tim Guru",
-   "waktu": "1â€“5 Mar 2027",
+   "waktu": "1–5 Mar 2027",
    "status": "Terjadwal"
   },
   {
    "bulan": "April 2027",
-   "kegiatan": "Hari Kartini & Hari Bumi â€“ Kegiatan Tematik",
+   "kegiatan": "Hari Kartini & Hari Bumi – Kegiatan Tematik",
    "penanggung_jawab": "Waka Kesiswaan + Guru Mapel",
-   "waktu": "21â€“22 Apr 2027",
+   "waktu": "21–22 Apr 2027",
    "status": "Terjadwal"
   },
   {
    "bulan": "Mei 2027",
    "kegiatan": "Rihlah Ilmiah (Tentatif)",
    "penanggung_jawab": "Waka Kesiswaan + Panitia",
-   "waktu": "4â€“7 Mei 2027",
+   "waktu": "4–7 Mei 2027",
    "status": "Tentatif"
   },
   {
    "bulan": "Mei 2027",
    "kegiatan": "Sumatif Akhir Semester (SAS) Genap",
    "penanggung_jawab": "Waka Kurikulum + Tim Guru",
-   "waktu": "31 Mei â€“ 4 Jun 2027",
+   "waktu": "31 Mei – 4 Jun 2027",
    "status": "Terjadwal"
   },
   {
    "bulan": "Juni 2027",
    "kegiatan": "Remedial dan Pengayaan Semester Genap",
    "penanggung_jawab": "Tim Guru",
-   "waktu": "8â€“11 Jun 2027",
+   "waktu": "8–11 Jun 2027",
    "status": "Terjadwal"
   },
   {
    "bulan": "Juni 2027",
    "kegiatan": "Class Meeting & Panggung Gembira Akhir Tahun",
    "penanggung_jawab": "Waka Kesiswaan + Panitia",
-   "waktu": "14â€“17 Jun 2027",
+   "waktu": "14–17 Jun 2027",
    "status": "Terjadwal"
   },
   {
@@ -2781,10 +2781,10 @@
    "status": "Terjadwal"
   },
   {
-   "bulan": "Juniâ€“Juli 2027",
+   "bulan": "Juni–Juli 2027",
    "kegiatan": "Libur Akhir Tahun Pelajaran 2026/2027",
-   "penanggung_jawab": "â€”",
-   "waktu": "19 Jun â€“ 10 Jul 2027",
+   "penanggung_jawab": "—",
+   "waktu": "19 Jun – 10 Jul 2027",
    "status": "Terjadwal"
   }
  ],
@@ -2792,159 +2792,159 @@
   "ganjil": [
    {
     "minggu": "Pra (0)",
-    "periode": "20 Jun â€“ 24 Jul 2026",
+    "periode": "20 Jun – 24 Jul 2026",
     "hari_efektif": 0,
     "program": "Matrikulasi (Tahap I & Reguler) + MATSAMA",
     "asesmen": "Pra-Tes & Pasca-Tes Matrikulasi"
    },
    {
-    "minggu": "1â€“3",
-    "periode": "27 Jul â€“ 14 Ags 2026",
+    "minggu": "1–3",
+    "periode": "27 Jul – 14 Ags 2026",
     "hari_efektif": 15,
     "program": "Pembelajaran Efektif Tahap I",
-    "asesmen": "â€”"
+    "asesmen": "—"
    },
    {
-    "minggu": "5â€“8",
-    "periode": "17 Ags â€“ 11 Sep 2026",
+    "minggu": "5–8",
+    "periode": "17 Ags – 11 Sep 2026",
     "hari_efektif": 18,
     "program": "Pembelajaran Efektif Tahap II",
-    "asesmen": "â€”"
+    "asesmen": "—"
    },
    {
-    "minggu": "9â€“13",
-    "periode": "14â€“25 Sep 2026",
+    "minggu": "9–13",
+    "periode": "14–25 Sep 2026",
     "hari_efektif": 18,
     "program": "Pembelajaran Efektif Tahap III + STS",
-    "asesmen": "STS Ganjil (21â€“25 Sep)"
+    "asesmen": "STS Ganjil (21–25 Sep)"
    },
    {
-    "minggu": "14â€“18",
-    "periode": "28 Sep â€“ 30 Okt 2026",
+    "minggu": "14–18",
+    "periode": "28 Sep – 30 Okt 2026",
     "hari_efektif": 25,
     "program": "Pembelajaran Efektif Tahap IV",
-    "asesmen": "â€”"
+    "asesmen": "—"
    },
    {
-    "minggu": "19â€“23",
-    "periode": "2â€“27 Nov 2026",
+    "minggu": "19–23",
+    "periode": "2–27 Nov 2026",
     "hari_efektif": 20,
     "program": "Pembelajaran Efektif Tahap V + Muraja'ah + Ujian Tahfidz",
-    "asesmen": "Ujian Tahfidz (23â€“27 Nov)"
+    "asesmen": "Ujian Tahfidz (23–27 Nov)"
    },
    {
     "minggu": "24",
-    "periode": "30 Nov â€“ 4 Des 2026",
+    "periode": "30 Nov – 4 Des 2026",
     "hari_efektif": 5,
     "program": "Sumatif Akhir Semester (SAS) Ganjil",
     "asesmen": "SAS Ganjil"
    },
    {
     "minggu": "25",
-    "periode": "7â€“11 Des 2026",
+    "periode": "7–11 Des 2026",
     "hari_efektif": 5,
     "program": "Remedial dan Pengayaan",
     "asesmen": "Remedi & Pengayaan"
    },
    {
     "minggu": "26",
-    "periode": "14â€“18 Des 2026",
+    "periode": "14–18 Des 2026",
     "hari_efektif": 0,
     "program": "Class Meeting + Haflah Taqrim + Pembagian Rapor",
-    "asesmen": "â€”"
+    "asesmen": "—"
    }
   ],
   "genap": [
    {
-    "minggu": "29â€“30",
-    "periode": "4â€“15 Jan 2027",
+    "minggu": "29–30",
+    "periode": "4–15 Jan 2027",
     "hari_efektif": 9,
     "program": "Awal Semester Genap + Pembelajaran Efektif",
-    "asesmen": "â€”"
+    "asesmen": "—"
    },
    {
-    "minggu": "31â€“32",
-    "periode": "18â€“29 Jan 2027",
+    "minggu": "31–32",
+    "periode": "18–29 Jan 2027",
     "hari_efektif": 9,
     "program": "Pembelajaran Efektif + Pekan Lomba SARL",
-    "asesmen": "â€”"
+    "asesmen": "—"
    },
    {
-    "minggu": "33â€“34",
-    "periode": "1â€“12 Feb 2027",
+    "minggu": "33–34",
+    "periode": "1–12 Feb 2027",
     "hari_efektif": 8,
     "program": "Pembelajaran Efektif + Awal Ramadan",
-    "asesmen": "â€”"
+    "asesmen": "—"
    },
    {
-    "minggu": "35â€“36",
-    "periode": "15â€“26 Feb 2027",
+    "minggu": "35–36",
+    "periode": "15–26 Feb 2027",
     "hari_efektif": 10,
     "program": "Syahrun Ma'al Qur'an & Sanlat Ramadan",
-    "asesmen": "â€”"
+    "asesmen": "—"
    },
    {
     "minggu": "37",
-    "periode": "1â€“5 Mar 2027",
+    "periode": "1–5 Mar 2027",
     "hari_efektif": 5,
     "program": "Sumatif Tengah Semester (STS) Genap",
     "asesmen": "STS Genap"
    },
    {
-    "minggu": "38â€“39",
-    "periode": "8â€“21 Mar 2027",
+    "minggu": "38–39",
+    "periode": "8–21 Mar 2027",
     "hari_efektif": 0,
     "program": "Libur Idul Fitri 1448 H + Kedatangan Murid",
-    "asesmen": "â€”"
+    "asesmen": "—"
    },
    {
-    "minggu": "40â€“41",
-    "periode": "22 Mar â€“ 2 Apr 2027",
+    "minggu": "40–41",
+    "periode": "22 Mar – 2 Apr 2027",
     "hari_efektif": 9,
     "program": "Pembelajaran Efektif Pasca Idul Fitri",
-    "asesmen": "â€”"
+    "asesmen": "—"
    },
    {
-    "minggu": "42â€“45",
-    "periode": "5 Apr â€“ 30 Apr 2027",
+    "minggu": "42–45",
+    "periode": "5 Apr – 30 Apr 2027",
     "hari_efektif": 20,
     "program": "Pembelajaran Efektif Tahap Akhir",
-    "asesmen": "â€”"
+    "asesmen": "—"
    },
    {
-    "minggu": "46â€“47",
-    "periode": "3â€“14 Mei 2027",
+    "minggu": "46–47",
+    "periode": "3–14 Mei 2027",
     "hari_efektif": 8,
     "program": "Pembelajaran Efektif + Rihlah Ilmiah",
-    "asesmen": "â€”"
+    "asesmen": "—"
    },
    {
-    "minggu": "48â€“49",
-    "periode": "17â€“28 Mei 2027",
+    "minggu": "48–49",
+    "periode": "17–28 Mei 2027",
     "hari_efektif": 8,
     "program": "Pembelajaran Efektif Akhir + Idul Adha",
-    "asesmen": "â€”"
+    "asesmen": "—"
    },
    {
     "minggu": "50",
-    "periode": "31 Mei â€“ 4 Jun 2027",
+    "periode": "31 Mei – 4 Jun 2027",
     "hari_efektif": 4,
     "program": "Sumatif Akhir Semester (SAS) Genap",
     "asesmen": "SAS Genap"
    },
    {
     "minggu": "51",
-    "periode": "7â€“11 Jun 2027",
+    "periode": "7–11 Jun 2027",
     "hari_efektif": 4,
     "program": "Remedial dan Pengayaan Akhir Tahun",
     "asesmen": "Remedi & Pengayaan"
    },
    {
     "minggu": "52",
-    "periode": "14â€“18 Jun 2027",
+    "periode": "14–18 Jun 2027",
     "hari_efektif": 0,
     "program": "Class Meeting + Panggung Gembira + Pembagian Rapor",
-    "asesmen": "â€”"
+    "asesmen": "—"
    }
   ]
  },
@@ -2954,55 +2954,55 @@
    "total_jp": 10,
    "slot": [
     [
-     "07.00â€“07.45",
+     "07.00–07.45",
      "JP 1"
     ],
     [
-     "07.45â€“08.30",
+     "07.45–08.30",
      "JP 2"
     ],
     [
-     "08.30â€“09.15",
+     "08.30–09.15",
      "JP 3"
     ],
     [
-     "09.15â€“09.30",
-     "Istirahat 1 â€” Shalat Dhuha & Snack Pagi"
+     "09.15–09.30",
+     "Istirahat 1 — Shalat Dhuha & Snack Pagi"
     ],
     [
-     "09.30â€“10.15",
+     "09.30–10.15",
      "JP 4"
     ],
     [
-     "10.15â€“11.00",
+     "10.15–11.00",
      "JP 5"
     ],
     [
-     "11.00â€“11.45",
+     "11.00–11.45",
      "JP 6"
     ],
     [
-     "11.45â€“12.45",
-     "Istirahat 2 (Ishoma) â€” Makan Siang & Dzuhur Berjamaah"
+     "11.45–12.45",
+     "Istirahat 2 (Ishoma) — Makan Siang & Dzuhur Berjamaah"
     ],
     [
-     "12.45â€“13.30",
+     "12.45–13.30",
      "JP 7"
     ],
     [
-     "13.30â€“14.15",
+     "13.30–14.15",
      "JP 8"
     ],
     [
-     "14.15â€“15.00",
+     "14.15–15.00",
      "JP 9"
     ],
     [
-     "15.00â€“15.45",
+     "15.00–15.45",
      "JP 10"
     ],
     [
-     "15.45â€“16.00",
+     "15.45–16.00",
      "Shalat Ashar Berjamaah"
     ],
     [
@@ -3015,51 +3015,51 @@
    "total_jp": 8,
    "slot": [
     [
-     "07.00â€“07.30",
+     "07.00–07.30",
      "Kultum Jumat"
     ],
     [
-     "07.30â€“08.15",
+     "07.30–08.15",
      "JP 1"
     ],
     [
-     "08.15â€“09.00",
+     "08.15–09.00",
      "JP 2"
     ],
     [
-     "09.00â€“09.15",
-     "Istirahat 1 â€” Shalat Dhuha & Snack Pagi"
+     "09.00–09.15",
+     "Istirahat 1 — Shalat Dhuha & Snack Pagi"
     ],
     [
-     "09.15â€“10.00",
+     "09.15–10.00",
      "JP 3"
     ],
     [
-     "10.00â€“10.45",
+     "10.00–10.45",
      "JP 4"
     ],
     [
-     "10.45â€“11.30",
+     "10.45–11.30",
      "JP 5"
     ],
     [
-     "11.30â€“13.30",
-     "Istirahat 2 â€” Shalat Jumat & Ishoma"
+     "11.30–13.30",
+     "Istirahat 2 — Shalat Jumat & Ishoma"
     ],
     [
-     "13.30â€“14.15",
+     "13.30–14.15",
      "JP 6"
     ],
     [
-     "14.15â€“15.00",
+     "14.15–15.00",
      "JP 7"
     ],
     [
-     "15.00â€“15.45",
+     "15.00–15.45",
      "JP 8"
     ],
     [
-     "15.45â€“16.00",
+     "15.45–16.00",
      "Shalat Ashar Berjamaah"
     ],
     [
@@ -3068,7 +3068,7 @@
     ]
    ]
   },
-  "catatan": "Senâ€“Kam 10 JP + Jumat 8 JP = 48 JP/minggu. 4 JP kokurikuler di hari Sabtu (sistem boarding)."
+  "catatan": "Sen–Kam 10 JP + Jumat 8 JP = 48 JP/minggu. 4 JP kokurikuler di hari Sabtu (sistem boarding)."
  },
  "struktur_beban": {
   "beban_per_minggu": {
@@ -3076,7 +3076,7 @@
    "Kelas XI": 53,
    "Kelas XII": 53
   },
-  "formula_rapor": "Nilai Rapor = (65% Ã— Sumatif Harian) + (35% Ã— Asesmen Akhir Semester)",
+  "formula_rapor": "Nilai Rapor = (65% × Sumatif Harian) + (35% × Asesmen Akhir Semester)",
   "kktp": {
    "Kelas X": 82,
    "Kelas XI": 85,
@@ -3153,12 +3153,12 @@
   "kedatangan_timur": {
    "bg": "#1565C0",
    "teks": "#fff",
-   "label": "Kedatangan Peserta Didik â€“ Indonesia Timur"
+   "label": "Kedatangan Peserta Didik – Indonesia Timur"
   },
   "kedatangan_reguler": {
    "bg": "#64B5F6",
    "teks": "#0D3B66",
-   "label": "Kedatangan Peserta Didik â€“ Reguler"
+   "label": "Kedatangan Peserta Didik – Reguler"
   },
   "matsama": {
    "bg": "#00897B",
@@ -3258,7 +3258,7 @@
   "libur_mingguan": {
    "bg": "#F0F0F0",
    "teks": "#9aa",
-   "label": "Libur Mingguan (Sabtuâ€“Minggu)"
+   "label": "Libur Mingguan (Sabtu–Minggu)"
   },
   "default": {
    "bg": "#E8EDE9",

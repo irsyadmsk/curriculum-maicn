@@ -165,6 +165,10 @@
 
 <div class="container">
   
+  <div class="stats-container" id="stats-container" style="margin-bottom: 40px;">
+    <!-- Injected by JS -->
+  </div>
+
   <div class="timeline animate-up delay-200">
     <div class="timeline-inner" id="tl-strip"></div>
   </div>
@@ -251,6 +255,9 @@
         <div id="me-genap"></div>
       </div>
     </div>
+    <div class="callout animate-up" id="me-callout">
+      <!-- Injected by JS -->
+    </div>
   </div>
 
 </div>
@@ -284,11 +291,13 @@ document.addEventListener('DOMContentLoaded', () => {
   MD = window.MASTER_DATA;
   if (!MD) return;
 
+  buildStats();
   buildTimeline();
   buildCalendar();
   buildLegend();
   buildHE();
   buildME();
+  initObserver();
 });
 
 /* ═══ TABS & FILTERS ════════════════════════════════════════════════ */
@@ -327,6 +336,32 @@ const DAY_NAMES = ['Min','Sen','Sel','Rab','Kam','Jum','Sab'];
 
 function daysInMonth(y,m){ return new Date(y,m,0).getDate(); }
 function firstDay(y,m){ return new Date(y,m-1,1).getDay(); } // 0=Sun
+
+function buildStats() {
+  const hl = MD.headline;
+  document.getElementById('stats-container').innerHTML = `
+    <div class="stat-card animate-up">
+      <div class="stat-num" data-target="${hl.hari_efektif}">0</div>
+      <div class="stat-label">Hari Efektif</div>
+      <div class="stat-sub">Total PBM Murni</div>
+    </div>
+    <div class="stat-card c-green animate-up delay-100">
+      <div class="stat-num" data-target="${hl.total_jp}">0</div>
+      <div class="stat-label">Total JP</div>
+      <div class="stat-sub">Sen–Kam 10 JP · Jum 8 JP</div>
+    </div>
+    <div class="stat-card c-purple animate-up delay-200">
+      <div class="stat-num" data-target="${hl.minggu_efektif}">0</div>
+      <div class="stat-label">Minggu Efektif</div>
+      <div class="stat-sub">Ganjil ${hl.minggu_ganjil} · Genap ${hl.minggu_genap}</div>
+    </div>
+    <div class="stat-card c-red animate-up delay-300">
+      <div class="stat-num" data-target="${hl.hari_sumatif}">0</div>
+      <div class="stat-label">Hari Sumatif</div>
+      <div class="stat-sub">STS ${hl.sumatif_sts} · SAS ${hl.sumatif_sas}</div>
+    </div>
+  `;
+}
 
 function buildTimeline(){
   const el = document.getElementById('tl-strip');
@@ -459,15 +494,7 @@ function buildCalendar(semFilter='all') {
     grid.appendChild(card);
   });
 
-  // Re-init observer for new animated items
-  if(window.AppUtils && typeof window.AppUtils.initObserver === 'function') {
-      window.AppUtils.initObserver(); // if you had one, otherwise native below
-  } else {
-      const obs = new IntersectionObserver((entries, o) => entries.forEach(e => {
-          if(e.isIntersecting) { e.target.classList.add('in-view'); o.unobserve(e.target); }
-      }), { rootMargin: '0px 0px -50px 0px', threshold: 0.1 });
-      document.querySelectorAll('.animate-up:not(.in-view)').forEach(el => obs.observe(el));
-  }
+  initObserver();
 }
 
 function buildLegend(){
@@ -483,7 +510,7 @@ function buildLegend(){
      gDiv.innerText = group.judul;
      el.appendChild(gDiv);
 
-     group.items.forEach(k => {
+     group.kategori.forEach(k => {
         const v = MD.warna_kategori[k];
         if(!v) return;
         const item = document.createElement('div');
@@ -495,15 +522,24 @@ function buildLegend(){
 }
 
 function buildHE(){
+  function getDaysInMonthStr(monthStr) {
+    const [mName, yStr] = monthStr.split(' ');
+    const y = parseInt(yStr, 10);
+    const m = MONTH_NAMES.indexOf(mName);
+    return new Date(y, m, 0).getDate();
+  }
+
   function renderBars(months, targetId) {
     const el = document.getElementById(targetId);
     el.innerHTML = '';
-    const maxDays = 31;
     months.forEach(bln => {
-      const row = MD.hari_efektif.find(h => h.bulan === bln);
+      const row = MD.rekap_hari_efektif_bulan.find(h => h.bulan === bln);
       if(!row) return;
-      const pemb = row.pemb_ef; const asm = row.asesmen; const rest = row.total - pemb - asm;
-      const pct = (v) => Math.max(0, (v/maxDays*100).toFixed(1));
+      const totalDays = getDaysInMonthStr(bln);
+      const pemb = row.hari_efektif;
+      const asm = row.sumatif;
+      const rest = totalDays - pemb - asm;
+      const pct = (v) => Math.max(0, (v/totalDays*100).toFixed(1));
       
       el.innerHTML += `
         <div class="he-bar-row">
@@ -518,8 +554,8 @@ function buildHE(){
     });
   }
   
-  const ganjil = MD.hari_efektif.filter(h => h.semester.includes('Ganjil')).map(h=>h.bulan);
-  const genap = MD.hari_efektif.filter(h => h.semester.includes('Genap')).map(h=>h.bulan);
+  const ganjil = MD.rekap_hari_efektif_bulan.filter(h => h.semester.includes('Ganjil')).map(h=>h.bulan);
+  const genap = MD.rekap_hari_efektif_bulan.filter(h => h.semester.includes('Genap')).map(h=>h.bulan);
   renderBars(ganjil, 'he-ganjil');
   renderBars(genap, 'he-genap');
 }
@@ -528,25 +564,53 @@ function buildME(){
   function renderME(semWord, targetId) {
     const el = document.getElementById(targetId);
     el.innerHTML = '';
-    const data = MD.minggu_efektif.filter(m => m.semester.includes(semWord));
+    const data = MD.rekap_minggu_efektif.filter(m => m.semester.includes(semWord));
     const maxW = 5;
     data.forEach(m => {
-      const efPct = (m.ef / maxW * 100).toFixed(0);
-      const tdkPct = (m.tdk / maxW * 100).toFixed(0);
+      const efPct = (m.minggu_efektif / maxW * 100).toFixed(0);
+      const tdkPct = (m.minggu_tidak_efektif / maxW * 100).toFixed(0);
       el.innerHTML += `
         <div class="me-row">
           <div class="me-bulan">${m.bulan.replace(' 2026','').replace(' 2027','')}</div>
           <div class="me-track">
-            <div class="me-ef" style="width:${efPct}%">${m.ef>0?m.ef:''}</div>
-            <div class="me-tdk" style="width:${tdkPct}%">${m.tdk>0?m.tdk:''}</div>
+            <div class="me-ef" style="width:${efPct}%">${m.minggu_efektif>0?m.minggu_efektif:''}</div>
+            <div class="me-tdk" style="width:${tdkPct}%">${m.minggu_tidak_efektif>0?m.minggu_tidak_efektif:''}</div>
           </div>
-          <div class="me-nums"><span>${m.ef}</span>/${m.kal}</div>
+          <div class="me-nums"><span>${m.minggu_efektif}</span>/${m.minggu_kalender}</div>
         </div>
-        <div class="me-ket">${m.ket}</div>`;
+        <div class="me-ket">${m.keterangan}</div>`;
     });
   }
   renderME('Ganjil', 'me-ganjil');
   renderME('Genap', 'me-genap');
+
+  const calloutEl = document.getElementById('me-callout');
+  if (calloutEl && MD.meta.catatan_minggu_efektif) {
+    calloutEl.innerHTML = `<strong>Catatan Kelayakan:</strong> ${MD.meta.catatan_minggu_efektif}`;
+  }
+}
+
+function initObserver() {
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          
+          if(entry.target.classList.contains('stat-num') && !entry.target.hasAttribute('data-counted')) {
+            entry.target.setAttribute('data-counted', 'true');
+            window.AppUtils.countUp(entry.target);
+          }
+
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -50px 0px', threshold: 0.1 });
+
+    document.querySelectorAll('.animate-up, .stat-num').forEach(el => {
+      observer.observe(el);
+    });
+  }
 }
 </script>
 </body>
