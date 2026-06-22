@@ -3698,5 +3698,88 @@ window.MASTER_DATA = {
     "libur_mingguan"
    ]
   }
+ ],
+ "kelas_pretes": [
+  {
+   "kelas": "KELAS PRETES 1",
+   "siswa": [
+    {"no":1,"nama":"Ahmad Naufal Zabarqi"},
+    {"no":2,"nama":"Farisa Raya Amalia"},
+    {"no":3,"nama":"Fahrull Baihaqi Nainggolan"},
+    {"no":4,"nama":"Syifa Khansa Hukama"},
+    {"no":5,"nama":"Damar Akas"},
+    {"no":6,"nama":"Natalia Kristiana Sembiring"},
+    {"no":7,"nama":"Muh. Zaqi Al-Mubaraq"},
+    {"no":8,"nama":"Silfia Naura Azalia"},
+    {"no":9,"nama":"Ibnu Syafik Sasole"}
+   ]
+  },
+  {
+   "kelas": "KELAS PRETES 2",
+   "siswa": [
+    {"no":1,"nama":"Lalu Indar Jaya Sakti"},
+    {"no":2,"nama":"Affani Fatimah Azzahra"},
+    {"no":3,"nama":"Muhammad Nur Chaesar Rhamadan"},
+    {"no":4,"nama":"Jaena Tafasha Abubakar"},
+    {"no":5,"nama":"Rifaldi Syahbana Ares"},
+    {"no":6,"nama":"Faika Izzihni"},
+    {"no":7,"nama":"Muflih Al-Jumanatul Ali"},
+    {"no":8,"nama":"Kaina Ma'Rifalah Ajis"}
+   ]
+  }
+ ],
+ "prota": [
+  {"no":1,"bulan":"Juni 2026","program":"Kedatangan & Penyambutan Peserta Didik Baru (Indo. Timur & Reguler)","pj":"Waka Kesiswaan + TU","target":"100% peserta didik hadir sesuai jadwal gelombang","waktu":"20–21 Jun; 4–5 Jul 2026","status":"Terlaksana","ket":"Koordinasi dengan Boarding"},
+  {"no":2,"bulan":"Juni–Juli 2026","program":"Matrikulasi Tahap I – Pra-Tes, KBM Matrikulasi, Pasca-Tes","pj":"Waka Kurikulum + Tim Guru","target":"Seluruh peserta didik memahami materi esensial 15 mapel","waktu":"22 Jun – 3 Jul 2026","status":"Terlaksana","ket":"Berbasis Buku Kerja 2"},
+  {"no":3,"bulan":"Juli 2026","program":"MATSAMA (Masa Ta'aruf Murid Madrasah)","pj":"Waka Kesiswaan + OSIM","target":"Peserta didik mengenal lingkungan, tata tertib, budaya madrasah","waktu":"6–8 Jul 2026","status":"Terlaksana","ket":"3 hari penuh"},
+  {"no":4,"bulan":"Juli 2026","program":"Matrikulasi Tahap II – Pra-Tes, KBM Matrikulasi, Pasca-Tes","pj":"Waka Kurikulum + Tim Guru","target":"Peserta didik reguler memahami materi esensial 15 mapel","waktu":"9–17 Jul 2026","status":"Terlaksana","ket":"Setelah MATSAMA"},
+  {"no":5,"bulan":"Juli 2026","program":"Evaluasi dan Penutupan Program Matrikulasi","pj":"Waka Kurikulum","target":"Laporan evaluasi matrikulasi tersusun","waktu":"18 Jul 2026","status":"Terlaksana","ket":"Dokumen wajib"},
+  {"no":6,"bulan":"Juli–November 2026","program":"Pembelajaran Efektif Semester Ganjil","pj":"Seluruh Guru + Waka Kurikulum","target":"Ketercapaian CP sesuai ATP; modul ajar tersampaikan","waktu":"20 Jul – 27 Nov 2026","status":"Berlangsung","ket":"Kurikulum Merdeka Fase E"},
+  {"no":7,"bulan":"Agustus 2026","program":"Pembentukan dan Pelaksanaan Ekstrakurikuler & KBS","pj":"Waka Kesiswaan + Pembina Ekskul","target":"Seluruh peserta didik terdaftar minimal 1 ekskul","waktu":"Mulai 27 Jul 2026","status":"Berlangsung","ket":"Jadwal Sabtu & jam 16.00"},
+  {"no":8,"bulan":"September 2026","program":"Sumatif Tengah Semester (STS) Ganjil","pj":"Waka Kurikulum + Tim Guru","target":"100% mapel terlaksana STS; nilai tercatat di e-Rapor","waktu":"21–25 Sep 2026","status":"Terjadwal","ket":"5 hari kerja"},
+  {"no":9,"bulan":"Oktober 2026","program":"Bulan Bahasa – Puncak Lomba Trilingual","pj":"Waka Kurikulum + Guru Bahasa","target":"Lomba bahasa terlaksana; pemenang tersertifikasi","waktu":"5–31 Okt 2026","status":"Terjadwal","ket":"Puncak 31 Okt"},
+  {"no":10,"bulan":"Oktober 2026","program":"Hari Santri Nasional – Acara Keasramaan","pj":"Waka Kesiswaan + Boarding","target":"Kegiatan keasramaan terlaksana","waktu":"22 Okt 2026","status":"Terjadwal","ket":"Panitia Khusus"},
+  {"no":11,"bulan":"November 2026","program":"Pekan Muraja'ah Al-Qur'an","pj":"Guru Tahfidz + Waka Kesiswaan","target":"Seluruh peserta didik mengikuti muraja'ah","waktu":"16–20 Nov 2026","status":"Terjadwal","ket":""},
+  {"no":12,"bulan":"November 2026","program":"Ujian Tahfidz Al-Qur'an Semester Ganjil","pj":"Guru Tahfidz","target":"Target capaian hafalan per kelas","waktu":"23–27 Nov 2026","status":"Terjadwal","ket":"Hasil masuk e-Rapor"},
+  {"no":13,"bulan":"November–Desember 2026","program":"Sumatif Akhir Semester (SAS) Ganjil","pj":"Waka Kurikulum + Tim Guru","target":"100% mapel terlaksana SAS; nilai final tercatat","waktu":"30 Nov – 4 Des 2026","status":"Terjadwal","ket":"5 hari kerja"},
+  {"no":14,"bulan":"Desember 2026","program":"Remedial dan Pengayaan Semester Ganjil","pj":"Tim Guru","target":"Peserta didik yang belum tuntas mendapat remedi","waktu":"7–11 Des 2026","status":"Terjadwal","ket":""},
+  {"no":15,"bulan":"Desember 2026","program":"Class Meeting & Haflah Taqrim Semester Ganjil","pj":"Waka Kesiswaan + Panitia","target":"Kegiatan kesiswaan terlaksana meriah","waktu":"14–17 Des 2026","status":"Terjadwal","ket":"ICN Haflah Taqrim"},
+  {"no":16,"bulan":"Desember 2026","program":"Pembagian Buku Laporan Hasil Belajar (Rapor) Semester Ganjil","pj":"Waka Kurikulum + Wali Kelas","target":"100% rapor tersampaikan kepada orang tua","waktu":"18 Des 2026","status":"Terjadwal","ket":"Dokumen akreditasi"},
+  {"no":17,"bulan":"Januari 2027","program":"Awal Masuk Semester Genap – Upacara Bendera","pj":"Kepala Madrasah + Waka","target":"Seluruh peserta didik hadir","waktu":"4 Jan 2027","status":"Terjadwal","ket":""},
+  {"no":18,"bulan":"Januari 2027","program":"Pembelajaran Efektif Semester Genap","pj":"Seluruh Guru + Waka Kurikulum","target":"Ketercapaian CP sesuai ATP semester genap","waktu":"4 Jan – 28 Mei 2027","status":"Terjadwal","ket":""},
+  {"no":19,"bulan":"Januari 2027","program":"Pekan Lomba SARL – Sains, Art, Sport, Religion & Language","pj":"Waka Kesiswaan + Panitia","target":"Lomba antar SMP/MTs terlaksana","waktu":"25–29 Jan 2027","status":"Terjadwal","ket":"Program Unggulan MA ICN"},
+  {"no":20,"bulan":"Februari 2027","program":"Program Ramadan – Syahrun Ma'al Qur'an & Sanlat","pj":"Waka Kurikulum + Guru Agama","target":"Seluruh program Ramadan terlaksana","waktu":"11 Feb – 26 Feb 2027","status":"Terjadwal","ket":"Sesuai 1 Ramadan 1448 H"},
+  {"no":21,"bulan":"Maret 2027","program":"Sumatif Tengah Semester (STS) Genap","pj":"Waka Kurikulum + Tim Guru","target":"100% mapel terlaksana; nilai tercatat","waktu":"1–5 Mar 2027","status":"Terjadwal","ket":"5 hari kerja"},
+  {"no":22,"bulan":"April 2027","program":"Hari Kartini & Hari Bumi – Kegiatan Tematik","pj":"Waka Kesiswaan + Guru Mapel","target":"Kegiatan terlaksana; laporan tersusun","waktu":"21–22 Apr 2027","status":"Terjadwal","ket":"Pilihan format kegiatan"},
+  {"no":23,"bulan":"Mei 2027","program":"Rihlah Ilmiah (Tentatif)","pj":"Waka Kesiswaan + Panitia","target":"Peserta didik mengikuti pembelajaran di luar madrasah","waktu":"4–7 Mei 2027","status":"Tentatif","ket":"Konsep dispensasi/sebagian"},
+  {"no":24,"bulan":"Mei 2027","program":"Sumatif Akhir Semester (SAS) Genap","pj":"Waka Kurikulum + Tim Guru","target":"100% mapel terlaksana SAS; nilai final tercatat","waktu":"31 Mei – 4 Jun 2027","status":"Terjadwal","ket":""},
+  {"no":25,"bulan":"Juni 2027","program":"Remedial dan Pengayaan Semester Genap","pj":"Tim Guru","target":"Peserta didik yang belum tuntas mendapat remedi","waktu":"8–11 Jun 2027","status":"Terjadwal","ket":""},
+  {"no":26,"bulan":"Juni 2027","program":"Class Meeting & Panggung Gembira Akhir Tahun","pj":"Waka Kesiswaan + Panitia","target":"Kegiatan akhir tahun terlaksana","waktu":"14–17 Jun 2027","status":"Terjadwal","ket":"Penutup TP 2026/2027"},
+  {"no":27,"bulan":"Juni 2027","program":"Pembagian Buku Laporan Hasil Belajar (Rapor) Akhir Tahun","pj":"Waka Kurikulum + Wali Kelas","target":"100% rapor tersampaikan kepada orang tua","waktu":"18 Jun 2027","status":"Terjadwal","ket":"Dokumen akreditasi"},
+  {"no":28,"bulan":"Juni–Juli 2027","program":"Libur Akhir Tahun Pelajaran 2026/2027","pj":"—","target":"Peserta didik beristirahat & persiapan kelas XI","waktu":"19 Jun – 10 Jul 2027","status":"Terjadwal","ket":"Rihlah Guru 19–20 Jun"}
+ ],
+ "prosem": [
+  {"minggu":"Pra (0)","periode":"20–19 Jul 2026","hari_efektif":0,"program":"Matrikulasi Tahap I & II + MATSAMA","asesmen":"Pra-Tes & Pasca-Tes Matrikulasi","kegiatan_khusus":"Kedatangan, Matsama, Ekskul Awal","pelaporan":"—","keterangan":"Materi esensial 15 mapel","status":"Terlaksana","semester":"Pra"},
+  {"minggu":"1–4","periode":"20 Jul – 14 Ags 2026","hari_efektif":20,"program":"Pembelajaran Efektif Tahap I","asesmen":"—","kegiatan_khusus":"Administrasi Ekskul; Mulai Ekskul 27 Jul","pelaporan":"—","keterangan":"Jam efektif: 5 hari × 10 JP","status":"Berlangsung","semester":"Ganjil"},
+  {"minggu":"5–8","periode":"17 Ags – 11 Sep 2026","hari_efektif":18,"program":"Pembelajaran Efektif Tahap II","asesmen":"—","kegiatan_khusus":"HUT RI; LDKS; Muhadharah Kubra; Open Rekrut OSIM","pelaporan":"—","keterangan":"17 Ags: Libur Nasional","status":"Berlangsung","semester":"Ganjil"},
+  {"minggu":"9–13","periode":"14–25 Sep 2026","hari_efektif":18,"program":"Pembelajaran Efektif Tahap III + STS","asesmen":"STS Ganjil (21–25 Sep)","kegiatan_khusus":"Pemilihan Ketua OSIM & MPS","pelaporan":"—","keterangan":"5 hari STS","status":"Terjadwal","semester":"Ganjil"},
+  {"minggu":"14–18","periode":"28 Sep – 30 Okt 2026","hari_efektif":25,"program":"Pembelajaran Efektif Tahap IV","asesmen":"—","kegiatan_khusus":"Malam Syahdu; Bulan Bahasa; Hari Santri; Sumpah Pemuda","pelaporan":"—","keterangan":"22 Okt: Hari Santri","status":"Terjadwal","semester":"Ganjil"},
+  {"minggu":"19–23","periode":"2–27 Nov 2026","hari_efektif":20,"program":"Pembelajaran Efektif Tahap V + Muraja'ah + Ujian Tahfidz","asesmen":"Ujian Tahfidz (23–27 Nov)","kegiatan_khusus":"Outing Class; Hari Pahlawan; Hari Guru; Pekan Muraja'ah","pelaporan":"—","keterangan":"5 hari ujian tahfidz","status":"Terjadwal","semester":"Ganjil"},
+  {"minggu":"24","periode":"30 Nov – 4 Des 2026","hari_efektif":5,"program":"Sumatif Akhir Semester (SAS) Ganjil","asesmen":"SAS Ganjil","kegiatan_khusus":"—","pelaporan":"—","keterangan":"5 hari SAS","status":"Terjadwal","semester":"Ganjil"},
+  {"minggu":"25","periode":"7–11 Des 2026","hari_efektif":5,"program":"Remedial dan Pengayaan","asesmen":"Remedi & Pengayaan","kegiatan_khusus":"—","pelaporan":"—","keterangan":"Seluruh mapel","status":"Terjadwal","semester":"Ganjil"},
+  {"minggu":"26","periode":"14–18 Des 2026","hari_efektif":0,"program":"Class Meeting + Haflah Taqrim + Pembagian Rapor","asesmen":"—","kegiatan_khusus":"Class Meeting; Malam Syahdu; ICN Haflah Taqrim","pelaporan":"Pembagian Rapor 18 Des","keterangan":"Penutup Sem. Ganjil","status":"Terjadwal","semester":"Ganjil"},
+  {"minggu":"29–30","periode":"4–15 Jan 2027","hari_efektif":9,"program":"Awal Semester Genap + Pembelajaran Efektif","asesmen":"—","kegiatan_khusus":"Upacara; Isra Mi'raj (6 Jan: libur)","pelaporan":"—","keterangan":"Masuk perdana 4 Jan","status":"Terjadwal","semester":"Genap"},
+  {"minggu":"31–32","periode":"18–29 Jan 2027","hari_efektif":9,"program":"Pembelajaran Efektif + Pekan Lomba SARL","asesmen":"—","kegiatan_khusus":"Pekan Lomba SARL (25–29 Jan)","pelaporan":"—","keterangan":"Program Unggulan ICN","status":"Terjadwal","semester":"Genap"},
+  {"minggu":"33–34","periode":"1–12 Feb 2027","hari_efektif":8,"program":"Pembelajaran Efektif + Awal Ramadan","asesmen":"—","kegiatan_khusus":"Muhadharah Kubra; Imlek; Awal Ramadan 1448 H","pelaporan":"—","keterangan":"Libur Ramadan: 8–10 Feb","status":"Terjadwal","semester":"Genap"},
+  {"minggu":"35–36","periode":"15–26 Feb 2027","hari_efektif":10,"program":"Syahrun Ma'al Qur'an & Sanlat Ramadan","asesmen":"—","kegiatan_khusus":"Syahrun Ma'al Qur'an; Sanlat; Nuzulul Qur'an","pelaporan":"—","keterangan":"KBM mengambil 2 JP","status":"Terjadwal","semester":"Genap"},
+  {"minggu":"37","periode":"1–5 Mar 2027","hari_efektif":5,"program":"Sumatif Tengah Semester (STS) Genap","asesmen":"STS Genap","kegiatan_khusus":"Buka Bersama & Kajian","pelaporan":"—","keterangan":"5 hari STS","status":"Terjadwal","semester":"Genap"},
+  {"minggu":"38–39","periode":"8–21 Mar 2027","hari_efektif":0,"program":"Libur Idul Fitri 1448 H + Kedatangan Murid","asesmen":"—","kegiatan_khusus":"Idul Fitri; Cuti Bersama; Nyepi","pelaporan":"—","keterangan":"Perkiraan Idul Fitri 10 Mar","status":"Terjadwal","semester":"Genap"},
+  {"minggu":"40–41","periode":"22 Mar – 2 Apr 2027","hari_efektif":9,"program":"Pembelajaran Efektif Pasca Idul Fitri","asesmen":"—","kegiatan_khusus":"Halal Bihalal; Wafat Yesus","pelaporan":"—","keterangan":"Penyesuaian jadwal","status":"Terjadwal","semester":"Genap"},
+  {"minggu":"42–45","periode":"5 Apr – 30 Apr 2027","hari_efektif":20,"program":"Pembelajaran Efektif Tahap Akhir","asesmen":"—","kegiatan_khusus":"Hari Kartini; Hari Bumi; Muhadharah Kubra","pelaporan":"—","keterangan":"","status":"Terjadwal","semester":"Genap"},
+  {"minggu":"46–47","periode":"3–14 Mei 2027","hari_efektif":8,"program":"Pembelajaran Efektif + Rihlah Ilmiah","asesmen":"—","kegiatan_khusus":"Hardiknas; Rihlah Ilmiah; Kenaikan Yesus","pelaporan":"—","keterangan":"Idul Adha: 17 Mei","status":"Terjadwal","semester":"Genap"},
+  {"minggu":"48–49","periode":"17–28 Mei 2027","hari_efektif":8,"program":"Pembelajaran Efektif Akhir + Idul Adha","asesmen":"—","kegiatan_khusus":"Idul Adha; Waisak/Kebangkitan","pelaporan":"—","keterangan":"","status":"Terjadwal","semester":"Genap"},
+  {"minggu":"50","periode":"31 Mei – 4 Jun 2027","hari_efektif":4,"program":"Sumatif Akhir Semester (SAS) Genap","asesmen":"SAS Genap","kegiatan_khusus":"Hari Lahir Pancasila","pelaporan":"—","keterangan":"SAS 31 Mei; 2–4 Jun","status":"Terjadwal","semester":"Genap"},
+  {"minggu":"51","periode":"7–11 Jun 2027","hari_efektif":4,"program":"Remedial dan Pengayaan Akhir Tahun","asesmen":"Remedi & Pengayaan","kegiatan_khusus":"Pengolahan nilai & persiapan rapor","pelaporan":"—","keterangan":"Seluruh mapel","status":"Terjadwal","semester":"Genap"},
+  {"minggu":"52","periode":"14–18 Jun 2027","hari_efektif":0,"program":"Class Meeting + Panggung Gembira + Pembagian Rapor","asesmen":"—","kegiatan_khusus":"Class Meeting; Panggung Gembira","pelaporan":"Pembagian Rapor 18 Jun","keterangan":"Penutup TP 2026/2027","status":"Terjadwal","semester":"Genap"}
  ]
 };

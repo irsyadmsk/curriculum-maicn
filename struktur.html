@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
@@ -49,6 +49,30 @@
 .j-ibadah .j-act { color: #d97706; font-weight: 800; }
 
 @media (max-width: 900px) { .grid-2 { grid-template-columns: 1fr; } }
+
+/* ══ POPUP JAM & TANGGAL ══ */
+.dt-popup {
+  position:fixed; bottom:24px; right:24px; z-index:999;
+  background:var(--primary); color:#fff; border-radius:16px;
+  padding:12px 18px; box-shadow:var(--shadow-lg);
+  display:flex; flex-direction:column; align-items:flex-end; gap:2px;
+  backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,.15);
+  min-width:160px; pointer-events:none;
+  animation:fadeIn .4s ease both;
+}
+.dt-popup .dt-time {
+  font-family:'DM Mono',monospace; font-size:1.5rem; font-weight:700;
+  letter-spacing:.04em; color:#fff; line-height:1;
+}
+.dt-popup .dt-date {
+  font-size:.72rem; color:rgba(255,255,255,.75); font-weight:600;
+  text-align:right; line-height:1.4;
+}
+.dt-popup .dt-dot {
+  width:7px; height:7px; border-radius:50%; background:var(--accent);
+  animation:ringPulse 2s ease-in-out infinite;
+  position:absolute; top:10px; left:14px;
+}
 </style>
 <script src="data.js"></script>
 <script src="assets/app.js"></script>
@@ -65,7 +89,6 @@
     <a href="profil.html" data-page="profil">Profil</a>
     <a href="struktur.html" data-page="struktur" class="active">Struktur</a>
     <a href="kalender.html" data-page="kalender">Kalender</a>
-    <a href="program.html" data-page="program">Program</a>
     <a href="akademik.html" data-page="akademik">Akademik</a>
     <a href="dokumen.html" data-page="dokumen">Dokumen</a>
   </div>
@@ -121,6 +144,13 @@
   </div>
   <div class="grid-2" id="jadwal-container" style="margin-bottom: 0;"></div>
 
+</div>
+
+<!-- ══ POPUP JAM & TANGGAL ══ -->
+<div class="dt-popup" id="dtPopup">
+  <div class="dt-dot"></div>
+  <div class="dt-time" id="dtTime">00:00:00</div>
+  <div class="dt-date" id="dtDate">—</div>
 </div>
 
 <footer>
@@ -277,5 +307,23 @@ document.addEventListener('DOMContentLoaded', () => {
     </div>
   </div>
 </div>
+
+<script>
+/* ─── Popup Jam & Tanggal ─── */
+(function() {
+  const DAYS = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+  const MONTHS = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+  function updateClock() {
+    const now = new Date();
+    const hh = String(now.getHours()).padStart(2,'0');
+    const mm = String(now.getMinutes()).padStart(2,'0');
+    const ss = String(now.getSeconds()).padStart(2,'0');
+    document.getElementById('dtTime').textContent = `${hh}:${mm}:${ss}`;
+    document.getElementById('dtDate').textContent = `${DAYS[now.getDay()]}, ${now.getDate()} ${MONTHS[now.getMonth()]} ${now.getFullYear()}`;
+  }
+  updateClock();
+  setInterval(updateClock, 1000);
+})();
+</script>
 </body>
 </html>
