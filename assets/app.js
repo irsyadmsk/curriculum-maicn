@@ -186,8 +186,28 @@ const SEED_COMMENTS = [
 function initLoadingScreen() {
   const screen = document.getElementById('loading-screen');
   if (!screen) return;
-  const delay = 1600;
-  setTimeout(() => screen.classList.add('hidden'), delay);
+
+  const path = window.location.pathname;
+  const isBeranda = path.endsWith('index.html') || path === '/' || path.endsWith('/curriculum-maicn/');
+
+  if (isBeranda) {
+    const delay = 1600;
+    setTimeout(() => screen.classList.add('hidden'), delay);
+  } else {
+    screen.classList.add('hidden');
+  }
+
+  // Network loss indicator
+  window.addEventListener('offline', () => {
+    const textEl = screen.querySelector('.loading-text');
+    if (textEl) textEl.textContent = "Menunggu Jaringan...";
+    screen.classList.remove('hidden');
+  });
+  window.addEventListener('online', () => {
+    const textEl = screen.querySelector('.loading-text');
+    if (textEl) textEl.textContent = "Terhubung Kembali";
+    setTimeout(() => screen.classList.add('hidden'), 1000);
+  });
 }
 
 // ─── Floating Clock ───

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Program & Agenda | MA ICN</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,400&family=DM+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<script src="data.js"></script>
+<script src="assets/app.js"></script>
+<style>
+.tabs { display:flex; gap:10px; margin-bottom:24px; border-bottom:1px solid var(--border); padding-bottom:8px; }
+.tab-btn { background:none; border:none; padding:8px 16px; font-weight:600; color:var(--text-soft); cursor:pointer; font-size:1rem; border-radius:var(--radius-sm); transition:all 0.2s; }
+.tab-btn:hover { color:var(--primary); background:var(--aqua-soft); }
+.tab-btn.active { color:var(--primary); background:var(--aqua-glow); }
+.tab-pane { display:none; }
+.tab-pane.active { display:block; animation: fadeUp 0.3s ease; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+/* Table styling for Prota */
+.prota-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-top: 16px; }
+.prota-table th, .prota-table td { border: 1px solid var(--border); padding: 12px; text-align: left; vertical-align: top; }
+.prota-table th { background: var(--primary); color: white; font-weight: 600; }
+.prota-table tr:nth-child(even) { background: var(--bg); }
+.prota-table tr:hover { background: var(--aqua-soft); }
+.status-badge { display:inline-block; padding:4px 8px; border-radius:12px; font-size:0.75rem; font-weight:700; }
+.status-terlaksana { background: rgba(22, 163, 74, 0.15); color: #166534; }
+.status-berlangsung { background: rgba(234, 179, 8, 0.2); color: #854d0e; }
+.status-terjadwal { background: rgba(59, 130, 246, 0.15); color: #1e40af; }
+.status-tentatif { background: rgba(107, 114, 128, 0.15); color: #374151; }
+</style>
+</head>
+<body>
+
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-brand">
+    <img src="assets/iconmaicn.png" alt="Logo">
+    <span>MA ICN</span>
+  </a>
+  <div class="nav-links" id="nav-links">
+    <a href="index.html" data-page="index">Beranda</a>
+    <a href="profil.html" data-page="profil">Profil</a>
+    <a href="struktur.html" data-page="struktur">Struktur</a>
+    <a href="kalender.html" data-page="kalender">Kalender</a>
+    <a href="program.html" data-page="program" class="active">Program</a>
+    <a href="akademik.html" data-page="akademik">Akademik</a>
+    <a href="dokumen.html" data-page="dokumen">Dokumen</a>
+  </div>
+  <div class="nav-right">
+    <button class="btn-login-nav" id="btn-login-nav">Masuk</button>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menu">☰</button>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <h1 class="animate-up">Program Pendidikan</h1>
+    <p class="animate-up delay-100">Pemetaan strategi, agenda, dan kegiatan kurikulum untuk mewujudkan pendidikan unggul terencana.</p>
+  </div>
+</div>
+
+<div class="container">
+  <div class="tabs animate-up delay-200">
+    <button class="tab-btn active" onclick="switchTab('prota')">Program Tahunan (Prota)</button>
+    <button class="tab-btn" onclick="switchTab('prosem')">Program Semester (Prosem)</button>
+  </div>
+  
+  <div class="tab-pane active" id="tab-prota">
+    <div class="table-wrap animate-up delay-300">
+      <table class="prota-table" id="prota-table">
+        <thead>
+          <tr>
+            <th width="3%">NO</th>
+            <th width="10%">BULAN</th>
+            <th width="25%">PROGRAM / KEGIATAN KURIKULUM</th>
+            <th width="15%">PENANGGUNG JAWAB</th>
+            <th width="17%">TARGET / INDIKATOR KEBERHASILAN</th>
+            <th width="10%">WAKTU PELAKSANAAN</th>
+            <th width="8%">STATUS</th>
+            <th width="12%">KETERANGAN</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Data diinjeksi via script -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="tab-pane" id="tab-prosem">
+    <div class="info-card animate-up" style="text-align:center; padding:48px;">
+      <i class="fa-solid fa-folder-open" style="font-size:3rem; color:var(--text-soft); margin-bottom:16px; display:block;"></i>
+      <h3>Dokumen Program Semester (Prosem)</h3>
+      <p style="color:var(--text-secondary); margin-bottom:24px;">Rincian distribusi alokasi waktu dan capaian materi dalam satu semester berjalan.</p>
+      <a href="#" class="btn btn-primary" onclick="alert('Fitur segera hadir')">Unduh Format Prosem <i class="fa-solid fa-download"></i></a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <strong id="footer-madrasah">MA Insan Cendekia Nusantara Purwakarta</strong>
+    Pusat Informasi Akademik & Kurikulum
+  </div>
+</footer>
+
+<script>
+function switchTab(id) {
+  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+  document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+  document.querySelector('.tab-btn[onclick="switchTab(\''+id+'\')"]').classList.add('active');
+  document.getElementById('tab-'+id).classList.add('active');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const MD = window.MASTER_DATA;
+  if (!MD || !MD.prota_data) return;
+  
+  const tbody = document.querySelector('#prota-table tbody');
+  let html = '';
+  
+  MD.prota_data.forEach(item => {
+    let sclass = 'status-terjadwal';
+    if(item.status === 'Terlaksana') sclass = 'status-terlaksana';
+    if(item.status === 'Berlangsung') sclass = 'status-berlangsung';
+    if(item.status === 'Tentatif') sclass = 'status-tentatif';
+    
+    html += `
+      <tr>
+        <td style="text-align:center;">${item.no}</td>
+        <td><strong>${item.bulan}</strong></td>
+        <td style="color:var(--primary); font-weight:600;">${item.kegiatan}</td>
+        <td>${item.pj}</td>
+        <td>${item.target}</td>
+        <td style="font-family:'DM Mono', monospace; font-size:0.8rem;">${item.waktu}</td>
+        <td style="text-align:center;"><span class="status-badge ${sclass}">${item.status}</span></td>
+        <td style="font-size:0.8rem; color:var(--text-soft);">${item.keterangan}</td>
+      </tr>
+    `;
+  });
+  
+  tbody.innerHTML = html;
+});
+</script>
+</body>
+</html>
