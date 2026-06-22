@@ -1,14 +1,7 @@
 /* ═══════════════════════════════════════════════════
-   CURRICULUM OS — App Core v2.0
-   Aquamorphic Edition
+   CURRICULUM OS — App Core v3.0
+   Aquamorphic Edition · Firebase Edition
 ═══════════════════════════════════════════════════ */
-
-// ─── Auth Config (ganti password di sini) ───
-const AUTH_CONFIG = {
-  username: 'admin',
-  password: 'maicn2025',
-  displayName: 'Waka Kurikulum'
-};
 
 // ─── Utilities ───
 window.AppUtils = {
@@ -31,11 +24,7 @@ window.AppUtils = {
 
   toast(msg, dur = 2800) {
     let t = document.getElementById('toast');
-    if (!t) {
-      t = document.createElement('div');
-      t.id = 'toast';
-      document.body.appendChild(t);
-    }
+    if (!t) { t = document.createElement('div'); t.id = 'toast'; document.body.appendChild(t); }
     t.textContent = msg;
     t.classList.add('show');
     clearTimeout(t._timer);
@@ -53,70 +42,114 @@ window.AppUtils = {
   }
 };
 
-// ─── Auth Module ───
+// ─── Firebase Auth Wrapper ───
 const Auth = {
-  SESSION_KEY: 'curriculum_session',
+  _user: null,
+  _profile: null,
 
-  isLoggedIn() {
-    try { return !!JSON.parse(sessionStorage.getItem(this.SESSION_KEY)); }
-    catch { return false; }
+  isLoggedIn() { return !!this._user; },
+
+  getUser() { return this._profile; },
+
+  async login(email, password) {
+    if (!window.auth) throw new Error('Firebase belum siap');
+    const cred = await window.auth.signInWithEmailAndPassword(email, password);
+    return cred.user;
   },
 
-  login(user, pass) {
-    if (user === AUTH_CONFIG.username && pass === AUTH_CONFIG.password) {
-      sessionStorage.setItem(this.SESSION_KEY, JSON.stringify({ user, name: AUTH_CONFIG.displayName, ts: Date.now() }));
-      return true;
-    }
-    return false;
+  async logout() {
+    if (!window.auth) return;
+    await window.auth.signOut();
   },
 
-  logout() {
-    sessionStorage.removeItem(this.SESSION_KEY);
+  // Dipanggil saat auth state berubah
+  onStateChange(callback) {
+    if (!window.auth) { callback(null, null); return; }
+    window.auth.onAuthStateChanged(async (user) => {
+      this._user = user;
+      if (user) {
+        // Ambil profil dari Firestore
+        try {
+          const snap = await window.db.collection('users').doc(user.uid).get();
+          this._profile = snap.exists ? { uid: user.uid, email: user.email, ...snap.data() } : { uid: user.uid, email: user.email, role: 'guru', name: user.email };
+        } catch {
+          this._profile = { uid: user.uid, email: user.email, role: 'guru', name: user.email };
+        }
+      } else {
+        this._profile = null;
+      }
+      callback(user, this._profile);
+    });
   },
 
-  getUser() {
-    try { return JSON.parse(sessionStorage.getItem(this.SESSION_KEY)); }
-    catch { return null; }
-  }
+  isAdmin() { return this._profile?.role === 'admin'; },
+  isGuru()  { return this._profile?.role === 'guru' || this.isAdmin(); }
 };
 
-// ─── Comments Module ───
+// ─── Seed Comments (selalu tampil, tidak dari Firestore) ───
+const SEED_COMMENTS = [
+  { id:'seed-1', name:'Bapak Ahmad Fauzi', role:'guru', text:'Alhamdulillah, portal kurikulum ini sangat membantu kami para guru untuk memahami alur pembelajaran sepanjang tahun. Desainnya pun nyaman dilihat.', ts: { toDate: () => new Date('2026-06-15T08:30:00') }, _seed: true },
+  { id:'seed-2', name:'Siti Rahmawati', role:'orang-tua', text:'Sebagai orang tua, saya merasa terbantu sekali bisa melihat kalender akademik secara lengkap. Terima kasih MA ICN sudah transparan.', ts: { toDate: () => new Date('2026-06-17T14:12:00') }, _seed: true },
+  { id:'seed-3', name:'Farhan Al-Ghifari', role:'siswa', text:'Portal ini keren banget! Bisa cek jadwal STS dan SAS dari jauh hari. Desainnya juga modern 👍', ts: { toDate: () => new Date('2026-06-20T19:45:00') }, _seed: true },
+];
+
+// ─── Comments Module (Firebase Firestore) ───
 const Comments = {
-  KEY: 'curriculum_comments',
+  _unsub: null,
 
-  load() {
-    try { return JSON.parse(localStorage.getItem(this.KEY)) || []; }
-    catch { return []; }
+  formatTs(ts) {
+    if (!ts) return '-';
+    try {
+      const d = ts.toDate ? ts.toDate() : new Date(ts);
+      return d.toLocaleString('id-ID', { dateStyle:'short', timeStyle:'short' });
+    } catch { return '-'; }
   },
 
-  save(list) {
-    localStorage.setItem(this.KEY, JSON.stringify(list));
-  },
-
-  add(name, role, text) {
-    const list = this.load();
-    list.unshift({
-      id: Date.now(),
+  async add(name, role, text) {
+    if (!window.db) throw new Error('Database belum siap');
+    await window.db.collection('comments').add({
       name: name.trim(),
       role,
       text: text.trim(),
-      ts: new Date().toLocaleString('id-ID', { dateStyle:'short', timeStyle:'short' })
+      ts: firebase.firestore.FieldValue.serverTimestamp(),
+      approved: true
     });
-    if (list.length > 50) list.length = 50;
-    this.save(list);
-    return list;
   },
 
-  delete(id) {
-    const list = this.load().filter(c => c.id !== id);
-    this.save(list);
-    return list;
+  async delete(id) {
+    if (!window.db) return;
+    await window.db.collection('comments').doc(id).delete();
   },
 
-  render(list, container, isAdmin = false) {
+  // Real-time listener
+  listen(container, isAdminFn) {
+    if (this._unsub) this._unsub();
+    if (!window.db) {
+      this._renderFallback(container);
+      return;
+    }
+    this._unsub = window.db.collection('comments')
+      .orderBy('ts', 'desc')
+      .limit(50)
+      .onSnapshot(snap => {
+        const docs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+        const all = [...docs, ...SEED_COMMENTS];
+        this._render(all, container, isAdminFn());
+      }, err => {
+        console.error('Komentar gagal dimuat:', err);
+        this._renderFallback(container);
+      });
+  },
+
+  _renderFallback(container) {
+    if (!container) return;
+    this._render(SEED_COMMENTS, container, false);
+  },
+
+  _render(list, container, isAdmin) {
     if (!container) return;
     if (!list.length) {
-      container.innerHTML = '<div class="comment-empty">✦ Belum ada komentar. Jadilah yang pertama berbagi kesan!</div>';
+      container.innerHTML = '<div class="comment-empty">✦ Belum ada komentar. Jadilah yang pertama!</div>';
       return;
     }
     const roleLabel = { guru:'Guru', siswa:'Siswa', 'orang-tua':'Orang Tua', lainnya:'Lainnya' };
@@ -128,8 +161,8 @@ const Comments = {
             <span class="comment-role role-${c.role}">${roleLabel[c.role] || c.role}</span>
           </div>
           <div style="display:flex;align-items:center;gap:10px;">
-            <span class="comment-time">${c.ts}</span>
-            ${isAdmin ? `<button class="btn btn-sm btn-danger" onclick="AppUtils.deleteComment(${c.id})">Hapus</button>` : ''}
+            <span class="comment-time">${this.formatTs(c.ts)}</span>
+            ${isAdmin && !c._seed ? `<button class="btn btn-sm btn-danger" onclick="AppUtils.deleteComment('${c.id}')">Hapus</button>` : ''}
           </div>
         </div>
         <div class="comment-text">${escHtml(c.text)}</div>
@@ -142,62 +175,59 @@ function escHtml(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-AppUtils.deleteComment = function(id) {
+AppUtils.deleteComment = async function(id) {
   if (!Auth.isLoggedIn()) return;
-  const list = Comments.delete(id);
-  const container = document.getElementById('comment-list');
-  if (container) Comments.render(list, container, true);
-  AppUtils.toast('Komentar dihapus');
-};
-
-// ─── Embeds Module ───
-const Embeds = {
-  KEY: 'curriculum_embeds',
-
-  load() {
-    try { return JSON.parse(localStorage.getItem(this.KEY)) || []; }
-    catch { return []; }
-  },
-
-  save(list) { localStorage.setItem(this.KEY, JSON.stringify(list)); },
-
-  add(title, url, category) {
-    const list = this.load();
-    list.push({ id: Date.now(), title: title.trim(), url: url.trim(), category, ts: Date.now() });
-    this.save(list);
-    return list;
-  },
-
-  delete(id) {
-    const list = this.load().filter(e => e.id !== id);
-    this.save(list);
-    return list;
+  try {
+    await Comments.delete(id);
+    AppUtils.toast('Komentar dihapus');
+  } catch (e) {
+    AppUtils.toast('Gagal menghapus: ' + e.message);
   }
 };
 
-// ─── Seed Comments (selalu terlihat publik) ───
-const SEED_COMMENTS = [
-  { id:-1, name:'Bapak Ahmad Fauzi', role:'guru', text:'Alhamdulillah, portal kurikulum ini sangat membantu kami para guru untuk memahami alur pembelajaran sepanjang tahun. Desainnya pun nyaman dilihat. Semoga terus berkembang!', ts:'15/06/2026, 08.30' },
-  { id:-2, name:'Siti Rahmawati', role:'orang-tua', text:'Sebagai orang tua, saya merasa terbantu sekali bisa melihat kalender akademik secara lengkap. Terima kasih MA ICN sudah transparan dalam menyajikan informasi ini.', ts:'17/06/2026, 14.12' },
-  { id:-3, name:'Farhan Al-Ghifari', role:'siswa', text:'Kak, portal ini keren banget! Bisa cek jadwal STS dan SAS dari jauh hari. Desainnya juga modern, betah buka dari HP 👍', ts:'20/06/2026, 19.45' },
-];
+// ─── Embeds / Modules Module (Firebase Firestore) ───
+const Embeds = {
+  async add(title, url, category, uploadedBy) {
+    if (!window.db) throw new Error('Database belum siap');
+    await window.db.collection('modules').add({
+      title: title.trim(),
+      url: url.trim(),
+      category,
+      uploadedBy: uploadedBy || 'admin',
+      ts: firebase.firestore.FieldValue.serverTimestamp()
+    });
+  },
+
+  async delete(id) {
+    if (!window.db) return;
+    await window.db.collection('modules').doc(id).delete();
+  },
+
+  async load() {
+    if (!window.db) return [];
+    const snap = await window.db.collection('modules').orderBy('ts', 'desc').get();
+    return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+  },
+
+  listen(onUpdate) {
+    if (!window.db) return;
+    return window.db.collection('modules').orderBy('ts', 'desc').onSnapshot(snap => {
+      onUpdate(snap.docs.map(d => ({ id: d.id, ...d.data() })));
+    });
+  }
+};
 
 // ─── Loading Screen ───
 function initLoadingScreen() {
   const screen = document.getElementById('loading-screen');
   if (!screen) return;
-
   const path = window.location.pathname;
   const isBeranda = path.endsWith('index.html') || path === '/' || path.endsWith('/curriculum-maicn/');
-
   if (isBeranda) {
-    const delay = 1600;
-    setTimeout(() => screen.classList.add('hidden'), delay);
+    setTimeout(() => screen.classList.add('hidden'), 1600);
   } else {
     screen.classList.add('hidden');
   }
-
-  // Network loss indicator
   window.addEventListener('offline', () => {
     const textEl = screen.querySelector('.loading-text');
     if (textEl) textEl.textContent = "Menunggu Jaringan...";
@@ -216,7 +246,6 @@ function initClock() {
   if (!clockEl) return;
   const timeEl = clockEl.querySelector('.clock-time');
   const dateEl = clockEl.querySelector('.clock-date');
-
   const tick = () => {
     const now = new Date();
     if (timeEl) timeEl.innerHTML = `<span class="clock-dot"></span>${AppUtils.formatTime(now)}`;
@@ -228,9 +257,9 @@ function initClock() {
 
 // ─── Navbar ───
 function initNavbar() {
-  const navbar  = document.getElementById('navbar');
-  const toggle  = document.getElementById('nav-toggle');
-  const links   = document.getElementById('nav-links');
+  const navbar   = document.getElementById('navbar');
+  const toggle   = document.getElementById('nav-toggle');
+  const links    = document.getElementById('nav-links');
   const loginBtn = document.getElementById('btn-login-nav');
 
   if (navbar) {
@@ -238,20 +267,17 @@ function initNavbar() {
       navbar.classList.toggle('scrolled', window.scrollY > 30);
     });
   }
-
   if (toggle && links) {
     toggle.addEventListener('click', () => links.classList.toggle('show'));
     document.addEventListener('click', (e) => {
       if (!navbar?.contains(e.target)) links.classList.remove('show');
     });
   }
-
-  updateAuthUI();
-
   if (loginBtn) {
     loginBtn.addEventListener('click', () => {
       if (Auth.isLoggedIn()) {
-        showAdminPanel();
+        if (Auth.isAdmin()) showAdminPanel();
+        else showGuruPanel();
       } else {
         AppUtils.openModal('modal-login');
       }
@@ -259,20 +285,28 @@ function initNavbar() {
   }
 }
 
-function updateAuthUI() {
-  const loginBtn = document.getElementById('btn-login-nav');
+function updateAuthUI(user, profile) {
+  const loginBtn     = document.getElementById('btn-login-nav');
   const adminSection = document.getElementById('admin-section');
+  const guruSection  = document.getElementById('guru-section');
+
   if (!loginBtn) return;
 
-  if (Auth.isLoggedIn()) {
-    const user = Auth.getUser();
-    loginBtn.textContent = `⚙ ${user?.name || 'Admin'}`;
+  if (user && profile) {
+    loginBtn.textContent = `⚙ ${profile.name || profile.email}`;
     loginBtn.classList.add('logged-in');
-    if (adminSection) adminSection.classList.add('show');
+    if (profile.role === 'admin') {
+      if (adminSection) adminSection.classList.add('show');
+      if (guruSection)  guruSection.classList.remove('show');
+    } else {
+      if (adminSection) adminSection.classList.remove('show');
+      if (guruSection)  guruSection.classList.add('show');
+    }
   } else {
     loginBtn.textContent = 'Masuk';
     loginBtn.classList.remove('logged-in');
     if (adminSection) adminSection.classList.remove('show');
+    if (guruSection)  guruSection.classList.remove('show');
   }
 }
 
@@ -283,29 +317,47 @@ function initLoginModal() {
 
   if (!form) return;
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const user = document.getElementById('login-user').value;
-    const pass = document.getElementById('login-pass').value;
+    const emailOrUser = document.getElementById('login-user').value.trim();
+    const pass        = document.getElementById('login-pass').value;
+    const btn         = form.querySelector('button[type=submit]');
 
-    if (Auth.login(user, pass)) {
+    // Tambahkan @maicn.sch.id jika user ketik hanya username (tanpa @)
+    const email = emailOrUser.includes('@') ? emailOrUser : `${emailOrUser}@maicn.sch.id`;
+
+    btn.disabled = true;
+    btn.textContent = 'Memproses…';
+
+    try {
+      await Auth.login(email, pass);
       AppUtils.closeModal('modal-login');
       form.reset();
       if (errEl) errEl.classList.remove('show');
-      updateAuthUI();
-      renderAdminEmbeds();
-      refreshComments();
-      AppUtils.toast(`Selamat datang, ${Auth.getUser()?.name}! 👋`);
-    } else {
-      if (errEl) { errEl.textContent = 'Username atau password salah.'; errEl.classList.add('show'); }
+      AppUtils.toast(`Selamat datang! 👋`);
+    } catch (err) {
+      const msg = err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password'
+        ? 'Email atau password salah.'
+        : err.code === 'auth/invalid-email'
+        ? 'Format email tidak valid.'
+        : err.message || 'Gagal masuk.';
+      if (errEl) { errEl.textContent = msg; errEl.classList.add('show'); }
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Masuk →';
     }
   });
 
-  document.getElementById('btn-logout')?.addEventListener('click', () => {
-    Auth.logout();
-    updateAuthUI();
-    refreshComments();
+  document.getElementById('btn-logout')?.addEventListener('click', async () => {
+    await Auth.logout();
     AppUtils.closeModal('modal-admin');
+    AppUtils.closeModal('modal-guru');
+    AppUtils.toast('Berhasil keluar.');
+  });
+
+  document.getElementById('btn-logout-guru')?.addEventListener('click', async () => {
+    await Auth.logout();
+    AppUtils.closeModal('modal-guru');
     AppUtils.toast('Berhasil keluar.');
   });
 }
@@ -316,11 +368,16 @@ function showAdminPanel() {
   renderAdminEmbeds();
 }
 
+function showGuruPanel() {
+  AppUtils.openModal('modal-guru');
+}
+
 function initAdminTabs() {
   document.querySelectorAll('.admin-tab').forEach(tab => {
     tab.addEventListener('click', () => {
-      document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.admin-panel-content').forEach(p => p.classList.remove('active'));
+      const parent = tab.closest('.admin-tabs')?.parentElement;
+      parent?.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+      parent?.querySelectorAll('.admin-panel-content').forEach(p => p.classList.remove('active'));
       tab.classList.add('active');
       const target = tab.dataset.tab;
       document.getElementById(`panel-${target}`)?.classList.add('active');
@@ -328,74 +385,125 @@ function initAdminTabs() {
   });
 }
 
-function renderAdminEmbeds() {
-  const list = Embeds.load();
+function renderAdminEmbeds(list) {
   const container = document.getElementById('embed-list-admin');
   if (!container) return;
-  if (!list.length) {
-    container.innerHTML = '<div class="comment-empty">Belum ada tautan tertanam.</div>';
+  if (!list || !list.length) {
+    container.innerHTML = '<div class="comment-empty">Belum ada modul/tautan.</div>';
     return;
   }
   container.innerHTML = list.map(e => `
     <div class="embed-item">
       <div class="embed-item-info">
         <div class="embed-item-title">${escHtml(e.title)}</div>
-        <div class="embed-item-url">${escHtml(e.url)}</div>
+        <div class="embed-item-url" style="font-size:0.75rem;color:var(--text-soft)">${escHtml(e.category)} · ${escHtml(e.uploadedBy || '-')}</div>
       </div>
       <div class="embed-item-actions">
-        <button class="btn btn-sm btn-danger" onclick="deleteEmbed(${e.id})">Hapus</button>
+        <button class="btn btn-sm btn-danger" onclick="deleteEmbed('${e.id}')">Hapus</button>
       </div>
     </div>
   `).join('');
 }
 
-window.deleteEmbed = function(id) {
-  Embeds.delete(id);
-  renderAdminEmbeds();
-  AppUtils.toast('Tautan dihapus.');
+window.deleteEmbed = async function(id) {
+  if (!Auth.isAdmin()) return;
+  try {
+    await Embeds.delete(id);
+    AppUtils.toast('Modul dihapus.');
+  } catch (e) {
+    AppUtils.toast('Gagal hapus: ' + e.message);
+  }
 };
 
 function initEmbedForm() {
-  const form = document.getElementById('embed-form');
-  if (!form) return;
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const title    = document.getElementById('embed-title').value;
-    const url      = document.getElementById('embed-url').value;
-    const category = document.getElementById('embed-category').value;
-    if (!title || !url) return;
-    Embeds.add(title, url, category);
-    form.reset();
-    renderAdminEmbeds();
-    AppUtils.toast('Tautan berhasil ditambahkan!');
-  });
+  // Admin embed form
+  const formAdmin = document.getElementById('embed-form');
+  if (formAdmin) {
+    formAdmin.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const title    = document.getElementById('embed-title').value;
+      const url      = document.getElementById('embed-url').value;
+      const category = document.getElementById('embed-category').value;
+      if (!title || !url) return;
+      try {
+        await Embeds.add(title, url, category, Auth.getUser()?.name || 'admin');
+        formAdmin.reset();
+        AppUtils.toast('Modul berhasil ditambahkan!');
+      } catch (err) {
+        AppUtils.toast('Gagal: ' + err.message);
+      }
+    });
+  }
+
+  // Guru upload form
+  const formGuru = document.getElementById('guru-embed-form');
+  if (formGuru) {
+    formGuru.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const title    = document.getElementById('guru-embed-title').value;
+      const url      = document.getElementById('guru-embed-url').value;
+      const category = document.getElementById('guru-embed-category').value;
+      const mapel    = document.getElementById('guru-embed-mapel').value;
+      if (!title || !url) return;
+      try {
+        const profile = Auth.getUser();
+        await Embeds.add(`[${mapel}] ${title}`, url, category, profile?.name || profile?.email || 'guru');
+        formGuru.reset();
+        AppUtils.toast('Modul berhasil diunggah! ✨');
+      } catch (err) {
+        AppUtils.toast('Gagal: ' + err.message);
+      }
+    });
+  }
 }
 
 // ─── Comments ───
 function initCommentForm() {
   const form = document.getElementById('comment-form');
   if (!form) return;
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const name = document.getElementById('comment-name').value;
     const role = document.getElementById('comment-role').value;
     const text = document.getElementById('comment-text').value;
     if (!name || !text) return;
-    const list = Comments.add(name, role, text);
-    form.reset();
-    const container = document.getElementById('comment-list');
-    Comments.render(list, container, Auth.isLoggedIn());
-    AppUtils.toast('Terima kasih atas komentarnya! ✨');
+
+    const btn = form.querySelector('button[type=submit]');
+    btn.disabled = true;
+    btn.textContent = 'Mengirim…';
+
+    try {
+      await Comments.add(name, role, text);
+      form.reset();
+      AppUtils.toast('Terima kasih atas komentarnya! ✨');
+    } catch (err) {
+      AppUtils.toast('Gagal kirim: ' + err.message);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Kirim Komentar ✦';
+    }
   });
 }
 
-function refreshComments() {
+function initCommentListener() {
   const container = document.getElementById('comment-list');
   if (!container) return;
-  const userComments = Comments.load();
-  // Merge: seed first (always visible), then user comments on top
-  const all = [...userComments, ...SEED_COMMENTS];
-  Comments.render(all, container, Auth.isLoggedIn());
+
+  // Tampilkan loading state
+  container.innerHTML = '<div class="comment-empty">✦ Memuat komentar…</div>';
+
+  // Tunggu Firebase siap lalu listen
+  const start = () => Comments.listen(container, () => Auth.isLoggedIn());
+
+  if (window.db) {
+    start();
+  } else {
+    // Firebase mungkin belum siap, tunggu sebentar
+    setTimeout(() => {
+      if (window.db) start();
+      else Comments._renderFallback(container);
+    }, 1500);
+  }
 }
 
 // ─── Scroll Reveal ───
@@ -416,11 +524,10 @@ function initScrollReveal() {
       }
     });
   }, { rootMargin: '0px 0px -40px 0px', threshold: 0.08 });
-
   document.querySelectorAll('.animate-up, .stat-num').forEach(el => obs.observe(el));
 }
 
-// ─── Close modals on backdrop click ───
+// ─── Close modals ───
 function initModalBackdrop() {
   document.querySelectorAll('.modal-overlay').forEach(overlay => {
     overlay.addEventListener('click', (e) => {
@@ -435,12 +542,10 @@ function initHeroParallax() {
   const heroBg = document.querySelector('.hero-bg-img');
   const heroInner = document.querySelector('.hero-inner');
   if (!hero) return;
-
   window.addEventListener('scroll', () => {
     const y = window.scrollY;
     const h = hero.offsetHeight;
     const progress = Math.min(y / h, 1);
-
     if (heroBg) heroBg.style.transform = `scale(${1.05 + progress * 0.06}) translateY(${y * 0.25}px)`;
     if (heroInner) {
       heroInner.style.transform = `translateY(${y * 0.15}px)`;
@@ -461,27 +566,24 @@ function applyTheme(name) {
   const t = THEMES[name];
   if (!t) return;
   const root = document.documentElement;
-  root.style.setProperty('--primary',      t.primary);
+  root.style.setProperty('--primary',       t.primary);
   root.style.setProperty('--primary-light', t.light);
-  root.style.setProperty('--primary-dark', t.dark);
-  root.style.setProperty('--aqua',         t.aqua);
-  root.style.setProperty('--aqua-deep',    t.aquaDeep);
-  root.style.setProperty('--bg-mesh',      t.bg);
+  root.style.setProperty('--primary-dark',  t.dark);
+  root.style.setProperty('--aqua',          t.aqua);
+  root.style.setProperty('--aqua-deep',     t.aquaDeep);
+  root.style.setProperty('--bg-mesh',       t.bg);
   localStorage.setItem('curriculum_theme', name);
   document.querySelectorAll('.theme-dot').forEach(d => d.classList.toggle('active', d.dataset.theme === name));
 }
 
 function initThemePanel() {
-  const btn = document.getElementById('theme-panel-btn');
+  const btn   = document.getElementById('theme-panel-btn');
   const panel = document.getElementById('theme-panel');
   if (!btn || !panel) return;
 
   btn.addEventListener('click', (e) => { e.stopPropagation(); panel.classList.toggle('open'); });
   document.addEventListener('click', (e) => { if (!panel.contains(e.target) && e.target !== btn) panel.classList.remove('open'); });
-
-  document.querySelectorAll('.theme-dot').forEach(dot => {
-    dot.addEventListener('click', () => applyTheme(dot.dataset.theme));
-  });
+  document.querySelectorAll('.theme-dot').forEach(dot => dot.addEventListener('click', () => applyTheme(dot.dataset.theme)));
 
   const slider = document.getElementById('glass-slider');
   if (slider) {
@@ -493,7 +595,6 @@ function initThemePanel() {
     });
   }
 
-  // Restore saved theme
   const saved = localStorage.getItem('curriculum_theme');
   if (saved && THEMES[saved]) applyTheme(saved);
 }
@@ -507,26 +608,36 @@ document.addEventListener('DOMContentLoaded', () => {
   initAdminTabs();
   initEmbedForm();
   initCommentForm();
+  initCommentListener();
   initScrollReveal();
   initModalBackdrop();
   initHeroParallax();
   initThemePanel();
-  refreshComments();
   initWaterEffects();
 
   // Close modal buttons
   document.querySelectorAll('[data-close-modal]').forEach(btn => {
     btn.addEventListener('click', () => AppUtils.closeModal(btn.dataset.closeModal));
   });
+
+  // Auth state listener (Firebase)
+  Auth.onStateChange((user, profile) => {
+    updateAuthUI(user, profile);
+    // Re-render comments saat auth berubah (tampilkan tombol hapus jika admin)
+    const container = document.getElementById('comment-list');
+    if (container && window.db) {
+      Comments.listen(container, () => Auth.isLoggedIn());
+    }
+    // Refresh admin embeds listener
+    if (user && profile?.role === 'admin') {
+      Embeds.listen(list => renderAdminEmbeds(list));
+    }
+  });
 });
 
 /* ── Water / Ripple Effects ── */
 function initWaterEffects() {
-  const RIPPLE_COLORS = [
-    'rgba(46,196,182,',
-    'rgba(26,71,49,',
-    'rgba(201,162,39,',
-  ];
+  const RIPPLE_COLORS = ['rgba(46,196,182,', 'rgba(26,71,49,', 'rgba(201,162,39,'];
   let dropThrottle = 0;
 
   document.addEventListener('click', e => {
@@ -545,13 +656,7 @@ function initWaterEffects() {
   function createRipple(x, y, size, colorBase, delay = 0) {
     const el = document.createElement('div');
     el.className = 'water-ripple';
-    el.style.cssText = `
-      left:${x - size/2}px; top:${y - size/2}px;
-      width:${size}px; height:${size}px;
-      border: 2px solid ${colorBase}0.5);
-      background: radial-gradient(circle, ${colorBase}0.06) 0%, transparent 70%);
-      animation-delay:${delay}ms;
-    `;
+    el.style.cssText = `left:${x - size/2}px;top:${y - size/2}px;width:${size}px;height:${size}px;border:2px solid ${colorBase}0.5);background:radial-gradient(circle,${colorBase}0.06) 0%,transparent 70%);animation-delay:${delay}ms;`;
     document.body.appendChild(el);
     el.addEventListener('animationend', () => el.remove());
   }
@@ -560,7 +665,7 @@ function initWaterEffects() {
     const el = document.createElement('div');
     el.className = 'water-drop';
     const offset = (Math.random() - 0.5) * 20;
-    el.style.cssText = `left:${x + offset - 3}px; top:${y + offset - 3}px;`;
+    el.style.cssText = `left:${x + offset - 3}px;top:${y + offset - 3}px;`;
     document.body.appendChild(el);
     el.addEventListener('animationend', () => el.remove());
   }

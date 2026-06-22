@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Beranda — Curriculum OS · MA ICN</title>
 <link rel="stylesheet" href="assets/styles.css">
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
 <script src="data.js"></script>
 <script src="assets/app.js"></script>
 </head>
@@ -97,7 +102,23 @@
     <div class="stats-strip" id="stats-container"></div>
   </div>
 
-  <!-- ══ ADMIN PANEL (hanya saat login) ══ -->
+  <!-- ══ GURU PANEL (hanya saat login sebagai guru) ══ -->
+  <div class="container" style="margin-top:32px;">
+    <div class="admin-section" id="guru-section">
+      <div class="admin-header">
+        <div>
+          <span class="admin-tag" style="background:var(--aqua)">Guru Mode</span>
+          <h3 style="margin-top:6px;">Panel Upload Modul</h3>
+        </div>
+        <button class="btn btn-ghost btn-sm" onclick="AppUtils.openModal('modal-guru')">Upload Modul →</button>
+      </div>
+      <p style="font-size:0.85rem;color:var(--text-soft);">
+        Anda masuk sebagai guru. Gunakan panel untuk mengunggah modul ajar.
+      </p>
+    </div>
+  </div>
+
+  <!-- ══ ADMIN PANEL (hanya saat login sebagai admin) ══ -->
   <div class="container" style="margin-top:32px;">
     <div class="admin-section" id="admin-section">
       <div class="admin-header">
@@ -272,6 +293,49 @@
 
 <div id="toast"></div>
 
+<!-- ══ MODAL: GURU UPLOAD ══ -->
+<div class="modal-overlay" id="modal-guru">
+  <div class="modal-box wide">
+    <button class="modal-close" data-close-modal="modal-guru">✕</button>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px;">
+      <div>
+        <div class="admin-tag" style="background:var(--aqua);margin-bottom:6px;">Guru Mode</div>
+        <div class="modal-title" style="text-align:left;margin-bottom:0;">Upload Modul Ajar</div>
+      </div>
+      <button class="btn btn-ghost btn-sm" id="btn-logout-guru">Keluar ↗</button>
+    </div>
+    <p style="font-size:0.85rem;color:var(--text-soft);margin-bottom:16px;">
+      Unggah tautan Google Drive modul ajar Anda. Modul akan langsung tampil di halaman Modul Ajar.
+    </p>
+    <form id="guru-embed-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Mata Pelajaran</label>
+          <input type="text" id="guru-embed-mapel" placeholder="Matematika, Fisika, dll." required maxlength="40">
+        </div>
+        <div class="form-group">
+          <label>Kategori</label>
+          <select id="guru-embed-category">
+            <option value="modul">Modul Ajar</option>
+            <option value="prota">Program Tahunan</option>
+            <option value="posem">Program Semester</option>
+            <option value="dokumen">Dokumen Lain</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Judul Modul</label>
+        <input type="text" id="guru-embed-title" placeholder="Modul Ajar Bab 1 — Persamaan Linear" required maxlength="100">
+      </div>
+      <div class="form-group">
+        <label>Link Google Drive</label>
+        <input type="url" id="guru-embed-url" placeholder="https://drive.google.com/file/d/..." required>
+      </div>
+      <button type="submit" class="btn btn-aqua">Upload Modul ✦</button>
+    </form>
+  </div>
+</div>
+
 <!-- ══ MODAL: LOGIN ══ -->
 <div class="modal-overlay" id="modal-login">
   <div class="modal-box">
@@ -282,8 +346,8 @@
     <div class="login-error" id="login-error"></div>
     <form id="login-form">
       <div class="form-group">
-        <label>Username</label>
-        <input type="text" id="login-user" placeholder="admin" autocomplete="username" required>
+        <label>Email / Username</label>
+        <input type="text" id="login-user" placeholder="nama@maicn.sch.id atau username" autocomplete="username" required>
       </div>
       <div class="form-group">
         <label>Password</label>
