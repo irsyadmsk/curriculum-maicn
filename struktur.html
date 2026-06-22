@@ -50,34 +50,33 @@
 
 @media (max-width: 900px) { .grid-2 { grid-template-columns: 1fr; } }
 
-/* ══ POPUP JAM & TANGGAL ══ */
-.dt-popup {
-  position:fixed; bottom:24px; right:24px; z-index:999;
-  background:var(--primary); color:#fff; border-radius:16px;
-  padding:12px 18px; box-shadow:var(--shadow-lg);
-  display:flex; flex-direction:column; align-items:flex-end; gap:2px;
-  backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,.15);
-  min-width:160px; pointer-events:none;
-  animation:fadeIn .4s ease both;
-}
-.dt-popup .dt-time {
-  font-family:'DM Mono',monospace; font-size:1.5rem; font-weight:700;
-  letter-spacing:.04em; color:#fff; line-height:1;
-}
-.dt-popup .dt-date {
-  font-size:.72rem; color:rgba(255,255,255,.75); font-weight:600;
-  text-align:right; line-height:1.4;
-}
-.dt-popup .dt-dot {
-  width:7px; height:7px; border-radius:50%; background:var(--accent);
-  animation:ringPulse 2s ease-in-out infinite;
-  position:absolute; top:10px; left:14px;
-}
 </style>
 <script src="data.js"></script>
 <script src="assets/app.js"></script>
 </head>
 <body>
+
+<div class="bg-blobs" aria-hidden="true">
+  <div class="bg-blob"></div>
+  <div class="bg-blob"></div>
+  <div class="bg-blob"></div>
+</div>
+
+<button id="theme-panel-btn" aria-label="Pilih tema warna">🎨</button>
+<div id="theme-panel">
+  <div class="theme-panel-title">Tema Warna</div>
+  <div class="theme-colors">
+    <div class="theme-dot active" data-theme="forest" style="background:linear-gradient(135deg,#1A4731,#2EC4B6)" title="Hutan"></div>
+    <div class="theme-dot" data-theme="ocean"  style="background:linear-gradient(135deg,#0C4A6E,#22D3EE)" title="Lautan"></div>
+    <div class="theme-dot" data-theme="royal"  style="background:linear-gradient(135deg,#4C1D95,#A78BFA)" title="Kerajaan"></div>
+    <div class="theme-dot" data-theme="earth"  style="background:linear-gradient(135deg,#78350F,#F59E0B)" title="Bumi"></div>
+  </div>
+  <div class="theme-panel-title">Transparansi Kaca</div>
+  <div class="transparency-label">
+    <span>Gelap</span><span id="glass-val">72%</span><span>Terang</span>
+  </div>
+  <input type="range" class="transparency-slider" id="glass-slider" min="30" max="95" value="72">
+</div>
 
 <nav class="navbar" id="navbar">
   <a href="index.html" class="nav-brand">
@@ -146,11 +145,9 @@
 
 </div>
 
-<!-- ══ POPUP JAM & TANGGAL ══ -->
-<div class="dt-popup" id="dtPopup">
-  <div class="dt-dot"></div>
-  <div class="dt-time" id="dtTime">00:00:00</div>
-  <div class="dt-date" id="dtDate">—</div>
+<div id="floating-clock" aria-label="Jam dan tanggal saat ini">
+  <div class="clock-time"></div>
+  <div class="clock-date"></div>
 </div>
 
 <footer>

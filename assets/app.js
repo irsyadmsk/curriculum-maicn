@@ -440,18 +440,37 @@ function initEmbedForm() {
   if (formGuru) {
     formGuru.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const title    = document.getElementById('guru-embed-title').value;
-      const url      = document.getElementById('guru-embed-url').value;
+      if (!Auth.isGuru()) {
+        AppUtils.toast('Sesi berakhir, silakan masuk kembali.');
+        return;
+      }
+      const title    = document.getElementById('guru-embed-title').value.trim();
+      const url      = document.getElementById('guru-embed-url').value.trim();
       const category = document.getElementById('guru-embed-category').value;
-      const mapel    = document.getElementById('guru-embed-mapel').value;
-      if (!title || !url) return;
+      const mapel    = document.getElementById('guru-embed-mapel').value.trim();
+      if (!mapel || !title || !url) {
+        AppUtils.toast('Lengkapi semua kolom terlebih dahulu.');
+        return;
+      }
+      const btn = formGuru.querySelector('button[type=submit]');
+      const origText = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'Mengunggah…';
       try {
+        if (!window.db) throw new Error('Koneksi database belum siap. Coba muat ulang halaman.');
         const profile = Auth.getUser();
         await Embeds.add(`[${mapel}] ${title}`, url, category, profile?.name || profile?.email || 'guru');
         formGuru.reset();
         AppUtils.toast('Modul berhasil diunggah! ✨');
+        AppUtils.closeModal('modal-guru');
       } catch (err) {
-        AppUtils.toast('Gagal: ' + err.message);
+        const msg = (err.code === 'permission-denied' || err.message?.includes('Missing or insufficient'))
+          ? 'Akses ditolak. Hubungi admin untuk mengatur izin Firestore.'
+          : 'Gagal mengunggah: ' + (err.message || 'Kesalahan tidak dikenal');
+        AppUtils.toast(msg, 5000);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = origText;
       }
     });
   }
