@@ -62,10 +62,42 @@
     <button class="tab-btn" onclick="switchAkademikTab('modul')" style="background:none; border:none; padding:8px 16px; font-weight:600; color:var(--text-soft); cursor:pointer; font-size:1rem; border-radius:var(--radius-sm); transition:all 0.2s;">Modul Ajar</button>
   </div>
 
+  
   <!-- Tab Matrikulasi -->
   <div class="akademik-pane active animate-up delay-300" id="pane-matrikulasi" style="display:block;">
-    <div style="width:100%; height:80vh; min-height:600px; border-radius:16px; overflow:hidden; border:1px solid var(--border); box-shadow:var(--shadow-md); position:relative;">
-      <iframe src="deck_matrikulasi.html" style="width:100%; height:100%; border:none;" title="Presentasi Matrikulasi"></iframe>
+    <div style="background:var(--surface); border-radius:16px; padding:32px; border:1px solid var(--border); box-shadow:var(--shadow-sm); margin-bottom:32px;">
+      <h2 style="color:var(--primary); margin-bottom:12px; font-size:1.8rem; display:flex; align-items:center; gap:12px;">
+        <i class="fa-solid fa-graduation-cap"></i> Program Matrikulasi
+      </h2>
+      <p style="color:var(--text-secondary); line-height:1.7; margin-bottom:24px;">
+        Matrikulasi adalah program intensif pra-akademik yang dirancang khusus untuk peserta didik baru guna menyelaraskan pemahaman dasar, membangun budaya belajar mandiri, dan mengenalkan nilai-nilai esensial madrasah sebelum memasuki kegiatan belajar mengajar reguler.
+      </p>
+      
+      <div class="grid-2" style="gap:20px; margin-bottom:32px;">
+        <div style="background:var(--bg); border:1px solid var(--line); border-radius:12px; padding:20px; transition:all 0.3s;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='var(--shadow-md)'" onmouseout="this.style.transform='none'; this.style.boxShadow='none'">
+          <div style="color:var(--primary); font-size:1.5rem; margin-bottom:12px;"><i class="fa-solid fa-bullseye"></i></div>
+          <h3 style="font-size:1.1rem; margin-bottom:8px;">Tujuan Utama</h3>
+          <ul style="color:var(--text-soft); font-size:0.9rem; padding-left:20px; line-height:1.6;">
+            <li>Menyemakan kompetensi dasar peserta didik.</li>
+            <li>Pengenalan budaya akademik madrasah.</li>
+            <li>Identifikasi potensi akademik awal.</li>
+          </ul>
+        </div>
+        <div style="background:var(--bg); border:1px solid var(--line); border-radius:12px; padding:20px; transition:all 0.3s;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='var(--shadow-md)'" onmouseout="this.style.transform='none'; this.style.boxShadow='none'">
+          <div style="color:var(--accent); font-size:1.5rem; margin-bottom:12px;"><i class="fa-solid fa-clock"></i></div>
+          <h3 style="font-size:1.1rem; margin-bottom:8px;">Jadwal Pelaksanaan</h3>
+          <ul style="color:var(--text-soft); font-size:0.9rem; padding-left:20px; line-height:1.6;">
+            <li><strong>Tahap 1:</strong> 22 Juni - 3 Juli 2026</li>
+            <li><strong>Tahap 2:</strong> 9 - 17 Juli 2026</li>
+            <li><strong>Evaluasi:</strong> 18 Juli 2026</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 style="margin-bottom:16px; color:var(--text-primary); border-bottom:2px solid var(--aqua-soft); padding-bottom:8px; display:inline-block;">Pembagian Kelas Pretes</h3>
+      <div id="kelas-pretes-container" class="grid-2" style="gap:24px;">
+        <!-- Diisi oleh JS -->
+      </div>
     </div>
   </div>
 
@@ -76,6 +108,40 @@
 </div>
 
 <script>
+
+document.addEventListener('DOMContentLoaded', () => {
+  const MD = window.MASTER_DATA;
+  if (MD && MD.kelas_pretes) {
+    const container = document.getElementById('kelas-pretes-container');
+    let htmlContent = '';
+    
+    MD.kelas_pretes.forEach((kelasData, idx) => {
+      let rows = '';
+      kelasData.siswa.forEach(s => {
+        rows += `
+          <tr style="border-bottom:1px solid var(--line);">
+            <td style="padding:8px 12px; text-align:center; width:10%; color:var(--text-soft);">${s.no}</td>
+            <td style="padding:8px 12px; font-weight:500;">${s.nama}</td>
+          </tr>
+        `;
+      });
+      
+      htmlContent += `
+        <div class="animate-up delay-${idx*100}" style="background:var(--surface); border:1px solid var(--border); border-radius:12px; overflow:hidden;">
+          <div style="background:var(--primary); color:white; padding:12px 16px; font-weight:700; display:flex; align-items:center; gap:8px;">
+            <i class="fa-solid fa-users"></i> ${kelasData.kelas}
+          </div>
+          <table style="width:100%; border-collapse:collapse; font-size:0.9rem;">
+            ${rows}
+          </table>
+        </div>
+      `;
+    });
+    
+    if (container) container.innerHTML = htmlContent;
+  }
+});
+
 function switchAkademikTab(id) {
   document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.style.color = 'var(--text-soft)';

@@ -774,9 +774,9 @@ footer::before {
 /* ─── Hero Parallax Image ─── */
 .hero-bg-img {
   position: absolute; inset: 0; z-index: 0;
-  background-image: url('https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=1600&q=70');
+  background-image: url('gambar1.jpg');
   background-size: cover; background-position: center;
-  opacity: 0.06;
+  opacity: 0.15;
   transform: scale(1.05);
   transition: transform 0.1s linear;
 }
