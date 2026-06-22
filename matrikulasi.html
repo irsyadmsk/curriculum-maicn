@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pengarahan Matrikulasi — Gelombang Pertama | MA ICN</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<!-- Inject global styles and scripts to keep integrations like Login Modal -->
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  :root{
+    --ocean:#103a4f;
+    --ocean-deep:#0a2734;
+    --sunrise:#e0703f;
+    --gold:#e4ae4a;
+    --teal:#2f8f82;
+    --sand:#f7efe0;
+    --sand-deep:#efe2c8;
+    --ink:#1b2420;
+    --paper:#fffaf2;
+    --line:rgba(16,58,79,0.14);
+  }
+  /* Preserve specific elements for the deck */
+  html,body{height:100%; margin:0; padding:0; overflow:hidden;}
+  body{
+    font-family:'Plus Jakarta Sans', sans-serif;
+    background:var(--ocean-deep);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{font-family:'Fraunces', serif;}
+
+  /* Overlay global navbar on top of deck */
+  #navbar {
+    position: absolute; top: 0; left: 0; width: 100%; z-index: 1000;
+    background: transparent; border-bottom: none;
+    backdrop-filter: none; -webkit-backdrop-filter: none;
+  }
+  #navbar .nav-links a { color: rgba(255,255,255,0.8); }
+  #navbar .nav-links a:hover, #navbar .nav-links a.active { color: #fff; background: rgba(255,255,255,0.1); }
+  #navbar .nav-brand span { color: #fff; }
+  
+  /* ---------- shared motion keyframes ---------- */
+  @keyframes waveDrift{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+  @keyframes waveScroll{ from{ background-position-x:0; } to{ background-position-x:-600px; } }
+  @keyframes lightSweep{ 0%{ transform:translateX(-160%) skewX(-12deg); opacity:0; } 12%{ opacity:1; } 100%{ transform:translateX(160%) skewX(-12deg); opacity:0; } }
+  @keyframes flashIn{ 0%{ opacity:.45; } 100%{ opacity:0; } }
+  @keyframes shimmer{ from{ transform:translateX(-120%); } to{ transform:translateX(120%); } }
+  @keyframes sunPulse{ 0%,100%{ box-shadow:0 0 90px rgba(228,174,74,0.45); } 50%{ box-shadow:0 0 140px rgba(228,174,74,0.75); } }
+  @keyframes ringPulse{ 0%,100%{ opacity:.45; transform:translate(-50%,-50%) scale(1); } 50%{ opacity:.9; transform:translate(-50%,-50%) scale(1.045); } }
+  @keyframes rippleExpand{ 0%{ transform:translate(-50%,-50%) scale(0); opacity:.85; } 100%{ transform:translate(-50%,-50%) scale(13); opacity:0; } }
+
+  /* ---------- deck shell ---------- */
+  #deck{
+    position:relative;
+    width:100vw; height:100vh;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .stage{
+    position:relative;
+    width:min(100vw, 177.77vh);
+    height:min(100vh, 56.25vw);
+    background:var(--paper);
+    overflow:hidden;
+    box-shadow:0 30px 80px rgba(0,0,0,0.45);
+    border-radius: 12px;
+  }
+  @media (max-aspect-ratio: 16/9){
+    .stage{ width:100vw; height:56.25vw; border-radius: 0; }
+  }
+
+  .slide{
+    position:absolute; inset:0;
+    display:flex; flex-direction:column;
+    padding: 5.2% 6.5%;
+    opacity:0; visibility:hidden;
+    transform:translateY(18px);
+    transition:opacity .55s ease, transform .55s ease;
+    background:var(--sand);
+  }
+  .slide.active{ opacity:1; visibility:visible; transform:translateY(0); z-index:2;}
+
+  /* --- "efek cahaya" saat berpindah slide: kilau + sapuan cahaya sekali jalan --- */
+  .slide.active::before{
+    content:''; position:absolute; inset:0; z-index:6; pointer-events:none;
+    background:radial-gradient(circle at 50% 38%, rgba(255,255,255,0.55), transparent 62%);
+    animation: flashIn .7s ease-out;
+  }
+  .slide.active::after{
+    content:''; position:absolute; inset:-10% -30%; z-index:6; pointer-events:none;
+    background:linear-gradient(115deg, transparent 38%, rgba(255,255,255,0.7) 50%, transparent 62%);
+    transform:translateX(-160%) skewX(-12deg);
+    animation: lightSweep 1.05s ease-out;
+    mix-blend-mode:screen;
+  }
+
+  .slide-eyebrow{
+    font-size:.78rem; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--sunrise); font-weight:700; margin-bottom:.5rem;
+  }
+  .slide h2.title{
+    font-size:clamp(1.7rem, 3.2vw, 2.6rem);
+    font-weight:700; color:var(--ocean); line-height:1.08; margin-bottom:.2rem;
+  }
+  .slide .subtitle{
+    font-size:1rem; color:#5b6b63; max-width:46ch; margin-bottom:1.1rem;
+  }
+
+  /* archipelago wave divider — kini mengalir terus-menerus */
+  .wave{
+    position:absolute; left:0; right:0; bottom:0; height:46px;
+    background:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0 30 Q150 0 300 30 T600 30 T900 30 T1200 30 V60 H0 Z" fill="%230a2734"/></svg>') repeat-x;
+    background-size:600px 46px;
+    opacity:.13;
+    pointer-events:none;
+    animation: waveScroll 16s linear infinite;
+  }
+
+  /* ---------- nav controls ---------- */
+  .nav-btn{
+    position:absolute; top:50%; transform:translateY(-50%);
+    width:44px; height:44px; border-radius:50%;
+    background:rgba(16,58,79,0.85); color:#fff; border:none;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; z-index:20; font-size:1rem;
+    transition:background .2s, transform .2s;
+  }
+  .nav-btn:hover{ background:var(--sunrise); }
+  .nav-btn.prev{ left:14px; }
+  .nav-btn.next{ right:14px; }
+
+  .islands{
+    position:absolute; bottom:16px; left:50%; transform:translateX(-50%);
+    display:flex; align-items:center; gap:10px; z-index:20;
+  }
+  .island{
+    width:9px; height:9px; border-radius:50%;
+    background:rgba(16,58,79,0.28);
+    cursor:pointer; transition:all .25s ease; border:none;
+  }
+  .island.active{ background:var(--sunrise); width:24px; border-radius:6px; }
+
+  .progress-track{
+    position:absolute; top:0; left:0; right:0; height:4px; background:rgba(16,58,79,0.1); z-index:20; overflow:hidden;
+  }
+  .progress-fill{ position:relative; height:100%; background:linear-gradient(90deg, var(--sunrise), var(--gold)); transition:width .5s ease; overflow:hidden; }
+  .progress-fill::after{
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(90deg, transparent, rgba(255,255,255,0.85), transparent);
+    animation: shimmer 2.4s linear infinite;
+  }
+
+  /* interactive water ripple on tap/click */
+  .ripple{
+    position:fixed; width:14px; height:14px; border-radius:50%;
+    border:2px solid rgba(228,174,74,0.85);
+    background:radial-gradient(circle, rgba(255,255,255,0.4), transparent 70%);
+    transform:translate(-50%,-50%) scale(0);
+    pointer-events:none; z-index:999;
+    animation: rippleExpand .85s ease-out forwards;
+  }
+
+  .counter{
+    position:absolute; top:18px; right:24px; z-index:20;
+    font-size:.78rem; color:var(--ocean); opacity:.6; letter-spacing:.06em;
+  }
+
+  /* ---------- reusable bits ---------- */
+  .badge-icon{
+    width:46px; height:46px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    background:var(--ocean); color:#fff; font-size:1.1rem; flex-shrink:0;
+  }
+  .badge-icon.alt{ background:var(--sunrise); }
+  .badge-icon.gold{ background:var(--gold); color:var(--ocean-deep); }
+
+  .pill{
+    display:inline-flex; align-items:center; gap:.4rem;
+    padding:.3rem .7rem; border-radius:99px; font-size:.72rem; font-weight:700;
+    background:rgba(16,58,79,0.08); color:var(--ocean); letter-spacing:.04em;
+  }
+
+  /* ============ SLIDE 0 — COVER ============ */
+  #s0{ background:var(--ocean-deep); justify-content:center; }
+  #s0 .horizon{
+    position:absolute; inset:0;
+    background:
+      radial-gradient(ellipse 60% 50% at 80% 15%, rgba(228,174,74,0.22), transparent 60%),
+      linear-gradient(180deg, #0a2734 0%, #103a4f 55%, #154a63 100%);
+  }
+  #s0 .sun{
+    position:absolute; right:9%; top:14%;
+    width:160px; height:160px; border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, var(--gold), var(--sunrise) 70%);
+    box-shadow:0 0 90px rgba(228,174,74,0.45);
+    animation: sunPulse 6s ease-in-out infinite;
+  }
+  #s0 .sea{
+    position:absolute; left:0; right:0; bottom:0; height:38%;
+    background:linear-gradient(180deg, transparent, rgba(10,39,52,0.9));
+    overflow:hidden;
+  }
+  #s0 .sea .wave-layer{ position:absolute; left:0; bottom:0; width:200%; height:100%; display:flex; }
+  #s0 .sea .wave-layer svg{ width:50%; height:100%; flex-shrink:0; display:block; }
+  #s0 .sea .wave-layer.back{ animation:waveDrift 24s linear infinite; opacity:.3; }
+  #s0 .sea .wave-layer.mid{ animation:waveDrift 17s linear infinite reverse; opacity:.5; }
+  #s0 .sea .wave-layer.front{ animation:waveDrift 12s linear infinite; opacity:.85; }
+  #s0 .cover-content{ position:relative; z-index:3; color:#fff; max-width:760px; }
+  #s0 .kicker{
+    display:flex; align-items:center; gap:.6rem; margin-bottom:1.1rem;
+  }
+  #s0 .kicker i{ color:var(--gold); font-size:1.3rem; }
+  #s0 .kicker span{ letter-spacing:.2em; font-size:.78rem; text-transform:uppercase; color:var(--sand-deep); font-weight:600; }
+  #s0 h1{
+    font-size:clamp(2rem, 4.6vw, 3.6rem); line-height:1.04; font-weight:700;
+    margin-bottom:.9rem;
+  }
+  #s0 h1 em{ font-style:italic; color:var(--gold); }
+  #s0 .lede{ font-size:1.05rem; color:#dfe8e4; max-width:50ch; margin-bottom:1.8rem; line-height:1.55; }
+  #s0 .host-row{ display:flex; align-items:center; gap:.9rem; margin-bottom:1.6rem; }
+  #s0 .host-row .line{ width:34px; height:2px; background:var(--gold); }
+  #s0 .host-name{ font-weight:700; font-size:.95rem; }
+  #s0 .host-role{ font-size:.8rem; color:#b9c9c3; }
+  #s0 .start-btn{
+    display:inline-flex; align-items:center; gap:.6rem;
+    background:var(--sunrise); color:#fff; border:none; padding:.85rem 1.6rem;
+    border-radius:99px; font-family:'Plus Jakarta Sans'; font-weight:700; font-size:.92rem;
+    cursor:pointer; transition:transform .2s, background .2s;
+  }
+  #s0 .start-btn:hover{ background:var(--gold); color:var(--ocean-deep); transform:translateX(3px); }
+
+  /* ============ SLIDE 1 — APA ITU & LATAR BELAKANG ============ */
+  #s1 .grid2{ display:grid; grid-template-columns:1.05fr .95fr; gap:2.4rem; flex:1; align-items:start; margin-top:.6rem;}
+  #s1 .lead-text{ font-size:1.02rem; line-height:1.65; color:#33433c; }
+  #s1 .lead-text strong{ color:var(--ocean); }
+  #s1 .why-card{
+    background:var(--ocean); color:#fff; border-radius:18px; padding:1.6rem 1.7rem;
+  }
+  #s1 .why-card h3{ font-size:1.05rem; margin-bottom:.8rem; color:var(--gold); }
+  #s1 .why-card p{ font-size:.92rem; line-height:1.55; color:#dce8e3; }
+  #s1 .stat-row{ display:flex; gap:1rem; margin-top:1.4rem; }
+  #s1 .stat{ flex:1; background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:1rem 1.1rem; }
+  #s1 .stat .num{ font-family:'Fraunces'; font-size:1.6rem; font-weight:700; color:var(--sunrise); }
+  #s1 .stat .lab{ font-size:.76rem; color:#5b6b63; margin-top:.15rem; }
+
+  /* ============ SLIDE 2 — TUJUAN (flip cards) ============ */
+  .goal-grid{ display:grid; grid-template-columns:repeat(5,1fr); gap:.9rem; flex:1; margin-top:.8rem; }
+  .goal-card{
+    perspective:1000px; cursor:pointer; height:100%;
+  }
+  .goal-inner{
+    position:relative; width:100%; height:100%; transition:transform .6s; transform-style:preserve-3d;
+  }
+  .goal-card.flipped .goal-inner{ transform:rotateY(180deg); }
+  .goal-face{
+    position:absolute; inset:0; backface-visibility:hidden; border-radius:16px;
+    display:flex; flex-direction:column; padding:1rem .9rem;
+  }
+  .goal-front{ background:var(--paper); border:1px solid var(--line); justify-content:space-between; }
+  .goal-front .num{ font-family:'Fraunces'; font-size:1.3rem; color:var(--sunrise); font-weight:700; }
+  .goal-front h4{ font-size:.95rem; color:var(--ocean); line-height:1.25; margin-top:.6rem; }
+  .goal-front .tap{ font-size:.68rem; color:#8a958f; margin-top:.5rem; }
+  .goal-back{
+    background:var(--ocean); color:#fff; transform:rotateY(180deg);
+    justify-content:center; align-items:flex-start;
+  }
+  .goal-back p{ font-size:.82rem; line-height:1.4; color:#e3ece8; }
+
+  /* ============ SLIDE 3 — PENDEKATAN (comparison) ============ */
+  #s3 .compare{ display:grid; grid-template-columns:1fr 1fr; gap:1.4rem; flex:1; margin-top:.8rem; }
+  .compare-col{ border-radius:18px; padding:1.5rem 1.5rem; display:flex; flex-direction:column; }
+  .compare-col.east{ background:var(--ocean); color:#fff; }
+  .compare-col.reg{ background:var(--paper); border:1px solid var(--line); color:var(--ink); }
+  .compare-col h3{ font-size:1.15rem; margin-bottom:.2rem; }
+  .compare-col .tag{ font-size:.74rem; opacity:.7; margin-bottom:1rem; }
+  .compare-row{ display:flex; gap:.6rem; align-items:flex-start; padding:.5rem 0; border-top:1px solid rgba(255,255,255,0.12); }
+  .compare-col.reg .compare-row{ border-top:1px solid var(--line); }
+  .compare-row i{ margin-top:.2rem; font-size:.75rem; color:var(--gold); }
+  .compare-col.reg .compare-row i{ color:var(--sunrise); }
+  .compare-row .t{ font-weight:700; font-size:.84rem; }
+  .compare-row .d{ font-size:.78rem; opacity:.85; }
+
+  /* ============ SLIDE 4 — MATERI (tabs) ============ */
+  #s4 .tabs{ display:flex; gap:.5rem; margin-top:.6rem; margin-bottom:1rem; flex-wrap:wrap; }
+  .tab-btn{
+    border:1px solid var(--line); background:var(--paper); color:var(--ocean);
+    padding:.55rem 1rem; border-radius:99px; font-size:.82rem; font-weight:700;
+    cursor:pointer; display:flex; align-items:center; gap:.45rem; transition:all .2s;
+  }
+  .tab-btn i{ font-size:.85rem; }
+  .tab-btn.active{ background:var(--ocean); color:#fff; border-color:var(--ocean); }
+  .tab-panels{ flex:1; position:relative; }
+  .tab-panel{ position:absolute; inset:0; opacity:0; visibility:hidden; transition:opacity .35s; display:grid; grid-template-columns:repeat(2,1fr); gap:.6rem .9rem; align-content:start; }
+  .tab-panel.active{ opacity:1; visibility:visible; }
+  .mat-item{ display:flex; gap:.7rem; align-items:flex-start; background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:.7rem .8rem; }
+  .mat-item i{ color:var(--sunrise); margin-top:.2rem; font-size:.85rem; }
+  .mat-item span{ font-size:.85rem; color:#33433c; }
+
+  /* ============ SLIDE — JADWAL HARIAN MATRIKULASI ============ */
+  .sched-list{ display:flex; flex-direction:column; gap:.42rem; flex:1; margin-top:.6rem; justify-content:center; }
+  .sched-row{
+    display:grid; grid-template-columns:.56fr .58fr 2.2fr; gap:.9rem; align-items:center;
+    background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:.5rem .95rem;
+  }
+  .sched-row .badge{ display:flex; align-items:baseline; gap:.45rem; }
+  .sched-row .badge .n{ font-family:'Fraunces'; font-weight:700; color:var(--sunrise); font-size:.95rem; }
+  .sched-row .badge .b{ font-size:.78rem; font-weight:700; color:var(--ocean); }
+  .sched-row .w{ font-size:.78rem; color:#5b6b63; font-weight:600; }
+  .sched-mapel{ display:flex; flex-wrap:wrap; gap:.32rem; }
+  .mp{
+    font-size:.7rem; padding:.2rem .55rem; border-radius:99px;
+    background:rgba(47,143,130,0.12); color:var(--teal); font-weight:700; white-space:nowrap;
+  }
+  .mp.star{ background:rgba(228,174,74,0.2); color:#9c7416; }
+  .sched-break{
+    display:flex; align-items:center; justify-content:center; gap:.5rem;
+    border-top:1px dashed var(--line); border-bottom:1px dashed var(--line);
+    padding:.32rem 0; font-size:.72rem; color:var(--ocean); font-weight:700; letter-spacing:.03em;
+  }
+  .sched-break i{ color:var(--sunrise); }
+  .sched-note{ font-size:.7rem; color:#8a958f; margin-top:.5rem; }
+  .sched-note span{ color:var(--gold); font-weight:700; }
+
+  /* ============ SLIDE — TATA TERTIB / DISIPLIN AKADEMIK ============ */
+  .tatib-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:.8rem; flex:1; margin-top:.7rem; }
+  .tatib-card{
+    background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:.95rem 1.05rem;
+    display:flex; flex-direction:column; gap:.5rem; transition:transform .25s, box-shadow .25s;
+  }
+  .tatib-card:hover{ transform:translateY(-4px); box-shadow:0 14px 28px rgba(16,58,79,0.12); }
+  .tatib-card .ttop{ display:flex; align-items:center; gap:.6rem; }
+  .tatib-card .ttop i{
+    width:32px; height:32px; border-radius:50%; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+    background:var(--ocean); color:#fff; font-size:.8rem;
+  }
+  .tatib-card.warn .ttop i{ background:var(--sunrise); }
+  .tatib-card h4{ font-size:.88rem; color:var(--ocean); font-weight:700; }
+  .tatib-card ul{ list-style:none; display:flex; flex-direction:column; gap:.28rem; }
+  .tatib-card li{ font-size:.74rem; color:#445049; display:flex; gap:.4rem; align-items:flex-start; line-height:1.4; }
+  .tatib-card li i{ color:var(--teal); font-size:.5rem; margin-top:.4rem; }
+  .tatib-card.warn li i{ color:var(--sunrise); font-size:.62rem; margin-top:.32rem; }
+  .value-grid{ display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(3,1fr); gap:.7rem; flex:1; margin-top:.7rem; }
+  .value-card{
+    background:var(--paper); border:1px solid var(--line); border-radius:14px;
+    padding:.7rem .8rem; cursor:pointer; transition:background .25s, color .25s;
+    display:flex; flex-direction:column; justify-content:space-between;
+  }
+  .value-card .vtop{ display:flex; align-items:center; gap:.5rem; }
+  .value-card i{ font-size:.95rem; color:var(--teal); }
+  .value-card h4{ font-size:.82rem; color:var(--ocean); font-weight:700; line-height:1.2; }
+  .value-card .vdesc{ font-size:.72rem; color:#5b6b63; margin-top:.4rem; max-height:0; overflow:hidden; transition:max-height .3s ease; }
+  .value-card.open{ background:var(--teal); }
+  .value-card.open i, .value-card.open h4{ color:#fff; }
+  .value-card.open .vdesc{ max-height:80px; color:#e7f3f0; }
+
+  /* ============ SLIDE 6 — JAM AKADEMIK ============ */
+  #s6 .rules-wrap{ display:grid; grid-template-columns:.9fr 1.1fr; gap:1.6rem; flex:1; margin-top:.7rem; }
+  .clock-card{
+    background:var(--ocean); border-radius:18px; color:#fff; padding:1.6rem; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center;
+  }
+  .clock-card i{ font-size:2.2rem; color:var(--gold); margin-bottom:.7rem; }
+  .clock-card h3{ font-size:1.1rem; margin-bottom:.5rem; }
+  .clock-card p{ font-size:.82rem; color:#dce8e3; line-height:1.5; }
+  .rule-list{ display:flex; flex-direction:column; gap:.55rem; }
+  .rule-item{ display:flex; gap:.7rem; align-items:flex-start; background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:.65rem .8rem; }
+  .rule-item i{ color:var(--sunrise); font-size:.85rem; margin-top:.15rem; width:16px; }
+  .rule-item .t{ font-size:.85rem; font-weight:700; color:var(--ocean); }
+  .rule-item .d{ font-size:.76rem; color:#5b6b63; }
+
+  /* ============ SLIDE 7 — 10 ATURAN EMAS (carousel) ============ */
+  #s7 .gold-stage{ flex:1; display:flex; align-items:center; justify-content:center; position:relative; }
+  .gold-card{
+    width:74%; max-width:620px; background:var(--ocean); color:#fff; border-radius:20px;
+    padding:2rem 2.2rem; text-align:center; position:relative;
+  }
+  .gold-card .gnum{ font-family:'Fraunces'; font-size:3rem; font-weight:900; color:var(--gold); line-height:1; margin-bottom:.6rem; }
+  .gold-card .gtext{ font-size:1.15rem; line-height:1.4; font-weight:600; }
+  .gold-nav{ display:flex; justify-content:center; gap:.5rem; margin-top:1rem; }
+  .gold-dot{ width:7px; height:7px; border-radius:50%; background:rgba(16,58,79,0.25); border:none; cursor:pointer; }
+  .gold-dot.active{ background:var(--sunrise); width:20px; border-radius:4px; }
+  .gold-arrow{
+    width:38px; height:38px; border-radius:50%; border:1px solid var(--line); background:var(--paper); color:var(--ocean);
+    cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .gold-arrow:hover{ background:var(--ocean); color:#fff; }
+  .gold-row{ display:flex; align-items:center; gap:1rem; }
+
+  /* ============ SLIDE 8 — CLOSING ============ */
+  #s8{ background:var(--ocean-deep); justify-content:center; align-items:center; text-align:center; }
+  #s8 .horizon{ position:absolute; inset:0; background:linear-gradient(180deg,#0a2734,#154a63); }
+  #s8 .ring{ position:absolute; width:480px; height:480px; border-radius:50%; border:1px solid rgba(228,174,74,0.25); top:50%; left:50%; transform:translate(-50%,-50%); animation:ringPulse 5s ease-in-out infinite; }
+  #s8 .ring2{ width:680px; height:680px; animation:ringPulse 5s ease-in-out infinite 1s; }
+  #s8 .sea{ position:absolute; left:0; right:0; bottom:0; height:22%; overflow:hidden; }
+  #s8 .sea .wave-layer{ position:absolute; left:0; bottom:0; width:200%; height:100%; display:flex; }
+  #s8 .sea .wave-layer svg{ width:50%; height:100%; flex-shrink:0; display:block; }
+  #s8 .sea .wave-layer.back{ animation:waveDrift 26s linear infinite; opacity:.25; }
+  #s8 .sea .wave-layer.front{ animation:waveDrift 14s linear infinite reverse; opacity:.45; }
+  #s8 .closing-content{ position:relative; z-index:3; color:#fff; max-width:720px; }
+  #s8 i.heart{ font-size:1.7rem; color:var(--gold); margin-bottom:1rem; }
+  #s8 h2{ font-size:clamp(1.7rem,3.4vw,2.5rem); font-weight:700; margin-bottom:.9rem; }
+  #s8 .motto{ font-style:italic; font-size:1.05rem; color:var(--sand-deep); margin-bottom:1.8rem; line-height:1.6; }
+  #s8 .sign{ display:inline-flex; flex-direction:column; gap:.1rem; border-top:1px solid rgba(255,255,255,0.2); padding-top:.8rem; }
+  #s8 .sign .n{ font-weight:700; font-size:.95rem; }
+  #s8 .sign .r{ font-size:.78rem; color:#b9c9c3; }
+
+  /* responsive small */
+  @media (max-width: 760px){
+    .goal-grid{ grid-template-columns:repeat(2,1fr); grid-auto-rows:120px; }
+    .value-grid{ grid-template-columns:repeat(2,1fr); grid-template-rows:repeat(5,1fr); }
+    .tatib-grid{ grid-template-columns:1fr; }
+    .sched-row{ grid-template-columns:1fr; }
+    #s1 .grid2, #s3 .compare, #s6 .rules-wrap{ grid-template-columns:1fr; }
+    .tab-panel{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div id="loading-screen">
+  <div class="loading-logo"><img src="assets/iconmaicn.png" alt="MA ICN"></div>
+  <div class="loading-ring"></div>
+  <div class="loading-text">Memuat Matrikulasi...</div>
+</div>
+
+${navHtml}
+
+<!-- MODAL LOGIN INJECTION CONTAINER -->
+<div class="modal-overlay" id="modal-login">
+  <div class="modal-box">
+    <button class="modal-close" data-close-modal="modal-login">✕</button>
+    <div class="modal-logo"><img src="assets/iconmaicn.png" alt="Logo"></div>
+    <div class="modal-title">Masuk Admin</div>
+    <div class="modal-sub">Akses panel pengelolaan kurikulum</div>
+    <div class="login-error" id="login-error"></div>
+    <form id="login-form">
+      <div class="form-group"><label>Username</label><input type="text" id="login-user" placeholder="admin" required></div>
+      <div class="form-group"><label>Password</label><input type="password" id="login-pass" placeholder="••••••••" required></div>
+      <button type="submit" class="btn btn-primary btn-full" style="margin-top:8px;">Masuk →</button>
+    </form>
+  </div>
+</div>
+
+<div id="deck">
+  <div class="stage">
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="counter"><span id="counterNow">1</span> / <span id="counterAll">9</span></div>
+
+    <!-- SLIDE 0 — COVER -->
+    <section class="slide active" id="s0">
+      <div class="horizon"></div>
+      <div class="sun"></div>
+      <div class="sea">
+        <div class="wave-layer back">
+          <svg viewBox="0 0 1200 200" preserveAspectRatio="none"><path d="M0 100 Q150 70 300 100 T600 100 T900 100 T1200 100 V200 H0 Z" fill="#ffffff"/></svg>
+          <svg viewBox="0 0 1200 200" preserveAspectRatio="none"><path d="M0 100 Q150 70 300 100 T600 100 T900 100 T1200 100 V200 H0 Z" fill="#ffffff"/></svg>
+        </div>
+        <div class="wave-layer mid">
+          <svg viewBox="0 0 1200 200" preserveAspectRatio="none"><path d="M0 125 Q150 95 300 125 T600 125 T900 125 T1200 125 V200 H0 Z" fill="#e4ae4a"/></svg>
+          <svg viewBox="0 0 1200 200" preserveAspectRatio="none"><path d="M0 125 Q150 95 300 125 T600 125 T900 125 T1200 125 V200 H0 Z" fill="#e4ae4a"/></svg>
+        </div>
+        <div class="wave-layer front">
+          <svg viewBox="0 0 1200 200" preserveAspectRatio="none"><path d="M0 150 Q150 118 300 150 T600 150 T900 150 T1200 150 V200 H0 Z" fill="#fffaf2"/></svg>
+          <svg viewBox="0 0 1200 200" preserveAspectRatio="none"><path d="M0 150 Q150 118 300 150 T600 150 T900 150 T1200 150 V200 H0 Z" fill="#fffaf2"/></svg>
+        </div>
+      </div>
+      <div class="cover-content">
+        <div class="kicker"><i class="fa-solid fa-compass"></i><span>Matrikulasi MA Insan Cendekia Nusantara</span></div>
+        <h1>Selamat Datang,<br><em>Putra-Putri Terbaik</em><br>Gelombang Pertama</h1>
+        <p class="lede">Kalian adalah angkatan pertama yang hadir lebih awal untuk memulai babak baru. Sebelum kelas reguler dimulai, mari kita siapkan bersama langkah pertama kalian di MA ICN.</p>
+        <div class="host-row">
+          <div class="line"></div>
+          <div>
+            <div class="host-name">Muhammad Irsyad Sirojul Khoeir, M.Sos.</div>
+            <div class="host-role">Wakil Kepala Madrasah Bidang Kurikulum</div>
+          </div>
+        </div>
+        <button class="start-btn" onclick="goTo(1)">Mulai Pengarahan <i class="fa-solid fa-arrow-right"></i></button>
+      </div>
+    </section>
+
+    <!-- SLIDE 1 — APA ITU & LATAR BELAKANG -->
+    <section class="slide" id="s1">
+      <div class="slide-eyebrow">Mengenal Matrikulasi</div>
+      <h2 class="title">Mengapa Kalian Datang Lebih Dulu?</h2>
+      <p class="subtitle">Kalian bergabung lebih dulu dari teman-teman seangkatan — begitu pula masa penyesuaian yang kalian butuhkan.</p>
+      <div class="grid2">
+        <div class="lead-text">
+          <p><strong>Matrikulasi</strong> adalah masa pembelajaran dan pembinaan awal sebelum KBM reguler dimulai — untuk memetakan kemampuan, menyetarakan kompetensi dasar, mengenalkan budaya akademik dan kehidupan berasrama MA ICN.</p>
+          <br>
+          <p>Karena kalian adalah <strong>peserta Gelombang Pertama yang datang lebih awal</strong> dibanding teman-teman Gelombang Reguler, kalian mendapat masa adaptasi yang lebih panjang — dirancang khusus, intensif, dan personal, sebelum seluruh angkatan berkumpul.</p>
+        </div>
+        <div class="why-card">
+          <h3><i class="fa-solid fa-ship"></i>&nbsp; Bukan Sekadar Datang Duluan</h3>
+          <p>Waktu tambahan ini adalah kesempatan emas: lebih banyak ruang untuk mengenal lingkungan baru, beradaptasi dengan kehidupan asrama, memperkuat dasar akademik dan bahasa, sebelum bertemu seluruh angkatan baru MA ICN.</p>
+        </div>
+      </div>
+      <div class="stat-row">
+        <div class="stat"><div class="num">4</div><div class="lab">Bidang materi matrikulasi</div></div>
+        <div class="stat"><div class="num">5</div><div class="lab">Tujuan khusus untuk kalian</div></div>
+        <div class="stat"><div class="num">1</div><div class="lab">Pendekatan: intensif & personal</div></div>
+      </div>
+      <div class="wave"></div>
+    </section>
+
+    <!-- SLIDE 2 — TUJUAN KHUSUS (flip cards) -->
+    <section class="slide" id="s2">
+      <div class="slide-eyebrow">Tujuan Khusus untuk Kalian</div>
+      <h2 class="title">Lima Fokus Matrikulasi Gelombang Pertama</h2>
+      <p class="subtitle">Sentuh tiap kartu untuk melihat penjelasannya.</p>
+      <div class="goal-grid" id="goalGrid"></div>
+      <div class="wave"></div>
+    </section>
+
+    <!-- SLIDE 3 — PENDEKATAN -->
+    <section class="slide" id="s3">
+      <div class="slide-eyebrow">Pendekatan Belajar</div>
+      <h2 class="title">Intensif & Personal, Khusus untuk Kalian</h2>
+      <p class="subtitle">Matrikulasi kalian dirancang berbeda dari matrikulasi reguler — bukan lebih ringan, tapi lebih personal.</p>
+      <div class="compare">
+        <div class="compare-col east">
+          <h3><i class="fa-solid fa-water"></i>&nbsp; Matrikulasi Gelombang Pertama</h3>
+          <div class="tag">Adaptasi + Penguatan Dasar + Pembinaan Asrama</div>
+          <div class="compare-row"><i class="fa-solid fa-circle-check"></i><div><div class="t">Waktu</div><div class="d">Lebih awal dari murid reguler</div></div></div>
+          <div class="compare-row"><i class="fa-solid fa-circle-check"></i><div><div class="t">Fokus</div><div class="d">Adaptasi lingkungan & penguatan dasar</div></div></div>
+          <div class="compare-row"><i class="fa-solid fa-circle-check"></i><div><div class="t">Pendekatan</div><div class="d">Intensif dan personal, per individu</div></div></div>
+        </div>
+        <div class="compare-col reg">
+          <h3><i class="fa-solid fa-users"></i>&nbsp; Matrikulasi Gelombang Reguler</h3>
+          <div class="tag">Penyetaraan Kompetensi Seluruh Murid Baru</div>
+          <div class="compare-row"><i class="fa-solid fa-circle"></i><div><div class="t">Waktu</div><div class="d">Setelah seluruh murid hadir</div></div></div>
+          <div class="compare-row"><i class="fa-solid fa-circle"></i><div><div class="t">Fokus</div><div class="d">Penyetaraan kompetensi satu angkatan</div></div></div>
+          <div class="compare-row"><i class="fa-solid fa-circle"></i><div><div class="t">Pendekatan</div><div class="d">Klasikal, bersama seluruh angkatan</div></div></div>
+        </div>
+      </div>
+      <div class="wave"></div>
+    </section>
+
+    <!-- SLIDE 4 — MATERI MATRIKULASI (tabs) -->
+    <section class="slide" id="s4">
+      <div class="slide-eyebrow">Materi Matrikulasi</div>
+      <h2 class="title">Apa Saja yang Akan Kalian Pelajari?</h2>
+      <div class="tabs" id="tabBar"></div>
+      <div class="tab-panels" id="tabPanels"></div>
+      <div class="wave"></div>
+    </section>
+
+    <!-- SLIDE — JADWAL HARIAN MATRIKULASI -->
+    <section class="slide" id="sJadwal">
+      <div class="slide-eyebrow">Struktur Waktu Belajar</div>
+      <h2 class="title">Jadwal Harian Matrikulasi</h2>
+      <p class="subtitle">Tujuh blok pembelajaran dari pukul 07.00 hingga 16.00, dengan istirahat dan ishoma yang terintegrasi.</p>
+      <div class="sched-list" id="schedList"></div>
+      <div class="sched-note"><span>*</span> Mata pelajaran menyesuaikan kelompok/kelas masing-masing.</div>
+      <div class="wave"></div>
+    </section>
+
+    <!-- SLIDE 5 — BUDAYA AKADEMIK -->
+    <section class="slide" id="s5">
+      <div class="slide-eyebrow">Budaya Akademik ICN</div>
+      <h2 class="title">Sembilan Nilai yang Akan Kalian Hidupi</h2>
+      <p class="subtitle">Ketuk tiap nilai untuk membaca maknanya.</p>
+      <div class="value-grid" id="valueGrid"></div>
+      <div class="wave"></div>
+    </section>
+
+    <!-- SLIDE — TATA TERTIB / DISIPLIN AKADEMIK -->
+    <section class="slide" id="sTatib">
+      <div class="slide-eyebrow">Disiplin Akademik</div>
+      <h2 class="title">Tata Tertib yang Kalian Jaga Bersama</h2>
+      <p class="subtitle">Enam kebiasaan yang membentuk budaya belajar di MA ICN — bukan sekadar aturan, tapi cara menghormati proses belajar.</p>
+      <div class="tatib-grid" id="tatibGrid"></div>
+      <div class="wave"></div>
+    </section>
+
+    <!-- SLIDE 6 — JAM AKADEMIK -->
+    <section class="slide" id="s6">
+      <div class="slide-eyebrow">Disiplin Akademik</div>
+      <h2 class="title">Ketentuan Jam Akademik</h2>
+      <div class="rules-wrap">
+        <div class="clock-card">
+          <i class="fa-solid fa-clock"></i>
+          <h3>Selama Jam Akademik</h3>
+          <p>Seluruh rentang waktu pembelajaran, laboratorium, perpustakaan, proyek, dan asesmen — dari pagi hingga selesai pembelajaran sesuai jadwal madrasah.</p>
+        </div>
+        <div class="rule-list" id="ruleList"></div>
+      </div>
+      <div class="wave"></div>
+    </section>
+
+    <!-- SLIDE 7 — 10 ATURAN EMAS -->
+    <section class="slide" id="s7">
+      <div class="slide-eyebrow">Sepuluh Aturan Emas</div>
+      <h2 class="title">Pegangan Kalian di MA ICN</h2>
+      <div class="gold-stage">
+        <div class="gold-row">
+          <button class="gold-arrow" onclick="goldStep(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+          <div class="gold-card">
+            <div class="gnum" id="goldNum">01</div>
+            <div class="gtext" id="goldText">Bertakwa kepada Allah dan berakhlak mulia.</div>
+          </div>
+          <button class="gold-arrow" onclick="goldStep(1)"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+      </div>
+      <div class="gold-nav" id="goldNav"></div>
+      <div class="wave"></div>
+    </section>
+
+    <!-- SLIDE 8 — CLOSING -->
+    <section class="slide" id="s8">
+      <div class="horizon"></div>
+      <div class="sea">
+        <div class="wave-layer back">
+          <svg viewBox="0 0 1200 200" preserveAspectRatio="none"><path d="M0 110 Q150 80 300 110 T600 110 T900 110 T1200 110 V200 H0 Z" fill="#e4ae4a"/></svg>
+          <svg viewBox="0 0 1200 200" preserveAspectRatio="none"><path d="M0 110 Q150 80 300 110 T600 110 T900 110 T1200 110 V200 H0 Z" fill="#e4ae4a"/></svg>
+        </div>
+        <div class="wave-layer front">
+          <svg viewBox="0 0 1200 200" preserveAspectRatio="none"><path d="M0 140 Q150 112 300 140 T600 140 T900 140 T1200 140 V200 H0 Z" fill="#ffffff"/></svg>
+          <svg viewBox="0 0 1200 200" preserveAspectRatio="none"><path d="M0 140 Q150 112 300 140 T600 140 T900 140 T1200 140 V200 H0 Z" fill="#ffffff"/></svg>
+        </div>
+      </div>
+      <div class="ring"></div>
+      <div class="ring ring2"></div>
+      <div class="closing-content">
+        <i class="fa-solid fa-heart heart"></i>
+        <h2>Selamat Memulai Perjalanan Baru Kalian</h2>
+        <p class="motto">"Berakhlak Islami, Berpikir Kritis, Berkarya Inovatif, Berprestasi Global."</p>
+        <div class="sign">
+          <div class="n">Muhammad Irsyad Sirojul Khoeir, M.Sos.</div>
+          <div class="r">Wakil Kepala Madrasah Bidang Kurikulum — MA Insan Cendekia Nusantara</div>
+        </div>
+      </div>
+    </section>
+
+    <button class="nav-btn prev" onclick="prevSlide()"><i class="fa-solid fa-chevron-left"></i></button>
+    <button class="nav-btn next" onclick="nextSlide()"><i class="fa-solid fa-chevron-right"></i></button>
+    <div class="islands" id="islands"></div>
+  </div>
+</div>
+
+<script src="data.js"></script>
+<script src="assets/app.js"></script>
+<script>
+/* ============ DATA ============ */
+const goals = [
+  { icon:'fa-mountain-sun', title:'Adaptasi Lingkungan Baru', desc:'Mengenal suasana, aturan, dan ritme harian MA ICN sejak hari-hari pertama, tanpa terburu-buru.' },
+  { icon:'fa-house', title:'Adaptasi Kehidupan Berasrama', desc:'Membiasakan diri dengan jadwal, kamar, dan kebersamaan hidup di asrama bersama santri lain.' },
+  { icon:'fa-book-open', title:'Penguatan Akademik Dasar', desc:'Memperkuat literasi, numerasi, dan dasar pelajaran agar siap mengikuti KBM bersama angkatan.' },
+  { icon:'fa-comments', title:'Penguatan Bahasa', desc:'Mengasah bahasa Indonesia, Arab, dan Inggris dasar untuk komunikasi sehari-hari dan belajar.' },
+  { icon:'fa-people-arrows', title:'Penyesuaian Budaya Belajar', desc:'Mengenal kebiasaan belajar dan budaya akademik ICN yang mungkin berbeda dari sekolah asal kalian.' },
+];
+
+const materi = [
+  { key:'akademik', label:'Akademik', icon:'fa-book', items:[
+    'Literasi membaca dan menulis','Numerasi dasar','Bahasa Inggris dasar','Bahasa Arab dasar','Pengantar mata pelajaran MA'
+  ]},
+  { key:'keagamaan', label:'Keagamaan', icon:'fa-moon', items:[
+    'Tahsin Al-Qur’an','Tahfiz Al-Qur’an','Pembiasaan ibadah','Dirasah Islamiyah dasar'
+  ]},
+  { key:'karakter', label:'Karakter & Kepemimpinan', icon:'fa-star', items:[
+    'Budaya Akademik ICN','Manajemen waktu','Kemandirian','Kepemimpinan','Komunikasi dan kolaborasi'
+  ]},
+  { key:'asrama', label:'Keasramaan', icon:'fa-bed', items:[
+    'Tata tertib asrama','Kehidupan berasrama','Adab santri','Keselamatan dan kesehatan'
+  ]},
+];
+
+const values = [
+  { icon:'fa-hands-praying', title:'Akhlak & Karakter Islami', desc:'Berakhlakul karimah, menjaga adab kepada Allah, Rasul, guru, dan orang tua.' },
+  { icon:'fa-lightbulb', title:'Belajar Mandiri & Kritis', desc:'Gemar membaca, aktif bertanya, berpikir analitis, mencari solusi.' },
+  { icon:'fa-palette', title:'Kreatif & Inovatif', desc:'Menghasilkan karya, melaksanakan riset, mengembangkan gagasan baru.' },
+  { icon:'fa-handshake', title:'Kolaboratif & Gotong Royong', desc:'Bekerja sama, menghargai perbedaan, membantu sesama.' },
+  { icon:'fa-leaf', title:'Peduli Lingkungan', desc:'Menjaga kebersihan, fasilitas, dan membiasakan hidup berkelanjutan.' },
+  { icon:'fa-seedling', title:'Kewirausahaan & Productivity', desc:'Mandiri, kreatif, produktif, dan solutif dalam keseharian.' },
+  { icon:'fa-trophy', title:'Prestasi & Kompetisi Sehat', desc:'Berprestasi akademik & nonakademik, menjunjung sportivitas.' },
+  { icon:'fa-earth-asia', title:'Global Berakar Nusantara', desc:'Berwawasan internasional, tetap menjunjung nilai Islam dan kebangsaan.' },
+  { icon:'fa-feather', title:'Refleksi & Apresiasi', desc:'Muhasabah, evaluasi diri, menghargai proses dan hasil.' },
+];
+
+const rules = [
+  { icon:'fa-door-closed', t:'Tidak kembali ke asrama', d:'Kecuali sakit dengan izin UKM, izin guru piket, izin wali kelas, atau keadaan darurat.' },
+  { icon:'fa-location-dot', t:'Wajib berada di lokasi belajar', d:'Kelas, laboratorium, perpustakaan, atau ruang proyek sesuai jadwal.' },
+  { icon:'fa-right-from-bracket', t:'Tidak meninggalkan kelas tanpa izin', d:'Setiap perpindahan lokasi harus mendapat izin guru terlebih dahulu.' },
+  { icon:'fa-mobile-screen', t:'Gawai untuk belajar saja', d:'Tidak digunakan untuk hiburan selama jam akademik berlangsung.' },
+  { icon:'fa-volume-low', t:'Menjaga suasana belajar', d:'Tidak membuat kegaduhan atau tidur di kelas tanpa alasan kesehatan.' },
+];
+
+const jadwalBlok = [
+  { no:'01', blok:'Blok 1', waktu:'07.00 – 08.10', mapel:['Sejarah','Informatika','Kimia*'] },
+  { no:'02', blok:'Blok 2', waktu:'08.10 – 09.20', mapel:['Matematika*','Bahasa Arab','Pendidikan Pancasila'] },
+  { brk:true, icon:'fa-mug-hot', waktu:'09.20 – 09.40', label:'Istirahat Pertama' },
+  { no:'03', blok:'Blok 3', waktu:'09.40 – 10.50', mapel:['Bahasa Indonesia','Bahasa Inggris','Biologi*'] },
+  { no:'04', blok:'Blok 4', waktu:'10.50 – 12.00', mapel:['SKI','Fisika*','Fikih'] },
+  { brk:true, icon:'fa-utensils', waktu:'12.00 – 13.00', label:'Ishoma · Istirahat, Sholat & Makan' },
+  { no:'05', blok:'Blok 5', waktu:'13.00 – 14.00', mapel:["Al-Qur'an Hadis",'Geografi','Seni Budaya'] },
+  { no:'06', blok:'Blok 6', waktu:'14.00 – 15.00', mapel:['Sosiologi','Akidah Akhlak','Koding'] },
+  { no:'07', blok:'Blok 7', waktu:'15.00 – 16.00', mapel:['Bahasa Mandarin','Ekonomi','PJOK'] },
+];
+
+const tatib = [
+  { icon:'fa-clock', title:'Kehadiran', items:['Hadir tepat waktu','Mengikuti seluruh kegiatan akademik','Tidak meninggalkan kelas tanpa izin'] },
+  { icon:'fa-backpack', title:'Kesiapan Belajar', items:['Membawa perlengkapan belajar','Menyiapkan diri sebelum pembelajaran'] },
+  { icon:'fa-shield-halved', title:'Kejujuran Akademik', warn:true, items:['Dilarang menyontek','Dilarang plagiarisme','Dilarang memalsukan data','Tidak memakai karya orang lain tanpa sumber'] },
+  { icon:'fa-book-open', title:'Budaya Literasi', items:['Membaca secara rutin','Menulis refleksi & rangkuman','Memanfaatkan perpustakaan & sumber belajar'] },
+  { icon:'fa-comments', title:'Budaya Diskusi', items:['Menghargai pendapat','Berargumentasi dengan data','Berdiskusi secara santun'] },
+  { icon:'fa-laptop-code', title:'Pemanfaatan Teknologi', items:['Menggunakan teknologi untuk belajar','Memakai AI secara bertanggung jawab','Tidak memakai AI untuk kecurangan akademik'] },
+];
+
+const goldenRules = [
+  'Bertakwa kepada Allah dan berakhlak mulia.',
+  'Hadir tepat waktu dalam seluruh kegiatan akademik.',
+  'Tidak kembali ke asrama selama jam akademik.',
+  'Mengikuti pembelajaran secara penuh dan disiplin.',
+  'Menjunjung tinggi kejujuran akademik.',
+  'Menghormati guru, pegawai, dan sesama murid.',
+  'Aktif belajar, bertanya, berdiskusi, dan berkarya.',
+  'Menggunakan teknologi secara bijak dan bertanggung jawab.',
+  'Menjaga kebersihan, ketertiban, dan fasilitas madrasah.',
+  'Berprestasi, berkolaborasi, dan memberi manfaat bagi masyarakat.',
+];
+
+/* ============ BUILD: GOALS ============ */
+const goalGrid = document.getElementById('goalGrid');
+goals.forEach((g,i)=>{
+  const card = document.createElement('div');
+  card.className='goal-card';
+  card.innerHTML = `
+    <div class="goal-inner">
+      <div class="goal-face goal-front">
+        <div class="num">0${i+1}</div>
+        <div><h4>${g.title}</h4><div class="tap"><i class="fa-solid fa-hand-pointer"></i> Ketuk untuk lihat detail</div></div>
+      </div>
+      <div class="goal-face goal-back"><p><i class="fa-solid ${g.icon}" style="color:var(--gold); margin-bottom:.5rem; display:block; font-size:1.3rem;"></i>${g.desc}</p></div>
+    </div>`;
+  card.onclick = ()=> card.classList.toggle('flipped');
+  goalGrid.appendChild(card);
+});
+
+/* ============ BUILD: MATERI TABS ============ */
+const tabBar = document.getElementById('tabBar');
+const tabPanels = document.getElementById('tabPanels');
+materi.forEach((m,i)=>{
+  const btn = document.createElement('button');
+  btn.className = 'tab-btn' + (i===0?' active':'');
+  btn.innerHTML = `<i class="fa-solid ${m.icon}"></i> ${m.label}`;
+  btn.onclick = ()=> showTab(m.key);
+  btn.dataset.key = m.key;
+  tabBar.appendChild(btn);
+
+  const panel = document.createElement('div');
+  panel.className = 'tab-panel' + (i===0?' active':'');
+  panel.id = 'panel-'+m.key;
+  panel.innerHTML = m.items.map(it=>`<div class="mat-item"><i class="fa-solid fa-check"></i><span>${it}</span></div>`).join('');
+  tabPanels.appendChild(panel);
+});
+function showTab(key){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active', b.dataset.key===key));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.toggle('active', p.id==='panel-'+key));
+}
+
+/* ============ BUILD: VALUES ============ */
+const valueGrid = document.getElementById('valueGrid');
+values.forEach(v=>{
+  const card = document.createElement('div');
+  card.className='value-card';
+  card.innerHTML = `
+    <div class="vtop"><i class="fa-solid ${v.icon}"></i><h4>${v.title}</h4></div>
+    <div class="vdesc">${v.desc}</div>`;
+  card.onclick = ()=> card.classList.toggle('open');
+  valueGrid.appendChild(card);
+});
+
+/* ============ BUILD: RULES ============ */
+const ruleList = document.getElementById('ruleList');
+rules.forEach(r=>{
+  const item = document.createElement('div');
+  item.className='rule-item';
+  item.innerHTML = `<i class="fa-solid ${r.icon}"></i><div><div class="t">${r.t}</div><div class="d">${r.d}</div></div>`;
+  ruleList.appendChild(item);
+});
+
+/* ============ BUILD: JADWAL HARIAN MATRIKULASI ============ */
+const schedList = document.getElementById('schedList');
+jadwalBlok.forEach(b=>{
+  const row = document.createElement('div');
+  if(b.brk){
+    row.className = 'sched-break';
+    row.innerHTML = `<i class="fa-solid ${b.icon}"></i><span>${b.waktu} · ${b.label}</span>`;
+  } else {
+    row.className = 'sched-row';
+    row.innerHTML = `
+      <div class="badge"><span class="n">${b.no}</span><span class="b">${b.blok}</span></div>
+      <div class="w">${b.waktu}</div>
+      <div class="sched-mapel">${b.mapel.map(m=>`<span class="mp${m.includes('*')?' star':''}">${m}</span>`).join('')}</div>`;
+  }
+  schedList.appendChild(row);
+});
+
+/* ============ BUILD: TATA TERTIB / DISIPLIN AKADEMIK ============ */
+const tatibGrid = document.getElementById('tatibGrid');
+tatib.forEach(t=>{
+  const card = document.createElement('div');
+  card.className = 'tatib-card' + (t.warn ? ' warn' : '');
+  card.innerHTML = `
+    <div class="ttop"><i class="fa-solid ${t.icon}"></i><h4>${t.title}</h4></div>
+    <ul>${t.items.map(it=>`<li><i class="fa-solid ${t.warn?'fa-xmark':'fa-circle'}"></i><span>${it}</span></li>`).join('')}</ul>`;
+  tatibGrid.appendChild(card);
+});
+
+/* ============ BUILD: GOLDEN RULES CAROUSEL ============ */
+let goldIdx = 0;
+const goldNav = document.getElementById('goldNav');
+goldenRules.forEach((_,i)=>{
+  const dot = document.createElement('button');
+  dot.className='gold-dot'+(i===0?' active':'');
+  dot.onclick=()=>{ goldIdx=i; renderGold(); };
+  goldNav.appendChild(dot);
+});
+function renderGold(){
+  document.getElementById('goldNum').textContent = String(goldIdx+1).padStart(2,'0');
+  document.getElementById('goldText').textContent = goldenRules[goldIdx];
+  document.querySelectorAll('.gold-dot').forEach((d,i)=>d.classList.toggle('active', i===goldIdx));
+}
+function goldStep(dir){
+  goldIdx = (goldIdx + dir + goldenRules.length) % goldenRules.length;
+  renderGold();
+}
+
+/* ============ DECK NAVIGATION ============ */
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+let current = 0;
+const islandsWrap = document.getElementById('islands');
+slides.forEach((_,i)=>{
+  const b = document.createElement('button');
+  b.className='island'+(i===0?' active':'');
+  b.onclick=()=>goTo(i);
+  islandsWrap.appendChild(b);
+});
+document.getElementById('counterAll').textContent = total;
+
+function render(){
+  slides.forEach((s,i)=>s.classList.toggle('active', i===current));
+  document.querySelectorAll('.island').forEach((d,i)=>d.classList.toggle('active', i===current));
+  document.getElementById('counterNow').textContent = current+1;
+  document.getElementById('progressFill').style.width = ((current+1)/total*100)+'%';
+}
+function goTo(i){ current = Math.max(0, Math.min(total-1, i)); render(); }
+function nextSlide(){ goTo(current+1); }
+function prevSlide(){ goTo(current-1); }
+
+window.addEventListener('keydown', (e)=>{
+  if(e.key==='ArrowRight' || e.key===' ') nextSlide();
+  if(e.key==='ArrowLeft') prevSlide();
+});
+
+let touchStartX = 0;
+document.addEventListener('touchstart', e=> touchStartX = e.touches[0].clientX);
+document.addEventListener('touchend', e=>{
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  if(Math.abs(dx) > 50){ dx < 0 ? nextSlide() : prevSlide(); }
+});
+
+render();
+renderGold();
+
+/* ============ INTERAKTIF: RIPPLE GELOMBANG AIR SAAT TAP/KLIK ============ */
+function spawnRipple(x, y){
+  const r = document.createElement('div');
+  r.className = 'ripple';
+  r.style.left = x + 'px';
+  r.style.top = y + 'px';
+  document.body.appendChild(r);
+  r.addEventListener('animationend', () => r.remove());
+}
+document.getElementById('deck').addEventListener('click', (e) => spawnRipple(e.clientX, e.clientY));
+
+</script>
+</body>
+</html>

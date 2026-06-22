@@ -1,79 +1,547 @@
+/* ═══════════════════════════════════════════════════
+   CURRICULUM OS — App Core v2.0
+   Aquamorphic Edition
+═══════════════════════════════════════════════════ */
+
+// ─── Auth Config (ganti password di sini) ───
+const AUTH_CONFIG = {
+  username: 'admin',
+  password: 'maicn2025',
+  displayName: 'Waka Kurikulum'
+};
+
+// ─── Utilities ───
 window.AppUtils = {
-  // CountUp animation
-  countUp: (el) => {
+  countUp(el) {
     const target = parseInt(el.getAttribute('data-target'), 10) || 0;
-    const duration = 2000;
+    const duration = 1800;
     const start = performance.now();
-    
-    const animate = (time) => {
-      let progress = (time - start) / duration;
-      if (progress > 1) progress = 1;
-      // ease out cubic
-      const ease = 1 - Math.pow(1 - progress, 3);
-      const current = Math.floor(target * ease);
-      el.textContent = current;
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      } else {
-        el.textContent = target; // Ensure exact finish
-      }
+    const tick = (now) => {
+      const p = Math.min((now - start) / duration, 1);
+      const ease = 1 - Math.pow(1 - p, 4);
+      el.textContent = Math.floor(target * ease);
+      if (p < 1) requestAnimationFrame(tick);
+      else el.textContent = target;
     };
-    requestAnimationFrame(animate);
+    requestAnimationFrame(tick);
   },
 
-  // Generic Modal Control
-  openModal: (id) => {
-    const m = document.getElementById(id);
-    if(m) m.classList.add('active');
+  openModal(id)  { document.getElementById(id)?.classList.add('active'); },
+  closeModal(id) { document.getElementById(id)?.classList.remove('active'); },
+
+  toast(msg, dur = 2800) {
+    let t = document.getElementById('toast');
+    if (!t) {
+      t = document.createElement('div');
+      t.id = 'toast';
+      document.body.appendChild(t);
+    }
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => t.classList.remove('show'), dur);
   },
-  closeModal: (id) => {
-    const m = document.getElementById(id);
-    if(m) m.classList.remove('active');
+
+  formatDate(d = new Date()) {
+    const days   = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+    const months = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Ags','Sep','Okt','Nov','Des'];
+    return `${days[d.getDay()]}, ${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+  },
+
+  formatTime(d = new Date()) {
+    return d.toLocaleTimeString('id-ID', { hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:false });
   }
 };
 
-document.addEventListener('DOMContentLoaded', () => {
-  // 1. Navbar Scroll Effect
-  const navbar = document.getElementById('navbar');
-  if(navbar) {
+// ─── Auth Module ───
+const Auth = {
+  SESSION_KEY: 'curriculum_session',
+
+  isLoggedIn() {
+    try { return !!JSON.parse(sessionStorage.getItem(this.SESSION_KEY)); }
+    catch { return false; }
+  },
+
+  login(user, pass) {
+    if (user === AUTH_CONFIG.username && pass === AUTH_CONFIG.password) {
+      sessionStorage.setItem(this.SESSION_KEY, JSON.stringify({ user, name: AUTH_CONFIG.displayName, ts: Date.now() }));
+      return true;
+    }
+    return false;
+  },
+
+  logout() {
+    sessionStorage.removeItem(this.SESSION_KEY);
+  },
+
+  getUser() {
+    try { return JSON.parse(sessionStorage.getItem(this.SESSION_KEY)); }
+    catch { return null; }
+  }
+};
+
+// ─── Comments Module ───
+const Comments = {
+  KEY: 'curriculum_comments',
+
+  load() {
+    try { return JSON.parse(localStorage.getItem(this.KEY)) || []; }
+    catch { return []; }
+  },
+
+  save(list) {
+    localStorage.setItem(this.KEY, JSON.stringify(list));
+  },
+
+  add(name, role, text) {
+    const list = this.load();
+    list.unshift({
+      id: Date.now(),
+      name: name.trim(),
+      role,
+      text: text.trim(),
+      ts: new Date().toLocaleString('id-ID', { dateStyle:'short', timeStyle:'short' })
+    });
+    if (list.length > 50) list.length = 50;
+    this.save(list);
+    return list;
+  },
+
+  delete(id) {
+    const list = this.load().filter(c => c.id !== id);
+    this.save(list);
+    return list;
+  },
+
+  render(list, container, isAdmin = false) {
+    if (!container) return;
+    if (!list.length) {
+      container.innerHTML = '<div class="comment-empty">✦ Belum ada komentar. Jadilah yang pertama berbagi kesan!</div>';
+      return;
+    }
+    const roleLabel = { guru:'Guru', siswa:'Siswa', 'orang-tua':'Orang Tua', lainnya:'Lainnya' };
+    container.innerHTML = list.map(c => `
+      <div class="comment-item" data-id="${c.id}">
+        <div class="comment-header">
+          <div>
+            <span class="comment-name">${escHtml(c.name)}</span>
+            <span class="comment-role role-${c.role}">${roleLabel[c.role] || c.role}</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span class="comment-time">${c.ts}</span>
+            ${isAdmin ? `<button class="btn btn-sm btn-danger" onclick="AppUtils.deleteComment(${c.id})">Hapus</button>` : ''}
+          </div>
+        </div>
+        <div class="comment-text">${escHtml(c.text)}</div>
+      </div>
+    `).join('');
+  }
+};
+
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+AppUtils.deleteComment = function(id) {
+  if (!Auth.isLoggedIn()) return;
+  const list = Comments.delete(id);
+  const container = document.getElementById('comment-list');
+  if (container) Comments.render(list, container, true);
+  AppUtils.toast('Komentar dihapus');
+};
+
+// ─── Embeds Module ───
+const Embeds = {
+  KEY: 'curriculum_embeds',
+
+  load() {
+    try { return JSON.parse(localStorage.getItem(this.KEY)) || []; }
+    catch { return []; }
+  },
+
+  save(list) { localStorage.setItem(this.KEY, JSON.stringify(list)); },
+
+  add(title, url, category) {
+    const list = this.load();
+    list.push({ id: Date.now(), title: title.trim(), url: url.trim(), category, ts: Date.now() });
+    this.save(list);
+    return list;
+  },
+
+  delete(id) {
+    const list = this.load().filter(e => e.id !== id);
+    this.save(list);
+    return list;
+  }
+};
+
+// ─── Seed Comments (selalu terlihat publik) ───
+const SEED_COMMENTS = [
+  { id:-1, name:'Bapak Ahmad Fauzi', role:'guru', text:'Alhamdulillah, portal kurikulum ini sangat membantu kami para guru untuk memahami alur pembelajaran sepanjang tahun. Desainnya pun nyaman dilihat. Semoga terus berkembang!', ts:'15/06/2026, 08.30' },
+  { id:-2, name:'Siti Rahmawati', role:'orang-tua', text:'Sebagai orang tua, saya merasa terbantu sekali bisa melihat kalender akademik secara lengkap. Terima kasih MA ICN sudah transparan dalam menyajikan informasi ini.', ts:'17/06/2026, 14.12' },
+  { id:-3, name:'Farhan Al-Ghifari', role:'siswa', text:'Kak, portal ini keren banget! Bisa cek jadwal STS dan SAS dari jauh hari. Desainnya juga modern, betah buka dari HP 👍', ts:'20/06/2026, 19.45' },
+];
+
+// ─── Loading Screen ───
+function initLoadingScreen() {
+  const screen = document.getElementById('loading-screen');
+  if (!screen) return;
+  const delay = 1600;
+  setTimeout(() => screen.classList.add('hidden'), delay);
+}
+
+// ─── Floating Clock ───
+function initClock() {
+  const clockEl = document.getElementById('floating-clock');
+  if (!clockEl) return;
+  const timeEl = clockEl.querySelector('.clock-time');
+  const dateEl = clockEl.querySelector('.clock-date');
+
+  const tick = () => {
+    const now = new Date();
+    if (timeEl) timeEl.innerHTML = `<span class="clock-dot"></span>${AppUtils.formatTime(now)}`;
+    if (dateEl) dateEl.textContent = AppUtils.formatDate(now);
+  };
+  tick();
+  setInterval(tick, 1000);
+}
+
+// ─── Navbar ───
+function initNavbar() {
+  const navbar  = document.getElementById('navbar');
+  const toggle  = document.getElementById('nav-toggle');
+  const links   = document.getElementById('nav-links');
+  const loginBtn = document.getElementById('btn-login-nav');
+
+  if (navbar) {
     window.addEventListener('scroll', () => {
-      if(window.scrollY > 20) {
-        navbar.classList.add('scrolled');
+      navbar.classList.toggle('scrolled', window.scrollY > 30);
+    });
+  }
+
+  if (toggle && links) {
+    toggle.addEventListener('click', () => links.classList.toggle('show'));
+    document.addEventListener('click', (e) => {
+      if (!navbar?.contains(e.target)) links.classList.remove('show');
+    });
+  }
+
+  updateAuthUI();
+
+  if (loginBtn) {
+    loginBtn.addEventListener('click', () => {
+      if (Auth.isLoggedIn()) {
+        showAdminPanel();
       } else {
-        navbar.classList.remove('scrolled');
+        AppUtils.openModal('modal-login');
       }
     });
   }
+}
 
-  // 2. Mobile Nav Toggle
-  const navToggle = document.getElementById('nav-toggle');
-  const navLinks = document.getElementById('nav-links');
-  if(navToggle && navLinks) {
-    navToggle.addEventListener('click', () => {
-      navLinks.classList.toggle('show');
-    });
+function updateAuthUI() {
+  const loginBtn = document.getElementById('btn-login-nav');
+  const adminSection = document.getElementById('admin-section');
+  if (!loginBtn) return;
+
+  if (Auth.isLoggedIn()) {
+    const user = Auth.getUser();
+    loginBtn.textContent = `⚙ ${user?.name || 'Admin'}`;
+    loginBtn.classList.add('logged-in');
+    if (adminSection) adminSection.classList.add('show');
+  } else {
+    loginBtn.textContent = 'Masuk';
+    loginBtn.classList.remove('logged-in');
+    if (adminSection) adminSection.classList.remove('show');
   }
+}
 
-  // 3. Scroll Reveal Animations (Intersection Observer)
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver((entries, obs) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-          
-          // Trigger countUp if it's a stat number
-          if(entry.target.classList.contains('stat-num') && !entry.target.hasAttribute('data-counted')) {
-            entry.target.setAttribute('data-counted', 'true');
-            window.AppUtils.countUp(entry.target);
-          }
+// ─── Login Modal ───
+function initLoginModal() {
+  const form  = document.getElementById('login-form');
+  const errEl = document.getElementById('login-error');
 
-          obs.unobserve(entry.target);
+  if (!form) return;
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const user = document.getElementById('login-user').value;
+    const pass = document.getElementById('login-pass').value;
+
+    if (Auth.login(user, pass)) {
+      AppUtils.closeModal('modal-login');
+      form.reset();
+      if (errEl) errEl.classList.remove('show');
+      updateAuthUI();
+      renderAdminEmbeds();
+      refreshComments();
+      AppUtils.toast(`Selamat datang, ${Auth.getUser()?.name}! 👋`);
+    } else {
+      if (errEl) { errEl.textContent = 'Username atau password salah.'; errEl.classList.add('show'); }
+    }
+  });
+
+  document.getElementById('btn-logout')?.addEventListener('click', () => {
+    Auth.logout();
+    updateAuthUI();
+    refreshComments();
+    AppUtils.closeModal('modal-admin');
+    AppUtils.toast('Berhasil keluar.');
+  });
+}
+
+// ─── Admin Panel ───
+function showAdminPanel() {
+  AppUtils.openModal('modal-admin');
+  renderAdminEmbeds();
+}
+
+function initAdminTabs() {
+  document.querySelectorAll('.admin-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.admin-panel-content').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      const target = tab.dataset.tab;
+      document.getElementById(`panel-${target}`)?.classList.add('active');
+    });
+  });
+}
+
+function renderAdminEmbeds() {
+  const list = Embeds.load();
+  const container = document.getElementById('embed-list-admin');
+  if (!container) return;
+  if (!list.length) {
+    container.innerHTML = '<div class="comment-empty">Belum ada tautan tertanam.</div>';
+    return;
+  }
+  container.innerHTML = list.map(e => `
+    <div class="embed-item">
+      <div class="embed-item-info">
+        <div class="embed-item-title">${escHtml(e.title)}</div>
+        <div class="embed-item-url">${escHtml(e.url)}</div>
+      </div>
+      <div class="embed-item-actions">
+        <button class="btn btn-sm btn-danger" onclick="deleteEmbed(${e.id})">Hapus</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+window.deleteEmbed = function(id) {
+  Embeds.delete(id);
+  renderAdminEmbeds();
+  AppUtils.toast('Tautan dihapus.');
+};
+
+function initEmbedForm() {
+  const form = document.getElementById('embed-form');
+  if (!form) return;
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const title    = document.getElementById('embed-title').value;
+    const url      = document.getElementById('embed-url').value;
+    const category = document.getElementById('embed-category').value;
+    if (!title || !url) return;
+    Embeds.add(title, url, category);
+    form.reset();
+    renderAdminEmbeds();
+    AppUtils.toast('Tautan berhasil ditambahkan!');
+  });
+}
+
+// ─── Comments ───
+function initCommentForm() {
+  const form = document.getElementById('comment-form');
+  if (!form) return;
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('comment-name').value;
+    const role = document.getElementById('comment-role').value;
+    const text = document.getElementById('comment-text').value;
+    if (!name || !text) return;
+    const list = Comments.add(name, role, text);
+    form.reset();
+    const container = document.getElementById('comment-list');
+    Comments.render(list, container, Auth.isLoggedIn());
+    AppUtils.toast('Terima kasih atas komentarnya! ✨');
+  });
+}
+
+function refreshComments() {
+  const container = document.getElementById('comment-list');
+  if (!container) return;
+  const userComments = Comments.load();
+  // Merge: seed first (always visible), then user comments on top
+  const all = [...userComments, ...SEED_COMMENTS];
+  Comments.render(all, container, Auth.isLoggedIn());
+}
+
+// ─── Scroll Reveal ───
+function initScrollReveal() {
+  if (!('IntersectionObserver' in window)) {
+    document.querySelectorAll('.animate-up').forEach(el => el.classList.add('in-view'));
+    return;
+  }
+  const obs = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        if (entry.target.classList.contains('stat-num') && !entry.target.dataset.counted) {
+          entry.target.dataset.counted = 'true';
+          AppUtils.countUp(entry.target);
         }
-      });
-    }, { rootMargin: '0px 0px -50px 0px', threshold: 0.1 });
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { rootMargin: '0px 0px -40px 0px', threshold: 0.08 });
 
-    document.querySelectorAll('.animate-up, .stat-num').forEach(el => {
-      observer.observe(el);
+  document.querySelectorAll('.animate-up, .stat-num').forEach(el => obs.observe(el));
+}
+
+// ─── Close modals on backdrop click ───
+function initModalBackdrop() {
+  document.querySelectorAll('.modal-overlay').forEach(overlay => {
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) overlay.classList.remove('active');
+    });
+  });
+}
+
+// ─── Hero Parallax ───
+function initHeroParallax() {
+  const hero = document.querySelector('.hero');
+  const heroBg = document.querySelector('.hero-bg-img');
+  const heroInner = document.querySelector('.hero-inner');
+  if (!hero) return;
+
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    const h = hero.offsetHeight;
+    const progress = Math.min(y / h, 1);
+
+    if (heroBg) heroBg.style.transform = `scale(${1.05 + progress * 0.06}) translateY(${y * 0.25}px)`;
+    if (heroInner) {
+      heroInner.style.transform = `translateY(${y * 0.15}px)`;
+      heroInner.style.opacity = 1 - progress * 1.4;
+    }
+  }, { passive: true });
+}
+
+// ─── Theme Switcher ───
+const THEMES = {
+  forest: { primary:'#1A4731', light:'#2D6A4F', dark:'#0E2E1F', aqua:'#2EC4B6', aquaDeep:'#0A8F85', bg:'linear-gradient(135deg,#dff0e8 0%,#e8f4f0 40%,#eaf3f6 70%,#e0eff5 100%)' },
+  ocean:  { primary:'#0C4A6E', light:'#0369A1', dark:'#072F44', aqua:'#22D3EE', aquaDeep:'#0891B2', bg:'linear-gradient(135deg,#dbeafe 0%,#e0f2fe 50%,#ecfeff 100%)' },
+  royal:  { primary:'#4C1D95', light:'#6D28D9', dark:'#2E1065', aqua:'#A78BFA', aquaDeep:'#7C3AED', bg:'linear-gradient(135deg,#ede9fe 0%,#f3e8ff 50%,#faf5ff 100%)' },
+  earth:  { primary:'#78350F', light:'#B45309', dark:'#451A03', aqua:'#F59E0B', aquaDeep:'#D97706', bg:'linear-gradient(135deg,#fef3c7 0%,#fde68a 10%,#fef9ec 50%,#fff7ed 100%)' },
+};
+
+function applyTheme(name) {
+  const t = THEMES[name];
+  if (!t) return;
+  const root = document.documentElement;
+  root.style.setProperty('--primary',      t.primary);
+  root.style.setProperty('--primary-light', t.light);
+  root.style.setProperty('--primary-dark', t.dark);
+  root.style.setProperty('--aqua',         t.aqua);
+  root.style.setProperty('--aqua-deep',    t.aquaDeep);
+  root.style.setProperty('--bg-mesh',      t.bg);
+  localStorage.setItem('curriculum_theme', name);
+  document.querySelectorAll('.theme-dot').forEach(d => d.classList.toggle('active', d.dataset.theme === name));
+}
+
+function initThemePanel() {
+  const btn = document.getElementById('theme-panel-btn');
+  const panel = document.getElementById('theme-panel');
+  if (!btn || !panel) return;
+
+  btn.addEventListener('click', (e) => { e.stopPropagation(); panel.classList.toggle('open'); });
+  document.addEventListener('click', (e) => { if (!panel.contains(e.target) && e.target !== btn) panel.classList.remove('open'); });
+
+  document.querySelectorAll('.theme-dot').forEach(dot => {
+    dot.addEventListener('click', () => applyTheme(dot.dataset.theme));
+  });
+
+  const slider = document.getElementById('glass-slider');
+  if (slider) {
+    slider.addEventListener('input', () => {
+      const v = slider.value / 100;
+      document.documentElement.style.setProperty('--glass-card', `rgba(255,255,255,${v})`);
+      document.documentElement.style.setProperty('--glass-white', `rgba(255,255,255,${Math.min(v + 0.15, 0.97)})`);
+      document.getElementById('glass-val').textContent = slider.value + '%';
     });
   }
+
+  // Restore saved theme
+  const saved = localStorage.getItem('curriculum_theme');
+  if (saved && THEMES[saved]) applyTheme(saved);
+}
+
+// ─── Init ───
+document.addEventListener('DOMContentLoaded', () => {
+  initLoadingScreen();
+  initClock();
+  initNavbar();
+  initLoginModal();
+  initAdminTabs();
+  initEmbedForm();
+  initCommentForm();
+  initScrollReveal();
+  initModalBackdrop();
+  initHeroParallax();
+  initThemePanel();
+  refreshComments();
+  initWaterEffects();
+
+  // Close modal buttons
+  document.querySelectorAll('[data-close-modal]').forEach(btn => {
+    btn.addEventListener('click', () => AppUtils.closeModal(btn.dataset.closeModal));
+  });
 });
+
+/* ── Water / Ripple Effects ── */
+function initWaterEffects() {
+  const RIPPLE_COLORS = [
+    'rgba(46,196,182,',
+    'rgba(26,71,49,',
+    'rgba(201,162,39,',
+  ];
+  let dropThrottle = 0;
+
+  document.addEventListener('click', e => {
+    createRipple(e.clientX, e.clientY, 120 + Math.random() * 80, RIPPLE_COLORS[0]);
+    createRipple(e.clientX, e.clientY, 60 + Math.random() * 40, RIPPLE_COLORS[1], 80);
+  });
+
+  document.addEventListener('mousemove', e => {
+    const now = Date.now();
+    if (now - dropThrottle < 40) return;
+    dropThrottle = now;
+    if (Math.random() > 0.45) return;
+    createDrop(e.clientX, e.clientY);
+  });
+
+  function createRipple(x, y, size, colorBase, delay = 0) {
+    const el = document.createElement('div');
+    el.className = 'water-ripple';
+    el.style.cssText = `
+      left:${x - size/2}px; top:${y - size/2}px;
+      width:${size}px; height:${size}px;
+      border: 2px solid ${colorBase}0.5);
+      background: radial-gradient(circle, ${colorBase}0.06) 0%, transparent 70%);
+      animation-delay:${delay}ms;
+    `;
+    document.body.appendChild(el);
+    el.addEventListener('animationend', () => el.remove());
+  }
+
+  function createDrop(x, y) {
+    const el = document.createElement('div');
+    el.className = 'water-drop';
+    const offset = (Math.random() - 0.5) * 20;
+    el.style.cssText = `left:${x + offset - 3}px; top:${y + offset - 3}px;`;
+    document.body.appendChild(el);
+    el.addEventListener('animationend', () => el.remove());
+  }
+}

@@ -2592,200 +2592,256 @@
  ],
  "program_tahunan": [
   {
+   "no": 1,
    "bulan": "Juni 2026",
-   "kegiatan": "Kedatangan & Penyambutan Peserta Didik Baru",
-   "penanggung_jawab": "Waka Kesiswaan + TU",
+   "program": "Kedatangan & Penyambutan Peserta Didik Baru (Indo. Timur & Reguler)",
+   "pj": "Waka Kesiswaan + TU",
    "waktu": "20–21 Jun; 4–5 Jul 2026",
-   "status": "Terlaksana"
+   "status": "Terlaksana",
+   "keterangan": "Koordinasi dengan Boarding"
   },
   {
+   "no": 2,
    "bulan": "Juni–Juli 2026",
-   "kegiatan": "Matrikulasi Tahap I – Pra-Tes, KBM, Pasca-Tes",
-   "penanggung_jawab": "Waka Kurikulum + Tim Guru",
+   "program": "Matrikulasi Tahap I – Pra-Tes, KBM Matrikulasi, Pasca-Tes",
+   "pj": "Waka Kurikulum + Tim Guru",
    "waktu": "22 Jun – 3 Jul 2026",
-   "status": "Terlaksana"
+   "status": "Terlaksana",
+   "keterangan": "Berbasis Buku Kerja 2"
   },
   {
+   "no": 3,
    "bulan": "Juli 2026",
-   "kegiatan": "MATSAMA (Masa Ta'aruf Murid Madrasah)",
-   "penanggung_jawab": "Waka Kesiswaan + OSIM",
-   "waktu": "6–10 Jul 2026",
-   "status": "Terlaksana"
+   "program": "MATSAMA (Masa Ta'aruf Murid Madrasah)",
+   "pj": "Waka Kesiswaan + OSIM",
+   "waktu": "6–8 Jul 2026",
+   "status": "Terlaksana",
+   "keterangan": "3 hari penuh"
   },
   {
+   "no": 4,
    "bulan": "Juli 2026",
-   "kegiatan": "Matrikulasi Reguler – Pra-Tes (13 Jul), KBM (14–23 Jul), Pasca-Tes (24 Jul)",
-   "penanggung_jawab": "Waka Kurikulum + Tim Guru",
-   "waktu": "13–24 Jul 2026",
-   "status": "Terlaksana"
+   "program": "Matrikulasi Tahap II – Pra-Tes, KBM Matrikulasi, Pasca-Tes",
+   "pj": "Waka Kurikulum + Tim Guru",
+   "waktu": "9–17 Jul 2026",
+   "status": "Terlaksana",
+   "keterangan": "Setelah MATSAMA"
   },
   {
+   "no": 5,
    "bulan": "Juli 2026",
-   "kegiatan": "Evaluasi dan Penutupan Program Matrikulasi",
-   "penanggung_jawab": "Waka Kurikulum",
-   "waktu": "24 Jul 2026",
-   "status": "Terlaksana"
+   "program": "Evaluasi dan Penutupan Program Matrikulasi",
+   "pj": "Waka Kurikulum",
+   "waktu": "18 Jul 2026",
+   "status": "Terlaksana",
+   "keterangan": "Dokumen wajib"
   },
   {
+   "no": 6,
    "bulan": "Juli–November 2026",
-   "kegiatan": "Pembelajaran Efektif Semester Ganjil",
-   "penanggung_jawab": "Seluruh Guru + Waka Kurikulum",
-   "waktu": "27 Jul – 27 Nov 2026",
-   "status": "Berlangsung"
+   "program": "Pembelajaran Efektif Semester Ganjil",
+   "pj": "Seluruh Guru + Waka Kurikulum",
+   "waktu": "20 Jul – 27 Nov 2026",
+   "status": "Berlangsung",
+   "keterangan": "Kurikulum Merdeka Fase E"
   },
   {
+   "no": 7,
    "bulan": "Agustus 2026",
-   "kegiatan": "Pembentukan & Pelaksanaan Ekstrakurikuler & KBS",
-   "penanggung_jawab": "Waka Kesiswaan + Pembina",
+   "program": "Pembentukan dan Pelaksanaan Ekstrakurikuler & KBS",
+   "pj": "Waka Kesiswaan + Pembina Ekskul",
    "waktu": "Mulai 27 Jul 2026",
-   "status": "Berlangsung"
+   "status": "Berlangsung",
+   "keterangan": "Jadwal Sabtu & jam 16.00"
   },
   {
+   "no": 8,
    "bulan": "September 2026",
-   "kegiatan": "Sumatif Tengah Semester (STS) Ganjil",
-   "penanggung_jawab": "Waka Kurikulum + Tim Guru",
+   "program": "Sumatif Tengah Semester (STS) Ganjil",
+   "pj": "Waka Kurikulum + Tim Guru",
    "waktu": "21–25 Sep 2026",
-   "status": "Terjadwal"
+   "status": "Terjadwal",
+   "keterangan": "5 hari kerja"
   },
   {
+   "no": 9,
    "bulan": "Oktober 2026",
-   "kegiatan": "Bulan Bahasa – Puncak Lomba Trilingual",
-   "penanggung_jawab": "Waka Kurikulum + Guru Bahasa",
+   "program": "Bulan Bahasa – Puncak Lomba Trilingual",
+   "pj": "Waka Kurikulum + Guru Bahasa",
    "waktu": "5–31 Okt 2026",
-   "status": "Terjadwal"
+   "status": "Terjadwal",
+   "keterangan": "Puncak 31 Okt"
   },
   {
+   "no": 10,
    "bulan": "Oktober 2026",
-   "kegiatan": "Hari Santri Nasional – Acara Keasramaan",
-   "penanggung_jawab": "Waka Kesiswaan + Boarding",
+   "program": "Hari Santri Nasional – Acara Keasramaan",
+   "pj": "Waka Kesiswaan + Boarding",
    "waktu": "22 Okt 2026",
-   "status": "Terjadwal"
+   "status": "Terjadwal",
+   "keterangan": "Panitia Khusus"
   },
   {
+   "no": 11,
    "bulan": "November 2026",
-   "kegiatan": "Pekan Muraja'ah Al-Qur'an",
-   "penanggung_jawab": "Guru Tahfidz + Waka Kesiswaan",
+   "program": "Pekan Muraja'ah Al-Qur'an",
+   "pj": "Guru Tahfidz + Waka Kesiswaan",
    "waktu": "16–20 Nov 2026",
-   "status": "Terjadwal"
+   "status": "Terjadwal",
+   "keterangan": ""
   },
   {
+   "no": 12,
    "bulan": "November 2026",
-   "kegiatan": "Ujian Tahfidz Al-Qur'an Semester Ganjil",
-   "penanggung_jawab": "Guru Tahfidz",
+   "program": "Ujian Tahfidz Al-Qur'an Semester Ganjil",
+   "pj": "Guru Tahfidz",
    "waktu": "23–27 Nov 2026",
-   "status": "Terjadwal"
+   "status": "Terjadwal",
+   "keterangan": "Hasil masuk e-Rapor"
   },
   {
+   "no": 13,
    "bulan": "November–Desember 2026",
-   "kegiatan": "Sumatif Akhir Semester (SAS) Ganjil",
-   "penanggung_jawab": "Waka Kurikulum + Tim Guru",
+   "program": "Sumatif Akhir Semester (SAS) Ganjil",
+   "pj": "Waka Kurikulum + Tim Guru",
    "waktu": "30 Nov – 4 Des 2026",
-   "status": "Terjadwal"
+   "status": "Terjadwal",
+   "keterangan": "5 hari kerja"
   },
   {
+   "no": 14,
    "bulan": "Desember 2026",
-   "kegiatan": "Remedial dan Pengayaan Semester Ganjil",
-   "penanggung_jawab": "Tim Guru",
+   "program": "Remedial dan Pengayaan Semester Ganjil",
+   "pj": "Tim Guru",
    "waktu": "7–11 Des 2026",
-   "status": "Terjadwal"
+   "status": "Terjadwal",
+   "keterangan": ""
   },
   {
+   "no": 15,
    "bulan": "Desember 2026",
-   "kegiatan": "Class Meeting & Haflah Taqrim Semester Ganjil",
-   "penanggung_jawab": "Waka Kesiswaan + Panitia",
+   "program": "Class Meeting & Haflah Taqrim Semester Ganjil",
+   "pj": "Waka Kesiswaan + Panitia",
    "waktu": "14–17 Des 2026",
-   "status": "Terjadwal"
+   "status": "Terjadwal",
+   "keterangan": "ICN Haflah Taqrim"
   },
   {
+   "no": 16,
    "bulan": "Desember 2026",
-   "kegiatan": "Pembagian Rapor Semester Ganjil",
-   "penanggung_jawab": "Waka Kurikulum + Wali Kelas",
+   "program": "Pembagian Buku Laporan Hasil Belajar (Rapor) Semester Ganjil",
+   "pj": "Waka Kurikulum + Wali Kelas",
    "waktu": "18 Des 2026",
-   "status": "Terjadwal"
+   "status": "Terjadwal",
+   "keterangan": "Dokumen akreditasi"
   },
   {
+   "no": 17,
    "bulan": "Januari 2027",
-   "kegiatan": "Awal Masuk Semester Genap – Upacara Bendera",
-   "penanggung_jawab": "Kepala Madrasah + Waka",
+   "program": "Awal Masuk Semester Genap – Upacara Bendera",
+   "pj": "Kepala Madrasah + Waka",
    "waktu": "4 Jan 2027",
-   "status": "Terjadwal"
+   "status": "Terjadwal",
+   "keterangan": ""
   },
   {
+   "no": 18,
    "bulan": "Januari 2027",
-   "kegiatan": "Pembelajaran Efektif Semester Genap",
-   "penanggung_jawab": "Seluruh Guru + Waka Kurikulum",
+   "program": "Pembelajaran Efektif Semester Genap",
+   "pj": "Seluruh Guru + Waka Kurikulum",
    "waktu": "4 Jan – 28 Mei 2027",
-   "status": "Terjadwal"
+   "status": "Terjadwal",
+   "keterangan": ""
   },
   {
+   "no": 19,
    "bulan": "Januari 2027",
-   "kegiatan": "Pekan Lomba SARL – Sains, Art, Sport, Religion & Language",
-   "penanggung_jawab": "Waka Kesiswaan + Panitia",
+   "program": "Pekan Lomba SARL – Sains, Art, Sport, Religion & Language",
+   "pj": "Waka Kesiswaan + Panitia",
    "waktu": "25–29 Jan 2027",
-   "status": "Terjadwal"
+   "status": "Terjadwal",
+   "keterangan": "Program Unggulan MA ICN"
   },
   {
+   "no": 20,
    "bulan": "Februari 2027",
-   "kegiatan": "Program Ramadan – Syahrun Ma'al Qur'an & Sanlat",
-   "penanggung_jawab": "Waka Kurikulum + Guru Agama",
-   "waktu": "11–26 Feb 2027",
-   "status": "Terjadwal"
+   "program": "Program Ramadan – Syahrun Ma'al Qur'an & Sanlat",
+   "pj": "Waka Kurikulum + Guru Agama",
+   "waktu": "11 Feb – 26 Feb 2027",
+   "status": "Terjadwal",
+   "keterangan": "Sesuai 1 Ramadan 1448 H"
   },
   {
+   "no": 21,
    "bulan": "Maret 2027",
-   "kegiatan": "Sumatif Tengah Semester (STS) Genap",
-   "penanggung_jawab": "Waka Kurikulum + Tim Guru",
+   "program": "Sumatif Tengah Semester (STS) Genap",
+   "pj": "Waka Kurikulum + Tim Guru",
    "waktu": "1–5 Mar 2027",
-   "status": "Terjadwal"
+   "status": "Terjadwal",
+   "keterangan": "5 hari kerja"
   },
   {
+   "no": 22,
    "bulan": "April 2027",
-   "kegiatan": "Hari Kartini & Hari Bumi – Kegiatan Tematik",
-   "penanggung_jawab": "Waka Kesiswaan + Guru Mapel",
+   "program": "Hari Kartini & Hari Bumi – Kegiatan Tematik",
+   "pj": "Waka Kesiswaan + Guru Mapel",
    "waktu": "21–22 Apr 2027",
-   "status": "Terjadwal"
+   "status": "Terjadwal",
+   "keterangan": "Pilihan format kegiatan"
   },
   {
+   "no": 23,
    "bulan": "Mei 2027",
-   "kegiatan": "Rihlah Ilmiah (Tentatif)",
-   "penanggung_jawab": "Waka Kesiswaan + Panitia",
+   "program": "Rihlah Ilmiah (Tentatif)",
+   "pj": "Waka Kesiswaan + Panitia",
    "waktu": "4–7 Mei 2027",
-   "status": "Tentatif"
+   "status": "Tentatif",
+   "keterangan": "Konsep dispensasi/sebagian"
   },
   {
+   "no": 24,
    "bulan": "Mei 2027",
-   "kegiatan": "Sumatif Akhir Semester (SAS) Genap",
-   "penanggung_jawab": "Waka Kurikulum + Tim Guru",
+   "program": "Sumatif Akhir Semester (SAS) Genap",
+   "pj": "Waka Kurikulum + Tim Guru",
    "waktu": "31 Mei – 4 Jun 2027",
-   "status": "Terjadwal"
+   "status": "Terjadwal",
+   "keterangan": ""
   },
   {
+   "no": 25,
    "bulan": "Juni 2027",
-   "kegiatan": "Remedial dan Pengayaan Semester Genap",
-   "penanggung_jawab": "Tim Guru",
+   "program": "Remedial dan Pengayaan Semester Genap",
+   "pj": "Tim Guru",
    "waktu": "8–11 Jun 2027",
-   "status": "Terjadwal"
+   "status": "Terjadwal",
+   "keterangan": ""
   },
   {
+   "no": 26,
    "bulan": "Juni 2027",
-   "kegiatan": "Class Meeting & Panggung Gembira Akhir Tahun",
-   "penanggung_jawab": "Waka Kesiswaan + Panitia",
+   "program": "Class Meeting & Panggung Gembira Akhir Tahun",
+   "pj": "Waka Kesiswaan + Panitia",
    "waktu": "14–17 Jun 2027",
-   "status": "Terjadwal"
+   "status": "Terjadwal",
+   "keterangan": "Penutup TP 2026/2027"
   },
   {
+   "no": 27,
    "bulan": "Juni 2027",
-   "kegiatan": "Pembagian Rapor Akhir Tahun",
-   "penanggung_jawab": "Waka Kurikulum + Wali Kelas",
+   "program": "Pembagian Buku Laporan Hasil Belajar (Rapor) Akhir Tahun",
+   "pj": "Waka Kurikulum + Wali Kelas",
    "waktu": "18 Jun 2027",
-   "status": "Terjadwal"
+   "status": "Terjadwal",
+   "keterangan": "Dokumen akreditasi"
   },
   {
+   "no": 28,
    "bulan": "Juni–Juli 2027",
-   "kegiatan": "Libur Akhir Tahun Pelajaran 2026/2027",
-   "penanggung_jawab": "—",
+   "program": "Libur Akhir Tahun Pelajaran 2026/2027",
+   "pj": "—",
    "waktu": "19 Jun – 10 Jul 2027",
-   "status": "Terjadwal"
+   "status": "Terjadwal",
+   "keterangan": "Rihlah Guru 19–20 Jun"
   }
  ],
  "program_semester": {
@@ -2949,126 +3005,460 @@
   ]
  },
  "jadwal_harian": {
-  "durasi_jp_menit": 45,
-  "senin_kamis": {
-   "total_jp": 10,
-   "slot": [
-    [
-     "07.00–07.45",
-     "JP 1"
-    ],
-    [
-     "07.45–08.30",
-     "JP 2"
-    ],
-    [
-     "08.30–09.15",
-     "JP 3"
-    ],
-    [
-     "09.15–09.30",
-     "Istirahat 1 — Shalat Dhuha & Snack Pagi"
-    ],
-    [
-     "09.30–10.15",
-     "JP 4"
-    ],
-    [
-     "10.15–11.00",
-     "JP 5"
-    ],
-    [
-     "11.00–11.45",
-     "JP 6"
-    ],
-    [
-     "11.45–12.45",
-     "Istirahat 2 (Ishoma) — Makan Siang & Dzuhur Berjamaah"
-    ],
-    [
-     "12.45–13.30",
-     "JP 7"
-    ],
-    [
-     "13.30–14.15",
-     "JP 8"
-    ],
-    [
-     "14.15–15.00",
-     "JP 9"
-    ],
-    [
-     "15.00–15.45",
-     "JP 10"
-    ],
-    [
-     "15.45–16.00",
-     "Shalat Ashar Berjamaah"
-    ],
-    [
-     "16.00",
-     "KBM Formal Selesai"
-    ]
-   ]
-  },
-  "jumat": {
-   "total_jp": 8,
-   "slot": [
-    [
-     "07.00–07.30",
-     "Kultum Jumat"
-    ],
-    [
-     "07.30–08.15",
-     "JP 1"
-    ],
-    [
-     "08.15–09.00",
-     "JP 2"
-    ],
-    [
-     "09.00–09.15",
-     "Istirahat 1 — Shalat Dhuha & Snack Pagi"
-    ],
-    [
-     "09.15–10.00",
-     "JP 3"
-    ],
-    [
-     "10.00–10.45",
-     "JP 4"
-    ],
-    [
-     "10.45–11.30",
-     "JP 5"
-    ],
-    [
-     "11.30–13.30",
-     "Istirahat 2 — Shalat Jumat & Ishoma"
-    ],
-    [
-     "13.30–14.15",
-     "JP 6"
-    ],
-    [
-     "14.15–15.00",
-     "JP 7"
-    ],
-    [
-     "15.00–15.45",
-     "JP 8"
-    ],
-    [
-     "15.45–16.00",
-     "Shalat Ashar Berjamaah"
-    ],
-    [
-     "16.00",
-     "KBM Formal Selesai"
-    ]
-   ]
-  },
-  "catatan": "Sen–Kam 10 JP + Jumat 8 JP = 48 JP/minggu. 4 JP kokurikuler di hari Sabtu (sistem boarding)."
+  "senin_kamis": [
+   {
+    "no": 1,
+    "waktu": "03.40 – 05.30",
+    "durasi": "110 menit",
+    "kegiatan": "Bangun Tidur, MCK, Qiyamullail, Tadarus Al-Qur'an, Shalat Subuh Berjamaah, Tahfidz Al-Qur'an",
+    "catatan": "Kegiatan wajib seluruh peserta didik",
+    "status": "Ibadah & Tahfidz"
+   },
+   {
+    "no": 2,
+    "waktu": "05.30 – 06.40",
+    "durasi": "70 menit",
+    "kegiatan": "Makan Pagi dan Persiapan Apel Pagi",
+    "catatan": "Makan sesuai jadwal dapur asrama",
+    "status": "Makan & Persiapan"
+   },
+   {
+    "no": 3,
+    "waktu": "06.40 – 06.55",
+    "durasi": "15 menit",
+    "kegiatan": "Apel Pagi",
+    "catatan": "Pemeriksaan kerapian dan absensi harian",
+    "status": "Kesiswaan"
+   },
+   {
+    "no": 4,
+    "waktu": "07.00 – 07.45",
+    "durasi": "45 menit",
+    "kegiatan": "Jam Pelajaran 1 (JP 1)",
+    "catatan": "KBM reguler",
+    "status": "KBM"
+   },
+   {
+    "no": 5,
+    "waktu": "07.45 – 08.30",
+    "durasi": "45 menit",
+    "kegiatan": "Jam Pelajaran 2 (JP 2)",
+    "catatan": "KBM reguler",
+    "status": "KBM"
+   },
+   {
+    "no": 6,
+    "waktu": "08.30 – 09.15",
+    "durasi": "45 menit",
+    "kegiatan": "Jam Pelajaran 3 (JP 3)",
+    "catatan": "KBM reguler",
+    "status": "KBM"
+   },
+   {
+    "no": 7,
+    "waktu": "09.15 – 09.30",
+    "durasi": "15 menit",
+    "kegiatan": "Istirahat I (Shalat Dhuha & Snack Pagi)",
+    "catatan": "Shalat Dhuha berjamaah di masjid, dilanjutkan snack/jajan kantin",
+    "status": "Ibadah & Istirahat"
+   },
+   {
+    "no": 8,
+    "waktu": "09.30 – 10.15",
+    "durasi": "45 menit",
+    "kegiatan": "Jam Pelajaran 4 (JP 4)",
+    "catatan": "KBM reguler",
+    "status": "KBM"
+   },
+   {
+    "no": 9,
+    "waktu": "10.15 – 11.00",
+    "durasi": "45 menit",
+    "kegiatan": "Jam Pelajaran 5 (JP 5)",
+    "catatan": "KBM reguler",
+    "status": "KBM"
+   },
+   {
+    "no": 10,
+    "waktu": "11.00 – 11.45",
+    "durasi": "45 menit",
+    "kegiatan": "Jam Pelajaran 6 (JP 6)",
+    "catatan": "KBM reguler",
+    "status": "KBM"
+   },
+   {
+    "no": 11,
+    "waktu": "11.45 – 12.45",
+    "durasi": "60 menit",
+    "kegiatan": "Istirahat II, Shalat Dzuhur Berjamaah, dan Makan Siang",
+    "catatan": "Shalat berjamaah di masjid madrasah",
+    "status": "Ibadah & Makan"
+   },
+   {
+    "no": 12,
+    "waktu": "12.45 – 13.30",
+    "durasi": "45 menit",
+    "kegiatan": "Jam Pelajaran 7 (JP 7)",
+    "catatan": "KBM reguler",
+    "status": "KBM"
+   },
+   {
+    "no": 13,
+    "waktu": "13.30 – 14.15",
+    "durasi": "45 menit",
+    "kegiatan": "Jam Pelajaran 8 (JP 8)",
+    "catatan": "KBM reguler",
+    "status": "KBM"
+   },
+   {
+    "no": 14,
+    "waktu": "14.15 – 15.00",
+    "durasi": "45 menit",
+    "kegiatan": "Jam Pelajaran 9 (JP 9)",
+    "catatan": "KBM reguler",
+    "status": "KBM"
+   },
+   {
+    "no": 15,
+    "waktu": "15.00 – 15.45",
+    "durasi": "45 menit",
+    "kegiatan": "Jam Pelajaran 10 (JP 10)",
+    "catatan": "KBM reguler",
+    "status": "KBM"
+   },
+   {
+    "no": 16,
+    "waktu": "15.45 – 16.00",
+    "durasi": "15 menit",
+    "kegiatan": "Shalat Ashar Berjamaah",
+    "catatan": "Berjamaah di masjid madrasah",
+    "status": "Ibadah"
+   },
+   {
+    "no": 17,
+    "waktu": "16.00 – 17.45",
+    "durasi": "105 menit",
+    "kegiatan": "Ekstrakurikuler / Olahraga / Istirahat / MCK / Makan Malam",
+    "catatan": "Sesuai jadwal ekskul masing-masing",
+    "status": "Ekskul & Mandiri"
+   },
+   {
+    "no": 18,
+    "waktu": "17.45 – 18.30",
+    "durasi": "45 menit",
+    "kegiatan": "Persiapan Shalat Maghrib, Tadarus Al-Qur'an, Shalat Maghrib Berjamaah",
+    "catatan": "Berjamaah di masjid madrasah",
+    "status": "Ibadah & Tahfidz"
+   },
+   {
+    "no": 19,
+    "waktu": "18.30 – 19.00",
+    "durasi": "30 menit",
+    "kegiatan": "Kegiatan Belajar Terbimbing I (Bimbingan Pembina)",
+    "catatan": "Dipandu oleh Guru Pembina Asrama",
+    "status": "Belajar Terbimbing"
+   },
+   {
+    "no": 20,
+    "waktu": "19.00 – 20.00",
+    "durasi": "60 menit",
+    "kegiatan": "Shalat Isya Berjamaah & Kegiatan Belajar Terbimbing II",
+    "catatan": "Berjamaah + belajar terbimbing lanjutan",
+    "status": "Ibadah & Belajar"
+   },
+   {
+    "no": 21,
+    "waktu": "20.00 – 22.00",
+    "durasi": "120 menit",
+    "kegiatan": "Belajar Mandiri dan Pembinaan Peserta Didik",
+    "catatan": "Belajar mandiri di kamar / aula belajar",
+    "status": "Belajar Mandiri"
+   },
+   {
+    "no": 22,
+    "waktu": "22.00 – 03.40",
+    "durasi": "340 menit",
+    "kegiatan": "Istirahat Malam",
+    "catatan": "Seluruh lampu kamar dimatikan pukul 22.00",
+    "status": "Istirahat"
+   }
+  ],
+  "jumat": [
+   {
+    "no": 1,
+    "waktu": "03.40 – 05.30",
+    "durasi": "110 menit",
+    "kegiatan": "Bangun Tidur, MCK, Qiyamullail, Tadarus Al-Qur'an, Shalat Subuh Berjamaah, Tahfidz Al-Qur'an",
+    "catatan": "Kegiatan wajib seluruh peserta didik",
+    "status": "Ibadah & Tahfidz"
+   },
+   {
+    "no": 2,
+    "waktu": "05.30 – 06.25",
+    "durasi": "55 menit",
+    "kegiatan": "Makan Pagi dan Persiapan Apel Pagi",
+    "catatan": "Makan sesuai jadwal dapur asrama",
+    "status": "Makan & Persiapan"
+   },
+   {
+    "no": 3,
+    "waktu": "06.25 – 06.40",
+    "durasi": "15 menit",
+    "kegiatan": "Menuju Masjid untuk Shalat Dhuha",
+    "catatan": "Berjamaah di masjid madrasah",
+    "status": "Ibadah"
+   },
+   {
+    "no": 4,
+    "waktu": "06.40 – 06.55",
+    "durasi": "15 menit",
+    "kegiatan": "Apel Pagi",
+    "catatan": "Pemeriksaan kerapian dan absensi harian",
+    "status": "Kesiswaan"
+   },
+   {
+    "no": 5,
+    "waktu": "07.00 – 07.45",
+    "durasi": "45 menit",
+    "kegiatan": "Jam Pelajaran 1 (JP 1)",
+    "catatan": "KBM reguler",
+    "status": "KBM"
+   },
+   {
+    "no": 6,
+    "waktu": "07.45 – 08.30",
+    "durasi": "45 menit",
+    "kegiatan": "Jam Pelajaran 2 (JP 2)",
+    "catatan": "KBM reguler",
+    "status": "KBM"
+   },
+   {
+    "no": 7,
+    "waktu": "08.30 – 09.15",
+    "durasi": "45 menit",
+    "kegiatan": "Jam Pelajaran 3 (JP 3)",
+    "catatan": "KBM reguler",
+    "status": "KBM"
+   },
+   {
+    "no": 8,
+    "waktu": "09.15 – 09.30",
+    "durasi": "15 menit",
+    "kegiatan": "Istirahat I",
+    "catatan": "Snack/jajan kantin",
+    "status": "Istirahat"
+   },
+   {
+    "no": 9,
+    "waktu": "09.30 – 10.15",
+    "durasi": "45 menit",
+    "kegiatan": "Jam Pelajaran 4 (JP 4)",
+    "catatan": "KBM reguler",
+    "status": "KBM"
+   },
+   {
+    "no": 10,
+    "waktu": "10.15 – 11.00",
+    "durasi": "45 menit",
+    "kegiatan": "Jam Pelajaran 5 (JP 5)",
+    "catatan": "KBM reguler",
+    "status": "KBM"
+   },
+   {
+    "no": 11,
+    "waktu": "11.00 – 11.45",
+    "durasi": "45 menit",
+    "kegiatan": "Jam Pelajaran 6 (JP 6)",
+    "catatan": "KBM reguler",
+    "status": "KBM"
+   },
+   {
+    "no": 12,
+    "waktu": "11.45 – 13.30",
+    "durasi": "105 menit",
+    "kegiatan": "Istirahat II, Shalat Dzuhur Berjamaah, dan Makan Siang",
+    "catatan": "Shalat berjamaah di masjid madrasah",
+    "status": "Ibadah & Makan"
+   },
+   {
+    "no": 13,
+    "waktu": "13.30 – 14.15",
+    "durasi": "45 menit",
+    "kegiatan": "Jam Pelajaran 7 (JP 7)",
+    "catatan": "KBM reguler",
+    "status": "KBM"
+   },
+   {
+    "no": 14,
+    "waktu": "14.15 – 15.00",
+    "durasi": "45 menit",
+    "kegiatan": "Jam Pelajaran 8 (JP 8)",
+    "catatan": "KBM reguler",
+    "status": "KBM"
+   },
+   {
+    "no": 15,
+    "waktu": "15.00 – 15.45",
+    "durasi": "45 menit",
+    "kegiatan": "Jam Pelajaran 9 (JP 9)",
+    "catatan": "KBM reguler",
+    "status": "KBM"
+   },
+   {
+    "no": 16,
+    "waktu": "15.45 – 16.00",
+    "durasi": "15 menit",
+    "kegiatan": "Shalat Ashar Berjamaah",
+    "catatan": "Berjamaah di masjid madrasah",
+    "status": "Ibadah"
+   },
+   {
+    "no": 17,
+    "waktu": "16.00 – 17.45",
+    "durasi": "105 menit",
+    "kegiatan": "Ekstrakurikuler / Olahraga / Istirahat / MCK / Makan Malam",
+    "catatan": "Sesuai jadwal ekskul masing-masing",
+    "status": "Ekskul & Mandiri"
+   },
+   {
+    "no": 18,
+    "waktu": "17.45 – 18.30",
+    "durasi": "45 menit",
+    "kegiatan": "Persiapan Shalat Maghrib, Tadarus Al-Qur'an, Shalat Maghrib Berjamaah",
+    "catatan": "Berjamaah di masjid madrasah",
+    "status": "Ibadah & Tahfidz"
+   },
+   {
+    "no": 19,
+    "waktu": "18.30 – 19.00",
+    "durasi": "30 menit",
+    "kegiatan": "Kegiatan Belajar Terbimbing I (Bimbingan Pembina)",
+    "catatan": "Dipandu oleh Guru Pembina Asrama",
+    "status": "Belajar Terbimbing"
+   },
+   {
+    "no": 20,
+    "waktu": "19.00 – 20.00",
+    "durasi": "60 menit",
+    "kegiatan": "Shalat Isya Berjamaah & Kegiatan Belajar Terbimbing II",
+    "catatan": "Berjamaah + belajar terbimbing lanjutan",
+    "status": "Ibadah & Belajar"
+   },
+   {
+    "no": 21,
+    "waktu": "20.00 – 22.00",
+    "durasi": "120 menit",
+    "kegiatan": "Belajar Mandiri dan Pembinaan Peserta Didik",
+    "catatan": "Belajar mandiri di kamar / aula belajar",
+    "status": "Belajar Mandiri"
+   },
+   {
+    "no": 22,
+    "waktu": "22.00 – 03.40",
+    "durasi": "340 menit",
+    "kegiatan": "Istirahat Malam",
+    "catatan": "Seluruh lampu kamar dimatikan pukul 22.00",
+    "status": "Istirahat"
+   }
+  ],
+  "sabtu": [
+   {
+    "no": 1,
+    "waktu": "04.00 – 05.30",
+    "durasi": "90 menit",
+    "kegiatan": "Bangun Tidur, MCK, Qiyamullail, Tadarus Al-Qur'an, Shalat Subuh Berjamaah, Tahfidz Al-Qur'an",
+    "catatan": "Kegiatan wajib pagi",
+    "status": "Ibadah & Tahfidz"
+   },
+   {
+    "no": 2,
+    "waktu": "05.30 – 07.00",
+    "durasi": "90 menit",
+    "kegiatan": "Makan Pagi dan Persiapan Kegiatan Pagi",
+    "catatan": "Persiapan kegiatan Sabtu",
+    "status": "Makan & Persiapan"
+   },
+   {
+    "no": 3,
+    "waktu": "07.00 – 07.30",
+    "durasi": "30 menit",
+    "kegiatan": "Olahraga dan Senam Pagi Bersama",
+    "catatan": "Seluruh warga madrasah",
+    "status": "Olahraga"
+   },
+   {
+    "no": 4,
+    "waktu": "07.30 – 09.00",
+    "durasi": "90 menit",
+    "kegiatan": "Klub Bidang Studi (KBS) – Pendalaman Mapel",
+    "catatan": "Dibimbing guru mata pelajaran",
+    "status": "KBS"
+   },
+   {
+    "no": 5,
+    "waktu": "09.00 – 10.30",
+    "durasi": "90 menit",
+    "kegiatan": "Pembinaan Karya Tulis Ilmiah (KTI)",
+    "catatan": "Dibimbing guru pembimbing KTI",
+    "status": "KTI"
+   },
+   {
+    "no": 6,
+    "waktu": "10.30 – 12.00",
+    "durasi": "90 menit",
+    "kegiatan": "Kegiatan Proyek / Kewirausahaan Madrasah",
+    "catatan": "Proyek berbasis P5-PPRA",
+    "status": "Proyek & Wirausaha"
+   },
+   {
+    "no": 7,
+    "waktu": "12.00 – 17.20",
+    "durasi": "320 menit",
+    "kegiatan": "Istirahat, Shalat Dzuhur Berjamaah, Makan Siang, Waktu Mandiri / Kegiatan Ekskul",
+    "catatan": "Pesiar / istirahat / mandiri",
+    "status": "Ibadah & Mandiri"
+   },
+   {
+    "no": 8,
+    "waktu": "17.20 – 18.00",
+    "durasi": "40 menit",
+    "kegiatan": "Persiapan Shalat Maghrib Berjamaah",
+    "catatan": "Berjamaah di masjid",
+    "status": "Ibadah"
+   },
+   {
+    "no": 9,
+    "waktu": "18.00 – 19.00",
+    "durasi": "60 menit",
+    "kegiatan": "Shalat Isya Berjamaah",
+    "catatan": "Berjamaah di masjid",
+    "status": "Ibadah"
+   },
+   {
+    "no": 10,
+    "waktu": "19.00 – 20.00",
+    "durasi": "60 menit",
+    "kegiatan": "Kegiatan Mandiri (OSIM / Angkatan / Istirahat)",
+    "catatan": "Kegiatan organisasi atau mandiri",
+    "status": "Mandiri & Organisasi"
+   },
+   {
+    "no": 11,
+    "waktu": "20.00 – 22.00",
+    "durasi": "120 menit",
+    "kegiatan": "Belajar Mandiri dan Pembinaan",
+    "catatan": "Belajar mandiri di kamar",
+    "status": "Belajar Mandiri"
+   },
+   {
+    "no": 12,
+    "waktu": "22.00 – 04.00",
+    "durasi": "360 menit",
+    "kegiatan": "Istirahat Malam",
+    "catatan": "Seluruh lampu kamar dimatikan pukul 22.00",
+    "status": "Istirahat"
+   }
+  ]
  },
  "struktur_beban": {
   "beban_per_minggu": {

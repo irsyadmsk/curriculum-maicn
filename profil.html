@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
@@ -48,7 +48,13 @@
     <img src="assets/iconmaicn.png" alt="Logo">
     MA ICN
   </a>
-  <button class="nav-toggle" id="nav-toggle">☰</button>
+  <div class="nav-right">
+    <button class="btn-login-nav" id="btn-login-nav">Masuk</button>
+    <div class="nav-right">
+    <button class="btn-login-nav" id="btn-login-nav">Masuk</button>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menu">☰</button>
+  </div>
+  </div>
   <div class="nav-links" id="nav-links">
     <a href="index.html">Beranda</a>
     <a href="profil.html" class="active">Profil</a>
@@ -56,6 +62,7 @@
     <a href="kalender.html">Kalender</a>
     <a href="prota.html">Prota</a>
     <a href="posem.html">Posem</a>
+    <a href="matrikulasi.html">Matrikulasi</a>
     <a href="modul.html">Modul</a>
     <a href="dokumen.html">Dokumen</a>
   </div>
@@ -141,5 +148,92 @@ document.addEventListener('DOMContentLoaded', () => {
   `).join('');
 });
 </script>
+
+<!-- ══ MODAL: LOGIN ══ -->
+<div class="modal-overlay" id="modal-login">
+  <div class="modal-box">
+    <button class="modal-close" data-close-modal="modal-login">✕</button>
+    <div class="modal-logo"><img src="assets/iconmaicn.png" alt="Logo"></div>
+    <div class="modal-title">Masuk Admin</div>
+    <div class="modal-sub">Akses panel pengelolaan kurikulum</div>
+    <div class="login-error" id="login-error"></div>
+    <form id="login-form">
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" id="login-user" placeholder="admin" autocomplete="username" required>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="login-pass" placeholder="••••••••" autocomplete="current-password" required>
+      </div>
+      <button type="submit" class="btn btn-primary btn-full" style="margin-top:8px;">Masuk →</button>
+    </form>
+    <p style="text-align:center;font-size:0.8rem;color:var(--text-soft);margin-top:16px;">
+      Khusus Waka Kurikulum &amp; Administrator
+    </p>
+  </div>
+</div>
+
+<!-- ══ MODAL: ADMIN PANEL ══ -->
+<div class="modal-overlay" id="modal-admin">
+  <div class="modal-box wide">
+    <button class="modal-close" data-close-modal="modal-admin">✕</button>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px;">
+      <div>
+        <div class="admin-tag" style="margin-bottom:6px;">Admin Panel</div>
+        <div class="modal-title" style="text-align:left;margin-bottom:0;">Kelola Konten</div>
+      </div>
+      <button class="btn btn-ghost btn-sm" id="btn-logout">Keluar ↗</button>
+    </div>
+    <div class="admin-tabs">
+      <button class="admin-tab active" data-tab="embed">📎 Tautan &amp; Modul</button>
+      <button class="admin-tab" data-tab="kaldik">📅 Info Kaldik</button>
+      <button class="admin-tab" data-tab="info">ℹ Info</button>
+    </div>
+    <div class="admin-panel-content active" id="panel-embed">
+      <form id="embed-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Judul Dokumen</label>
+            <input type="text" id="embed-title" placeholder="Modul Matematika X" required>
+          </div>
+          <div class="form-group">
+            <label>Kategori</label>
+            <select id="embed-category">
+              <option value="modul">Modul Ajar</option>
+              <option value="kaldik">Kalender Akademik</option>
+              <option value="prota">Program Tahunan</option>
+              <option value="posem">Program Semester</option>
+              <option value="dokumen">Dokumen Lain</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Link Google Drive (embed/share)</label>
+          <input type="url" id="embed-url" placeholder="https://drive.google.com/file/d/..." required>
+        </div>
+        <button type="submit" class="btn btn-aqua btn-sm">Tambah Tautan</button>
+      </form>
+      <div class="embed-list" id="embed-list-admin">
+        <div class="comment-empty">Belum ada tautan tertanam.</div>
+      </div>
+    </div>
+    <div class="admin-panel-content" id="panel-kaldik">
+      <p style="font-size:0.9rem;color:var(--text-soft);line-height:1.7;">
+        Untuk mengedit data kalender akademik, perbarui file <strong>master-data.json</strong> via GitHub,
+        atau hubungi tim teknis. Fitur edit langsung sedang dikembangkan (versi 2.1).
+      </p>
+      <div class="callout" style="margin-top:16px;">📌 Fitur edit kalender langsung dari browser — coming soon</div>
+    </div>
+    <div class="admin-panel-content" id="panel-info">
+      <p style="font-size:0.9rem;color:var(--text-soft);line-height:1.7;margin-bottom:12px;">
+        <strong>Curriculum OS v2.0</strong> — Aquamorphic Edition<br>MA Insan Cendekia Nusantara Purwakarta
+      </p>
+      <div class="callout">
+        🔐 Ubah password: edit <code>AUTH_CONFIG</code> di <code>assets/app.js</code>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>

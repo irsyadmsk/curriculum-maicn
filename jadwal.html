@@ -3,33 +3,33 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Program Semester — Curriculum OS</title>
+<title>Jadwal Harian — Curriculum OS</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/styles.css">
 <style>
-.sem-nav { display: flex; justify-content: center; gap: 16px; margin-bottom: 60px; }
-.sem-btn { padding: 16px 32px; border-radius: 100px; font-weight: 800; font-size: 1.1rem; border: 2px solid var(--border); background: var(--surface); color: var(--text-secondary); cursor: pointer; transition: 0.3s; }
-.sem-btn:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-3px); box-shadow: var(--shadow-sm); }
-.sem-btn.active { background: var(--primary); color: var(--surface); border-color: var(--primary); box-shadow: var(--shadow-md); }
+.tab-bar { max-width: 1264px; margin: 0 auto 20px; }
+.tab-nav { display: flex; gap: 4px; border-bottom: 2px solid var(--d5); }
+.tab-btn { padding: 10px 22px; font-size: 0.9rem; font-weight: 700; color: var(--d3); background: none; border: none; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: all 0.2s; border-radius: 6px 6px 0 0; letter-spacing: 0.3px; font-family: inherit; }
+.tab-btn:hover { color: var(--primary); background: var(--bg); }
+.tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); background: var(--surface); }
 
 .tab-content { display: none; }
 .tab-content.active { display: block; animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
-@keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-/* Table Overrides */
-.table-wrap { background: var(--surface); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-md); overflow-x: auto; border: 1px solid var(--border); margin-bottom: 40px; }
-.he-cell { font-family: 'DM Mono', monospace; font-size: 1.2rem; font-weight: 800; color: var(--primary); text-align: center; }
+.table-wrap { overflow-x: auto; background: var(--surface); border-radius: var(--radius-lg); padding: 20px; box-shadow: var(--shadow); border: 1px solid var(--border); }
+table { width: 100%; border-collapse: collapse; min-width: 800px; font-size: 0.9rem; }
+th { background: var(--bg); color: var(--primary); padding: 12px 16px; text-align: left; font-weight: 800; border-bottom: 2px solid var(--primary-light); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px; }
+td { padding: 14px 16px; border-bottom: 1px solid var(--border); color: var(--text-primary); vertical-align: top; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: var(--bg); }
 
-/* Asesmen / Libur Rows */
-.row-asesmen { background: rgba(37, 99, 235, 0.05) !important; }
-.row-asesmen td:first-child { color: #2563eb; }
-.lbl-asesmen { color: #2563eb; font-weight: 800; }
-
-.row-libur { background: rgba(220, 38, 38, 0.05) !important; }
-.row-libur td:first-child { color: #dc2626; }
-.lbl-libur { color: #dc2626; font-weight: 800; font-style: italic; }
-
-@media (max-width: 768px) { .table-wrap { padding: 16px; } .sem-btn { padding: 12px 24px; font-size: 0.95rem; } }
+.badge-status { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 800; }
+.b-ibadah { background: #e0f2fe; color: #0369a1; }
+.b-makan { background: #fef3c7; color: #b45309; }
+.b-kbm { background: #dcfce7; color: #166534; }
+.b-istirahat { background: #f1f5f9; color: #475569; }
+.b-ekskul { background: #fce7f3; color: #be185d; }
+.b-lainnya { background: #ede9fe; color: #5b21b6; }
 </style>
 <script src="data.js"></script>
 <script src="assets/app.js"></script>
@@ -41,58 +41,89 @@
     <img src="assets/iconmaicn.png" alt="Logo">
     MA ICN
   </a>
-  <div class="nav-right">
-    <button class="btn-login-nav" id="btn-login-nav">Masuk</button>
-    <div class="nav-right">
-    <button class="btn-login-nav" id="btn-login-nav">Masuk</button>
-    <button class="nav-toggle" id="nav-toggle" aria-label="Menu">☰</button>
-  </div>
-  </div>
   <div class="nav-links" id="nav-links">
     <a href="index.html">Beranda</a>
     <a href="profil.html">Profil</a>
     <a href="struktur.html">Struktur</a>
     <a href="kalender.html">Kalender</a>
     <a href="prota.html">Prota</a>
-    <a href="posem.html" class="active">Posem</a>
+    <a href="posem.html">Posem</a>
     <a href="matrikulasi.html">Matrikulasi</a>
     <a href="modul.html">Modul</a>
     <a href="dokumen.html">Dokumen</a>
+    </div>
+  <div class="nav-right">
+    <button class="btn-login-nav" id="btn-login-nav">Masuk</button>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menu">☰</button>
   </div>
 </nav>
 
 <div class="page-header">
   <div class="container">
-    <h1 class="animate-up">Program Semester</h1>
-    <p class="animate-up delay-100">Distribusi program pekanan, penghitungan hari efektif belajar, dan linimasa asesmen.</p>
+    <h1 class="animate-up">Jadwal Harian Boarding School</h1>
+    <p class="animate-up delay-100">Jadwal operasional harian peserta didik di MA Insan Cendekia Nusantara.</p>
   </div>
 </div>
 
 <div class="container">
-  
-  <div class="sem-nav animate-up delay-200">
-    <button class="sem-btn active" onclick="switchTab('ganjil', this)">Semester Ganjil</button>
-    <button class="sem-btn" onclick="switchTab('genap', this)">Semester Genap</button>
+  <div class="tab-bar animate-up delay-200">
+    <div class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab('senin-kamis', this)">Senin – Kamis</button>
+      <button class="tab-btn" onclick="switchTab('jumat', this)">Jumat</button>
+      <button class="tab-btn" onclick="switchTab('sabtu', this)">Sabtu</button>
+    </div>
   </div>
 
-  <div class="tab-content active" id="pane-ganjil">
-    <div class="table-wrap">
-      <table class="data-table" id="table-ganjil">
+  <div class="tab-content active" id="tab-senin-kamis">
+    <div class="table-wrap animate-up delay-300">
+      <table>
         <thead>
-          <tr><th>Minggu Ke-</th><th>Periode</th><th style="text-align:center">Hari Efektif</th><th>Program / Agenda</th><th>Status Asesmen</th></tr>
+          <tr>
+            <th width="80">No</th>
+            <th width="150">Waktu</th>
+            <th width="120">Durasi</th>
+            <th>Kegiatan</th>
+            <th>Catatan</th>
+            <th width="150">Status</th>
+          </tr>
         </thead>
-        <tbody></tbody>
+        <tbody id="body-senin-kamis"></tbody>
       </table>
     </div>
   </div>
 
-  <div class="tab-content" id="pane-genap">
+  <div class="tab-content" id="tab-jumat">
     <div class="table-wrap">
-      <table class="data-table" id="table-genap">
+      <table>
         <thead>
-          <tr><th>Minggu Ke-</th><th>Periode</th><th style="text-align:center">Hari Efektif</th><th>Program / Agenda</th><th>Status Asesmen</th></tr>
+          <tr>
+            <th width="80">No</th>
+            <th width="150">Waktu</th>
+            <th width="120">Durasi</th>
+            <th>Kegiatan</th>
+            <th>Catatan</th>
+            <th width="150">Status</th>
+          </tr>
         </thead>
-        <tbody></tbody>
+        <tbody id="body-jumat"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="tab-content" id="tab-sabtu">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th width="80">No</th>
+            <th width="150">Waktu</th>
+            <th width="120">Durasi</th>
+            <th>Kegiatan</th>
+            <th>Catatan</th>
+            <th width="150">Status</th>
+          </tr>
+        </thead>
+        <tbody id="body-sabtu"></tbody>
       </table>
     </div>
   </div>
@@ -107,47 +138,45 @@
 </footer>
 
 <script>
-function switchTab(target, el) {
-  document.querySelectorAll('.sem-btn').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.tab-content').forEach(p => p.classList.remove('active'));
-  el.classList.add('active');
-  document.getElementById('pane-' + target).classList.add('active');
+window.switchTab = function(id, btn) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+};
+
+function getBadgeClass(status) {
+    const s = status.toLowerCase();
+    if(s.includes('ibadah')) return 'b-ibadah';
+    if(s.includes('makan')) return 'b-makan';
+    if(s.includes('kbm')) return 'b-kbm';
+    if(s.includes('istirahat')) return 'b-istirahat';
+    if(s.includes('ekskul') || s.includes('olahraga')) return 'b-ekskul';
+    return 'b-lainnya';
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   const MD = window.MASTER_DATA;
-  if (!MD || !MD.program_semester) return;
+  if (!MD || !MD.jadwal_harian) return;
 
-  function renderTable(tbodyId, dataArray) {
-    const tbody = document.querySelector(`#${tbodyId} tbody`);
-    let html = '';
-
-    dataArray.forEach(item => {
-      let rClass = '';
-      let prgText = `<span style="font-weight:600;">${item.program}</span>`;
-      let asmText = item.asesmen === '-' ? '-' : `<span class="lbl-asesmen">${item.asesmen}</span>`;
-      
-      if (item.hari_efektif === 0) {
-        rClass = 'row-libur';
-        prgText = `<span class="lbl-libur">${item.program}</span>`;
-      } else if (item.asesmen !== '-' && (item.asesmen.includes('STS') || item.asesmen.includes('SAS'))) {
-        rClass = 'row-asesmen';
-      }
-
-      html += `<tr class="${rClass}">
-        <td>M${String(item.minggu).padStart(2,'0')}</td>
-        <td style="color:var(--text-secondary);">${item.periode}</td>
-        <td class="he-cell">${item.hari_efektif}</td>
-        <td>${prgText}</td>
-        <td>${asmText}</td>
-      </tr>`;
-    });
-
-    tbody.innerHTML = html;
+  function renderJadwal(data, tbodyId) {
+      const tbody = document.getElementById(tbodyId);
+      if(!tbody) return;
+      tbody.innerHTML = data.map(item => `
+          <tr>
+              <td style="font-weight: 800; color: var(--accent);">${item.no}</td>
+              <td style="font-family: 'DM Mono', monospace; font-weight: 700;">${item.waktu}</td>
+              <td style="font-size: 0.85rem; color: var(--text-secondary);">${item.durasi}</td>
+              <td style="font-weight: 600;">${item.kegiatan}</td>
+              <td style="font-size: 0.85rem; font-style: italic;">${item.catatan}</td>
+              <td><span class="badge-status ${getBadgeClass(item.status)}">${item.status}</span></td>
+          </tr>
+      `).join('');
   }
 
-  renderTable('table-ganjil', MD.program_semester.ganjil);
-  renderTable('table-genap', MD.program_semester.genap);
+  renderJadwal(MD.jadwal_harian.senin_kamis, 'body-senin-kamis');
+  renderJadwal(MD.jadwal_harian.jumat, 'body-jumat');
+  renderJadwal(MD.jadwal_harian.sabtu, 'body-sabtu');
 });
 </script>
 
