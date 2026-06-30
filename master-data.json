@@ -3024,8 +3024,8 @@
    },
    {
     "no": 3,
-    "waktu": "06.40 – 06.55",
-    "durasi": "15 menit",
+    "waktu": "06.40 – 07.00",
+    "durasi": "20 menit",
     "kegiatan": "Apel Pagi",
     "catatan": "Pemeriksaan kerapian dan absensi harian",
     "status": "Kesiswaan"
@@ -3056,23 +3056,23 @@
    },
    {
     "no": 7,
-    "waktu": "09.15 – 09.30",
-    "durasi": "15 menit",
-    "kegiatan": "Istirahat I (Shalat Dhuha & Snack Pagi)",
-    "catatan": "Shalat Dhuha berjamaah di masjid, dilanjutkan snack/jajan kantin",
-    "status": "Ibadah & Istirahat"
-   },
-   {
-    "no": 8,
-    "waktu": "09.30 – 10.15",
+    "waktu": "09.15 – 10.00",
     "durasi": "45 menit",
     "kegiatan": "Jam Pelajaran 4 (JP 4)",
     "catatan": "KBM reguler",
     "status": "KBM"
    },
    {
+    "no": 8,
+    "waktu": "10.00 – 10.30",
+    "durasi": "30 menit",
+    "kegiatan": "Istirahat I (Shalat Dhuha & Snack Pagi)",
+    "catatan": "Shalat Dhuha berjamaah di masjid, dilanjutkan snack/jajan kantin",
+    "status": "Ibadah & Istirahat"
+   },
+   {
     "no": 9,
-    "waktu": "10.15 – 11.00",
+    "waktu": "10.30 – 11.15",
     "durasi": "45 menit",
     "kegiatan": "Jam Pelajaran 5 (JP 5)",
     "catatan": "KBM reguler",
@@ -3080,7 +3080,7 @@
    },
    {
     "no": 10,
-    "waktu": "11.00 – 11.45",
+    "waktu": "11.15 – 12.00",
     "durasi": "45 menit",
     "kegiatan": "Jam Pelajaran 6 (JP 6)",
     "catatan": "KBM reguler",
@@ -3088,7 +3088,7 @@
    },
    {
     "no": 11,
-    "waktu": "11.45 – 12.45",
+    "waktu": "12.00 – 13.00",
     "durasi": "60 menit",
     "kegiatan": "Istirahat II, Shalat Dzuhur Berjamaah, dan Makan Siang",
     "catatan": "Shalat berjamaah di masjid madrasah",
@@ -3096,7 +3096,7 @@
    },
    {
     "no": 12,
-    "waktu": "12.45 – 13.30",
+    "waktu": "13.00 – 13.45",
     "durasi": "45 menit",
     "kegiatan": "Jam Pelajaran 7 (JP 7)",
     "catatan": "KBM reguler",
@@ -3104,7 +3104,7 @@
    },
    {
     "no": 13,
-    "waktu": "13.30 – 14.15",
+    "waktu": "13.45 – 14.30",
     "durasi": "45 menit",
     "kegiatan": "Jam Pelajaran 8 (JP 8)",
     "catatan": "KBM reguler",
@@ -3112,7 +3112,7 @@
    },
    {
     "no": 14,
-    "waktu": "14.15 – 15.00",
+    "waktu": "14.30 – 15.15",
     "durasi": "45 menit",
     "kegiatan": "Jam Pelajaran 9 (JP 9)",
     "catatan": "KBM reguler",
@@ -3120,7 +3120,7 @@
    },
    {
     "no": 15,
-    "waktu": "15.00 – 15.45",
+    "waktu": "15.15 – 16.00",
     "durasi": "45 menit",
     "kegiatan": "Jam Pelajaran 10 (JP 10)",
     "catatan": "KBM reguler",
@@ -3128,7 +3128,7 @@
    },
    {
     "no": 16,
-    "waktu": "15.45 – 16.00",
+    "waktu": "16.00 – 16.15",
     "durasi": "15 menit",
     "kegiatan": "Shalat Ashar Berjamaah",
     "catatan": "Berjamaah di masjid madrasah",
@@ -3136,8 +3136,8 @@
    },
    {
     "no": 17,
-    "waktu": "16.00 – 17.45",
-    "durasi": "105 menit",
+    "waktu": "16.15 – 17.45",
+    "durasi": "90 menit",
     "kegiatan": "Ekstrakurikuler / Olahraga / Istirahat / MCK / Makan Malam",
     "catatan": "Sesuai jadwal ekskul masing-masing",
     "status": "Ekskul & Mandiri"
@@ -3202,23 +3202,23 @@
    },
    {
     "no": 3,
-    "waktu": "06.25 – 06.40",
-    "durasi": "15 menit",
-    "kegiatan": "Menuju Masjid untuk Shalat Dhuha",
-    "catatan": "Berjamaah di masjid madrasah",
-    "status": "Ibadah"
-   },
-   {
-    "no": 4,
-    "waktu": "06.40 – 06.55",
-    "durasi": "15 menit",
+    "waktu": "06.40 – 07.00",
+    "durasi": "20 menit",
     "kegiatan": "Apel Pagi",
     "catatan": "Pemeriksaan kerapian dan absensi harian",
     "status": "Kesiswaan"
    },
    {
+    "no": 4,
+    "waktu": "07.00 – 07.30",
+    "durasi": "30 menit",
+    "kegiatan": "Kultum Pagi dan Shalat Dhuha Berjamaah",
+    "catatan": "Kultum singkat oleh guru piket, dilanjutkan Shalat Dhuha berjamaah",
+    "status": "Ibadah"
+   },
+   {
     "no": 5,
-    "waktu": "07.00 – 07.45",
+    "waktu": "07.30 – 08.15",
     "durasi": "45 menit",
     "kegiatan": "Jam Pelajaran 1 (JP 1)",
     "catatan": "KBM reguler",
@@ -3226,7 +3226,7 @@
    },
    {
     "no": 6,
-    "waktu": "07.45 – 08.30",
+    "waktu": "08.15 – 09.00",
     "durasi": "45 menit",
     "kegiatan": "Jam Pelajaran 2 (JP 2)",
     "catatan": "KBM reguler",
@@ -3234,7 +3234,7 @@
    },
    {
     "no": 7,
-    "waktu": "08.30 – 09.15",
+    "waktu": "09.00 – 09.45",
     "durasi": "45 menit",
     "kegiatan": "Jam Pelajaran 3 (JP 3)",
     "catatan": "KBM reguler",
@@ -3242,7 +3242,7 @@
    },
    {
     "no": 8,
-    "waktu": "09.15 – 09.30",
+    "waktu": "09.45 – 10.00",
     "durasi": "15 menit",
     "kegiatan": "Istirahat I",
     "catatan": "Snack/jajan kantin",
@@ -3250,7 +3250,7 @@
    },
    {
     "no": 9,
-    "waktu": "09.30 – 10.15",
+    "waktu": "10.00 – 10.45",
     "durasi": "45 menit",
     "kegiatan": "Jam Pelajaran 4 (JP 4)",
     "catatan": "KBM reguler",
@@ -3258,7 +3258,7 @@
    },
    {
     "no": 10,
-    "waktu": "10.15 – 11.00",
+    "waktu": "10.45 – 11.30",
     "durasi": "45 menit",
     "kegiatan": "Jam Pelajaran 5 (JP 5)",
     "catatan": "KBM reguler",
@@ -3266,23 +3266,23 @@
    },
    {
     "no": 11,
-    "waktu": "11.00 – 11.45",
+    "waktu": "11.30 – 13.30",
+    "durasi": "120 menit",
+    "kegiatan": "Istirahat II, Shalat Jum'at Berjamaah (Putra) & Kegiatan Keputrian (Putri), dan Makan Siang",
+    "catatan": "Shalat Jum'at di masjid madrasah; keputrian dipimpin oleh ustadzah",
+    "status": "Ibadah & Makan"
+   },
+   {
+    "no": 12,
+    "waktu": "13.30 – 14.15",
     "durasi": "45 menit",
     "kegiatan": "Jam Pelajaran 6 (JP 6)",
     "catatan": "KBM reguler",
     "status": "KBM"
    },
    {
-    "no": 12,
-    "waktu": "11.45 – 13.30",
-    "durasi": "105 menit",
-    "kegiatan": "Istirahat II, Shalat Dzuhur Berjamaah, dan Makan Siang",
-    "catatan": "Shalat berjamaah di masjid madrasah",
-    "status": "Ibadah & Makan"
-   },
-   {
     "no": 13,
-    "waktu": "13.30 – 14.15",
+    "waktu": "14.15 – 15.00",
     "durasi": "45 menit",
     "kegiatan": "Jam Pelajaran 7 (JP 7)",
     "catatan": "KBM reguler",
@@ -3290,7 +3290,7 @@
    },
    {
     "no": 14,
-    "waktu": "14.15 – 15.00",
+    "waktu": "15.00 – 15.45",
     "durasi": "45 menit",
     "kegiatan": "Jam Pelajaran 8 (JP 8)",
     "catatan": "KBM reguler",
@@ -3298,14 +3298,6 @@
    },
    {
     "no": 15,
-    "waktu": "15.00 – 15.45",
-    "durasi": "45 menit",
-    "kegiatan": "Jam Pelajaran 9 (JP 9)",
-    "catatan": "KBM reguler",
-    "status": "KBM"
-   },
-   {
-    "no": 16,
     "waktu": "15.45 – 16.00",
     "durasi": "15 menit",
     "kegiatan": "Shalat Ashar Berjamaah",
@@ -3313,7 +3305,7 @@
     "status": "Ibadah"
    },
    {
-    "no": 17,
+    "no": 16,
     "waktu": "16.00 – 17.45",
     "durasi": "105 menit",
     "kegiatan": "Ekstrakurikuler / Olahraga / Istirahat / MCK / Makan Malam",
@@ -3321,7 +3313,7 @@
     "status": "Ekskul & Mandiri"
    },
    {
-    "no": 18,
+    "no": 17,
     "waktu": "17.45 – 18.30",
     "durasi": "45 menit",
     "kegiatan": "Persiapan Shalat Maghrib, Tadarus Al-Qur'an, Shalat Maghrib Berjamaah",
@@ -3329,7 +3321,7 @@
     "status": "Ibadah & Tahfidz"
    },
    {
-    "no": 19,
+    "no": 18,
     "waktu": "18.30 – 19.00",
     "durasi": "30 menit",
     "kegiatan": "Kegiatan Belajar Terbimbing I (Bimbingan Pembina)",
@@ -3337,7 +3329,7 @@
     "status": "Belajar Terbimbing"
    },
    {
-    "no": 20,
+    "no": 19,
     "waktu": "19.00 – 20.00",
     "durasi": "60 menit",
     "kegiatan": "Shalat Isya Berjamaah & Kegiatan Belajar Terbimbing II",
@@ -3345,7 +3337,7 @@
     "status": "Ibadah & Belajar"
    },
    {
-    "no": 21,
+    "no": 20,
     "waktu": "20.00 – 22.00",
     "durasi": "120 menit",
     "kegiatan": "Belajar Mandiri dan Pembinaan Peserta Didik",
@@ -3353,7 +3345,7 @@
     "status": "Belajar Mandiri"
    },
    {
-    "no": 22,
+    "no": 21,
     "waktu": "22.00 – 03.40",
     "durasi": "340 menit",
     "kegiatan": "Istirahat Malam",
@@ -3459,6 +3451,54 @@
     "status": "Istirahat"
    }
   ]
+ },
+ "jadwal_kbm": {
+  "keterangan": "Jadwal KBM Kelas X (Fase E) – Tahun Pelajaran 2026/2027. Senin–Kamis: 10 JP (07.00–15.45), Jumat: 8 JP (07.00–15.45, format 3+2+3).",
+  "waktu_jp": {
+   "senin_kamis": {
+    "1": "07.00 – 07.45",
+    "2": "07.45 – 08.30",
+    "3": "08.30 – 09.15",
+    "4": "09.15 – 10.00",
+    "5": "10.30 – 11.15",
+    "6": "11.15 – 12.00",
+    "7": "13.00 – 13.45",
+    "8": "13.45 – 14.30",
+    "9": "14.30 – 15.15",
+    "10": "15.15 – 16.00"
+   },
+   "jumat": {
+    "1": "07.30 – 08.15",
+    "2": "08.15 – 09.00",
+    "3": "09.00 – 09.45",
+    "4": "10.00 – 10.45",
+    "5": "10.45 – 11.30",
+    "6": "13.30 – 14.15",
+    "7": "14.15 – 15.00",
+    "8": "15.00 – 15.45"
+   }
+  },
+  "kelas_xa": {
+   "senin":  ["Matematika", "Matematika", "Matematika", "Bahasa Indonesia", "Bahasa Indonesia", "Bahasa Indonesia", "Sosiologi", "Sosiologi", "PJOK", "PJOK"],
+   "selasa": ["Biologi", "Biologi", "Akidah Akhlak", "Akidah Akhlak", "Sejarah", "Sejarah", "KKA", "Bimbingan Konseling", "Seni", "Seni"],
+   "rabu":   ["Fisika", "Fisika", "PPKn", "PPKn", "Fikih", "Fikih", "Geografi", "Geografi", "Ekonomi", "Ekonomi"],
+   "kamis":  ["Kimia", "Kimia", "Bimb. K. Ilmiah", "Bimb. K. Ilmiah", "Informatika", "Informatika", "Al-Qur'an Hadis", "Al-Qur'an Hadis", "Bahasa Mandarin", "Bahasa Mandarin"],
+   "jumat":  ["Bahasa Arab", "Bahasa Arab", "Bahasa Arab", "SKI", "SKI", "Bahasa Inggris", "Bahasa Inggris", "Bahasa Inggris"]
+  },
+  "kelas_xb": {
+   "senin":  ["Bahasa Indonesia", "Bahasa Indonesia", "Bahasa Indonesia", "Matematika", "Matematika", "Matematika", "PJOK", "PJOK", "Sosiologi", "Sosiologi"],
+   "selasa": ["Fisika", "Fisika", "Fikih", "Fikih", "PPKn", "PPKn", "Seni", "Seni", "KKA", "Bimbingan Konseling"],
+   "rabu":   ["Kimia", "Kimia", "Geografi", "Geografi", "Ekonomi", "Ekonomi", "Bimb. K. Ilmiah", "Bimb. K. Ilmiah", "Informatika", "Informatika"],
+   "kamis":  ["Biologi", "Biologi", "Akidah Akhlak", "Akidah Akhlak", "SKI", "SKI", "Bahasa Mandarin", "Bahasa Mandarin", "Al-Qur'an Hadis", "Al-Qur'an Hadis"],
+   "jumat":  ["Bahasa Inggris", "Bahasa Inggris", "Bahasa Inggris", "Sejarah", "Sejarah", "Bahasa Arab", "Bahasa Arab", "Bahasa Arab"]
+  },
+  "kelas_xc": {
+   "senin":  ["Biologi", "Biologi", "Akidah Akhlak", "Akidah Akhlak", "Sejarah", "Sejarah", "Al-Qur'an Hadis", "Al-Qur'an Hadis", "Bahasa Mandarin", "Bahasa Mandarin"],
+   "selasa": ["Kimia", "Kimia", "Geografi", "Geografi", "SKI", "SKI", "Sosiologi", "Sosiologi", "PJOK", "PJOK"],
+   "rabu":   ["Bahasa Arab", "Bahasa Arab", "Bahasa Arab", "Bahasa Inggris", "Bahasa Inggris", "Bahasa Inggris", "KKA", "Bimbingan Konseling", "Seni", "Seni"],
+   "kamis":  ["Fisika", "Fisika", "Fikih", "Fikih", "PPKn", "PPKn", "Bimb. K. Ilmiah", "Bimb. K. Ilmiah", "Informatika", "Informatika"],
+   "jumat":  ["Matematika", "Matematika", "Matematika", "Ekonomi", "Ekonomi", "Bahasa Indonesia", "Bahasa Indonesia", "Bahasa Indonesia"]
+  }
  },
  "struktur_beban": {
   "beban_per_minggu": {
