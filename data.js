@@ -3064,15 +3064,15 @@ window.MASTER_DATA = {
    },
    {
     "no": 8,
-    "waktu": "10.00 – 10.30",
-    "durasi": "30 menit",
-    "kegiatan": "Istirahat I (Shalat Dhuha & Snack Pagi)",
-    "catatan": "Shalat Dhuha berjamaah di masjid, dilanjutkan snack/jajan kantin",
+    "waktu": "10.00 – 10.15",
+    "durasi": "15 menit",
+    "kegiatan": "Istirahat I (Shalat Dhuha Berjamaah)",
+    "catatan": "Shalat Dhuha berjamaah di masjid madrasah",
     "status": "Ibadah & Istirahat"
    },
    {
     "no": 9,
-    "waktu": "10.30 – 11.15",
+    "waktu": "10.15 – 11.00",
     "durasi": "45 menit",
     "kegiatan": "Jam Pelajaran 5 (JP 5)",
     "catatan": "KBM reguler",
@@ -3080,7 +3080,7 @@ window.MASTER_DATA = {
    },
    {
     "no": 10,
-    "waktu": "11.15 – 12.00",
+    "waktu": "11.00 – 11.45",
     "durasi": "45 menit",
     "kegiatan": "Jam Pelajaran 6 (JP 6)",
     "catatan": "KBM reguler",
@@ -3088,6 +3088,14 @@ window.MASTER_DATA = {
    },
    {
     "no": 11,
+    "waktu": "11.45 – 12.00",
+    "durasi": "15 menit",
+    "kegiatan": "Jam Pelajaran 7 — Bagian 1 (JP 7)",
+    "catatan": "KBM reguler; JP 7 dilanjutkan setelah istirahat",
+    "status": "KBM"
+   },
+   {
+    "no": 12,
     "waktu": "12.00 – 13.00",
     "durasi": "60 menit",
     "kegiatan": "Istirahat II, Shalat Dzuhur Berjamaah, dan Makan Siang",
@@ -3095,55 +3103,55 @@ window.MASTER_DATA = {
     "status": "Ibadah & Makan"
    },
    {
-    "no": 12,
-    "waktu": "13.00 – 13.45",
-    "durasi": "45 menit",
-    "kegiatan": "Jam Pelajaran 7 (JP 7)",
-    "catatan": "KBM reguler",
+    "no": 13,
+    "waktu": "13.00 – 13.30",
+    "durasi": "30 menit",
+    "kegiatan": "Jam Pelajaran 7 — Bagian 2 (JP 7)",
+    "catatan": "Lanjutan JP 7",
     "status": "KBM"
    },
    {
-    "no": 13,
-    "waktu": "13.45 – 14.30",
+    "no": 14,
+    "waktu": "13.30 – 14.15",
     "durasi": "45 menit",
     "kegiatan": "Jam Pelajaran 8 (JP 8)",
     "catatan": "KBM reguler",
     "status": "KBM"
    },
    {
-    "no": 14,
-    "waktu": "14.30 – 15.15",
+    "no": 15,
+    "waktu": "14.15 – 15.00",
     "durasi": "45 menit",
     "kegiatan": "Jam Pelajaran 9 (JP 9)",
     "catatan": "KBM reguler",
     "status": "KBM"
    },
    {
-    "no": 15,
-    "waktu": "15.15 – 16.00",
+    "no": 16,
+    "waktu": "15.00 – 15.45",
     "durasi": "45 menit",
     "kegiatan": "Jam Pelajaran 10 (JP 10)",
     "catatan": "KBM reguler",
     "status": "KBM"
    },
    {
-    "no": 16,
-    "waktu": "16.00 – 16.15",
+    "no": 17,
+    "waktu": "15.45 – 16.00",
     "durasi": "15 menit",
     "kegiatan": "Shalat Ashar Berjamaah",
     "catatan": "Berjamaah di masjid madrasah",
     "status": "Ibadah"
    },
    {
-    "no": 17,
-    "waktu": "16.15 – 17.45",
-    "durasi": "90 menit",
+    "no": 18,
+    "waktu": "16.00 – 17.45",
+    "durasi": "105 menit",
     "kegiatan": "Ekstrakurikuler / Olahraga / Istirahat / MCK / Makan Malam",
     "catatan": "Sesuai jadwal ekskul masing-masing",
     "status": "Ekskul & Mandiri"
    },
    {
-    "no": 18,
+    "no": 19,
     "waktu": "17.45 – 18.30",
     "durasi": "45 menit",
     "kegiatan": "Persiapan Shalat Maghrib, Tadarus Al-Qur'an, Shalat Maghrib Berjamaah",
@@ -3151,7 +3159,7 @@ window.MASTER_DATA = {
     "status": "Ibadah & Tahfidz"
    },
    {
-    "no": 19,
+    "no": 20,
     "waktu": "18.30 – 19.00",
     "durasi": "30 menit",
     "kegiatan": "Kegiatan Belajar Terbimbing I (Bimbingan Pembina)",
@@ -3159,7 +3167,7 @@ window.MASTER_DATA = {
     "status": "Belajar Terbimbing"
    },
    {
-    "no": 20,
+    "no": 21,
     "waktu": "19.00 – 20.00",
     "durasi": "60 menit",
     "kegiatan": "Shalat Isya Berjamaah & Kegiatan Belajar Terbimbing II",
@@ -3167,7 +3175,7 @@ window.MASTER_DATA = {
     "status": "Ibadah & Belajar"
    },
    {
-    "no": 21,
+    "no": 22,
     "waktu": "20.00 – 22.00",
     "durasi": "120 menit",
     "kegiatan": "Belajar Mandiri dan Pembinaan Peserta Didik",
@@ -3175,7 +3183,7 @@ window.MASTER_DATA = {
     "status": "Belajar Mandiri"
    },
    {
-    "no": 22,
+    "no": 23,
     "waktu": "22.00 – 03.40",
     "durasi": "340 menit",
     "kegiatan": "Istirahat Malam",
@@ -3453,19 +3461,19 @@ window.MASTER_DATA = {
   ]
  },
  "jadwal_kbm": {
-  "keterangan": "Jadwal KBM Kelas X (Fase E) – Tahun Pelajaran 2026/2027. Senin–Kamis: 10 JP (07.00–15.45), Jumat: 8 JP (07.00–15.45, format 3+2+3).",
+  "keterangan": "Jadwal KBM Kelas X (Fase E) – Tahun Pelajaran 2026/2027, pemutakhiran 2 Juli 2026. Senin–Kamis: 10 JP (07.00–15.45; JP 7 terbagi dua: 11.45–12.00 & 13.00–13.30). Jumat: 8 JP (07.30–15.45, format 3+2+3). JP 1–2 hari Senin: Senin Pagi (Apel/Upacara) & Bimbingan Penulisan KTI — sistem blok. Rombel: X-A, X-B (X-2), X-C (X-3).",
   "waktu_jp": {
    "senin_kamis": {
     "1": "07.00 – 07.45",
     "2": "07.45 – 08.30",
     "3": "08.30 – 09.15",
     "4": "09.15 – 10.00",
-    "5": "10.30 – 11.15",
-    "6": "11.15 – 12.00",
-    "7": "13.00 – 13.45",
-    "8": "13.45 – 14.30",
-    "9": "14.30 – 15.15",
-    "10": "15.15 – 16.00"
+    "5": "10.15 – 11.00",
+    "6": "11.00 – 11.45",
+    "7": "11.45–12.00 · 13.00–13.30",
+    "8": "13.30 – 14.15",
+    "9": "14.15 – 15.00",
+    "10": "15.00 – 15.45"
    },
    "jumat": {
     "1": "07.30 – 08.15",
@@ -3479,25 +3487,25 @@ window.MASTER_DATA = {
    }
   },
   "kelas_xa": {
-   "senin":  ["Matematika", "Matematika", "Matematika", "Bahasa Indonesia", "Bahasa Indonesia", "Bahasa Indonesia", "Sosiologi", "Sosiologi", "PJOK", "PJOK"],
-   "selasa": ["Biologi", "Biologi", "Akidah Akhlak", "Akidah Akhlak", "Sejarah", "Sejarah", "KKA", "Bimbingan Konseling", "Seni", "Seni"],
-   "rabu":   ["Fisika", "Fisika", "PPKn", "PPKn", "Fikih", "Fikih", "Geografi", "Geografi", "Ekonomi", "Ekonomi"],
-   "kamis":  ["Kimia", "Kimia", "Bimb. K. Ilmiah", "Bimb. K. Ilmiah", "Informatika", "Informatika", "Al-Qur'an Hadis", "Al-Qur'an Hadis", "Bahasa Mandarin", "Bahasa Mandarin"],
-   "jumat":  ["Bahasa Arab", "Bahasa Arab", "Bahasa Arab", "SKI", "SKI", "Bahasa Inggris", "Bahasa Inggris", "Bahasa Inggris"]
+   "senin":  ["Senin Pagi & BPKI (Blok)", "Senin Pagi & BPKI (Blok)", "Sosiologi", "Sosiologi", "Geografi", "Geografi", "Kimia", "Kimia", "SKI", "SKI"],
+   "selasa": ["Matematika", "Matematika", "Matematika", "Bahasa Arab", "Bahasa Arab", "Bahasa Arab", "Seni", "Seni", "Ekonomi", "Ekonomi"],
+   "rabu":   ["Pendidikan Pancasila", "Pendidikan Pancasila", "Fikih", "Fikih", "Akidah Akhlak", "Akidah Akhlak", "Sejarah", "Sejarah", "Koding dan AI", "BK"],
+   "kamis":  ["Bahasa Inggris", "Bahasa Inggris", "Bahasa Inggris", "Bahasa Indonesia", "Bahasa Indonesia", "Bahasa Indonesia", "PJOK", "PJOK", "Bahasa Mandarin", "Bahasa Mandarin"],
+   "jumat":  ["Informatika", "Informatika", "Al-Qur'an Hadis", "Al-Qur'an Hadis", "Biologi", "Biologi", "Fisika", "Fisika"]
   },
   "kelas_xb": {
-   "senin":  ["Bahasa Indonesia", "Bahasa Indonesia", "Bahasa Indonesia", "Matematika", "Matematika", "Matematika", "PJOK", "PJOK", "Sosiologi", "Sosiologi"],
-   "selasa": ["Fisika", "Fisika", "Fikih", "Fikih", "PPKn", "PPKn", "Seni", "Seni", "KKA", "Bimbingan Konseling"],
-   "rabu":   ["Kimia", "Kimia", "Geografi", "Geografi", "Ekonomi", "Ekonomi", "Bimb. K. Ilmiah", "Bimb. K. Ilmiah", "Informatika", "Informatika"],
-   "kamis":  ["Biologi", "Biologi", "Akidah Akhlak", "Akidah Akhlak", "SKI", "SKI", "Bahasa Mandarin", "Bahasa Mandarin", "Al-Qur'an Hadis", "Al-Qur'an Hadis"],
-   "jumat":  ["Bahasa Inggris", "Bahasa Inggris", "Bahasa Inggris", "Sejarah", "Sejarah", "Bahasa Arab", "Bahasa Arab", "Bahasa Arab"]
+   "senin":  ["Senin Pagi & BPKI (Blok)", "Senin Pagi & BPKI (Blok)", "Geografi", "Geografi", "Kimia", "Kimia", "SKI", "SKI", "Sosiologi", "Sosiologi"],
+   "selasa": ["Bahasa Arab", "Bahasa Arab", "Bahasa Arab", "Seni", "Seni", "Ekonomi", "Ekonomi", "Matematika", "Matematika", "Matematika"],
+   "rabu":   ["Fikih", "Fikih", "Akidah Akhlak", "Akidah Akhlak", "Sejarah", "Sejarah", "Koding dan AI", "BK", "Pendidikan Pancasila", "Pendidikan Pancasila"],
+   "kamis":  ["Bahasa Indonesia", "Bahasa Indonesia", "Bahasa Indonesia", "PJOK", "PJOK", "Bahasa Mandarin", "Bahasa Mandarin", "Bahasa Inggris", "Bahasa Inggris", "Bahasa Inggris"],
+   "jumat":  ["Al-Qur'an Hadis", "Al-Qur'an Hadis", "Biologi", "Biologi", "Fisika", "Fisika", "Informatika", "Informatika"]
   },
   "kelas_xc": {
-   "senin":  ["Biologi", "Biologi", "Akidah Akhlak", "Akidah Akhlak", "Sejarah", "Sejarah", "Al-Qur'an Hadis", "Al-Qur'an Hadis", "Bahasa Mandarin", "Bahasa Mandarin"],
-   "selasa": ["Kimia", "Kimia", "Geografi", "Geografi", "SKI", "SKI", "Sosiologi", "Sosiologi", "PJOK", "PJOK"],
-   "rabu":   ["Bahasa Arab", "Bahasa Arab", "Bahasa Arab", "Bahasa Inggris", "Bahasa Inggris", "Bahasa Inggris", "KKA", "Bimbingan Konseling", "Seni", "Seni"],
-   "kamis":  ["Fisika", "Fisika", "Fikih", "Fikih", "PPKn", "PPKn", "Bimb. K. Ilmiah", "Bimb. K. Ilmiah", "Informatika", "Informatika"],
-   "jumat":  ["Matematika", "Matematika", "Matematika", "Ekonomi", "Ekonomi", "Bahasa Indonesia", "Bahasa Indonesia", "Bahasa Indonesia"]
+   "senin":  ["Senin Pagi & BPKI (Blok)", "Senin Pagi & BPKI (Blok)", "Kimia", "Kimia", "SKI", "SKI", "Sosiologi", "Sosiologi", "Geografi", "Geografi"],
+   "selasa": ["Seni", "Seni", "Ekonomi", "Ekonomi", "Matematika", "Matematika", "Matematika", "Bahasa Arab", "Bahasa Arab", "Bahasa Arab"],
+   "rabu":   ["Akidah Akhlak", "Akidah Akhlak", "Sejarah", "Sejarah", "Koding dan AI", "BK", "Pendidikan Pancasila", "Pendidikan Pancasila", "Fikih", "Fikih"],
+   "kamis":  ["PJOK", "PJOK", "Bahasa Mandarin", "Bahasa Mandarin", "Bahasa Inggris", "Bahasa Inggris", "Bahasa Inggris", "Bahasa Indonesia", "Bahasa Indonesia", "Bahasa Indonesia"],
+   "jumat":  ["Biologi", "Biologi", "Fisika", "Fisika", "Informatika", "Informatika", "Al-Qur'an Hadis", "Al-Qur'an Hadis"]
   }
  },
  "struktur_beban": {

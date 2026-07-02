@@ -263,6 +263,10 @@ document.addEventListener('DOMContentLoaded', () => {
     'Fikih':              '#ecfdf5:#065f46',
     'SKI':                '#ecfdf5:#065f46',
     'PPKn':               '#e0f2fe:#0c4a6e',
+    'Pendidikan Pancasila':'#e0f2fe:#0c4a6e',
+    'Koding dan AI':      '#f0fdf4:#14532d',
+    'BK':                 '#f1f5f9:#334155',
+    'Senin Pagi & BPKI (Blok)': '#fef9ec:#92400e',
     'Sejarah':            '#fef3c7:#92400e',
     'Geografi':           '#fef3c7:#92400e',
     'Ekonomi':            '#fef3c7:#92400e',
@@ -292,11 +296,11 @@ document.addEventListener('DOMContentLoaded', () => {
     html += '</tr></thead><tbody>';
 
     for (let jp = 1; jp <= 10; jp++) {
-      if (jp === 4) {
-        html += `<tr><td colspan="6" class="break-row">— Istirahat I: Shalat Dhuha & Snack Pagi (10.00–10.30) —</td></tr>`;
+      if (jp === 5) {
+        html += `<tr><td colspan="6" class="break-row">— Istirahat I: Shalat Dhuha Berjamaah (10.00–10.15) —</td></tr>`;
       }
-      if (jp === 7) {
-        html += `<tr><td colspan="6" class="break-row">— Istirahat II: Shalat Dzuhur & Makan Siang (12.00–13.00) —</td></tr>`;
+      if (jp === 8) {
+        html += `<tr><td colspan="6" class="break-row">— Istirahat II: Shalat Dzuhur & Makan Siang (12.00–13.00) · memotong JP 7, dilanjutkan 13.00–13.30 —</td></tr>`;
       }
       const time = waktuJP.senin_kamis[String(jp)] || '';
       html += `<tr><td class="jp-num">${jp}</td><td class="jp-time">${time}</td>`;
