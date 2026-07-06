@@ -683,43 +683,665 @@ p.slide-sub{font-size:clamp(15px,1.6vw,18px);color:var(--text-soft);max-width:68
   </div>
 </div>
 
-<!-- ===================== PRESENTER PANEL ===================== -->
-<div class="presenter-panel" id="presenterPanel">
-  <h3 id="presenterLabel">Speaker Notes — Slide 1</h3>
-  <p id="presenterText"></p>
-</div>
-
-<script>
+<!-- ================<script>
 /* ============================================================
-   DATA
+   DATA & CONFIGURATION
    ============================================================ */
 const TITLES = [
-  "Opening — Selamat Datang","Ice Breaking — Mengapa IQRA'?","Ice Breaking — Misi 40 Hari","Apa itu Kurikulum?",
-  "Mengapa MA ICN Punya Kurikulum?","8 Dimensi Profil Lulusan","Ice Breaking — Yel-Yel Ronde 1",
-  "Bagaimana Cara Belajar di ICN","Struktur Pembelajaran","Mata Pelajaran","Ice Breaking — Yel-Yel Ronde 2",
-  "Bagaimana Penilaian Dilakukan","Program Akademik","Ice Breaking — Yel-Yel Ronde 3",
-  "Ice Breaking — Tebak Jurusan","Roadmap 3 Tahun","Pesan untuk Murid","Closing"
+  "Opening — Selamat Datang",
+  "Ice Breaking — Mengapa IQRA'?",
+  "Ice Breaking — Misi 40 Hari",
+  "Apa itu Kurikulum?",
+  "Mengapa MA ICN Punya Kurikulum?",
+  "8 Dimensi Profil Lulusan",
+  "Ice Breaking — Yel-Yel Ronde 1",
+  "Bagaimana Cara Belajar di ICN",
+  "Struktur Pembelajaran",
+  "Mata Pelajaran",
+  "Ice Breaking — Yel-Yel Ronde 2",
+  "Bagaimana Penilaian Dilakukan",
+  "Program Akademik",
+  "Ice Breaking — Yel-Yel Ronde 3",
+  "Ice Breaking — Tebak Jurusan",
+  "Roadmap 3 Tahun",
+  "Pesan untuk Murid",
+  "Closing"
 ];
-// Alokasi waktu per slide dalam menit — total dirancang pas 45 menit (6 slide ice breaking termasuk di dalamnya).
-const DURATIONS = [2,3,3,2,3,3,2,2,2,3,2,3,2,2,3,3,2,3];
+
+const DURATIONS = [2, 3, 3, 2, 3, 3, 2, 2, 2, 3, 2, 3, 2, 2, 3, 3, 2, 3];
 
 const NOTES = [
-"Sambut murid dengan hangat. Jelaskan bahwa MATAMUDA tahun ini mengangkat tema besar AL-'ALAQ, surah yang memuat ayat pertama turun: IQRA'. Sampaikan bahwa seluruh rangkaian MATAMUDA akan membawa mereka melewati alur Iqra' → Belajar → Bertumbuh → Berkarya → Memberi manfaat.",
-"Ajukan pertanyaan secara terbuka, beri jeda agar murid berpikir sejenak sebelum tombol jawaban ditekan. Tekankan bahwa ilmu mendahului ibadah karena ilmu memberi kesadaran pada setiap amal — ini pondasi filosofis Cinta Ilmu dalam Kurikulum Berbasis Cinta (KBC).",
-"Bangun suasana heboh: lontarkan skenario ekstrem ini dengan nada bercanda, biarkan murid bereaksi riuh. Setelah mereka memilih, sampaikan dengan hangat bahwa tantangan ini sebenarnya menggambarkan ekosistem asrama 24 jam MA ICN — dan justru di situlah 7 Kebiasaan Anak Indonesia Hebat (Bangun Pagi, Beribadah, Berolahraga, Makan Sehat, Gemar Belajar, Bermasyarakat, Tidur Cepat) ditempa menjadi karakter, bukan beban.",
-"Jelaskan kurikulum sebagai peta perjalanan, bukan sekadar daftar mata pelajaran. Gunakan analogi perjalanan: dari Mulai menuju Masa Depan, ada proses Belajar, pembentukan Karakter, dan pencapaian Prestasi di setiap etape.",
-"Uraikan empat alasan mengapa MA ICN menyusun kurikulum operasional sendiri: memenuhi tujuan pendidikan, membentuk karakter, menyiapkan wawasan global, dan menjaga identitas keislaman. Sebutkan dasar hukum: KMA No. 1503/2025 dan Permendikbudristek No. 12/2024.",
-"Ajak murid menekan setiap kartu satu per satu. Jelaskan bahwa 8 Dimensi ini bukan daftar terpisah, melainkan satu kesatuan menuju profil manusia utuh — insan kamil. Kaitkan setiap dimensi dengan aktivitas nyata yang akan mereka jalani di MA ICN.",
-"Bacakan tiap pertanyaan dengan lantang, beri jeda, lalu tekan tombol agar jawaban muncul di layar sebagai penguat sorakan bersama. Gunakan momen ini untuk merekap tiga hal yang baru dibahas: kurikulum sebagai peta, tujuan MA ICN, dan 8 Dimensi Profil Lulusan.",
-"Tunjukkan bahwa semua metode belajar — diskusi, presentasi, proyek, riset, kolaborasi, literasi, dan digital learning — berputar mengelilingi satu inti: Pembelajaran Mendalam, yang terdiri dari Mindful, Meaningful, dan Joyful Learning.",
-"Jelaskan alur Intrakurikuler → Kokurikuler → Pendukung Akademik → Ekstrakurikuler. Tekankan bahwa total beban belajar mencapai 52 jam pelajaran per minggu dengan standar KKTP minimal 82 untuk Fase E.",
-"Buka satu per satu kelompok mata pelajaran. Jelaskan bahwa pada Fase E (Kelas X) seluruh murid menempuh mata pelajaran yang sama, dan baru pada Fase F (Kelas XI–XII) mereka memilih 4 mata pelajaran pilihan sesuai minat dan rencana studi lanjut.",
-"Lanjutkan energi yel-yel sebagai jeda dari sesi mata pelajaran dan guru pengampu yang cukup padat informasi. Rekap singkat: cara belajar mendalam, struktur 52 JP, dan kualitas guru pengampu.",
-"Jelaskan komponen penilaian: Asesmen Sumatif Harian (65%) dan Asesmen Sumatif Akhir Semester (35%). Tunjukkan progresi KKTP dari 82 di Kelas X menuju 88 di Kelas XII sebagai standar mutu yang terus meningkat.",
-"Perkenalkan program-program akademik unggulan: matrikulasi sebagai fondasi awal, Klub Bidang Studi untuk pembinaan talenta KSM/OSN, PROTANICS dan riset karya tulis ilmiah, hingga inovasi pembelajaran berbasis AI dan digital.",
-"Tutup rangkaian materi inti dengan yel-yel terakhir yang paling kencang, sekaligus menjembatani ke sesi permainan Tebak Jurusan dan Roadmap 3 Tahun berikutnya.",
-"Ajak murid bermain dengan menekan ikon profesi impian mereka. Setelah ditekan, jelaskan keterkaitan antara profesi tersebut dengan kluster mata pelajaran pilihan yang relevan di Fase F, serta contoh jurusan kuliah yang bisa dituju.",
-"Gam
-<truncated 24220 bytes>
+  "Sambut murid dengan hangat. Jelaskan bahwa MATAMUDA tahun ini mengangkat tema besar AL-'ALAQ, surah yang memuat ayat pertama turun: IQRA'. Sampaikan bahwa seluruh rangkaian MATAMUDA akan membawa mereka melewati alur Iqra' → Belajar → Bertumbuh → Berkarya → Memberi manfaat.",
+  "Ajukan pertanyaan secara terbuka, beri jeda agar murid berpikir sejenak sebelum tombol jawaban ditekan. Tekankan bahwa ilmu mendahului ibadah karena ilmu memberi kesadaran pada setiap amal — ini pondasi filosofis Cinta Ilmu dalam Kurikulum Berbasis Cinta (KBC).",
+  "Bangun suasana heboh: lontarkan skenario ekstrem ini dengan nada bercanda, biarkan murid bereaksi riuh. Setelah mereka memilih, sampaikan dengan hangat bahwa tantangan ini sebenarnya menggambarkan ekosistem asrama 24 jam MA ICN — dan justru di situlah 7 Kebiasaan Anak Indonesia Hebat ditempa menjadi karakter, bukan beban.",
+  "Jelaskan kurikulum sebagai peta perjalanan, bukan sekadar daftar mata pelajaran. Gunakan analogi perjalanan: dari Mulai menuju Masa Depan, ada proses Belajar, pembentukan Karakter, dan pencapaian Prestasi di setiap etape.",
+  "Uraikan empat alasan mengapa MA ICN menyusun kurikulum operasional sendiri: memenuhi tujuan pendidikan, membentuk karakter, menyiapkan wawasan global, dan menjaga identitas keislaman. Sebutkan dasar hukum: KMA No. 1503/2025 dan Permendikbudristek No. 12/2024.",
+  "Ajak murid menekan setiap kartu satu per satu. Jelaskan bahwa 8 Dimensi ini bukan daftar terpisah, melainkan satu kesatuan menuju profil manusia utuh — insan kamil. Kaitkan setiap dimensi dengan aktivitas nyata yang akan mereka jalani di MA ICN.",
+  "Bacakan tiap pertanyaan dengan lantang, beri jeda, lalu tekan tombol agar jawaban muncul di layar sebagai penguat sorakan bersama. Gunakan momen ini untuk merekap tiga hal yang baru dibahas: kurikulum sebagai peta, tujuan MA ICN, dan 8 Dimensi Profil Lulusan.",
+  "Tunjukkan bahwa semua metode belajar — diskusi, presentasi, proyek, riset, kolaborasi, literasi, dan digital learning — berputar mengelilingi satu inti: Pembelajaran Mendalam, yang terdiri dari Mindful, Meaningful, dan Joyful Learning.",
+  "Jelaskan alur Intrakurikuler → Kokurikuler → Pendukung Akademik → Ekstrakurikuler. Tekankan bahwa total beban belajar mencapai 52 jam pelajaran per minggu dengan standar KKTP minimal 82 untuk Fase E.",
+  "Buka satu per satu kelompok mata pelajaran. Jelaskan bahwa pada Fase E (Kelas X) seluruh murid menempuh mata pelajaran yang sama, dan baru pada Fase F (Kelas XI–XII) mereka memilih 4 mata pelajaran pilihan sesuai minat dan rencana studi lanjut.",
+  "Lanjutkan energi yel-yel sebagai jeda dari sesi mata pelajaran yang cukup padat informasi. Rekap singkat: cara belajar mendalam, struktur 52 JP, dan kualitas guru pengampu.",
+  "Jelaskan komponen penilaian: Asesmen Sumatif Harian (65%) dan Asesmen Sumatif Akhir Semester (35%). Tunjukkan progresi KKTP dari 82 di Kelas X menuju 88 di Kelas XII sebagai standar mutu yang terus meningkat.",
+  "Perkenalkan program-program akademik unggulan: matrikulasi sebagai fondasi awal, Klub Bidang Studi untuk pembinaan talenta KSM/OSN, PROTANICS dan riset karya tulis ilmiah, hingga inovasi pembelajaran berbasis AI dan digital.",
+  "Tutup rangkaian materi inti dengan yel-yel terakhir yang paling kencang, sekaligus menjembatani ke sesi permainan Tebak Jurusan dan Roadmap 3 Tahun berikutnya.",
+  "Ajak murid bermain dengan menekan ikon profesi impian mereka. Setelah ditekan, jelaskan keterkaitan antara profesi tersebut dengan kluster mata pelajaran pilihan yang relevan di Fase F, serta contoh jurusan kuliah yang bisa dituju.",
+  "Gambarkan peta perjalanan 3 tahun di MA ICN mulai dari adaptasi Fase E hingga persiapan studi lanjut di Fase F. Tekankan bahwa setiap tahun memiliki target capaian khusus yang berkesinambungan.",
+  "Sampaikan kutipan penyemangat akhir dari Wakil Kepala Madrasah Bidang Kurikulum. Tekankan pentingnya niat belajar yang tulus dan semangat literasi (Iqra') sebagai motor penggerak perubahan.",
+  "Tutup presentasi dengan meriah, ucapkan selamat datang secara formal di keluarga besar MA Insan Cendekia Nusantara, dan luncurkan confetti untuk merayakan awal perjalanan mereka."
+];
 
-NOTE: The output was truncated because it was too long. Use a more targeted query or a smaller range to get the information you need.
+/* ============================================================
+   SLIDE ENGINE & CONTROLLER
+   ============================================================ */
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+let idx = 0;
+
+const deck = document.getElementById('deck');
+const progressBar = document.getElementById('progressBar');
+const curNum = document.getElementById('curNum');
+const totNum = document.getElementById('totNum');
+
+totNum.textContent = String(total).padStart(2, '0');
+
+function render() {
+  // Slide horizontal scroll transition
+  deck.style.transform = `translateX(-${idx * 100}vw)`;
+  
+  // Set active slide class
+  slides.forEach((s, i) => {
+    s.classList.toggle('active', i === idx);
+  });
+  
+  // Update progress Chrome
+  progressBar.style.width = `${((idx + 1) / total) * 100}%`;
+  curNum.textContent = String(idx + 1).padStart(2, '0');
+  
+  // Update speaker notes
+  document.getElementById('presenterLabel').textContent = `Speaker Notes — Slide ${idx + 1}`;
+  document.getElementById('presenterText').textContent = NOTES[idx] || "Tidak ada catatan untuk slide ini.";
+  
+  // Update active dots in overview or overlays if any
+  document.querySelectorAll('.dot').forEach((d, i) => {
+    d.classList.toggle('on', i === idx);
+  });
+}
+
+function go(i) {
+  idx = Math.max(0, Math.min(total - 1, i));
+  render();
+}
+
+function next() {
+  if (idx < total - 1) go(idx + 1);
+}
+
+function prev() {
+  if (idx > 0) go(idx - 1);
+}
+
+document.getElementById('navLeft').addEventListener('click', prev);
+document.getElementById('navRight').addEventListener('click', next);
+
+// Scroll content on small screens/overflows
+function scrollContent(dir) {
+  const activeSlide = slides[idx];
+  if (activeSlide) {
+    const inner = activeSlide.querySelector('.slide-inner');
+    if (inner) {
+      inner.scrollBy({ top: dir * 150, behavior: 'smooth' });
+    }
+  }
+}
+
+/* ============================================================
+   KEYBOARD NAVIGATION & FULLSCREEN
+   ============================================================ */
+document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  if (['ArrowRight', 'ArrowDown', 'PageDown', ' '].includes(e.key)) {
+    e.preventDefault();
+    next();
+  } else if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(e.key)) {
+    e.preventDefault();
+    prev();
+  } else if (e.key === 'Home') {
+    go(0);
+  } else if (e.key === 'End') {
+    go(total - 1);
+  } else if (e.key.toLowerCase() === 'f') {
+    toggleFullscreen();
+  } else if (e.key.toLowerCase() === 'n') {
+    toggleNotes();
+  }
+});
+
+function toggleFullscreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch(() => {});
+  } else {
+    document.exitFullscreen();
+  }
+}
+
+document.getElementById('btnFull').addEventListener('click', toggleFullscreen);
+
+// Touch gestures
+let touchX = null;
+document.addEventListener('touchstart', e => touchX = e.touches[0].clientX);
+document.addEventListener('touchend', e => {
+  if (touchX === null) return;
+  const dx = e.changedTouches[0].clientX - touchX;
+  if (dx > 60) prev();
+  else if (dx < -60) next();
+  touchX = null;
+});
+
+/* ============================================================
+   OVERLAYS & INTERACTIVE COMPONENTS
+   ============================================================ */
+// Show/close overlays
+function closeOverlays() {
+  document.querySelectorAll('.overlay').forEach(ov => ov.classList.remove('show'));
+}
+
+function openOverlay(id) {
+  closeOverlays();
+  document.getElementById(id).classList.add('show');
+}
+
+document.getElementById('btnToc').addEventListener('click', () => openOverlay('tocOverlay'));
+document.getElementById('btnOverview').addEventListener('click', () => openOverlay('overviewOverlay'));
+
+const notesPanel = document.getElementById('presenterPanel');
+function toggleNotes() {
+  notesPanel.classList.toggle('show');
+  document.getElementById('btnNotes').classList.toggle('on');
+}
+document.getElementById('btnNotes').addEventListener('click', toggleNotes);
+
+// Populate TOC & Overview lists
+const tocList = document.getElementById('tocList');
+const gridOverview = document.getElementById('gridOverview');
+const dotsWrap = document.createElement('div');
+dotsWrap.style.cssText = "display:none;"; // Used as element placeholder for render method mapping
+
+TITLES.forEach((title, i) => {
+  // TOC
+  const li = document.createElement('li');
+  li.innerHTML = `
+    <span class="num">${String(i + 1).padStart(2, '0')}</span>
+    <div>
+      <span class="ttl">${title}</span>
+    </div>
+  `;
+  li.onclick = () => {
+    go(i);
+    closeOverlays();
+  };
+  tocList.appendChild(li);
+
+  // Overview
+  const ovCard = document.createElement('div');
+  ovCard.className = 'ov-card';
+  ovCard.innerHTML = `
+    <span class="n">SLIDE ${String(i + 1).padStart(2, '0')}</span>
+    <span class="t">${title}</span>
+  `;
+  ovCard.onclick = () => {
+    go(i);
+    closeOverlays();
+  };
+  gridOverview.appendChild(ovCard);
+});
+
+// Presentation Timer (45 minutes)
+let timerTime = 45 * 60;
+let timerInterval = null;
+
+const timerBox = document.getElementById('timerBox');
+const timerIcon = document.getElementById('timerIcon');
+const timerText = document.getElementById('timerText');
+
+if (timerBox) {
+  timerBox.onclick = () => {
+    if (timerInterval) {
+      clearInterval(timerInterval);
+      timerInterval = null;
+      timerIcon.textContent = '▶';
+    } else {
+      timerIcon.textContent = '⏸';
+      timerInterval = setInterval(() => {
+        if (timerTime > 0) {
+          timerTime--;
+          const m = Math.floor(timerTime / 60);
+          const s = timerTime % 60;
+          timerText.textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+          
+          if (timerTime < 5 * 60) {
+            timerBox.classList.add('warn');
+          }
+        } else {
+          clearInterval(timerInterval);
+          timerInterval = null;
+          timerIcon.textContent = '▶';
+          timerText.textContent = '00:00';
+          alert('Sesi MATAMUDA selesai! Waktu 45 menit habis.');
+        }
+      }, 1000);
+    }
+  };
+}
+
+/* ============================================================
+   SLIDE-SPECIFIC INTERACTIONS
+   ============================================================ */
+// Slide 2 Quiz Answer
+function revealAnswer() {
+  document.getElementById('answerBox').classList.toggle('open');
+  const btn = document.getElementById('answerBtn');
+  if (document.getElementById('answerBox').classList.contains('open')) {
+    btn.textContent = "Sembunyikan Jawaban 🙈";
+  } else {
+    btn.textContent = "Saya punya jawaban 🙋";
+  }
+}
+
+// Slide 3 Misi 40 Hari Game
+function miss40(choice) {
+  const box = document.getElementById('miss40Box');
+  box.classList.add('show');
+  if (choice === 'sanggup') {
+    box.innerHTML = `<strong>Luar biasa! 😤</strong> Kamu memiliki tekad seorang pembelajar sejati! Tanpa HP, kamu akan punya lebih banyak waktu untuk mengaji, berdiskusi di bawah pohon rindang, berolahraga, dan merenungkan materi pelajaran secara mendalam. Inilah esensi ekosistem asrama 24 jam MA ICN!`;
+    box.style.borderColor = 'rgba(15,157,88,0.4)';
+    box.style.background = 'rgba(15,157,88,0.08)';
+  } else {
+    box.innerHTML = `<strong>Jujur sekali! 😱</strong> Tenang saja, kamu tidak sendirian. Kehidupan berasrama memang akan terasa menantang di awal, tetapi dengan 7 Kebiasaan Anak Indonesia Hebat (Bangun Pagi, Beribadah, Berolahraga, Makan Sehat, Gemar Belajar, Bermasyarakat, Tidur Cepat) yang dijalani bersama sahabat-sahabat baru, kamu akan terbiasa dan tumbuh menjadi pribadi mandiri!`;
+    box.style.borderColor = 'rgba(244,180,0,0.4)';
+    box.style.background = 'rgba(244,180,0,0.08)';
+  }
+}
+
+// Slide 4 Apa itu Kurikulum Roadmap
+const JOURNEY_STEPS = [
+  { label: "Mulai", desc: "Titik Awal Orientasi", color: "var(--primary)" },
+  { label: "Belajar", desc: "Mindful & Meaningful KBM", color: "var(--blue)" },
+  { label: "Karakter", desc: "Budaya Nusantara & Islami", color: "var(--accent)" },
+  { label: "Prestasi", desc: "Cendekia Unggul Mendunia", color: "var(--primary-dark)" },
+  { label: "Masa Depan", desc: "Lulus & Memberi Manfaat", color: "var(--secondary)" }
+];
+const journeyEl = document.getElementById('journeyMap');
+if (journeyEl) {
+  journeyEl.innerHTML = JOURNEY_STEPS.map((s, i) => `
+    <div class="flow-node">
+      <span style="color:${s.color}; font-size:16px;">✦</span>
+      <div>
+        <div style="font-size:13.5px; font-weight:800; color:var(--text);">${s.label}</div>
+        <div style="font-size:10.5px; font-weight:600; color:var(--text-soft);">${s.desc}</div>
+      </div>
+    </div>
+    ${i < JOURNEY_STEPS.length - 1 ? '<div class="flow-arrow">→</div>' : ''}
+  `).join('');
+}
+
+// Slide 5 Flip Cards for 8 Dimensi Lulusan
+const DIMENSIONS = [
+  { num: "01", title: "Keimanan & Ketakwaan", desc: "Ketaatan beribadah harian, akhlak mulia kepada guru/teman, dan integritas moral asrama." },
+  { num: "02", title: "Kewargaan", desc: "Kesadaran berbangsa, adab bersosial, cinta tanah air, dan toleransi keberagaman nusantara." },
+  { num: "03", title: "Penalaran Kritis", desc: "Berpikir objektif, menganalisis data sains, menarik kesimpulan logis, dan gemar riset ilmiah." },
+  { num: "04", title: "Kreativitas", desc: "Menghasilkan gagasan orisinal, karya inovatif, dan alternatif solusi untuk tantangan sekitar." },
+  { num: "05", title: "Kolaborasi", desc: "Bekerja sama secara sinergis, menghargai pendapat, dan berbagi peran dalam tim belajar." },
+  { num: "06", title: "Kemandirian", desc: "Tanggung jawab atas pembelajaran mandiri, regulasi emosi, dan disiplin tinggi asrama." },
+  { num: "07", title: "Kesehatan", desc: "Keseimbangan fisik yang prima melalui olahraga rutin serta kesehatan mental-spiritual." },
+  { num: "08", title: "Komunikasi", desc: "Menyampaikan gagasan secara santun dan efektif melalui lisan maupun tulisan ilmiah." }
+];
+const dimGrid = document.getElementById('dimGrid');
+if (dimGrid) {
+  dimGrid.innerHTML = DIMENSIONS.map(d => `
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-face flip-front">
+          <div class="num">${d.num}</div>
+          <div class="lbl">${d.title}</div>
+        </div>
+        <div class="flip-face flip-back">
+          <div style="font-weight:800; margin-bottom:5px; font-size:12.5px;">${d.title}</div>
+          <div style="font-size:11px; line-height:1.4;">${d.desc}</div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// Slide 8 Learning Circle (Orbiting nodes)
+const circleWrap = document.getElementById('circleWrap');
+if (circleWrap) {
+  const outerNodes = ["Diskusi", "Presentasi", "Proyek", "Riset", "Kolaborasi", "Literasi", "Digital Learning"];
+  const totalNodes = outerNodes.length;
+  
+  // Center node
+  circleWrap.innerHTML = `
+    <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); 
+                width:min(160px, 28vw); height:min(160px, 28vw); border-radius:50%; 
+                background:linear-gradient(135deg,var(--primary),var(--secondary)); 
+                color:#fff; display:flex; flex-direction:column; justify-content:center; 
+                align-items:center; text-align:center; padding:12px; 
+                box-shadow:0 10px 30px rgba(15,157,88,0.3); z-index:10;">
+      <div style="font-size:14px; font-weight:800; line-height:1.25;">Pembelajaran Mendalam</div>
+      <div style="font-size:9.5px; font-weight:600; opacity:0.85; margin-top:4px;">Mindful, Meaningful, Joyful</div>
+    </div>
+  `;
+  
+  // Orbiting nodes
+  outerNodes.forEach((node, idx) => {
+    const angle = (idx / totalNodes) * 2 * Math.PI - Math.PI / 2;
+    const radius = 175; // radius in px
+    const x = 50 + (radius / 280) * 100 * Math.cos(angle);
+    const y = 50 + (radius / 280) * 100 * Math.sin(angle);
+    
+    circleWrap.innerHTML += `
+      <div style="position:absolute; top:${y}%; left:${x}%; transform:translate(-50%,-50%);
+                  padding:10px 16px; border-radius:12px; background:#fff;
+                  border:1.5px solid rgba(15,157,88,0.2); font-weight:700;
+                  font-size:12.5px; color:var(--text); box-shadow:var(--shadow-sm);
+                  transition:all 0.3s ease; cursor:pointer;"
+           onmouseover="this.style.transform='translate(-50%,-50%) scale(1.1)'; this.style.borderColor='var(--accent)';"
+           onmouseout="this.style.transform='translate(-50%,-50%) scale(1)';"
+      >
+        ${node}
+      </div>
+    `;
+  });
+}
+
+// Slide 9 Subject Accordions
+const SUBJECT_GROUPS = [
+  {
+    title: "Kelompok Umum (Muatan Wajib Kemenag & Kemendikbud)",
+    items: ["Al-Qur'an Hadits", "Aqidah Akhlak", "Fiqih", "Sejarah Kebudayaan Islam", "Pancasila", "Bahasa Indonesia", "Bahasa Arab", "Bahasa Inggris", "Matematika", "Sejarah", "PJOK", "Informatika", "Seni Budaya"]
+  },
+  {
+    title: "Muatan Kekhasan Insan Cendekia Nusantara",
+    items: ["Bimbingan Karya Tulis Ilmiah (BPKI)", "Program Trilingual (Inggris, Arab, Mandarin)", "Klub Bidang Studi (KBS)", "Klinik Mata Pelajaran"]
+  },
+  {
+    title: "Program Kokurikuler (Projek P5RA)",
+    items: ["Projek Agro-Edu (Semester Ganjil)", "Projek Kesehatan Mental (Semester Genap)", "Studi Lapangan / Outing Class"]
+  },
+  {
+    title: "Ekstrakurikuler & Pembinaan Keasramaan",
+    items: ["Pramuka Wajib", "Muhadharah / Public Speaking", "Tahfidzul Qur'an Mandiri", "Kajian Kitab Kuning"]
+  }
+];
+const accWrap = document.getElementById('accWrap');
+if (accWrap) {
+  accWrap.innerHTML = SUBJECT_GROUPS.map((g, idx) => `
+    <div class="acc-item" id="accItem-${idx}">
+      <div class="acc-head" onclick="toggleAcc(${idx})">
+        <span>${g.title}</span>
+        <span class="chev">▼</span>
+      </div>
+      <div class="acc-body">
+        <div class="acc-body-in">
+          <div class="pill-row">
+            ${g.items.map(item => `<span class="pill">${item}</span>`).join('')}
+          </div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleAcc(idx) {
+  const item = document.getElementById(`accItem-${idx}`);
+  if (item) {
+    const isOpen = item.classList.toggle('open');
+    const body = item.querySelector('.acc-body');
+    body.style.maxHeight = isOpen ? (body.scrollHeight + 'px') : '0px';
+  }
+}
+
+// Slide 12 Academic Program Roadmap
+const roadmapWrap = document.getElementById('roadmapWrap');
+if (roadmapWrap) {
+  const steps = [
+    { title: "Matrikulasi", desc: "Pre-test, adaptasi KBM, pembinaan baseline akademis." },
+    { title: "Klub Studi", desc: "Pembinaan terstruktur untuk talenta OSN/KSM." },
+    { title: "PROTANICS", desc: "Karya Tulis Ilmiah & riset mandiri terapan." },
+    { title: "Sertifikasi", desc: "Ujian tahfidz & penguasaan bahasa asing." }
+  ];
+  roadmapWrap.innerHTML = `
+    <div style="display:flex; justify-content:space-between; align-items:start; flex-wrap:wrap; gap:16px; margin-top:14px; width:100%;">
+      ${steps.map((s, i) => `
+        <div class="glass card" style="flex:1; min-width:200px; padding:18px; border-top:4px solid var(--primary);">
+          <div style="width:30px; height:30px; border-radius:50%; background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:14px; margin-bottom:10px;">${i + 1}</div>
+          <div style="font-weight:800; font-size:14px; color:var(--text);">${s.title}</div>
+          <div style="font-size:12px; color:var(--text-soft); margin-top:5px; line-height:1.45;">${s.desc}</div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+// Slide 15 Tebak Jurusan Game
+const PROFESSIONS = [
+  { icon: "🩺", name: "Dokter / Saintis", subject: "Biologi, Kimia, Bahasa Inggris", major: "Pendidikan Dokter, Kedokteran Gigi, Farmasi, Bioteknologi" },
+  { icon: "💻", name: "Software Engineer", subject: "Informatika, Matematika Tingkat Lanjut, Bahasa Inggris", major: "Ilmu Komputer, Teknik Informatika, Sistem Informasi" },
+  { icon: "🌍", name: "Diplomat / Advokat", subject: "Bahasa Inggris, Bahasa Arab, Sejarah, Geografi", major: "Hubungan Internasional, Hukum, Sastra Inggris/Arab" },
+  { icon: "🔬", name: "Riset & Peneliti KTI", subject: "Fisika, Kimia, Biologi, BPKI", major: "MIPA Murni, Teknik Fisika/Kimia, Bio-medis" },
+  { icon: "💼", name: "Sociopreneur / CEO", subject: "Ekonomi, Sosiologi, Matematika", major: "Manajemen Bisnis, Bisnis Digital, Akuntansi, Kewirausahaan" }
+];
+const profGrid = document.getElementById('profGrid');
+const profAnswer = document.getElementById('profAnswer');
+if (profGrid && profAnswer) {
+  profGrid.innerHTML = PROFESSIONS.map((p, idx) => `
+    <button class="prof-btn" onclick="selectProf(this, ${idx})">
+      <span style="font-size:20px;">${p.icon}</span>
+      <span>${p.name}</span>
+    </button>
+  `).join('');
+}
+
+function selectProf(btn, idx) {
+  document.querySelectorAll('.prof-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const p = PROFESSIONS[idx];
+  const ans = document.getElementById('profAnswer');
+  if (ans) {
+    ans.innerHTML = `
+      <div style="font-weight:800; font-size:14.5px; color:var(--secondary); margin-bottom:8px;">💡 Rekomendasi Pilihan Studi untuk Karir Impianmu:</div>
+      <div style="margin-bottom:6px;"><b>Mata Pelajaran Pendukung di Fase F:</b> ${p.subject}</div>
+      <div><b>Rekomendasi Jurusan Kuliah:</b> ${p.major}</div>
+    `;
+    ans.classList.add('show');
+  }
+}
+
+// Slide 16 Roadmap 3 Tahun Grid
+const roadmap3 = document.getElementById('roadmap3');
+if (roadmap3) {
+  const years = [
+    { year: "Kelas X (Fase E)", title: "Adaptasi & Pondasi", desc: "Fokus pada penguasaan materi wajib umum, pembinaan baseline akademik, penyesuaian budaya asrama 24 jam, dan pemetaan karir awal." },
+    { year: "Kelas XI (Fase F)", title: "Pendalaman & Eksplorasi", desc: "Mulai menempuh 4 mata pelajaran pilihan sesuai minat, riset intensif karya tulis ilmiah (BPKI), serta persiapan olimpiade sains (OSN/KSM)." },
+    { year: "Kelas XII (Fase F)", title: "Pemantapan & Studi Lanjut", desc: "Penyelesaian draf KTI, ujian tahfidz akhir, bimbingan UTBK-SNBT, persiapan beasiswa kampus dalam/luar negeri, serta pengabdian masyarakat." }
+  ];
+  roadmap3.innerHTML = `
+    <div style="display:flex; gap:16px; min-width:780px; padding:8px 0;">
+      ${years.map(y => `
+        <div class="glass card" style="flex:1; padding:20px; border-left:4px solid var(--accent);">
+          <div style="font-family:'DM Mono',monospace; font-size:11.5px; font-weight:800; color:var(--secondary); margin-bottom:5px;">${y.year}</div>
+          <div style="font-weight:800; font-size:15px; color:var(--text); margin-bottom:8px;">${y.title}</div>
+          <div style="font-size:12px; color:var(--text-soft); line-height:1.55;">${y.desc}</div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+// Yel-yel Board Generator
+document.querySelectorAll('.yel-grid').forEach(grid => {
+  const data = JSON.parse(grid.dataset.yel || '[]');
+  grid.innerHTML = data.map(y => `
+    <div class="yel-item" onclick="toggleYel(this)" style="cursor:pointer;">
+      <div class="yel-call">${y.call}</div>
+      <div class="yel-resp">${y.resp}</div>
+      <div style="font-size:11px;color:var(--text-soft);margin-top:8px;">Ketuk untuk bersorak serentak! 📣</div>
+    </div>
+  `).join('');
+});
+
+function toggleYel(el) {
+  const resp = el.querySelector('.yel-resp');
+  if (resp) resp.classList.toggle('show');
+}
+
+// Confetti Particle Canvas
+const canvas = document.getElementById('confetti');
+if (canvas) {
+  const ctx = canvas.getContext('2d');
+  let width = canvas.width = canvas.offsetWidth;
+  let height = canvas.height = canvas.offsetHeight;
+  
+  window.addEventListener('resize', () => {
+    width = canvas.width = canvas.offsetWidth;
+    height = canvas.height = canvas.offsetHeight;
+  });
+  
+  const colors = ['#0F9D58', '#2E7D32', '#F4B400', '#2E6FDB', '#e0a300'];
+  const particles = [];
+  
+  for (let i = 0; i < 90; i++) {
+    particles.push({
+      x: Math.random() * width,
+      y: Math.random() * height - height,
+      r: Math.random() * 5 + 4,
+      d: Math.random() * height,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      tilt: Math.random() * 8 - 4,
+      tiltAngleIncremental: Math.random() * 0.05 + 0.02,
+      tiltAngle: 0
+    });
+  }
+  
+  function drawConfetti() {
+    ctx.clearRect(0, 0, width, height);
+    
+    particles.forEach((p, idx) => {
+      p.tiltAngle += p.tiltAngleIncremental;
+      p.y += (Math.cos(p.d) + 3 + p.r / 2) / 2;
+      p.x += Math.sin(p.tiltAngle);
+      p.tilt = Math.sin(p.tiltAngle - idx / 3) * 12;
+      
+      if (p.y > height) {
+        p.x = Math.random() * width;
+        p.y = -20;
+        p.tilt = Math.random() * 8 - 4;
+      }
+      
+      ctx.beginPath();
+      ctx.lineWidth = p.r;
+      ctx.strokeStyle = p.color;
+      ctx.moveTo(p.x + p.tilt + p.r / 2, p.y);
+      ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 2);
+      ctx.stroke();
+    });
+    
+    requestAnimationFrame(drawConfetti);
+  }
+  
+  drawConfetti();
+}
+
+// Initial render
+render();
+</script>
+
+<!-- ══ MODAL: LOGIN ══ -->
+<div class="modal-overlay" id="modal-login">
+  <div class="modal-box">
+    <button class="modal-close" data-close-modal="modal-login">✕</button>
+    <div class="modal-logo"><img src="assets/iconmaicn.png" alt="Logo"></div>
+    <div class="modal-title">Masuk Admin</div>
+    <div class="modal-sub">Akses panel pengelolaan kurikulum</div>
+    <div class="login-error" id="login-error"></div>
+    <form id="login-form">
+      <div class="form-group">
+        <label>Email / Username</label>
+        <input type="text" id="login-user" placeholder="nama@maicn.sch.id atau username" autocomplete="username" required>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="login-pass" placeholder="••••••••" autocomplete="current-password" required>
+      </div>
+      <button type="submit" class="btn btn-primary btn-full" style="margin-top:8px;">Masuk →</button>
+    </form>
+    <p style="text-align:center;font-size:0.8rem;color:var(--text-soft);margin-top:16px;">
+      Khusus Waka Kurikulum &amp; Administrator
+    </p>
+  </div>
+</div>
+
+<!-- ══ MODAL: ADMIN PANEL ══ -->
+<div class="modal-overlay" id="modal-admin">
+  <div class="modal-box wide">
+    <button class="modal-close" data-close-modal="modal-admin">✕</button>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px;">
+      <div>
+        <div class="admin-tag" style="margin-bottom:6px;">Admin Panel</div>
+        <div class="modal-title" style="text-align:left;margin-bottom:0;">Kelola Konten</div>
+      </div>
+      <button class="btn btn-ghost btn-sm" id="btn-logout">Keluar ↗</button>
+    </div>
+    <div class="admin-tabs">
+      <button class="admin-tab active" data-tab="embed">📎 Tautan &amp; Modul</button>
+      <button class="admin-tab" data-tab="kaldik">📅 Info Kaldik</button>
+      <button class="admin-tab" data-tab="info">ℹ Info</button>
+    </div>
+    <div class="admin-panel-content active" id="panel-embed">
+      <form id="embed-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Judul Dokumen</label>
+            <input type="text" id="embed-title" placeholder="Modul Matematika X" required>
+          </div>
+          <div class="form-group">
+            <label>Kategori</label>
+            <select id="embed-category">
+              <option value="modul">Modul Ajar</option>
+              <option value="kaldik">Kalender Akademik</option>
+              <option value="prota">Program Tahunan</option>
+              <option value="posem">Program Semester</option>
+              <option value="dokumen">Dokumen Lain</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Link Google Drive (embed/share)</label>
+          <input type="url" id="embed-url" placeholder="https://drive.google.com/file/d/..." required>
+        </div>
+        <button type="submit" class="btn btn-aqua btn-sm">Tambah Tautan</button>
+      </form>
+      <div class="embed-list" id="embed-list-admin">
+        <div class="comment-empty">Belum ada tautan tertanam.</div>
+      </div>
+    </div>
+    <div class="admin-panel-content" id="panel-kaldik">
+      <p style="font-size:0.9rem;color:var(--text-soft);line-height:1.7;">
+        Untuk mengedit data kalender akademik, perbarui file <strong>master-data.json</strong> via GitHub,
+        atau hubungi tim teknis. Fitur edit langsung sedang dikembangkan (versi 2.1).
+      </p>
+      <div class="callout" style="margin-top:16px;">📌 Fitur edit kalender langsung dari browser — coming soon</div>
+    </div>
+    <div class="admin-panel-content" id="panel-info">
+      <p style="font-size:0.9rem;color:var(--text-soft);line-height:1.7;margin-bottom:12px;">
+        <strong>Curriculum OS v2.0</strong> — Aquamorphic Edition<br>MA Insan Cendekia Nusantara Purwakarta
+      </p>
+      <div class="callout">
+        🔐 Ubah password: edit <code>AUTH_CONFIG</code> di <code>assets/app.js</code>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
