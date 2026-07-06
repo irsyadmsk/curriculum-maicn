@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>MATAMUDA · MA Insan Cendekia Nusantara · IQRA'</title>
+<style>
+/* ============================================================
+   MATAMUDA — IQRA' | MA Insan Cendekia Nusantara TP 2026/2027
+   Single-file interactive presentation. No external dependencies.
+   ============================================================ */
+:root{
+  --primary:#0F9D58;
+  --secondary:#2E7D32;
+  --accent:#F4B400;
+  --bg:#FFFFFF;
+  --surface:#F7F9FA;
+  --text:#263238;
+  --text-soft:#5B6B70;
+  --blue:#2E6FDB;
+  --line:rgba(38,54,56,0.10);
+  --glass:rgba(255,255,255,0.62);
+  --glass-brd:rgba(255,255,255,0.85);
+  --shadow-sm:0 2px 10px rgba(15,157,88,0.08);
+  --shadow-md:0 12px 40px rgba(15,90,60,0.12);
+  --radius:22px;
+  --font:-apple-system,"Segoe UI","San Francisco",Inter,Arial,sans-serif;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;height:100%;overflow:hidden;background:var(--bg);}
+body{
+  font-family:var(--font);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  position:relative;
+}
+::selection{background:rgba(15,157,88,.22);}
+
+/* ---------- ambient background ---------- */
+.ambient{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;}
+.blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.35;}
+.blob1{width:520px;height:520px;background:radial-gradient(circle,var(--primary),transparent 70%);top:-180px;left:-120px;animation:drift1 22s ease-in-out infinite;}
+.blob2{width:420px;height:420px;background:radial-gradient(circle,var(--accent),transparent 70%);bottom:-140px;right:-100px;animation:drift2 26s ease-in-out infinite;}
+.blob3{width:340px;height:340px;background:radial-gradient(circle,var(--blue),transparent 70%);top:40%;right:10%;opacity:.18;animation:drift3 30s ease-in-out infinite;}
+@keyframes drift1{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(60px,40px) scale(1.08);}}
+@keyframes drift2{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-50px,-30px) scale(1.05);}}
+@keyframes drift3{0%,100%{transform:translate(0,0);}50%{transform:translate(-40px,50px);}}
+.mascot-float{animation:floaty 3.6s ease-in-out infinite;}
+@keyframes floaty{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+
+/* ---------- app shell ---------- */
+.app{position:relative;z-index:1;height:100%;width:100%;}
+.deck{
+  height:100%;width:100%;
+  display:flex;
+  transition:transform .7s cubic-bezier(.65,0,.24,1);
+  will-change:transform;
+}
+.slide{
+  flex:0 0 100vw;height:100%;
+  display:flex;align-items:center;justify-content:center;
+  padding:78px 7vw 64px;
+  position:relative;
+  overflow:hidden;
+}
+.slide-inner{width:100%;max-width:1180px;max-height:100%;overflow:auto;padding:4px 2px 10px;scrollbar-width:thin;}
+.slide-inner::-webkit-scrollbar{width:6px;}
+.slide-inner::-webkit-scrollbar-thumb{background:var(--line);border-radius:4px;}
+
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--secondary);font-weight:700;margin-bottom:14px;
+  background:rgba(15,157,88,.09);padding:6px 14px 6px 12px;border-radius:100px;
+}
+.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);}
+h1.slide-title{font-size:clamp(28px,4vw,46px);line-height:1.12;margin:0 0 10px;font-weight:800;letter-spacing:-.02em;}
+p.slide-sub{font-size:clamp(15px,1.6vw,18px);color:var(--text-soft);max-width:680px;margin:0 0 28px;line-height:1.6;}
+.accent-word{color:var(--primary);}
+
+/* ---------- reveal animation engine ---------- */
+.reveal{opacity:0;transform:translateY(22px);}
+.slide.active .reveal{animation:fadeUp .7s cubic-bezier(.2,.7,.3,1) forwards;animation-delay:var(--d,0s);}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
+.reveal.scale-in{transform:scale(.88);}
+.slide.active .reveal.scale-in{animation:scaleIn .7s cubic-bezier(.2,.7,.3,1) forwards;animation-delay:var(--d,0s);}
+@keyframes scaleIn{to{opacity:1;transform:scale(1);}}
+.reveal.slide-l{transform:translateX(-34px);}
+.slide.active .reveal.slide-l{animation:slideR .7s cubic-bezier(.2,.7,.3,1) forwards;animation-delay:var(--d,0s);}
+@keyframes slideR{to{opacity:1;transform:translateX(0);}}
+
+/* ---------- glass card ---------- */
+.glass{
+  background:var(--glass);
+  border:1px solid var(--glass-brd);
+  backdrop-filter:blur(16px) saturate(140%);
+  -webkit-backdrop-filter:blur(16px) saturate(140%);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow-sm);
+}
+.card{padding:20px 22px;transition:transform .35s ease,box-shadow .35s ease;}
+.card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);}
+
+/* ---------- buttons ---------- */
+.btn{
+  font-family:var(--font);cursor:pointer;border:none;outline:none;
+  padding:13px 26px;border-radius:100px;font-size:14.5px;font-weight:700;
+  background:linear-gradient(135deg,var(--primary),var(--secondary));
+  color:#fff;box-shadow:0 8px 22px rgba(15,157,88,.28);
+  transition:transform .25s ease,box-shadow .25s ease;
+  display:inline-flex;align-items:center;gap:8px;
+}
+.btn:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 12px 28px rgba(15,157,88,.36);}
+.btn:active{transform:translateY(0) scale(.98);}
+.btn.ghost{background:rgba(15,157,88,.08);color:var(--secondary);box-shadow:none;border:1px solid rgba(15,157,88,.25);}
+.btn.gold{background:linear-gradient(135deg,var(--accent),#e0a300);box-shadow:0 8px 22px rgba(244,180,0,.3);}
+
+/* ---------- icon ---------- */
+.icn{width:1em;height:1em;stroke:currentColor;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;display:block;}
+.icon-badge{
+  width:56px;height:56px;border-radius:18px;display:flex;align-items:center;justify-content:center;
+  font-size:26px;color:var(--primary);background:rgba(15,157,88,.1);flex:none;
+}
+
+/* ================= TOPBAR / NAV CHROME ================= */
+.topbar{
+  position:fixed;top:0;left:0;right:0;z-index:40;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 26px;pointer-events:none;
+}
+.topbar > *{pointer-events:auto;}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:14px;color:var(--secondary);}
+.brand .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;font-weight:900;}
+.tools{display:flex;gap:8px;}
+.tool-btn{
+  width:38px;height:38px;border-radius:12px;border:1px solid var(--line);
+  background:var(--glass);backdrop-filter:blur(10px);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text);
+  transition:all .2s ease;font-size:16px;
+}
+.tool-btn:hover{background:rgba(15,157,88,.12);color:var(--secondary);transform:translateY(-1px);}
+.tool-btn.on{background:var(--primary);color:#fff;}
+.timer-box{
+  display:flex;align-items:center;gap:7px;font-size:13px;font-weight:800;color:var(--secondary);
+  background:var(--glass);border:1px solid var(--line);padding:8px 16px;border-radius:100px;backdrop-filter:blur(10px);
+  cursor:pointer;font-variant-numeric:tabular-nums;transition:all .2s ease;
+}
+.timer-box:hover{background:rgba(15,157,88,.1);}
+.timer-box.warn{color:#b23b1f;background:rgba(178,59,31,.1);border-color:rgba(178,59,31,.3);}
+
+.progress-wrap{position:fixed;bottom:0;left:0;right:0;height:4px;background:rgba(15,157,88,.08);z-index:40;}
+.progress-bar{height:100%;background:linear-gradient(90deg,var(--primary),var(--accent));transition:width .6s cubic-bezier(.2,.7,.3,1);}
+
+.counter{
+  position:fixed;bottom:16px;right:26px;z-index:40;font-size:12.5px;font-weight:700;color:var(--text-soft);
+  background:var(--glass);border:1px solid var(--line);padding:7px 13px;border-radius:100px;backdrop-filter:blur(10px);
+}
+.counter b{color:var(--primary);}
+
+.navarrow{
+  position:fixed;top:50%;transform:translateY(-50%);z-index:35;
+  width:44px;height:44px;border-radius:50%;border:1px solid var(--line);
+  background:var(--glass);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;
+  cursor:pointer;color:var(--secondary);transition:all .2s ease;
+}
+.navarrow:hover{background:var(--primary);color:#fff;transform:translateY(-50%) scale(1.08);}
+.navarrow.left{left:16px;}
+.navarrow.right{right:16px;}
+.navarrow.hide{opacity:0;pointer-events:none;}
+.scroll-cluster{position:fixed;right:16px;bottom:56px;z-index:35;display:flex;flex-direction:column;gap:8px;}
+.scroll-cluster .tool-btn{width:34px;height:34px;font-size:15px;}
+
+/* ================= OVERLAYS: TOC / OVERVIEW / PRESENTER ================= */
+.overlay{
+  position:fixed;inset:0;z-index:60;background:rgba(247,249,250,.88);backdrop-filter:blur(18px);
+  display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .35s ease;
+}
+.overlay.show{opacity:1;pointer-events:auto;}
+.overlay-panel{width:min(880px,92vw);max-height:84vh;overflow:auto;padding:34px;}
+.overlay-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+.overlay-head h2{margin:0;font-size:22px;}
+.close-x{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--text-soft);}
+.toc-list{list-style:none;margin:0;padding:0;display:grid;gap:6px;}
+.toc-list li{
+  display:flex;align-items:center;gap:14px;padding:12px 14px;border-radius:14px;cursor:pointer;
+  transition:background .2s ease;
+}
+.toc-list li:hover{background:rgba(15,157,88,.08);}
+.toc-list .num{width:30px;height:30px;border-radius:9px;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:800;color:var(--secondary);flex:none;}
+.toc-list .ttl{font-weight:600;font-size:14.5px;}
+.toc-list .sub{font-size:12px;color:var(--text-soft);}
+
+.grid-overview{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;}
+.ov-card{
+  aspect-ratio:16/10;border-radius:16px;border:1px solid var(--line);background:linear-gradient(160deg,#fff,var(--surface));
+  cursor:pointer;padding:14px;display:flex;flex-direction:column;justify-content:space-between;transition:all .2s ease;
+}
+.ov-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:var(--primary);}
+.ov-card .n{font-size:11px;font-weight:800;color:var(--accent);}
+.ov-card .t{font-size:13px;font-weight:700;line-height:1.3;}
+
+.presenter-panel{
+  position:fixed;left:0;right:0;bottom:0;z-index:55;
+  background:#1c2624;color:#e9f5ee;padding:20px 30px;max-height:32vh;overflow:auto;
+  transform:translateY(100%);transition:transform .35s ease;border-top:3px solid var(--accent);
+}
+.presenter-panel.show{transform:translateY(0);}
+.presenter-panel h3{margin:0 0 8px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);}
+.presenter-panel p{margin:0;font-size:14.5px;line-height:1.75;color:#dcece3;max-width:900px;}
+
+/* ================= misc component styles ================= */
+.flow-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.flow-node{
+  padding:14px 22px;border-radius:16px;background:#fff;border:1.5px solid rgba(15,157,88,.25);
+  font-weight:700;font-size:14px;box-shadow:var(--shadow-sm);display:flex;align-items:center;gap:9px;color:var(--secondary);
+}
+.flow-arrow{color:var(--accent);font-size:20px;}
+
+.stat-num{font-size:clamp(30px,4vw,46px);font-weight:900;color:var(--primary);line-height:1;}
+.stat-lbl{font-size:12.5px;color:var(--text-soft);font-weight:600;margin-top:4px;}
+
+.tag{display:inline-block;padding:4px 11px;border-radius:100px;font-size:11.5px;font-weight:700;background:rgba(244,180,0,.16);color:#8a6200;}
+
+/* accordion */
+.acc-item{border:1px solid var(--line);border-radius:16px;margin-bottom:10px;overflow:hidden;background:#fff;}
+.acc-head{padding:15px 18px;display:flex;align-items:center;justify-content:between;justify-content:space-between;cursor:pointer;font-weight:700;font-size:14.5px;color:var(--secondary);}
+.acc-head .chev{transition:transform .3s ease;}
+.acc-item.open .acc-head .chev{transform:rotate(180deg);}
+.acc-body{max-height:0;overflow:hidden;transition:max-height .4s ease;}
+.acc-item.open .acc-body{max-height:1400px;}
+.acc-body-in{padding:0 18px 16px;font-size:13.5px;color:var(--text-soft);line-height:1.7;}
+.pill-row{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px;}
+.pill{background:var(--surface);border:1px solid var(--line);padding:5px 12px;border-radius:100px;font-size:12.5px;color:var(--text);}
+.guru-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin-top:8px;}
+.guru-card{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:9px 12px;}
+.guru-avatar{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;flex:none;}
+.guru-subj{font-size:12.5px;font-weight:700;color:var(--text);}
+.guru-name{font-size:11.5px;color:var(--text-soft);}
+
+/* flip card */
+.flip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;}
+.flip-card{perspective:1200px;height:150px;cursor:pointer;}
+.flip-inner{position:relative;width:100%;height:100%;transition:transform .6s cubic-bezier(.2,.7,.3,1);transform-style:preserve-3d;}
+.flip-card.flipped .flip-inner{transform:rotateY(180deg);}
+.flip-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:16px;padding:14px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:6px;}
+.flip-front{background:linear-gradient(160deg,#fff,var(--surface));border:1.5px solid rgba(15,157,88,.2);}
+.flip-back{background:linear-gradient(160deg,var(--primary),var(--secondary));color:#fff;transform:rotateY(180deg);font-size:11.5px;line-height:1.5;}
+.flip-front .num{position:absolute;top:8px;left:10px;font-size:10px;font-weight:800;color:var(--accent);}
+.flip-front .lbl{font-size:12.5px;font-weight:700;color:var(--text);}
+
+/* quiz / poll */
+.quiz-box{max-width:640px;}
+.reveal-ans{max-height:0;overflow:hidden;transition:max-height .8s ease;}
+.reveal-ans.open{max-height:400px;}
+
+/* profession game */
+.prof-grid{display:flex;flex-wrap:wrap;gap:12px;}
+.prof-btn{
+  padding:13px 18px;border-radius:16px;background:#fff;border:1.5px solid var(--line);cursor:pointer;
+  display:flex;align-items:center;gap:10px;font-weight:700;font-size:13.5px;color:var(--text);transition:all .2s ease;
+}
+.prof-btn:hover,.prof-btn.active{border-color:var(--primary);background:rgba(15,157,88,.07);color:var(--secondary);transform:translateY(-2px);}
+.prof-answer{margin-top:16px;padding:16px 18px;border-radius:16px;background:rgba(244,180,0,.1);border:1px solid rgba(244,180,0,.35);font-size:13.5px;line-height:1.7;display:none;}
+.prof-answer.show{display:block;animation:fadeUp .5s ease forwards;}
+
+/* pie chart */
+.pie-wrap{display:flex;align-items:center;gap:30px;flex-wrap:wrap;}
+.pie-legend{display:flex;flex-direction:column;gap:10px;}
+.leg-item{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;}
+.leg-dot{width:12px;height:12px;border-radius:4px;}
+
+/* footnote / legal ref */
+.legalref{font-size:11.5px;color:var(--text-soft);font-style:italic;margin-top:6px;}
+
+/* dedicated yel-yel ice breaking slides */
+.yel-grid{display:grid;gap:16px;margin-top:18px;}
+.yel-item{background:#fff;border:1.5px solid var(--line);border-radius:20px;padding:20px 24px;text-align:center;}
+.yel-call{font-size:clamp(18px,2.6vw,26px);font-weight:800;color:var(--text);margin-bottom:12px;}
+.yel-resp{max-height:0;opacity:0;overflow:hidden;transition:all .5s cubic-bezier(.2,.7,.3,1);font-weight:900;font-size:clamp(20px,3vw,30px);color:var(--accent);letter-spacing:.02em;}
+.yel-resp.show{max-height:90px;opacity:1;margin-top:10px;}
+
+/* confetti canvas */
+#confetti{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
+
+/* closing screen */
+.closing-title{font-size:clamp(30px,5vw,58px);font-weight:900;text-align:center;background:linear-gradient(120deg,var(--primary),var(--secondary) 40%,var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent;}
+
+@media (max-width:720px){
+  .slide{padding:90px 5vw 90px;}
+  .navarrow{display:none;}
+  .grid-overview{grid-template-columns:repeat(2,1fr);}
+}
+</style>
+</head>
+<body>
+
+<div class="ambient">
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="blob blob3"></div>
+</div>
+
+<div class="app">
+
+  <div class="topbar">
+    <a class="brand" href="acara.html" style="text-decoration:none;" title="Kembali ke Portal Kurikulum">
+      <span class="mark">إ</span> MATAMUDA · MA ICN
+    </a>
+    <div class="timer-box" id="timerBox" title="Klik untuk mulai/jeda timer sesi 45 menit">
+      <span id="timerIcon">▶</span> <span id="timerText">45:00</span>
+    </div>
+    <div class="tools">
+      <div class="tool-btn" id="btnToc" title="Daftar Isi &amp; Rundown">☰</div>
+      <div class="tool-btn" id="btnOverview" title="Overview">▦</div>
+      <div class="tool-btn" id="btnNotes" title="Speaker Notes (N)">🗒</div>
+      <div class="tool-btn" id="btnFull" title="Fullscreen">⛶</div>
+    </div>
+  </div>
+
+  <div class="deck" id="deck">
+    <!-- ================================================================ -->
+    <!-- SLIDE 1 — OPENING -->
+    <!-- ================================================================ -->
+    <section class="slide" data-index="0">
+      <div class="slide-inner" style="text-align:center;">
+        <div class="reveal scale-in mascot-float" style="--d:.05s;margin:0 auto 14px;width:120px;height:120px;">
+          <svg viewBox="0 0 120 120" style="width:100%;height:100%;">
+            <circle cx="60" cy="60" r="56" fill="rgba(15,157,88,.08)"/>
+            <path d="M40 78c0-18 9-30 20-30s20 12 20 30" fill="none" stroke="#0F9D58" stroke-width="4" stroke-linecap="round"/>
+            <circle cx="60" cy="40" r="16" fill="#FDEBC8"/>
+            <path d="M44 36c0-12 8-18 16-18s16 6 16 18" fill="#0F9D58"/>
+            <path d="M42 34c8 4 28 4 36 0" fill="none" stroke="#2E7D32" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="53" cy="42" r="2.4" fill="#263238"/><circle cx="67" cy="42" r="2.4" fill="#263238"/>
+            <path d="M54 49c3 2.5 9 2.5 12 0" fill="none" stroke="#263238" stroke-width="2.2" stroke-linecap="round"/>
+            <rect x="42" y="82" width="36" height="20" rx="4" fill="#F4B400"/>
+            <path d="M42 88h36" stroke="#8a6200" stroke-width="1.6"/>
+          </svg>
+        </div>
+        <div class="reveal" style="--d:.12s;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+          <span class="eyebrow"><span class="dot"></span>Masa Ta'aruf Murid Madrasah</span>
+          <span class="eyebrow" style="background:rgba(244,180,0,.16);color:#8a6200;">Angkatan Al-'Alaq</span>
+        </div>
+        <h1 class="reveal" style="--d:.25s;font-size:clamp(30px,5.4vw,58px);font-weight:900;margin:16px 0 6px;letter-spacing:-.02em;">
+          Selamat Datang, <span class="accent-word">MATAMUDA</span>
+        </h1>
+        <p class="reveal" style="--d:.35s;font-size:clamp(16px,2vw,20px);color:var(--text-soft);margin:0 0 22px;font-weight:600;">
+          MA Insan Cendekia Nusantara · Purwakarta<br>Tahun Ajaran 2026/2027
+        </p>
+        <div class="reveal scale-in" style="--d:.5s;">
+          <div style="font-size:clamp(56px,11vw,120px);font-weight:900;letter-spacing:.02em;color:var(--primary);text-shadow:0 10px 30px rgba(15,157,88,.25);font-family:'Traditional Arabic',var(--font);">اقرأ</div>
+          <div style="font-size:14px;font-weight:700;color:var(--text-soft);letter-spacing:.08em;text-transform:uppercase;margin-top:2px;">Q.S. Al-'Alaq, Ayat 1: "Iqra' — Bacalah"</div>
+        </div>
+        <div class="reveal glass card" style="--d:.62s;max-width:520px;margin:22px auto 0;font-size:12.5px;line-height:1.7;color:var(--text-soft);">
+          💡 <b style="color:var(--secondary)">Tahukah kamu?</b> Nama <b>Insan Cendekia Nusantara</b> terinspirasi dari kolaborasi keunggulan dua institusi rujukan nasional: <b>MAN Insan Cendekia Serpong</b> dan <b>SMA Taruna Nusantara Magelang</b> — perpaduan ketajaman sains-riset dan kedisiplinan kepemimpinan.
+        </div>
+        <div class="reveal" style="--d:.75s;margin-top:26px;">
+          <button class="btn" onclick="go(1)">Mulai Perjalanan <svg class="icn" viewBox="0 0 24 24" style="width:16px;height:16px"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- SLIDE 2 — ICE BREAKING -->
+    <!-- ================================================================ -->
+    <section class="slide" data-index="1">
+      <div class="slide-inner quiz-box">
+        <span class="tag reveal" style="--d:.02s">🔥 HOOK PEMBUKA</span>
+        <span class="eyebrow reveal" style="--d:.05s;margin-top:8px;"><span class="dot"></span>Ice Breaking · 01</span>
+        <h1 class="slide-title reveal" style="--d:.15s">Mengapa ayat pertama yang turun bukan tentang shalat, tetapi <span class="accent-word">IQRA'</span>?</h1>
+        <p class="slide-sub reveal" style="--d:.25s">Sebelum berbicara tentang ibadah, wahyu pertama justru berbicara tentang membaca. Ada alasan besar di balik urutan ini — dan mungkin belum pernah kamu pikirkan sebelumnya.</p>
+        <div class="reveal" style="--d:.35s">
+          <button class="btn gold" id="answerBtn" onclick="revealAnswer()">Saya punya jawaban 🙋</button>
+        </div>
+        <div class="reveal-ans" id="answerBox">
+          <div class="glass card" style="margin-top:20px;">
+            <p style="margin:0;line-height:1.8;font-size:14.5px;">
+              Karena ilmu adalah pintu gerbang bagi seluruh amal. Tanpa <b>iqra'</b> — membaca, memahami, dan merenungi — ibadah berisiko menjadi rutinitas tanpa makna. Islam meletakkan literasi sebagai fondasi peradaban sebelum ritual, karena manusia yang berilmu akan beribadah dengan kesadaran, bukan sekadar kebiasaan. Inilah semangat <b>Cinta Ilmu</b> dalam Kurikulum Berbasis Cinta MA ICN: niat, ketekunan, dan rasa syukur atas ilmu menjadi jalan menuju ketakwaan yang utuh.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- SLIDE 3 — ICE BREAKING HEBOH: MISI 40 HARI -->
+    <!-- ================================================================ -->
+    <section class="slide" data-index="2">
+      <div class="slide-inner" style="text-align:center;">
+        <span class="tag reveal" style="--d:.02s">😱 SIAP-SIAP KAGET</span>
+        <span class="eyebrow reveal" style="--d:.08s;margin-top:8px;"><span class="dot"></span>Ice Breaking · 02 — Heboh-Hebohan</span>
+        <h1 class="slide-title reveal" style="--d:.15s;max-width:720px;margin-left:auto;margin-right:auto;">Bayangkan... 40 hari <span class="accent-word">TANPA</span> HP, TANPA game, TANPA rebahan seharian!</h1>
+        <p class="slide-sub reveal" style="--d:.22s;margin-left:auto;margin-right:auto;">Jangan panik dulu. Ini cuma bayangan — tapi jawab jujur, sanggup nggak kira-kira? 👀</p>
+        <div class="reveal" style="--d:.3s;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:8px;">
+          <button class="btn" onclick="miss40('sanggup')">😤 SANGGUP, GASKEUN!</button>
+          <button class="btn ghost" onclick="miss40('tidak')">😱 WAH TIDAK SANGGUP</button>
+        </div>
+        <div class="prof-answer" id="miss40Box" style="max-width:640px;margin-left:auto;margin-right:auto;text-align:left;"></div>
+      </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- SLIDE 3 — APA ITU KURIKULUM -->
+    <!-- ================================================================ -->
+    <section class="slide" data-index="2">
+      <div class="slide-inner">
+        <span class="eyebrow reveal" style="--d:.05s"><span class="dot"></span>Memahami Kurikulum</span>
+        <h1 class="slide-title reveal" style="--d:.15s">Apa itu <span class="accent-word">Kurikulum</span>?</h1>
+        <p class="slide-sub reveal" style="--d:.2s">Kurikulum bukan sekadar daftar mata pelajaran — ia adalah peta perjalanan yang membawamu dari titik awal menuju masa depan.</p>
+        <div id="charApaItu" class="reveal scale-in" style="--d:.22s;width:104px;margin-bottom:6px;"></div>
+        <div style="display:flex;flex-direction:column;gap:0;margin-top:20px;">
+          <div id="journeyMap" style="display:flex;align-items:center;flex-wrap:wrap;gap:0;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- SLIDE 4 — MENGAPA MA ICN PUNYA KURIKULUM -->
+    <!-- ================================================================ -->
+    <section class="slide" data-index="3">
+      <div class="slide-inner">
+        <span class="eyebrow reveal" style="--d:.05s"><span class="dot"></span>Landasan</span>
+        <h1 class="slide-title reveal" style="--d:.15s">Mengapa MA ICN Memiliki Kurikulum Sendiri?</h1>
+        <p class="slide-sub reveal" style="--d:.2s">Empat alasan besar berikut menjadi fondasi disusunnya Kurikulum Operasional Madrasah TP 2026/2027.</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;">
+          <div class="glass card reveal" style="--d:.25s">
+            <div class="icon-badge"><svg class="icn" viewBox="0 0 48 48"><circle cx="24" cy="24" r="16"/><circle cx="24" cy="24" r="8"/><circle cx="24" cy="24" r="1.5" fill="currentColor"/></svg></div>
+            <div style="font-weight:800;margin-top:12px;">Tujuan Pendidikan</div>
+            <p style="font-size:13px;color:var(--text-soft);line-height:1.6;margin:6px 0 0;">Meletakkan fondasi budaya akademik & KKTP minimal 82 sebagai standar mutu tahun pertama.</p>
+          </div>
+          <div class="glass card reveal" style="--d:.35s">
+            <div class="icon-badge" style="color:var(--accent);background:rgba(244,180,0,.12)"><svg class="icn" viewBox="0 0 48 48"><path d="M24 6l4 10 10 1-8 7 3 10-9-6-9 6 3-10-8-7 10-1z"/></svg></div>
+            <div style="font-weight:800;margin-top:12px;">Karakter</div>
+            <p style="font-size:13px;color:var(--text-soft);line-height:1.6;margin:6px 0 0;">Menumbuhkan akhlakul karimah, kemandirian, dan kedisiplinan dalam ekosistem asrama 24 jam.</p>
+          </div>
+          <div class="glass card reveal" style="--d:.45s">
+            <div class="icon-badge" style="color:var(--blue);background:rgba(46,111,219,.1)"><svg class="icn" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18"/><path d="M6 24h36M24 6c6 6 6 30 0 36M24 6c-6 6-6 30 0 36"/></svg></div>
+            <div style="font-weight:800;margin-top:12px;">Global</div>
+            <p style="font-size:13px;color:var(--text-soft);line-height:1.6;margin:6px 0 0;">Program trilingual Arab–Inggris–Mandarin & literasi sains untuk daya saing dunia.</p>
+          </div>
+          <div class="glass card reveal" style="--d:.55s">
+            <div class="icon-badge"><svg class="icn" viewBox="0 0 48 48"><path d="M24 4l6 8h-4v10h6l-8 12-8-12h6V12h-4z"/><path d="M10 40h28"/></svg></div>
+            <div style="font-weight:800;margin-top:12px;">Islam</div>
+            <p style="font-size:13px;color:var(--text-soft);line-height:1.6;margin:6px 0 0;">Salimul aqidah, shahihul ibadah, akhlakul karimah — inti motto "Berakhlak Islami".</p>
+          </div>
+        </div>
+        <p class="legalref reveal" style="--d:.65s">Rujukan: KMA No. 1503 Tahun 2025 tentang Pedoman Penyelenggaraan Madrasah; Permendikbudristek No. 12 Tahun 2024 tentang Kurikulum.</p>
+      </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- SLIDE 5 — 8 DIMENSI PROFIL LULUSAN -->
+    <!-- ================================================================ -->
+    <section class="slide" data-index="4">
+      <div class="slide-inner">
+        <span class="eyebrow reveal" style="--d:.05s"><span class="dot"></span>Landasan Konseptual</span>
+        <h1 class="slide-title reveal" style="--d:.15s">8 Dimensi Profil Lulusan</h1>
+        <p class="slide-sub reveal" style="--d:.2s">Delapan kompas pedagogis yang membentuk manusia utuh — bukan daftar terpisah, melainkan satu kesatuan Cendekia Nusantara Mendunia. <span style="opacity:.7">(Ketuk kartu untuk melihat implementasinya)</span></p>
+        <div class="flip-grid" id="dimGrid"></div>
+      </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- SLIDE — ICE BREAKING: YEL-YEL SEMANGAT RONDE 1 -->
+    <!-- ================================================================ -->
+    <section class="slide">
+      <div class="slide-inner" style="text-align:center;">
+        <span class="tag reveal" style="--d:.02s">📣 HEBOH BARENG</span>
+        <span class="eyebrow reveal" style="--d:.08s;margin-top:8px;"><span class="dot"></span>Ice Breaking · 03</span>
+        <h1 class="slide-title reveal" style="--d:.15s">Yel-Yel Semangat!</h1>
+        <p class="slide-sub reveal" style="--d:.2s;margin-left:auto;margin-right:auto;">Baca pertanyaannya keras-keras, lalu jawab serentak satu auditorium!</p>
+        <div class="yel-grid" data-yel='[{"call":"Kurikulum itu...?","resp":"PETA MASA DEPAN!"},{"call":"Kenapa kita di sini?","resp":"BERKARYA, BERMANFAAT!"},{"call":"Siapa kita?","resp":"CENDEKIA NUSANTARA MENDUNIA!"}]'></div>
+      </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- SLIDE 6 — CARA BELAJAR -->
+    <!-- ================================================================ -->
+    <section class="slide" data-index="5">
+      <div class="slide-inner">
+        <span class="eyebrow reveal" style="--d:.05s"><span class="dot"></span>Metode Belajar</span>
+        <h1 class="slide-title reveal" style="--d:.15s">Bagaimana Cara Belajar di ICN?</h1>
+        <p class="slide-sub reveal" style="--d:.2s">Semua metode ini berputar mengelilingi satu inti: <b>Pembelajaran Mendalam</b> — Mindful, Meaningful, Joyful Learning.</p>
+        <div id="circleWrap" style="position:relative;width:min(560px,90vw);height:min(560px,90vw);margin:10px auto 0;"></div>
+      </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- SLIDE 7 — STRUKTUR PEMBELAJARAN -->
+    <!-- ================================================================ -->
+    <section class="slide" data-index="6">
+      <div class="slide-inner">
+        <span class="eyebrow reveal" style="--d:.05s"><span class="dot"></span>Pengorganisasian Pembelajaran</span>
+        <h1 class="slide-title reveal" style="--d:.15s">Struktur Pembelajaran</h1>
+        <p class="slide-sub reveal" style="--d:.2s">Total beban belajar Fase E: <b>52 jam pelajaran/minggu</b>, terbagi dalam empat lapis berikut.</p>
+        <div class="flow-row" style="margin-top:10px;">
+          <div class="flow-node reveal" style="--d:.3s">📘 Intrakurikuler</div>
+          <div class="flow-arrow reveal" style="--d:.4s">→</div>
+          <div class="flow-node reveal" style="--d:.5s">🌱 Kokurikuler</div>
+          <div class="flow-arrow reveal" style="--d:.6s">→</div>
+          <div class="flow-node reveal" style="--d:.7s">🧭 Pendukung Akademik</div>
+          <div class="flow-arrow reveal" style="--d:.8s">→</div>
+          <div class="flow-node reveal" style="--d:.9s">🏅 Ekstrakurikuler</div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:26px;">
+          <div class="glass card reveal" style="--d:1s"><div class="stat-num" data-count="48">0</div><div class="stat-lbl">JP Reguler / Minggu (Senin–Jumat)</div></div>
+          <div class="glass card reveal" style="--d:1.1s"><div class="stat-num" data-count="52">0</div><div class="stat-lbl">Total Beban Belajar (JP/Minggu)</div></div>
+          <div class="glass card reveal" style="--d:1.2s"><div class="stat-num" data-count="82">0</div><div class="stat-lbl">KKTP Minimal Kelas X (Fase E)</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- SLIDE 8 — MATA PELAJARAN -->
+    <!-- ================================================================ -->
+    <section class="slide" data-index="7">
+      <div class="slide-inner">
+        <span class="eyebrow reveal" style="--d:.05s"><span class="dot"></span>Muatan Kurikulum</span>
+        <h1 class="slide-title reveal" style="--d:.15s">Mata Pelajaran</h1>
+        <p class="slide-sub reveal" style="--d:.2s">Ketuk setiap kelompok untuk membuka daftar lengkapnya.</p>
+        <div id="charMapel" class="reveal scale-in" style="--d:.22s;width:96px;margin-bottom:6px;"></div>
+        <div id="accWrap"></div>
+        <p class="legalref reveal" style="--d:.4s">Pada Fase F (Kelas XI–XII), murid memilih 4 mata pelajaran pilihan sesuai minat, bakat, dan rencana studi lanjut — mengacu pada KMA No. 1503/2025 dan Keputusan Mendikdasmen No. 102/M/2025.</p>
+      </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- SLIDE — ICE BREAKING: YEL-YEL SEMANGAT RONDE 2 -->
+    <!-- ================================================================ -->
+    <section class="slide">
+      <div class="slide-inner" style="text-align:center;">
+        <span class="tag reveal" style="--d:.02s">📣 HEBOH BARENG</span>
+        <span class="eyebrow reveal" style="--d:.08s;margin-top:8px;"><span class="dot"></span>Ice Breaking · 04</span>
+        <h1 class="slide-title reveal" style="--d:.15s">Yel-Yel Semangat, Lanjut!</h1>
+        <p class="slide-sub reveal" style="--d:.2s;margin-left:auto;margin-right:auto;">Sekali lagi, kompakkan suaranya!</p>
+        <div class="yel-grid" data-yel='[{"call":"Belajar itu harus...?","resp":"MINDFUL, MEANINGFUL, JOYFUL!"},{"call":"52 jam pelajaran, siap?","resp":"SIAP, GASKEUN!"},{"call":"Guru-guru kita?","resp":"LUAR BIASA!"}]'></div>
+      </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- SLIDE 9 — PENILAIAN -->
+    <!-- ================================================================ -->
+    <section class="slide" data-index="8">
+      <div class="slide-inner">
+        <span class="eyebrow reveal" style="--d:.05s"><span class="dot"></span>Program Asesmen &amp; Pelaporan</span>
+        <h1 class="slide-title reveal" style="--d:.15s">Bagaimana Penilaian Dilakukan?</h1>
+        <p class="slide-sub reveal" style="--d:.2s">Melalui Asesmen Sumatif Harian dan Asesmen Sumatif Akhir Semester — mencakup tes, praktik, proyek, dan penugasan.</p>
+        <div class="pie-wrap reveal" style="--d:.3s">
+          <svg width="180" height="180" viewBox="0 0 180 180">
+            <circle cx="90" cy="90" r="70" fill="none" stroke="#eef2f0" stroke-width="26"/>
+            <circle id="pieSH" cx="90" cy="90" r="70" fill="none" stroke="url(#gradSH)" stroke-width="26" stroke-dasharray="0 440" stroke-linecap="round" transform="rotate(-90 90 90)"/>
+            <circle id="pieSAS" cx="90" cy="90" r="70" fill="none" stroke="var(--accent)" stroke-width="26" stroke-dasharray="0 440" stroke-linecap="round" transform="rotate(-90 90 90)"/>
+            <defs><linearGradient id="gradSH" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#0F9D58"/><stop offset="100%" stop-color="#2E7D32"/></linearGradient></defs>
+            <text x="90" y="84" text-anchor="middle" font-size="26" font-weight="900" fill="#263238" font-family="inherit">65/35</text>
+            <text x="90" y="104" text-anchor="middle" font-size="10" fill="#5B6B70" font-family="inherit">SH / SAS</text>
+          </svg>
+          <div class="pie-legend">
+            <div class="leg-item"><span class="leg-dot" style="background:var(--primary)"></span>65% — Sumatif Harian (SH)</div>
+            <div class="leg-item"><span class="leg-dot" style="background:var(--accent)"></span>35% — Sumatif Akhir Semester (SAS)</div>
+            <div style="font-size:12px;color:var(--text-soft);max-width:280px;line-height:1.6;margin-top:4px;">Nilai Rapor = (65% × SH) + (35% × SAS)</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px;">
+          <div class="glass card reveal" style="--d:.5s;text-align:center"><div class="stat-num" data-count="82">0</div><div class="stat-lbl">KKTP Kelas X</div></div>
+          <div class="glass card reveal" style="--d:.6s;text-align:center"><div class="stat-num" data-count="85">0</div><div class="stat-lbl">KKTP Kelas XI</div></div>
+          <div class="glass card reveal" style="--d:.7s;text-align:center"><div class="stat-num" data-count="88">0</div><div class="stat-lbl">KKTP Kelas XII</div></div>
+        </div>
+        <div class="glass card reveal" style="--d:.8s;margin-top:16px;font-size:13px;color:var(--text-soft);line-height:1.7;">
+          <b style="color:var(--secondary)">Nilai ≥90 (Sangat Baik)</b> → direkomendasikan mengikuti program akselerasi/pengayaan mendalam, termasuk persiapan OSN.
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- SLIDE 10 — PROGRAM AKADEMIK -->
+    <!-- ================================================================ -->
+    <section class="slide" data-index="9">
+      <div class="slide-inner">
+        <span class="eyebrow reveal" style="--d:.05s"><span class="dot"></span>Roadmap</span>
+        <h1 class="slide-title reveal" style="--d:.15s">Program Akademik</h1>
+        <p class="slide-sub reveal" style="--d:.2s">Perjalanan akademik murid MA ICN dirancang bertahap dan terukur sejak hari pertama.</p>
+        <div id="roadmapWrap"></div>
+      </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- SLIDE — ICE BREAKING: YEL-YEL SEMANGAT RONDE 3 -->
+    <!-- ================================================================ -->
+    <section class="slide">
+      <div class="slide-inner" style="text-align:center;">
+        <span class="tag reveal" style="--d:.02s">📣 HEBOH BARENG</span>
+        <span class="eyebrow reveal" style="--d:.08s;margin-top:8px;"><span class="dot"></span>Ice Breaking · 05</span>
+        <h1 class="slide-title reveal" style="--d:.15s">Yel-Yel Semangat, Penutup!</h1>
+        <p class="slide-sub reveal" style="--d:.2s;margin-left:auto;margin-right:auto;">Terakhir, paling kencang!</p>
+        <div class="yel-grid" data-yel='[{"call":"KKTP 82, bisa nggak?","resp":"PASTI BISA!"},{"call":"OSN, KSM, siapa takut?","resp":"KAMI SIAP JUARA!"},{"call":"Tiga tahun ke depan?","resp":"LULUS, MENGABDI, MENDUNIA!"}]'></div>
+      </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- SLIDE 11 — ICE BREAKING: TEBAK JURUSAN -->
+    <!-- ================================================================ -->
+    <section class="slide" data-index="10">
+      <div class="slide-inner">
+        <span class="tag reveal" style="--d:.02s">🎉 GAME HEBOH</span>
+        <span class="eyebrow reveal" style="--d:.08s;margin-top:8px;"><span class="dot"></span>Ice Breaking · 06</span>
+        <h1 class="slide-title reveal" style="--d:.15s">Tebak Jurusan!</h1>
+        <p class="slide-sub reveal" style="--d:.2s">Waktunya heboh! Klik profesi impianmu sekeras mungkin — kami tunjukkan mata pelajaran pilihan yang paling mendukungnya.</p>
+        <div class="prof-grid reveal" id="profGrid" style="--d:.3s"></div>
+        <div class="prof-answer" id="profAnswer"></div>
+      </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- SLIDE 12 — ROADMAP 3 TAHUN -->
+    <!-- ================================================================ -->
+    <section class="slide" data-index="11">
+      <div class="slide-inner">
+        <span class="eyebrow reveal" style="--d:.05s"><span class="dot"></span>Masa Depan</span>
+        <h1 class="slide-title reveal" style="--d:.15s">Roadmap 3 Tahun</h1>
+        <p class="slide-sub reveal" style="--d:.2s">Dari adaptasi hingga mengabdi — satu jalur yang jelas menuju masa depan.</p>
+        <div id="roadmap3" style="overflow-x:auto;padding-bottom:10px;"></div>
+      </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- SLIDE 13 — PESAN UNTUK MURID -->
+    <!-- ================================================================ -->
+    <section class="slide" data-index="12">
+      <div class="slide-inner" style="text-align:center;">
+        <div class="reveal scale-in" style="--d:.1s;font-size:clamp(46px,8vw,90px);font-weight:900;color:var(--primary);">اقرأ</div>
+        <p class="reveal" style="--d:.3s;font-size:clamp(20px,3vw,32px);font-weight:800;max-width:760px;margin:22px auto 0;line-height:1.5;color:var(--text);">
+          "IQRA' — karena setiap perubahan besar selalu dimulai dari kemauan untuk belajar."
+        </p>
+        <div class="reveal" style="--d:.5s;margin-top:26px;">
+          <span class="tag">Wakil Kepala Madrasah Bidang Kurikulum</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- SLIDE 14 — CLOSING -->
+    <!-- ================================================================ -->
+    <section class="slide" data-index="13">
+      <canvas id="confetti"></canvas>
+      <div class="slide-inner" style="text-align:center;position:relative;z-index:2;">
+        <div class="reveal scale-in" style="--d:.1s;margin:0 auto 18px;width:80px;height:80px;border-radius:24px;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;">
+          <svg class="icn" style="width:38px;height:38px;color:#fff" viewBox="0 0 48 48"><path d="M8 24c8-16 24-16 32 0-8 16-24 16-32 0z"/><circle cx="24" cy="24" r="5"/></svg>
+        </div>
+        <h1 class="closing-title reveal" style="--d:.2s">Selamat Datang,<br>Keluarga Besar MA Insan Cendekia Nusantara</h1>
+        <p class="reveal" style="--d:.4s;color:var(--text-soft);margin-top:14px;font-size:15px;">Iqra' → Belajar → Bertumbuh → Berkarya → Memberi Manfaat</p>
+        <div class="reveal" style="--d:.55s;margin-top:26px;">
+          <button class="btn ghost" onclick="go(0)">Ulangi Presentasi ↺</button>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /deck -->
+
+  <div class="navarrow left" id="navLeft" onclick="prev()">‹</div>
+  <div class="navarrow right" id="navRight" onclick="next()">›</div>
+
+  <div class="scroll-cluster">
+    <div class="tool-btn" onclick="scrollContent(-1)" title="Gulir ke atas">↑</div>
+    <div class="tool-btn" onclick="scrollContent(1)" title="Gulir ke bawah">↓</div>
+  </div>
+
+  <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+  <div class="counter"><b id="curNum">01</b> / <span id="totNum">18</span></div>
+</div>
+
+<!-- ===================== TOC OVERLAY ===================== -->
+<div class="overlay" id="tocOverlay">
+  <div class="overlay-panel glass">
+    <div class="overlay-head"><h2>Daftar Isi</h2><div class="close-x" onclick="closeOverlays()">✕</div></div>
+    <ul class="toc-list" id="tocList"></ul>
+  </div>
+</div>
+
+<!-- ===================== OVERVIEW OVERLAY ===================== -->
+<div class="overlay" id="overviewOverlay">
+  <div class="overlay-panel glass">
+    <div class="overlay-head"><h2>Overview Mode</h2><div class="close-x" onclick="closeOverlays()">✕</div></div>
+    <div class="grid-overview" id="gridOverview"></div>
+  </div>
+</div>
+
+<!-- ===================== PRESENTER PANEL ===================== -->
+<div class="presenter-panel" id="presenterPanel">
+  <h3 id="presenterLabel">Speaker Notes — Slide 1</h3>
+  <p id="presenterText"></p>
+</div>
+
+<script>
+/* ============================================================
+   DATA
+   ============================================================ */
+const TITLES = [
+  "Opening — Selamat Datang","Ice Breaking — Mengapa IQRA'?","Ice Breaking — Misi 40 Hari","Apa itu Kurikulum?",
+  "Mengapa MA ICN Punya Kurikulum?","8 Dimensi Profil Lulusan","Ice Breaking — Yel-Yel Ronde 1",
+  "Bagaimana Cara Belajar di ICN","Struktur Pembelajaran","Mata Pelajaran","Ice Breaking — Yel-Yel Ronde 2",
+  "Bagaimana Penilaian Dilakukan","Program Akademik","Ice Breaking — Yel-Yel Ronde 3",
+  "Ice Breaking — Tebak Jurusan","Roadmap 3 Tahun","Pesan untuk Murid","Closing"
+];
+// Alokasi waktu per slide dalam menit — total dirancang pas 45 menit (6 slide ice breaking termasuk di dalamnya).
+const DURATIONS = [2,3,3,2,3,3,2,2,2,3,2,3,2,2,3,3,2,3];
+
+const NOTES = [
+"Sambut murid dengan hangat. Jelaskan bahwa MATAMUDA tahun ini mengangkat tema besar AL-'ALAQ, surah yang memuat ayat pertama turun: IQRA'. Sampaikan bahwa seluruh rangkaian MATAMUDA akan membawa mereka melewati alur Iqra' → Belajar → Bertumbuh → Berkarya → Memberi manfaat.",
+"Ajukan pertanyaan secara terbuka, beri jeda agar murid berpikir sejenak sebelum tombol jawaban ditekan. Tekankan bahwa ilmu mendahului ibadah karena ilmu memberi kesadaran pada setiap amal — ini pondasi filosofis Cinta Ilmu dalam Kurikulum Berbasis Cinta (KBC).",
+"Bangun suasana heboh: lontarkan skenario ekstrem ini dengan nada bercanda, biarkan murid bereaksi riuh. Setelah mereka memilih, sampaikan dengan hangat bahwa tantangan ini sebenarnya menggambarkan ekosistem asrama 24 jam MA ICN — dan justru di situlah 7 Kebiasaan Anak Indonesia Hebat (Bangun Pagi, Beribadah, Berolahraga, Makan Sehat, Gemar Belajar, Bermasyarakat, Tidur Cepat) ditempa menjadi karakter, bukan beban.",
+"Jelaskan kurikulum sebagai peta perjalanan, bukan sekadar daftar mata pelajaran. Gunakan analogi perjalanan: dari Mulai menuju Masa Depan, ada proses Belajar, pembentukan Karakter, dan pencapaian Prestasi di setiap etape.",
+"Uraikan empat alasan mengapa MA ICN menyusun kurikulum operasional sendiri: memenuhi tujuan pendidikan, membentuk karakter, menyiapkan wawasan global, dan menjaga identitas keislaman. Sebutkan dasar hukum: KMA No. 1503/2025 dan Permendikbudristek No. 12/2024.",
+"Ajak murid menekan setiap kartu satu per satu. Jelaskan bahwa 8 Dimensi ini bukan daftar terpisah, melainkan satu kesatuan menuju profil manusia utuh — insan kamil. Kaitkan setiap dimensi dengan aktivitas nyata yang akan mereka jalani di MA ICN.",
+"Bacakan tiap pertanyaan dengan lantang, beri jeda, lalu tekan tombol agar jawaban muncul di layar sebagai penguat sorakan bersama. Gunakan momen ini untuk merekap tiga hal yang baru dibahas: kurikulum sebagai peta, tujuan MA ICN, dan 8 Dimensi Profil Lulusan.",
+"Tunjukkan bahwa semua metode belajar — diskusi, presentasi, proyek, riset, kolaborasi, literasi, dan digital learning — berputar mengelilingi satu inti: Pembelajaran Mendalam, yang terdiri dari Mindful, Meaningful, dan Joyful Learning.",
+"Jelaskan alur Intrakurikuler → Kokurikuler → Pendukung Akademik → Ekstrakurikuler. Tekankan bahwa total beban belajar mencapai 52 jam pelajaran per minggu dengan standar KKTP minimal 82 untuk Fase E.",
+"Buka satu per satu kelompok mata pelajaran. Jelaskan bahwa pada Fase E (Kelas X) seluruh murid menempuh mata pelajaran yang sama, dan baru pada Fase F (Kelas XI–XII) mereka memilih 4 mata pelajaran pilihan sesuai minat dan rencana studi lanjut.",
+"Lanjutkan energi yel-yel sebagai jeda dari sesi mata pelajaran dan guru pengampu yang cukup padat informasi. Rekap singkat: cara belajar mendalam, struktur 52 JP, dan kualitas guru pengampu.",
+"Jelaskan komponen penilaian: Asesmen Sumatif Harian (65%) dan Asesmen Sumatif Akhir Semester (35%). Tunjukkan progresi KKTP dari 82 di Kelas X menuju 88 di Kelas XII sebagai standar mutu yang terus meningkat.",
+"Perkenalkan program-program akademik unggulan: matrikulasi sebagai fondasi awal, Klub Bidang Studi untuk pembinaan talenta KSM/OSN, PROTANICS dan riset karya tulis ilmiah, hingga inovasi pembelajaran berbasis AI dan digital.",
+"Tutup rangkaian materi inti dengan yel-yel terakhir yang paling kencang, sekaligus menjembatani ke sesi permainan Tebak Jurusan dan Roadmap 3 Tahun berikutnya.",
+"Ajak murid bermain dengan menekan ikon profesi impian mereka. Setelah ditekan, jelaskan keterkaitan antara profesi tersebut dengan kluster mata pelajaran pilihan yang relevan di Fase F, serta contoh jurusan kuliah yang bisa dituju.",
+"Gam
+<truncated 24220 bytes>
+
+NOTE: The output was truncated because it was too long. Use a more targeted query or a smaller range to get the information you need.
