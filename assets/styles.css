@@ -234,10 +234,10 @@ button { font-family: inherit; }
   background: var(--primary); color: white;
   border: none; padding: 8px 18px; border-radius: var(--radius-pill);
   font-size: 0.85rem; font-weight: 700; cursor:pointer;
+  text-decoration: none;
   transition: all 0.25s;
 }
 .btn-login-nav:hover { background: var(--primary-light); transform:translateY(-1px); box-shadow:var(--shadow-md); }
-.btn-login-nav.logged-in { background: var(--aqua-deep); }
 
 .nav-toggle {
   display: none; font-size: 1.4rem; color: var(--primary);

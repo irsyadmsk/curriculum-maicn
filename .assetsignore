@@ -1,0 +1,11 @@
+.git
+.git/**
+.wrangler
+.wrangler/**
+.claude
+.claude/**
+.vscode
+.vscode/**
+.gitignore
+node_modules
+node_modules/**

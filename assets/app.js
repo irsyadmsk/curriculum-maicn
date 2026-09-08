@@ -260,7 +260,6 @@ function initNavbar() {
   const navbar   = document.getElementById('navbar');
   const toggle   = document.getElementById('nav-toggle');
   const links    = document.getElementById('nav-links');
-  const loginBtn = document.getElementById('btn-login-nav');
 
   if (navbar) {
     window.addEventListener('scroll', () => {
@@ -273,28 +272,13 @@ function initNavbar() {
       if (!navbar?.contains(e.target)) links.classList.remove('show');
     });
   }
-  if (loginBtn) {
-    loginBtn.addEventListener('click', () => {
-      if (Auth.isLoggedIn()) {
-        if (Auth.isAdmin()) showAdminPanel();
-        else showGuruPanel();
-      } else {
-        AppUtils.openModal('modal-login');
-      }
-    });
-  }
 }
 
 function updateAuthUI(user, profile) {
-  const loginBtn     = document.getElementById('btn-login-nav');
   const adminSection = document.getElementById('admin-section');
   const guruSection  = document.getElementById('guru-section');
 
-  if (!loginBtn) return;
-
   if (user && profile) {
-    loginBtn.textContent = `⚙ ${profile.name || profile.email}`;
-    loginBtn.classList.add('logged-in');
     if (profile.role === 'admin') {
       if (adminSection) adminSection.classList.add('show');
       if (guruSection)  guruSection.classList.remove('show');
@@ -303,8 +287,6 @@ function updateAuthUI(user, profile) {
       if (guruSection)  guruSection.classList.add('show');
     }
   } else {
-    loginBtn.textContent = 'Masuk';
-    loginBtn.classList.remove('logged-in');
     if (adminSection) adminSection.classList.remove('show');
     if (guruSection)  guruSection.classList.remove('show');
   }
