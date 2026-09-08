@@ -51,6 +51,8 @@ tr:hover td { background: var(--bg); }
 .mapel-empty { color: var(--text-soft); font-size: 0.8rem; }
 </style>
 <script src="data.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="assets/curriculum-data.js"></script>
 <script src="assets/app.js"></script>
 </head>
 <body>
@@ -97,6 +99,7 @@ tr:hover td { background: var(--bg); }
     <a href="acara.html" data-page="acara">Acara</a>
   </div>
   <div class="nav-right">
+    <a class="btn-admin-nav" href="admin.html" title="Admin Kurikulum">&#128272;</a>
     <a class="btn-login-nav" id="btn-login-nav" href="https://irsyads.com" target="_blank" rel="noopener noreferrer">irsyads.com &#8599;</a>
     <button class="nav-toggle" id="nav-toggle" aria-label="Menu">☰</button>
   </div>
@@ -176,19 +179,13 @@ tr:hover td { background: var(--bg); }
   <div class="tab-content" id="tab-jadwal-kbm">
     <div class="kbm-wrap animate-up delay-300">
       <div class="kbm-tabs" id="kbm-class-tabs">
-        <button class="kbm-tab-btn active" onclick="switchKBMClass('xa', this)">Kelas X-A</button>
-        <button class="kbm-tab-btn" onclick="switchKBMClass('xb', this)">Kelas X-B</button>
-        <button class="kbm-tab-btn" onclick="switchKBMClass('xc', this)">Kelas X-C</button>
+        <button class="kbm-tab-btn active" onclick="switchKBMClass('X-1', this)">Kelas X-1</button>
+        <button class="kbm-tab-btn" onclick="switchKBMClass('X-2', this)">Kelas X-2</button>
+        <button class="kbm-tab-btn" onclick="switchKBMClass('X-3', this)">Kelas X-3</button>
       </div>
       <div class="kbm-keterangan" id="kbm-keterangan"></div>
-      <div id="kbm-senin-kamis-wrap">
-        <p style="font-weight:700;color:var(--primary);margin-bottom:8px;">Senin – Kamis (10 JP)</p>
-        <table class="kbm-table" id="kbm-table-sk"></table>
-      </div>
-      <div id="kbm-jumat-wrap" style="margin-top:24px;">
-        <p style="font-weight:700;color:var(--primary);margin-bottom:8px;">Jumat (8 JP · Blok 3+2+3)</p>
-        <table class="kbm-table" id="kbm-table-jum"></table>
-      </div>
+      <div class="kbm-tabs" id="kbm-day-tabs" style="margin-top:4px;"></div>
+      <table class="kbm-table" id="kbm-table-day"></table>
     </div>
   </div>
 
@@ -246,8 +243,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 <script>
 (function() {
-  const HARI_SK = ['senin','selasa','rabu','kamis'];
+  const HARI_ORDER = ['senin','selasa','rabu','kamis','jumat'];
   const HARI_LABEL = { senin:'Senin', selasa:'Selasa', rabu:'Rabu', kamis:'Kamis', jumat:'Jumat' };
+
+  let LESSONS = [];
+  let TEACHERS = {};
+  let activeKelas = 'X-1';
+  let activeHari = 'senin';
 
   const MAPEL_COLOR = {
     'Matematika':         '#dbeafe:#1e40af',
@@ -279,77 +281,82 @@ document.addEventListener('DOMContentLoaded', () => {
     'Bimbingan Konseling':'#f1f5f9:#334155',
   };
 
-  function mapelBadge(name) {
+  function mapelBadge(name, guruKode) {
     if (!name) return '<span class="mapel-empty">–</span>';
+    const guru = guruKode && TEACHERS[guruKode];
     const col = MAPEL_COLOR[name];
-    if (col) {
-      const [bg, fg] = col.split(':');
-      return `<span style="display:inline-block;padding:3px 8px;border-radius:10px;font-size:0.78rem;font-weight:700;background:${bg};color:${fg};white-space:nowrap;">${name}</span>`;
-    }
-    return `<span class="mapel-badge">${name}</span>`;
+    const [bg, fg] = col ? col.split(':') : ['var(--primary-light)', 'var(--primary)'];
+    const sub = guru ? `<div style="font-size:0.7rem;font-weight:500;opacity:0.75;margin-top:2px;">${guru.nama}</div>` : '';
+    return `<span style="display:inline-block;padding:3px 8px;border-radius:10px;font-size:0.78rem;font-weight:700;background:${bg};color:${fg};white-space:nowrap;">${name}${sub}</span>`;
   }
 
-  function buildSKTable(kelas, waktuJP) {
-    const hariCols = HARI_SK;
-    let html = '<thead><tr><th class="jp-col">JP</th><th>Waktu</th>';
-    hariCols.forEach(h => html += `<th>${HARI_LABEL[h]}</th>`);
-    html += '</tr></thead><tbody>';
+  function formatWaktu(row) {
+    if (!row.waktu_mulai) return '';
+    const end = row.waktu_selesai ? ` – ${row.waktu_selesai.slice(0,5)}` : '';
+    return row.waktu_mulai.slice(0,5) + end;
+  }
 
-    for (let jp = 1; jp <= 10; jp++) {
-      if (jp === 5) {
-        html += `<tr><td colspan="6" class="break-row">— Istirahat I: Shalat Dhuha Berjamaah (10.00–10.15) —</td></tr>`;
+  function buildDayTable(kelas, hari) {
+    const rows = LESSONS
+      .filter(l => l.hari === hari && (l.kelas === kelas || l.kelas === null))
+      .sort((a, b) => a.sort_order - b.sort_order);
+
+    let html = '<thead><tr><th class="jp-col">JP</th><th>Waktu</th><th>Mata Pelajaran / Kegiatan</th></tr></thead><tbody>';
+    rows.forEach(r => {
+      if (r.jenis === 'istirahat' || r.jenis === 'ishoma') {
+        html += `<tr><td colspan="3" class="break-row">— ${r.mapel} (${formatWaktu(r)}) —</td></tr>`;
+      } else {
+        html += `<tr><td class="jp-num">${r.jam_ke ?? ''}</td><td class="jp-time">${formatWaktu(r)}</td><td>${mapelBadge(r.mapel, r.guru_kode)}</td></tr>`;
       }
-      if (jp === 8) {
-        html += `<tr><td colspan="6" class="break-row">— Istirahat II: Shalat Dzuhur & Makan Siang (12.00–13.00) · memotong JP 7, dilanjutkan 13.00–13.30 —</td></tr>`;
-      }
-      const time = waktuJP.senin_kamis[String(jp)] || '';
-      html += `<tr><td class="jp-num">${jp}</td><td class="jp-time">${time}</td>`;
-      hariCols.forEach(h => {
-        const mapel = (kelas[h] || [])[jp - 1] || '';
-        html += `<td>${mapelBadge(mapel)}</td>`;
-      });
-      html += '</tr>';
-    }
+    });
+    if (!rows.length) html += '<tr><td colspan="3" class="no-class">Belum ada data jadwal untuk hari ini.</td></tr>';
     html += '</tbody>';
     return html;
   }
 
-  function buildJumTable(kelas, waktuJP) {
-    let html = '<thead><tr><th class="jp-col">JP</th><th>Waktu</th><th>Jumat</th></tr></thead><tbody>';
-    for (let jp = 1; jp <= 8; jp++) {
-      if (jp === 4) {
-        html += `<tr><td colspan="3" class="break-row">— Istirahat I: Snack Pagi (09.45–10.00) —</td></tr>`;
-      }
-      if (jp === 6) {
-        html += `<tr><td colspan="3" class="break-row">— Istirahat II: Shalat Jum'at / Keputrian & Makan Siang (11.30–13.30) —</td></tr>`;
-      }
-      const time = waktuJP.jumat[String(jp)] || '';
-      const mapel = (kelas.jumat || [])[jp - 1] || '';
-      html += `<tr><td class="jp-num">${jp}</td><td class="jp-time">${time}</td><td>${mapelBadge(mapel)}</td></tr>`;
-    }
-    html += '</tbody>';
-    return html;
+  function renderDayTabs() {
+    const el = document.getElementById('kbm-day-tabs');
+    el.innerHTML = HARI_ORDER.map(h =>
+      `<button class="kbm-tab-btn${h === activeHari ? ' active' : ''}" onclick="switchKBMHari('${h}', this)">${HARI_LABEL[h]}</button>`
+    ).join('');
+  }
+
+  function renderKBM() {
+    document.getElementById('kbm-table-day').innerHTML = buildDayTable(activeKelas, activeHari);
   }
 
   window.switchKBMClass = function(cls, btn) {
-    document.querySelectorAll('.kbm-tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('#kbm-class-tabs .kbm-tab-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    renderKBM(cls);
+    activeKelas = cls;
+    renderKBM();
   };
 
-  function renderKBM(cls) {
-    const MD = window.MASTER_DATA;
-    if (!MD || !MD.jadwal_kbm) return;
-    const kbm = MD.jadwal_kbm;
-    const kelas = kbm['kelas_' + cls];
-    if (!kelas) return;
-    document.getElementById('kbm-keterangan').textContent = kbm.keterangan || '';
-    document.getElementById('kbm-table-sk').innerHTML = buildSKTable(kelas, kbm.waktu_jp);
-    document.getElementById('kbm-table-jum').innerHTML = buildJumTable(kelas, kbm.waktu_jp);
-  }
+  window.switchKBMHari = function(hari, btn) {
+    document.querySelectorAll('#kbm-day-tabs .kbm-tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeHari = hari;
+    renderKBM();
+  };
 
-  document.addEventListener('DOMContentLoaded', () => {
-    renderKBM('xa');
+  document.addEventListener('DOMContentLoaded', async () => {
+    document.getElementById('kbm-keterangan').textContent = 'Memuat jadwal…';
+    try {
+      const [lessons, teachers] = await Promise.all([
+        window.CurriculumDB.fetchScheduleLessons(),
+        window.CurriculumDB.fetchTeachers()
+      ]);
+      LESSONS = lessons;
+      TEACHERS = {};
+      teachers.forEach(t => { TEACHERS[t.kode] = t; });
+      document.getElementById('kbm-keterangan').textContent =
+        'Jadwal KBM Kelas X — Tahun Pelajaran 2026/2027. Nama di bawah mata pelajaran adalah guru pengampu.';
+    } catch (err) {
+      console.error('Gagal memuat jadwal KBM dari Supabase.', err);
+      document.getElementById('kbm-keterangan').textContent = 'Gagal memuat jadwal. Coba muat ulang halaman.';
+    }
+    renderDayTabs();
+    renderKBM();
   });
 })();
 </script>

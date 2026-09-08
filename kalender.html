@@ -342,6 +342,8 @@
 }
 </style>
 <script src="data.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="assets/curriculum-data.js"></script>
 <script src="assets/app.js"></script>
 <style>
 /* ─── Export PDF Button ─── */
@@ -516,6 +518,7 @@
     <a href="acara.html" data-page="acara">Acara</a>
   </div>
   <div class="nav-right">
+    <a class="btn-admin-nav" href="admin.html" title="Admin Kurikulum">&#128272;</a>
     <a class="btn-login-nav" id="btn-login-nav" href="https://irsyads.com" target="_blank" rel="noopener noreferrer">irsyads.com &#8599;</a>
     <button class="nav-toggle" id="nav-toggle" aria-label="Menu">☰</button>
   </div>
@@ -693,7 +696,7 @@ let MD;
 const MONTH_NAMES = ['','Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
 const DAY_NAMES   = ['Min','Sen','Sel','Rab','Kam','Jum','Sab'];
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   MD = window.MASTER_DATA;
   if (!MD) return;
 
@@ -701,6 +704,16 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('footer-madrasah').textContent = MD.meta.madrasah;
   document.getElementById('footer-tp').textContent = `TP ${MD.meta.tahun_pelajaran}`;
   document.getElementById('footer-year').textContent = `TP ${MD.meta.tahun_pelajaran}`;
+
+  // Kalender akademik sekarang sumber utamanya Supabase (bisa diedit admin),
+  // bukan data.js statis. Kalau gagal dimuat (mis. offline), kalender_harian
+  // statis lama tetap dipakai sebagai cadangan supaya halaman tidak kosong.
+  try {
+    const programs = await window.CurriculumDB.fetchCalendarPrograms();
+    MD.kalender_harian = window.CurriculumDB.expandProgramsToDays(programs);
+  } catch (err) {
+    console.error('Gagal memuat kalender dari Supabase, memakai data cadangan.', err);
+  }
 
   buildStats();
   buildTimeline();

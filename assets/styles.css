@@ -239,6 +239,15 @@ button { font-family: inherit; }
 }
 .btn-login-nav:hover { background: var(--primary-light); transform:translateY(-1px); box-shadow:var(--shadow-md); }
 
+.btn-admin-nav {
+  display: flex; align-items:center; justify-content:center;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: transparent; border: 1.5px solid var(--border);
+  color: var(--text-soft); font-size: 0.95rem; text-decoration:none;
+  transition: all 0.25s;
+}
+.btn-admin-nav:hover { border-color: var(--primary); color: var(--primary); background: var(--aqua-soft); }
+
 .nav-toggle {
   display: none; font-size: 1.4rem; color: var(--primary);
   background: none; border: none; cursor: pointer; padding: 4px;

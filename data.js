@@ -3588,65 +3588,35 @@ window.MASTER_DATA = {
   ]
  },
  "warna_kategori": {
-  "kedatangan_timur": {
-   "bg": "#1565C0",
+  "boarding": {
+   "bg": "#4472C4",
    "teks": "#fff",
-   "label": "Kedatangan Peserta Didik – Indonesia Timur"
+   "label": "Program Boarding School"
   },
-  "kedatangan_reguler": {
-   "bg": "#64B5F6",
-   "teks": "#0D3B66",
-   "label": "Kedatangan Peserta Didik – Reguler"
+  "matrikulasi": {
+   "bg": "#FFB300",
+   "teks": "#4A2E00",
+   "label": "Matrikulasi"
   },
   "matsama": {
    "bg": "#00897B",
    "teks": "#fff",
    "label": "MATSAMA (Masa Ta'aruf Murid Madrasah)"
   },
-  "mat_pre": {
-   "bg": "#FB8C00",
-   "teks": "#fff",
-   "label": "Pra-Tes Matrikulasi"
-  },
-  "mat_kbm": {
-   "bg": "#FFB300",
-   "teks": "#4A2E00",
-   "label": "Matrikulasi (KBM)"
-  },
-  "mat_post": {
-   "bg": "#AD1457",
-   "teks": "#fff",
-   "label": "Pasca-Tes Matrikulasi"
-  },
-  "mat_eval": {
-   "bg": "#6D4C41",
-   "teks": "#fff",
-   "label": "Evaluasi & Penutupan Matrikulasi"
-  },
-  "mat_orientasi": {
-   "bg": "#26A69A",
-   "teks": "#fff",
-   "label": "Orientasi"
-  },
   "pembelajaran": {
    "bg": "#548235",
    "teks": "#fff",
    "label": "Pembelajaran Efektif"
   },
-  "sts": {
+  "asesmen": {
    "bg": "#7030A0",
    "teks": "#fff",
-   "label": "Asesmen Sumatif Tengah Semester (STS)"
+   "label": "Asesmen dan Sumatif (STS/SAS)"
   },
-  "sas": {
-   "bg": "#3E006F",
-   "teks": "#fff",
-   "label": "Asesmen Sumatif Akhir Semester (SAS)"
-  },
-  "remedial": {
+  "kegiatan_kurikulum": {
    "bg": "#9CCC65",
    "teks": "#2E3D17",
-   "label": "Remedial & Pengayaan"
+   "label": "Kegiatan Kurikulum (Remedial/Pengayaan)"
   },
   "kesiswaan": {
    "bg": "#ED7D31",
@@ -3668,20 +3638,15 @@ window.MASTER_DATA = {
    "teks": "#fff",
    "label": "Kegiatan Madrasah"
   },
-  "boarding": {
-   "bg": "#4472C4",
-   "teks": "#fff",
-   "label": "Kegiatan Keasramaan"
-  },
-  "hari_santri": {
-   "bg": "#2E7D32",
-   "teks": "#fff",
-   "label": "Hari Santri Nasional"
-  },
   "libur_nasional": {
    "bg": "#C00000",
    "teks": "#fff",
    "label": "Libur Nasional"
+  },
+  "cuti_bersama_nasional": {
+   "bg": "#E64A19",
+   "teks": "#fff",
+   "label": "Libur Nasional / Cuti Bersama"
   },
   "cuti_bersama": {
    "bg": "#FF8A80",
@@ -3708,22 +3673,17 @@ window.MASTER_DATA = {
   {
    "judul": "Pra-Tahun Ajaran",
    "kategori": [
-    "kedatangan_timur",
-    "kedatangan_reguler",
+    "boarding",
     "matsama",
-    "mat_pre",
-    "mat_kbm",
-    "mat_post",
-    "mat_eval"
+    "matrikulasi"
    ]
   },
   {
    "judul": "Pembelajaran & Asesmen",
    "kategori": [
     "pembelajaran",
-    "sts",
-    "sas",
-    "remedial"
+    "asesmen",
+    "kegiatan_kurikulum"
    ]
   },
   {
@@ -3732,15 +3692,14 @@ window.MASTER_DATA = {
     "kesiswaan",
     "rapor",
     "unggulan",
-    "madrasah",
-    "boarding",
-    "hari_santri"
+    "madrasah"
    ]
   },
   {
    "judul": "Libur",
    "kategori": [
     "libur_nasional",
+    "cuti_bersama_nasional",
     "cuti_bersama",
     "libur_semester",
     "libur_mingguan"
