@@ -217,26 +217,53 @@ const Embeds = {
   }
 };
 
-// ─── Loading Screen ───
+// ─── Loading Screen & Top Progress Bar ───
 function initLoadingScreen() {
   const screen = document.getElementById('loading-screen');
-  if (!screen) return;
-  const path = window.location.pathname;
-  const isBeranda = path.endsWith('index.html') || path === '/' || path.endsWith('/curriculum-maicn/');
-  if (isBeranda) {
-    setTimeout(() => screen.classList.add('hidden'), 1600);
-  } else {
-    screen.classList.add('hidden');
+  
+  // Fast, smooth dismissal after DOM is ready
+  if (screen) {
+    setTimeout(() => {
+      screen.classList.add('hidden');
+    }, 180);
+
+    window.addEventListener('offline', () => {
+      const textEl = screen.querySelector('.loading-text');
+      if (textEl) textEl.textContent = "Menunggu Jaringan...";
+      screen.classList.remove('hidden');
+    });
+    window.addEventListener('online', () => {
+      const textEl = screen.querySelector('.loading-text');
+      if (textEl) textEl.textContent = "Terhubung Kembali";
+      setTimeout(() => screen.classList.add('hidden'), 500);
+    });
   }
-  window.addEventListener('offline', () => {
-    const textEl = screen.querySelector('.loading-text');
-    if (textEl) textEl.textContent = "Menunggu Jaringan...";
-    screen.classList.remove('hidden');
-  });
-  window.addEventListener('online', () => {
-    const textEl = screen.querySelector('.loading-text');
-    if (textEl) textEl.textContent = "Terhubung Kembali";
-    setTimeout(() => screen.classList.add('hidden'), 1000);
+
+  // Top navigation loader matching modern web apps
+  let loader = document.getElementById('top-loader');
+  if (!loader) {
+    loader = document.createElement('div');
+    loader.id = 'top-loader';
+    document.body.prepend(loader);
+  }
+  loader.classList.add('loading');
+  setTimeout(() => {
+    loader.classList.add('done');
+    setTimeout(() => {
+      loader.classList.remove('loading', 'done');
+      loader.style.width = '0%';
+    }, 300);
+  }, 220);
+
+  // Bind to internal link clicks for instant visual feedback
+  document.querySelectorAll('a[href]:not([target="_blank"]):not([href^="#"]):not([href^="javascript:"])').forEach(a => {
+    a.addEventListener('click', () => {
+      const href = a.getAttribute('href');
+      if (!href) return;
+      loader.style.width = '0%';
+      loader.classList.remove('done');
+      loader.classList.add('loading');
+    });
   });
 }
 
@@ -636,38 +663,26 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-/* ── Water / Ripple Effects ── */
+/* ── Tactile Click Feedback (Clean & Lightweight) ── */
 function initWaterEffects() {
-  const RIPPLE_COLORS = ['rgba(46,196,182,', 'rgba(26,71,49,', 'rgba(201,162,39,'];
-  let dropThrottle = 0;
-
+  // Modern gentle ripple on interactive buttons/cards
   document.addEventListener('click', e => {
-    createRipple(e.clientX, e.clientY, 120 + Math.random() * 80, RIPPLE_COLORS[0]);
-    createRipple(e.clientX, e.clientY, 60 + Math.random() * 40, RIPPLE_COLORS[1], 80);
+    const target = e.target.closest('.btn, .pillar-card, .stat-card, .nav-links a');
+    if (!target) return;
+    const rect = target.getBoundingClientRect();
+    const ripple = document.createElement('span');
+    ripple.style.cssText = `
+      position: absolute; border-radius: 50%; pointer-events: none;
+      width: 20px; height: 20px;
+      left: ${e.clientX - rect.left - 10}px; top: ${e.clientY - rect.top - 10}px;
+      background: rgba(18, 106, 90, 0.2); transform: scale(0);
+      animation: clickRipple 0.5s ease-out forwards;
+    `;
+    if (getComputedStyle(target).position === 'static') {
+      target.style.position = 'relative';
+    }
+    target.style.overflow = 'hidden';
+    target.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 500);
   });
-
-  document.addEventListener('mousemove', e => {
-    const now = Date.now();
-    if (now - dropThrottle < 40) return;
-    dropThrottle = now;
-    if (Math.random() > 0.45) return;
-    createDrop(e.clientX, e.clientY);
-  });
-
-  function createRipple(x, y, size, colorBase, delay = 0) {
-    const el = document.createElement('div');
-    el.className = 'water-ripple';
-    el.style.cssText = `left:${x - size/2}px;top:${y - size/2}px;width:${size}px;height:${size}px;border:2px solid ${colorBase}0.5);background:radial-gradient(circle,${colorBase}0.06) 0%,transparent 70%);animation-delay:${delay}ms;`;
-    document.body.appendChild(el);
-    el.addEventListener('animationend', () => el.remove());
-  }
-
-  function createDrop(x, y) {
-    const el = document.createElement('div');
-    el.className = 'water-drop';
-    const offset = (Math.random() - 0.5) * 20;
-    el.style.cssText = `left:${x + offset - 3}px;top:${y + offset - 3}px;`;
-    document.body.appendChild(el);
-    el.addEventListener('animationend', () => el.remove());
-  }
 }
