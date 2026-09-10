@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Jadwal Harian — Curriculum OS</title>
+<title>Jadwal Belajar & Rutinitas — MA Insan Cendekia Nusantara</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/styles.css">
 <style>
@@ -91,12 +91,9 @@ tr:hover td { background: var(--bg); }
   </a>
   <div class="nav-links" id="nav-links">
     <a href="index.html" data-page="index">Beranda</a>
-    <a href="profil.html" data-page="profil">Profil</a>
-    <a href="struktur.html" data-page="struktur">Struktur</a>
     <a href="kalender.html" data-page="kalender">Kalender</a>
-    <a href="akademik.html" data-page="akademik">Akademik</a>
-    <a href="dokumen.html" data-page="dokumen">Dokumen</a>
-    <a href="acara.html" data-page="acara">Acara</a>
+    <a href="jadwal.html" data-page="jadwal" class="active">Jadwal</a>
+    <a href="struktur.html" data-page="struktur">Struktur Kurikulum</a>
   </div>
   <div class="nav-right">
     <a class="btn-admin-nav" href="admin.html" title="Admin Kurikulum">&#128272;</a>
@@ -107,22 +104,22 @@ tr:hover td { background: var(--bg); }
 
 <div class="page-header">
   <div class="container">
-    <h1 class="animate-up">Jadwal Harian Boarding School</h1>
-    <p class="animate-up delay-100">Jadwal operasional harian peserta didik di MA Insan Cendekia Nusantara.</p>
+    <h1 class="animate-up">Jadwal Belajar &amp; Rutinitas Asrama</h1>
+    <p class="animate-up delay-100">Jadwal KBM per kelas (X-1, X-2, X-3) dan ritme kegiatan harian peserta didik di MA Insan Cendekia Nusantara.</p>
   </div>
 </div>
 
 <div class="container">
   <div class="tab-bar animate-up delay-200">
     <div class="tab-nav">
-      <button class="tab-btn active" onclick="switchTab('senin-kamis', this)">Senin – Kamis</button>
-      <button class="tab-btn" onclick="switchTab('jumat', this)">Jumat</button>
-      <button class="tab-btn" onclick="switchTab('sabtu', this)">Sabtu</button>
-      <button class="tab-btn" onclick="switchTab('jadwal-kbm', this)">Jadwal KBM</button>
+      <button class="tab-btn active" onclick="switchTab('jadwal-kbm', this)">Jadwal KBM Kelas X</button>
+      <button class="tab-btn" onclick="switchTab('senin-kamis', this)">Rutinitas Senin – Kamis</button>
+      <button class="tab-btn" onclick="switchTab('jumat', this)">Rutinitas Jumat</button>
+      <button class="tab-btn" onclick="switchTab('sabtu', this)">Rutinitas Sabtu</button>
     </div>
   </div>
 
-  <div class="tab-content active" id="tab-senin-kamis">
+  <div class="tab-content" id="tab-senin-kamis">
     <div class="table-wrap animate-up delay-300">
       <table>
         <thead>
@@ -176,7 +173,7 @@ tr:hover td { background: var(--bg); }
     </div>
   </div>
 
-  <div class="tab-content" id="tab-jadwal-kbm">
+  <div class="tab-content active" id="tab-jadwal-kbm">
     <div class="kbm-wrap animate-up delay-300">
       <div class="kbm-tabs" id="kbm-class-tabs">
         <button class="kbm-tab-btn active" onclick="switchKBMClass('X-1', this)">Kelas X-1</button>
