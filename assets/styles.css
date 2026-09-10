@@ -210,6 +210,58 @@ button { font-family: inherit; }
   100% { transform: translate(-20px, 10px) scale(0.98); }
 }
 
+
+/* ─── Floating Portal Hub (Back to irsyads.com) ─── */
+.floating-portal {
+  position: fixed; bottom: 24px; left: 24px; z-index: 800;
+  background: var(--liquid-glass);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--liquid-border);
+  border-radius: var(--radius-pill);
+  padding: 10px 18px;
+  box-shadow: var(--liquid-shadow);
+  display: inline-flex; align-items: center; gap: 8px;
+  text-decoration: none; color: var(--color-ink);
+  font-family: inherit; font-size: 0.85rem; font-weight: 600;
+  transition: transform 0.25s var(--ease-entry), box-shadow 0.25s, border-color 0.25s, color 0.25s;
+}
+.floating-portal:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 48px rgba(20, 24, 62, 0.12);
+  color: var(--primary);
+  border-color: rgba(18, 106, 90, 0.25);
+}
+.portal-dot {
+  display: inline-block;
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
+  flex-shrink: 0;
+}
+.portal-arrow {
+  font-size: 0.82rem; opacity: 0.7; transition: transform 0.2s;
+}
+.floating-portal:hover .portal-arrow {
+  transform: translate(2px, -2px);
+  opacity: 1;
+}
+
+@media (max-width: 640px) {
+  .floating-portal {
+    bottom: 16px; left: 16px;
+    padding: 8px 12px;
+    font-size: 0.78rem;
+    gap: 6px;
+  }
+  #floating-clock {
+    bottom: 16px; right: 16px;
+    padding: 8px 12px;
+    gap: 8px;
+  }
+  .clock-time { font-size: 0.95rem; }
+  .clock-date { font-size: 0.65rem; padding-left: 6px; }
+}
+
 /* ─── Floating Clock (Matches FloatingClock.tsx in irsyads.com) ─── */
 #floating-clock {
   position: fixed; bottom: 24px; right: 24px; z-index: 800;
