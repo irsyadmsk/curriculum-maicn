@@ -259,7 +259,9 @@ button { font-family: inherit; }
     gap: 8px;
   }
   .clock-time { font-size: 0.95rem; }
-  .clock-date { font-size: 0.65rem; padding-left: 6px; }
+  /* Di ponsel tanggal disembunyikan: jam selebar 230px bertumpuk dengan
+     chip irsyads.com di kiri bawah. Tanggal sudah ada di bilah atas. */
+  .clock-date { display: none; }
 }
 
 /* ─── Floating Clock (Matches FloatingClock.tsx in irsyads.com) ─── */
