@@ -591,17 +591,10 @@ const THEMES = {
 };
 
 function applyTheme(name) {
-  const t = THEMES[name];
-  if (!t) return;
-  const root = document.documentElement;
-  root.style.setProperty('--primary',       t.primary);
-  root.style.setProperty('--primary-light', t.light);
-  root.style.setProperty('--primary-dark',  t.dark);
-  root.style.setProperty('--aqua',          t.aqua);
-  root.style.setProperty('--aqua-deep',     t.aquaDeep);
-  root.style.setProperty('--bg-mesh',       t.bg);
-  localStorage.setItem('curriculum_theme', name);
-  document.querySelectorAll('.theme-dot').forEach(d => d.classList.toggle('active', d.dataset.theme === name));
+  if (!['krem','forest','ocean','royal','aurora','earth'].includes(name)) return;
+  window.dispatchEvent(new CustomEvent('irsyads-appearance-change',{detail:{palette:name}}));
+  try { localStorage.setItem('curriculum_theme',name); } catch(e) {}
+  document.querySelectorAll('.theme-dot').forEach(d=>d.classList.toggle('active',d.dataset.theme===name));
 }
 
 function initThemePanel() {
@@ -623,8 +616,8 @@ function initThemePanel() {
     });
   }
 
-  const saved = localStorage.getItem('curriculum_theme');
-  if (saved && THEMES[saved]) applyTheme(saved);
+  let saved; try { saved=localStorage.getItem('curriculum_theme'); } catch(e) {}
+  if (!window.__curriculumHadAppearance && saved && THEMES[saved]) applyTheme(saved);
 }
 
 // ─── Init ───

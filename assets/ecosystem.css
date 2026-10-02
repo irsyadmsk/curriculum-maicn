@@ -1,0 +1,35 @@
+/* Adapter to the versioned Irsyads tokens; academic content/data are unchanged. */
+:root { --primary:var(--color-accent-ink); --primary-light:var(--color-accent); --primary-dark:var(--color-accent-ink); --accent:var(--color-gold); --aqua:var(--color-accent); --aqua-deep:var(--color-accent-ink); --bg-mesh:var(--color-bg); --bg:var(--color-bg); --surface:var(--color-surface); --text-primary:var(--color-ink); --text-secondary:var(--color-ink-2); --text-soft:var(--color-muted); --border:var(--color-line); --glass-white:var(--liquid-glass); --glass-card:color-mix(in srgb,var(--color-surface) 85%,transparent); color-scheme:light }
+[data-theme="dark"] { --glass-card:color-mix(in srgb,var(--color-surface) 90%,transparent); color-scheme:dark }
+body,button,input,select,textarea { font-family:var(--font-sans) }
+h1,h2,h3,.nav-brand { font-family:var(--font-serif) }
+.btn-primary { background:var(--color-accent); color:var(--color-on-brand) }
+.btn-primary:hover { background:var(--color-accent-2); color:var(--color-on-brand) }
+.btn-aqua,.btn-login-nav,.nav-links a.active { background:var(--color-accent);color:var(--color-on-brand) }
+.btn-aqua:hover { background:var(--color-accent-2);color:var(--color-on-brand) }
+.navbar { background:var(--liquid-glass-strong); border-color:var(--color-line) }
+footer { background:var(--color-surface-2);color:var(--color-ink);border-color:var(--color-line) }
+.footer-meta { color:var(--color-ink-2) }
+.footer-brand strong { color:var(--color-gold-ink) }
+.warm-section { background:var(--color-surface-2);color:var(--color-ink);border:1px solid var(--color-line) }
+.warm-section h2,.warm-section p { color:var(--color-ink) !important }
+.warm-section strong,.warm-tag { color:var(--color-gold-ink) }
+.footer-right .clock-badge { background:var(--color-surface);color:var(--color-accent-ink);border-color:var(--color-line) }
+.tab-nav { max-width:100%;overflow-x:auto }
+.tab-btn { flex:0 0 auto;min-height:44px }
+.grid-2 > * { min-width:0 }
+#kktp-container { flex-wrap:wrap }
+.info-item { gap:12px;overflow-wrap:anywhere }
+.irsyads-controls { position:relative; font-size:12px; font-weight:600; flex-shrink:0 }
+.irsyads-controls summary { display:flex;align-items:center;justify-content:center; min-height:44px; padding:0 12px; border:1px solid var(--color-line); border-radius:999px; cursor:pointer; background:var(--color-surface); color:var(--color-ink); list-style:none }
+.irsyads-controls > div { position:absolute;inset-inline-end:0;top:calc(100% + 8px);width:min(290px,calc(100vw - 32px));z-index:1100;max-height:70dvh;overflow:auto;padding:16px;border:1px solid var(--color-line);border-radius:18px;background:var(--color-surface);box-shadow:0 12px 36px #10233722 }
+.irsyads-controls label { display:grid;gap:5px;margin-bottom:12px }
+.irsyads-controls select { min-height:44px;border:1px solid var(--color-line-2);border-radius:10px;background:var(--color-surface-2);color:var(--color-ink);padding:0 10px;font:inherit }
+.irsyads-controls a { display:flex;align-items:center;min-height:44px;padding:8px;color:var(--color-accent-ink);border-radius:10px }
+.irsyads-controls a:hover { background:var(--color-surface-2) }
+.irsyads-app-links { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px }
+.irsyads-app-links a { color:var(--color-ink);font-size:12px;line-height:1.3;gap:5px;flex-wrap:wrap }
+.irsyads-controls :focus-visible { outline:2px solid var(--color-accent-ink);outline-offset:3px }
+@media(max-width:540px) { .irsyads-controls summary { width:44px;padding:0 } .irsyads-controls summary span { display:none } .irsyads-controls > div { position:fixed;inset-inline:16px;top:80px;width:auto } .nav-right { gap:6px } }
+@media print { .irsyads-controls {display:none} }
+@media(max-width:900px) { .nav-links { background:var(--color-surface) } }
