@@ -10,8 +10,10 @@ const firebaseConfig = {
 };
 
 // Inisialisasi Firebase (compat SDK — cocok untuk static HTML)
-if (!firebase.apps.length) {
+if (typeof firebase !== 'undefined' && !firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
-window.db   = firebase.firestore();
-window.auth = firebase.auth();
+if (typeof firebase !== 'undefined' && typeof firebase.firestore === 'function') {
+  window.db = firebase.firestore();
+}
+window.auth = null;
