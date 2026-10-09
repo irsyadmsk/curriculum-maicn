@@ -10,8 +10,11 @@ const firebaseConfig = {
 };
 
 // Inisialisasi Firebase (compat SDK — cocok untuk static HTML)
-if (!firebase.apps.length) {
+if (typeof firebase !== 'undefined' && !firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
-window.db   = firebase.firestore();
-window.auth = firebase.auth();
+if (typeof firebase !== 'undefined' && typeof firebase.firestore === 'function') {
+  window.db = firebase.firestore();
+}
+// Only the existing module page loads Firebase Auth. Calendar/admin use Supabase.
+window.auth = typeof firebase !== 'undefined' && typeof firebase.auth === 'function' ? firebase.auth() : null;

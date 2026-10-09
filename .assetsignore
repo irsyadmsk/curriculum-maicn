@@ -9,3 +9,14 @@
 .gitignore
 node_modules
 node_modules/**
+
+# Tooling and project notes are source, not public web assets.
+*.md
+*.py
+*.jsonc
+inject_modals.js
+update_data.js
+update_nav.js
+.assetsignore
+
+/tests
