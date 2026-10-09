@@ -13,15 +13,15 @@ function setup(profile, failure=false) {
 }
 test('missing and unreadable module profiles never grant teacher access', async () => {
   for(const auth of [setup(null), setup(null,true)]) {
-    await auth.onStateChange(()=>{});
+    await new Promise(resolve => auth.onStateChange(resolve));
     assert.equal(auth.isGuru(),false);
     assert.equal(auth.isAdmin(),false);
   }
 });
 test('stored module role determines presentation while identity comes from auth', async () => {
   const auth=setup({role:'guru',uid:'forged',email:'forged'});
-  await auth.onStateChange(()=>{});
+  await new Promise(resolve => auth.onStateChange(resolve));
   assert.equal(auth.isGuru(),true);assert.equal(auth.isAdmin(),false);
   assert.equal(auth.getUser().uid,'u1');
-  const admin=setup({role:'admin'});await admin.onStateChange(()=>{});assert.equal(admin.isAdmin(),true);
+  const admin=setup({role:'admin'});await new Promise(resolve => admin.onStateChange(resolve));assert.equal(admin.isAdmin(),true);
 });
