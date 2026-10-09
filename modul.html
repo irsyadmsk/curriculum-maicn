@@ -24,9 +24,10 @@
 .upload-fab.show { display:flex; }
 </style>
 <link rel="icon" href="/favicon.ico" sizes="any">
-<!-- Firebase SDK (Firestore only) -->
+<!-- Existing module accounts use Firebase Auth + Firestore. -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="firebase-config.js"></script>
 <script src="data.js"></script>
 <script src="assets/app.js?v=3.0"></script>
@@ -94,6 +95,8 @@
       <div class="section-tag">Pustaka Digital</div>
       <h2 class="section-title">Modul Ajar</h2>
       <p class="section-sub">Seluruh perangkat ajar yang diunggah oleh guru MA ICN</p>
+      <button type="button" class="btn btn-ghost btn-sm" id="module-account">Masuk akun modul</button>
+      <p class="section-sub" id="module-account-status" role="status"></p>
     </div>
 
     <!-- Filter -->
@@ -178,7 +181,7 @@
     <button class="modal-close" data-close-modal="modal-login">✕</button>
     <div class="modal-logo"><img src="assets/iconmaicn.png" alt="Logo"></div>
     <div class="modal-title">Masuk</div>
-    <div class="modal-sub">Khusus Guru &amp; Administrator MA ICN</div>
+    <div class="modal-sub">Akun modul guru &amp; administrator MA ICN</div>
     <div class="login-error" id="login-error"></div>
     <form id="login-form">
       <div class="form-group">
@@ -244,7 +247,7 @@
         <strong>Curriculum OS v3.0</strong> — Firebase Edition<br>MA Insan Cendekia Nusantara Purwakarta
       </p>
       <div class="callout">📌 Akun guru dibuat oleh admin di Firebase Console → Authentication → Add user</div>
-      <div class="callout" style="margin-top:10px;">🔐 Role guru/admin diset di Firestore → users → [uid] → role: "guru" atau "admin"</div>
+      <div class="callout" style="margin-top:10px;">🔐 Hak akses akun modul dikelola admin di Firestore → users → [uid] → role: "guru" atau "admin"</div>
     </div>
   </div>
 </div>
@@ -264,6 +267,11 @@ document.addEventListener('DOMContentLoaded', () => {
   let activeFilter = 'all';
   let allModuls    = [];
 
+  function safeModuleUrl(value) {
+    try { const url = new URL(value); return ['https:', 'http:'].includes(url.protocol) ? url.href : '#'; }
+    catch { return '#'; }
+  }
+
   // Render grid
   function renderGrid(list) {
     const grid = document.getElementById('modul-grid');
@@ -275,11 +283,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const catLabel = { modul:'Modul Ajar', kaldik:'Kalender Akademik', prota:'Program Tahunan', posem:'Program Semester', dokumen:'Dokumen Lain' };
     grid.innerHTML = filtered.map(m => `
       <div class="modul-card animate-up">
-        <span class="modul-cat">${catLabel[m.category] || m.category}</span>
+        <span class="modul-cat">${escHtml(catLabel[m.category] || m.category)}</span>
         <div class="modul-title">${escHtml(m.title)}</div>
         <div class="modul-meta">Oleh: ${escHtml(m.uploadedBy || '-')}${m.ts?.toDate ? ' · ' + m.ts.toDate().toLocaleDateString('id-ID') : ''}</div>
         <div class="modul-actions">
-          <a href="${escHtml(m.url)}" target="_blank" rel="noopener" class="btn btn-aqua btn-sm">Buka ↗</a>
+          <a href="${escHtml(safeModuleUrl(m.url))}" target="_blank" rel="noopener" class="btn btn-aqua btn-sm">Buka ↗</a>
         </div>
       </div>
     `).join('');
@@ -318,9 +326,16 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(startModulListener, 1500);
   }
 
+  document.getElementById('module-account').addEventListener('click', async () => {
+    if (Auth.isLoggedIn()) { await Auth.logout(); return; }
+    AppUtils.openModal('modal-login');
+  });
+
   // Auth state: show FAB if guru/admin
   Auth.onStateChange((user, profile) => {
     const fab = document.getElementById('fab-upload');
+    document.getElementById('module-account').textContent = user ? 'Keluar akun modul' : 'Masuk akun modul';
+    document.getElementById('module-account-status').textContent = user && !profile ? 'Akun berhasil masuk, tetapi akses modul belum diberikan. Hubungi administrator.' : '';
     if (user && profile && (profile.role === 'guru' || profile.role === 'admin')) {
       fab?.classList.add('show');
       if (profile.role === 'admin') renderAdminEmbeds(allModuls);

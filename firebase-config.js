@@ -16,4 +16,5 @@ if (typeof firebase !== 'undefined' && !firebase.apps.length) {
 if (typeof firebase !== 'undefined' && typeof firebase.firestore === 'function') {
   window.db = firebase.firestore();
 }
-window.auth = null;
+// Only the existing module page loads Firebase Auth. Calendar/admin use Supabase.
+window.auth = typeof firebase !== 'undefined' && typeof firebase.auth === 'function' ? firebase.auth() : null;

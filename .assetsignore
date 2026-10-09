@@ -18,3 +18,5 @@ inject_modals.js
 update_data.js
 update_nav.js
 .assetsignore
+
+/tests

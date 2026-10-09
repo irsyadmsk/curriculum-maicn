@@ -71,9 +71,9 @@ const Auth = {
         // Ambil profil dari Firestore
         try {
           const snap = await window.db.collection('users').doc(user.uid).get();
-          this._profile = snap.exists ? { uid: user.uid, email: user.email, ...snap.data() } : { uid: user.uid, email: user.email, role: 'guru', name: user.email };
+          this._profile = snap.exists ? { ...snap.data(), uid: user.uid, email: user.email } : null;
         } catch {
-          this._profile = { uid: user.uid, email: user.email, role: 'guru', name: user.email };
+          this._profile = null;
         }
       } else {
         this._profile = null;
@@ -85,13 +85,6 @@ const Auth = {
   isAdmin() { return this._profile?.role === 'admin'; },
   isGuru()  { return this._profile?.role === 'guru' || this.isAdmin(); }
 };
-
-// ─── Seed Comments (selalu tampil, tidak dari Firestore) ───
-const SEED_COMMENTS = [
-  { id:'seed-1', name:'Bapak Ahmad Fauzi', role:'guru', text:'Alhamdulillah, portal kurikulum ini sangat membantu kami para guru untuk memahami alur pembelajaran sepanjang tahun. Desainnya pun nyaman dilihat.', ts: { toDate: () => new Date('2026-06-15T08:30:00') }, _seed: true },
-  { id:'seed-2', name:'Siti Rahmawati', role:'orang-tua', text:'Sebagai orang tua, saya merasa terbantu sekali bisa melihat kalender akademik secara lengkap. Terima kasih MA ICN sudah transparan.', ts: { toDate: () => new Date('2026-06-17T14:12:00') }, _seed: true },
-  { id:'seed-3', name:'Farhan Al-Ghifari', role:'siswa', text:'Portal ini keren banget! Bisa cek jadwal STS dan SAS dari jauh hari. Desainnya juga modern 👍', ts: { toDate: () => new Date('2026-06-20T19:45:00') }, _seed: true },
-];
 
 // ─── Comments Module (Firebase Firestore) ───
 const Comments = {
@@ -133,7 +126,7 @@ const Comments = {
       .limit(50)
       .onSnapshot(snap => {
         const docs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-        const all = [...docs, ...SEED_COMMENTS];
+        const all = docs;
         this._render(all, container, isAdminFn());
       }, err => {
         console.error('Komentar gagal dimuat:', err);
@@ -143,7 +136,7 @@ const Comments = {
 
   _renderFallback(container) {
     if (!container) return;
-    this._render(SEED_COMMENTS, container, false);
+    container.innerHTML = '<div class="comment-empty">Komentar belum dapat dimuat. Silakan coba lagi nanti.</div>';
   },
 
   _render(list, container, isAdmin) {
@@ -176,7 +169,7 @@ function escHtml(s) {
 }
 
 AppUtils.deleteComment = async function(id) {
-  if (!Auth.isLoggedIn()) return;
+  if (!Auth.isAdmin()) return;
   try {
     await Comments.delete(id);
     AppUtils.toast('Komentar dihapus');
@@ -188,6 +181,7 @@ AppUtils.deleteComment = async function(id) {
 // ─── Embeds / Modules Module (Firebase Firestore) ───
 const Embeds = {
   async add(title, url, category, uploadedBy) {
+    if (!Auth.isGuru()) throw new Error('Akses guru diperlukan');
     if (!window.db) throw new Error('Database belum siap');
     await window.db.collection('modules').add({
       title: title.trim(),
@@ -199,6 +193,7 @@ const Embeds = {
   },
 
   async delete(id) {
+    if (!Auth.isAdmin()) throw new Error('Akses admin diperlukan');
     if (!window.db) return;
     await window.db.collection('modules').doc(id).delete();
   },
@@ -521,7 +516,7 @@ function initCommentListener() {
   container.innerHTML = '<div class="comment-empty">✦ Memuat komentar…</div>';
 
   // Tunggu Firebase siap lalu listen
-  const start = () => Comments.listen(container, () => Auth.isLoggedIn());
+  const start = () => Comments.listen(container, () => Auth.isAdmin());
 
   if (window.db) {
     start();
@@ -647,7 +642,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Re-render comments saat auth berubah (tampilkan tombol hapus jika admin)
     const container = document.getElementById('comment-list');
     if (container && window.db) {
-      Comments.listen(container, () => Auth.isLoggedIn());
+      Comments.listen(container, () => Auth.isAdmin());
     }
     // Refresh admin embeds listener
     if (user && profile?.role === 'admin') {
