@@ -43,3 +43,4 @@ observer.observe(document.body,{childList:true,subtree:true});
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshAccess()});
 window.addEventListener('pagehide',()=>{document.body.classList.remove('access-ready')});
 window.addEventListener('pageshow',event=>{if(event.persisted)refreshAccess()});
+accessReady.then(()=>import('./clinic-notifications.mjs')).catch(()=>{});

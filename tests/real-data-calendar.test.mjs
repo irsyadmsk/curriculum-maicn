@@ -1,7 +1,12 @@
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs/promises';
-import {assignedSubjects,accountTeacher} from '../assets/teacher-subjects.mjs';
+import {assignedSubjects,accountTeacher,proposalSubjects} from '../assets/teacher-subjects.mjs';
 import {calendarMonths,calendarDocument} from '../assets/calendar-print.mjs';
 const source=JSON.parse(await fs.readFile('master-data.json','utf8'));
+test('teacher proposals carry one subject even when old secondary fields contain values',()=>{
+ assert.deepEqual(proposalSubjects(true,['Sosiologi','Fisika','Kimia']),['Sosiologi']);
+ assert.deepEqual(proposalSubjects(false,['Sosiologi','Fisika','']),['Sosiologi','Fisika']);
+ assert.deepEqual(proposalSubjects(true,['','Fisika','Kimia']),[]);
+});
 test('teacher mapel follows verified teacher name even where source codes collide',()=>{
  const teachers=source.jadwal_kbm_v2.matriks_guru;
  const teacher=accountTeacher({teacher:'Muhammad Irsyad Sirojul Khoeir, S.Sos., M.Sos.'},teachers);

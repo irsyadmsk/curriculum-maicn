@@ -17,3 +17,4 @@ async function render(){
  }catch{root.innerHTML='<p class="ui-empty">Agenda klinik belum berhasil diperbarui. <a href="klinik.html">Periksa halaman Klinik</a>.</p>'}
 }
 render();document.addEventListener('visibilitychange',()=>{if(!document.hidden)render()});
+setInterval(()=>{if(!document.hidden)render()},60000);
