@@ -484,7 +484,7 @@
 <script src="assets/student-roster-summary.js"></script>
 <script src="assets/student-roster.js?v=20261026"></script>
 <link rel="stylesheet" href="assets/audience.css?v=20261026-audience1"><link rel="stylesheet" href="assets/clinic-page.css?v=20261026-audience1"><script type="module" src="assets/curriculum-access.mjs?v=20261026-audience1"></script>
-</head>
+<link rel="stylesheet" href="assets/calendar-print.css"><script type="module" src="assets/calendar-print.mjs"></script></head>
 <body class="clay-theme curriculum-ui">
 <div aria-hidden="true" class="bg-blobs">
 <div class="bg-blob"></div>
@@ -798,6 +798,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.error('Gagal memuat kalender dari Supabase, memakai data cadangan.', err);
   }
 
+  window.CurriculumCalendarSnapshot = MD;
   buildStats();
   buildTimeline();
   buildCalendar();
@@ -1067,59 +1068,7 @@ function buildME(){
 }
 
 /* ─── Ekspor PDF (JS hide + window.print) ─── */
-window.exportKalenderPDF = function() {
-  // Selector elemen yang disembunyikan saat cetak
-  const HIDE_SELECTORS = [
-    '#navbar', '#floating-clock', '#theme-panel-btn', '#theme-panel',
-    '.bg-blobs', '#loading-screen', 'footer', '.modal-overlay', '#toast',
-    '.export-pdf-row', '.tab-wrap', '.filter-group', '.legend-toggle',
-    '.sec-sub', '.month-card:hover'
-  ];
-
-  // 1. Kumpulkan state elemen yang akan disembunyikan
-  const hidden = [];
-  HIDE_SELECTORS.forEach(sel => {
-    document.querySelectorAll(sel).forEach(el => {
-      hidden.push({ el, prev: el.style.display });
-      el.style.setProperty('display', 'none', 'important');
-    });
-  });
-
-  // 2. Paksa semua tab konten muncul
-  const tabs = document.querySelectorAll('.tab-content');
-  const tabWas = [];
-  tabs.forEach(t => { tabWas.push(t.classList.contains('active')); t.classList.add('active'); });
-
-  // 3. Buka legenda
-  const legBody  = document.getElementById('leg-body');
-  const legArrow = document.getElementById('leg-arrow');
-  const legWas   = legBody.classList.contains('open');
-  legBody.classList.add('open');
-  legArrow.classList.add('open');
-
-  // 4. Paksa lebar minimal agar tidak print di lebar mobile
-  const htmlEl = document.documentElement;
-  const prevMinW = htmlEl.style.minWidth;
-  htmlEl.style.minWidth = '900px';
-
-  // 5. Restore setelah print dialog ditutup
-  let restored = false;
-  const restore = () => {
-    if(restored) return; restored = true;
-    hidden.forEach(({ el, prev }) => { el.style.removeProperty('display'); if(prev) el.style.display = prev; });
-    tabs.forEach((t, i) => { if(!tabWas[i]) t.classList.remove('active'); });
-    if(!legWas) { legBody.classList.remove('open'); legArrow.classList.remove('open'); }
-    htmlEl.style.minWidth = prevMinW;
-    window.removeEventListener('afterprint', restore);
-  };
-  window.addEventListener('afterprint', restore);
-
-  // 6. Cetak
-  window.print();
-
-  // Fallback restore untuk browser yang tidak support afterprint
-  setTimeout(restore, 2000);
-};
+// Export is provided by the dedicated A4 calendar document module.
 
 /* ─── Observer ─── */
 function initObserver(){
