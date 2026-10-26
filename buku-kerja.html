@@ -323,26 +323,20 @@
       <span style="font-weight:700; color:var(--clay-ink);">📍 Jalur Penyimpanan Lokal Komputer:</span>
       <code id="drive-local-path" style="background:#F1F5F9; padding:2px 8px; border-radius:6px; font-family:monospace; color:#334155; margin-left:4px;">C:\Users\T6N0CV02S35823C\Drive Saya\02 My Space\Teaching\Data Perangkat Ajar Guru</code>
     </div>
-    <span style="font-weight:700; color:#10B981;">✓ 22 Folder Mapel Terverifikasi Lengkap</span>
+    <span style="font-weight:700; color:#10B981;">Daftar pengampu mengikuti sumber jadwal mengajar</span>
   </div>
 
   <!-- Interactive Directory Controls -->
   <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:18px;">
     <div style="display:flex; gap:6px; flex-wrap:wrap;" id="filter-mapel-categories">
-      <button class="clay-tab-btn active" onclick="filterMapelCategory('semua', this)" type="button">Semua Mapel (22)</button>
-      <button class="clay-tab-btn" onclick="filterMapelCategory('PAI', this)" type="button">PAI &amp; B. Arab (5)</button>
-      <button class="clay-tab-btn" onclick="filterMapelCategory('MIPA', this)" type="button">MIPA (4)</button>
-      <button class="clay-tab-btn" onclick="filterMapelCategory('IPS', this)" type="button">IPS &amp; Sejarah (4)</button>
-      <button class="clay-tab-btn" onclick="filterMapelCategory('Umum', this)" type="button">Bahasa &amp; Umum (4)</button>
-      <button class="clay-tab-btn" onclick="filterMapelCategory('TIK', this)" type="button">Informatika &amp; AI (2)</button>
-      <button class="clay-tab-btn" onclick="filterMapelCategory('Seni', this)" type="button">Seni, PJOK, BK (3)</button>
+      <button class="clay-tab-btn active" onclick="filterMapelCategory('semua', this)" type="button">Semua mapel</button>
     </div>
     <div style="position:relative; min-width:240px;">
       <input type="text" id="live-folder-search" class="clay-input" placeholder="🔍 Cari nama mapel / guru..." oninput="filterMapelList(this.value)" style="padding-left:14px; font-size:0.82rem; border-radius:999px;">
     </div>
   </div>
 
-  <!-- 22 Subject Folder Cards -->
+  <!-- Subject cards from the source schedule -->
   <div class="folder-clay-grid" id="mapel-grid">
     <!-- Populated dynamically via JS -->
   </div>
@@ -351,30 +345,7 @@
 </main>
 </div>
 <script>
-const SUBJECTS_DATA = [
-  { no: 1, name: "Al-Qur'an Hadis", teacher: "Asep Jafar Setiadi, S.Pd.", code: "QH", icon: "📖", cat: "PAI" },
-  { no: 2, name: "Akidah Akhlak", teacher: "Nurlaela, S.Ag.", code: "AA", icon: "✨", cat: "PAI" },
-  { no: 3, name: "Fiqih", teacher: "Dra. Hj. Siti Rohmah, M.Pd.", code: "FQ", icon: "⚖️", cat: "PAI" },
-  { no: 4, name: "Sejarah Kebudayaan Islam", teacher: "H. Ahmad Syahid, M.Ag.", code: "SKI", icon: "🕌", cat: "PAI" },
-  { no: 5, name: "Bahasa Arab", teacher: "H. Ahmad Fauzi, Lc., M.Hum.", code: "BA", icon: "📜", cat: "PAI" },
-  { no: 6, name: "Pendidikan Pancasila", teacher: "Drs. H. Mamat Slamet", code: "PP", icon: "🦅", cat: "Umum" },
-  { no: 7, name: "Bahasa Indonesia", teacher: "Dra. Hj. Euis Komala", code: "BI", icon: "🇮🇩", cat: "Umum" },
-  { no: 8, name: "Bahasa Inggris", teacher: "Rina Marlina, M.Pd.", code: "EN", icon: "🇬🇧", cat: "Umum" },
-  { no: 9, name: "Matematika", teacher: "Drs. Cecep Saepudin, M.Pd.", code: "MTK", icon: "📐", cat: "MIPA" },
-  { no: 10, name: "Biologi", teacher: "Dr. H. Dani Ramdani, M.Si.", code: "BIO", icon: "🌿", cat: "MIPA" },
-  { no: 11, name: "Fisika", teacher: "Ir. H. Budi Santoso, M.T.", code: "FIS", icon: "⚡", cat: "MIPA" },
-  { no: 12, name: "Kimia", teacher: "Dra. Yanti Maryanti", code: "KIM", icon: "🧪", cat: "MIPA" },
-  { no: 13, name: "Geografi", teacher: "Drs. Agus Salim", code: "GEO", icon: "🌍", cat: "IPS" },
-  { no: 14, name: "Ekonomi", teacher: "Hj. Nenden Sri Rahayu, S.E., M.M.", code: "EKO", icon: "📈", cat: "IPS" },
-  { no: 15, name: "Sosiologi", teacher: "Irsyad Fahmi, M.Pd.", code: "SOS", icon: "🤝", cat: "IPS" },
-  { no: 16, name: "Sejarah", teacher: "Drs. H. Dedi Supardi", code: "SEJ", icon: "🏺", cat: "IPS" },
-  { no: 17, name: "Informatika", teacher: "Rifqi Ahmad, S.Kom.", code: "INF", icon: "💻", cat: "TIK" },
-  { no: 18, name: "Koding dan AI", teacher: "Fauzan Adhim, S.T., M.Kom.", code: "AI", icon: "🤖", cat: "TIK" },
-  { no: 19, name: "Seni Budaya", teacher: "Dra. Hj. Nia Kurniasih", code: "SNB", icon: "🎨", cat: "Seni" },
-  { no: 20, name: "Pendidikan Jasmani & OR", teacher: "H. Asep Supriatna, S.Pd.", code: "PJK", icon: "⚽", cat: "Seni" },
-  { no: 21, name: "Prakarya & Kewirausahaan", teacher: "Dra. Hj. Titin Sumarni", code: "PKU", icon: "💡", cat: "Umum" },
-  { no: 22, name: "Bimbingan & Konseling", teacher: "Drs. H. Ujang Suherman, M.Pd.", code: "BK", icon: "🧭", cat: "Seni" }
-];
+const SUBJECTS_DATA = (window.MASTER_DATA?.jadwal_kbm_v2?.matriks_guru || []).map((t,i)=>({no:i+1,name:t.mapel,teacher:t.nama.replace(/\s*\*$/, ''),code:t.kode,icon:'',cat:'Data pengampu'}));
 
 let currentCat = 'semua';
 let currentSearch = '';
@@ -415,7 +386,7 @@ function renderFolderCards() {
             </div>
           </div>
           <span style="font-size:0.68rem; font-weight:700; color:#10B981; background:#DCFCE7; padding:2px 6px; border-radius:999px;">
-            ✓ Siap
+            Pengampu tercatat
           </span>
         </div>
         <div style="font-size:0.8rem; color:var(--clay-muted); margin-bottom:12px;">
