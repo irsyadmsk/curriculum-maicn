@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>E-Rapor Madrasah &amp; Leger Nilai — Curriculum OS — MA ICN</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/dashboard-clay.css">
+<link rel="stylesheet" href="assets/irsyads-v1/service-navigation.css">
+<style>
+  /* Page specific styles for E-Rapor */
+  .rapor-input-num {
+    width: 60px;
+    padding: 6px 8px;
+    border-radius: 8px;
+    border: 1.5px solid #CBD5E1;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.86rem;
+    font-weight: 700;
+    text-align: center;
+    background: #FFFFFF;
+    transition: all 0.2s ease;
+  }
+  .rapor-input-num:focus {
+    outline: none;
+    border-color: var(--clay-coral);
+    box-shadow: 0 0 0 3px rgba(240, 126, 91, 0.2);
+  }
+  .score-badge-na {
+    display: inline-block;
+    min-width: 44px;
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.95rem;
+    font-weight: 800;
+    text-align: center;
+  }
+  .score-tuntas { background: #DCFCE7; color: #166534; }
+  .score-remedial { background: #FEE2E2; color: #991B1B; }
+
+  /* Official LHB Report Card Preview Sheet */
+  .lhb-sheet {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 20px;
+    padding: 36px 40px;
+    max-width: 820px;
+    margin: 0 auto;
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    color: #1E293B;
+  }
+  .lhb-kop {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    border-bottom: 3px double #0F172A;
+    padding-bottom: 16px;
+    margin-bottom: 24px;
+  }
+  .lhb-kop-logo {
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+  .lhb-kop-text {
+    flex: 1;
+    text-align: center;
+  }
+  .lhb-kop-text h2 {
+    font-size: 1.15rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin: 0 0 2px;
+    color: #0F172A;
+    letter-spacing: 0.5px;
+  }
+  .lhb-kop-text h1 {
+    font-size: 1.4rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin: 0 0 4px;
+    color: #1A4731;
+  }
+  .lhb-kop-text p {
+    font-size: 0.78rem;
+    margin: 0;
+    color: #475569;
+    line-height: 1.4;
+  }
+  .lhb-identity-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 24px;
+    font-size: 0.85rem;
+    margin-bottom: 24px;
+    background: #F8FAFC;
+    padding: 14px 18px;
+    border-radius: 12px;
+    border: 1px solid #E2E8F0;
+  }
+  .lhb-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.84rem;
+    margin-bottom: 24px;
+  }
+  .lhb-table th, .lhb-table td {
+    border: 1px solid #CBD5E1;
+    padding: 8px 10px;
+    vertical-align: middle;
+  }
+  .lhb-table th {
+    background: #F1F5F9;
+    font-weight: 800;
+    color: #0F172A;
+    text-align: center;
+  }
+  .lhb-signatures {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    text-align: center;
+    margin-top: 36px;
+    font-size: 0.82rem;
+  }
+  .lhb-signature-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 110px;
+  }
+
+  /* Modal */
+  .rapor-modal-backdrop {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(11, 29, 53, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  .rapor-modal-backdrop.open { display: flex; }
+  .rapor-modal-card {
+    background: #FFFFFF;
+    border-radius: 24px;
+    max-width: 580px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 24px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    box-sizing: border-box;
+  }
+
+  @media print {
+    .lhb-sheet {
+      border: none !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+      max-width: 100% !important;
+    }
+  }
+</style>
+<script src="assets/irsyads-v1/appearance.js"></script>
+<script src="assets/irsyads-v1/language.js"></script>
+<script src="assets/irsyads-v1/launcher.js"></script>
+<script src="assets/irsyads-v1/service-navigation.js"></script>
+<script src="data.js"></script>
+<link rel="stylesheet" href="assets/curriculum-ui.css?v=20261026-clinic2-roster1">
+<script src="assets/student-roster-data.js?v=20261026"></script>
+<script src="assets/student-roster.js?v=20261026"></script>
+<link rel="stylesheet" href="assets/audience.css?v=20261026-audience1"><link rel="stylesheet" href="assets/clinic-page.css?v=20261026-audience1"><script type="module" src="assets/curriculum-access.mjs?v=20261026-audience1"></script>
+</head>
+<body class="clay-theme curriculum-ui">
+<div class="clay-app-layout">
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- SIDEBAR (Soft Sage Neumorphic Clay) -->
+  <!-- ══════════════════════════════════════════════ -->
+  <aside class="clay-sidebar" id="main-clay-sidebar" aria-label="Menu utama">
+ <button type="button" class="clay-drawer-close-btn" onclick="toggleClayDrawer(false)" aria-label="Tutup menu"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg></button>
+ <a class="ui-brand" href="index.html"><img src="assets/iconmaicn.png" width="36" height="44" alt="Lambang MA ICN"><span class="ui-brand-text"><strong>Curriculum<span style="color:var(--ui-accent)">.</span></strong><small>MA INSAN CENDEKIA NUSANTARA</small></span></a>
+ <p class="ui-school-label">Ruang akademik madrasah<br><strong>Tahun pelajaran 2026/2027</strong></p>
+ <nav class="clay-nav-menu" aria-label="Halaman kurikulum"><div class="clay-nav-section-title">RUANG AKADEMIK</div>
+<a class="clay-nav-item" href="index.html" title="Beranda"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7v10H3z"/><path d="M9 20v-7h6v7"/></svg><span>Beranda</span></a>
+<a class="clay-nav-item" href="jadwal.html" title="Jadwal mengajar"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4m8-4v4M3 10h18m-13 4h3m-3 3h6m2-3h1"/></svg><span>Jadwal mengajar</span></a><a href="info-murid.html" class="clay-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v1"/></svg><span>Info murid</span></a>
+<a data-needs="teacher" class="clay-nav-item" href="murid.html" title="Data murid"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 21v-3a6 6 0 0 1 12 0v3M16 5a3 3 0 0 1 0 6m2 4a5 5 0 0 1 3 4v2"/></svg><span>Data murid</span></a><a data-needs="teacher" href="presensi.html" class="clay-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 4h14v17H5zM8 2v4m8-4v4M8 12h8m-8 4h5"/></svg><span>Presensi &amp; jurnal</span></a><a data-needs="teacher" href="karakter.html" class="clay-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 21S2 14 2 8a5 5 0 0 1 10-2 5 5 0 0 1 10 2c0 6-10 13-10 13z"/></svg><span>Perkembangan murid</span></a>
+<a class="clay-nav-item" href="kalender.html" title="Kalender akademik"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18m-13 4h2m4 0h2"/></svg><span>Kalender akademik</span></a>
+<a class="clay-nav-item" href="klinik.html" title="Klinik pembelajaran"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3v5a5 5 0 0 0 10 0V3M4 3h4m6 0h4M11 13v3a5 5 0 0 0 10 0v-2"/><circle cx="21" cy="11" r="2"/></svg><span>Klinik pembelajaran</span></a>
+<div class="clay-nav-section-title">PERANGKAT & PENILAIAN</div>
+<a data-needs="teacher" class="clay-nav-item" href="buku-kerja.html" title="Buku kerja guru"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7V4h6l2 3h10v13H3Z"/></svg><span>Buku kerja guru</span></a>
+<a data-needs="teacher" class="clay-nav-item active" href="rapor.html" title="E-Rapor &amp; Leger Nilai" aria-current="page"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3v18h17M9 16v-5m5 5V7m5 9V4"/></svg><span>E-Rapor &amp; Leger Nilai</span></a>
+<a data-needs="teacher" class="clay-nav-item" href="asesmen.html" title="Asesmen &amp; bank soal"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="m8 12 3 3 5-6"/></svg><span>Asesmen &amp; bank soal</span></a>
+<div class="clay-nav-section-title">KURIKULUM MADRASAH</div>
+<a class="clay-nav-item" href="kom.html" title="Dokumen Kurikulum (KOM)"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H5v20h14V7Zm0 0v5h5M8 12h8m-8 4h6"/></svg><span>Dokumen Kurikulum (KOM)</span></a>
+<a class="clay-nav-item" href="kokurikuler.html" title="Kokurikuler &amp; Panca Cinta"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 3S6 1 4 10s8 15 13 7S20 3 20 3ZM4 21 15 9"/></svg><span>Kokurikuler &amp; Panca Cinta</span></a>
+<a data-needs="teacher" class="clay-nav-item" href="struktur.html" title="Struktur &amp; KKTP"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 10 5-10 5L2 8Zm-10 10 10 5 10-5M2 18l10 5 10-5"/></svg><span>Struktur &amp; KKTP</span></a>
+<a class="clay-nav-item" href="unggulan.html" title="Program unggulan"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 3 6 6 1-4.5 4.5 1 6.5-5.5-3-5.5 3 1-6.5L3 10l6-1z"/></svg><span>Program unggulan</span></a>
+</nav>
+ <div class="ui-sidebar-foot"><a data-needs="reviewer" href="admin.html" class="clay-nav-item" title="Admin kurikulum"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 3-1 3-3 1-2 5 2 5 3 1 1 3h6l1-3 3-1 2-5-2-5-3-1-1-3z"/><circle cx="12" cy="12" r="3"/></svg><span>Admin kurikulum</span></a>
+ <button type="button" class="clay-collapse-btn" onclick="toggleSidebarCollapse()" aria-label="Ciutkan menu" aria-expanded="true"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18m7-13-4 4 4 4"/></svg><span class="ui-collapse-label">Ciutkan menu</span></button>
+ <p>INQUIRE · ARTICULATE · EMPOWER</p></div>
+ </aside>
+
+  <div class="clay-drawer-backdrop" onclick="toggleClayDrawer(false)" aria-hidden="true"></div>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- MAIN CONTENT AREA -->
+  <!-- ══════════════════════════════════════════════ -->
+  <main data-needs="teacher" class="clay-main-content">
+    <!-- Top App Bar -->
+    <header class="clay-topbar">
+      <div class="clay-topbar-left">
+        <button class="clay-mobile-menu-btn" onclick="toggleClayDrawer()" aria-label="Buka Menu Navigasi" title="Buka Menu" type="button">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+        <div>
+          <h1 class="clay-page-title">E-Rapor Madrasah &amp; Leger Nilai</h1>
+          <span class="clay-badge-preview">KURIKULUM MERDEKA · KBC</span>
+        </div>
+      </div>
+      <div class="clay-topbar-right">
+        <div id="irsyads-service-nav" class="irsyads-nav-wrapper"></div>
+        <button class="btn-clay-pill white" onclick="exportLegerCSV()" title="Ekspor Leger Nilai ke CSV" type="button">
+          <span>📥 Ekspor CSV Leger</span>
+        </button>
+        <button class="btn-clay-pill primary" onclick="window.print()" title="Cetak Halaman / LHB" type="button">
+          <span>🖨️ Cetak / PDF</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ═════════ 1. HERO BANNER ═════════ -->
+    <section class="clay-hero-card">
+      <div class="clay-hero-left">
+        <div class="clay-hero-badge">
+          <span>📊</span>
+          <span>SISTEM PENILAIAN KURIKULUM MERDEKA MADRASAH · FASE E KELAS X</span>
+        </div>
+        <h2 class="clay-hero-title">Kalkulator Nilai Akhir, Leger &amp; E-Rapor Murid</h2>
+        <p class="clay-hero-subtitle">
+          Pengaturan pembobotan pada kalkulator ini: <strong>40% Rata-rata Formatif (TP 1–4) + 30% ASTS + 30% ASAS</strong>. Batas numerik kerja untuk tindak lanjut = <strong>75</strong>. Guru dapat merujuk murid yang membutuhkan pendampingan melalui tombol <strong>Klinik Pembelajaran</strong> untuk tindak lanjut pembelajaran. Pembobotan dan batas 75 ini adalah pengaturan kerja, bukan ketentuan nasional atau penentu kelulusan; KKTP ditetapkan sesuai tujuan pembelajaran.
+        </p>
+      </div>
+    </section>
+
+    <p class="ui-student-source">Daftar murid mengikuti file sebaran kelas. Nilai rapor belum diisi; NIS/NISN tidak tersedia pada sumber. Nilai contoh lama tidak digunakan untuk murid asli.</p>
+<!-- ═════════ 2. QUICK STATS CARDS ═════════ -->
+    <section class="clay-stats-grid">
+      <!-- Card 1: KKTP -->
+      <div class="clay-stat-card mint">
+        <div class="clay-stat-top">
+          <div class="clay-stat-icon-wrap">🎯</div>
+          <span class="clay-stat-tag">Batas tindak lanjut</span>
+        </div>
+        <div class="clay-stat-val">75.0</div>
+        <div class="clay-stat-label">Pengaturan kerja kalkulator</div>
+      </div>
+
+      <!-- Card 2: Formula Rapor -->
+      <div class="clay-stat-card blue">
+        <div class="clay-stat-top">
+          <div class="clay-stat-icon-wrap">⚖️</div>
+          <span class="clay-stat-tag">Bobot kalkulator</span>
+        </div>
+        <div class="clay-stat-val">40 : 30 : 30</div>
+        <div class="clay-stat-label">Formatif : ASTS : ASAS</div>
+      </div>
+
+      <!-- Card 3: Rata-rata Nilai Kelas -->
+      <div class="clay-stat-card amber">
+        <div class="clay-stat-top">
+          <div class="clay-stat-icon-wrap">📈</div>
+          <span class="clay-stat-tag" id="stat-rombel-label">Kelas X-1</span>
+        </div>
+        <div class="clay-stat-val" id="stat-mean-val">—</div>
+        <div class="clay-stat-label">Rata-rata Nilai Akhir Kelas</div>
+      </div>
+
+      <!-- Card 4: Ketuntasan Belajar -->
+      <div class="clay-stat-card blush">
+        <div class="clay-stat-top">
+          <div class="clay-stat-icon-wrap">🎓</div>
+          <span class="clay-stat-tag">Daya Serap</span>
+        </div>
+        <div class="clay-stat-val" id="stat-tuntas-pct">—</div>
+        <div class="clay-stat-label" id="stat-tuntas-sub">Belum ada nilai lengkap</div>
+      </div>
+    </section>
+
+    <!-- ═════════ 3. INTERACTIVE TABS ═════════ -->
+    <div style="margin-bottom: 20px; overflow-x: auto; -webkit-overflow-scrolling: touch;">
+      <div class="clay-tab-bar" role="tablist">
+        <button class="clay-tab-btn active" id="tabbtn-input" onclick="switchRaporTab('input')" role="tab" type="button">
+          <span>✍️</span> Input Nilai &amp; Kalkulator NA
+        </button>
+        <button class="clay-tab-btn" id="tabbtn-leger" onclick="switchRaporTab('leger')" role="tab" type="button">
+          <span>📊</span> Rekap Leger Nilai Kelas
+        </button>
+        <button class="clay-tab-btn" id="tabbtn-preview" onclick="switchRaporTab('preview')" role="tab" type="button">
+          <span>📄</span> Pratinjau Rapor Murid (LHB Digital)
+        </button>
+      </div>
+    </div>
+
+    <!-- ═════════ TAB CONTENT 1: INPUT NILAI & KALKULATOR ═════════ -->
+    <section id="rapor-tab-input" class="clay-content-card">
+      <!-- Filter controls -->
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; margin-bottom:20px; background:#F8FAFC; padding:16px; border-radius:18px; border:1px solid #E2E8F0;">
+        <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+          <div>
+            <label for="select-rombel" style="font-size:0.75rem; font-weight:800; color:var(--clay-muted); text-transform:uppercase; display:block; margin-bottom:4px;">ROMBONGAN BELAJAR:</label>
+            <select id="select-rombel" onchange="onFilterChange()" style="padding:8px 12px; border-radius:10px; border:1.5px solid #CBD5E1; font-weight:700; background:#FFF; font-family:inherit;">
+              <option value="X-1">Kelas X-1</option>
+              <option value="X-2">Kelas X-2</option>
+              <option value="X-3">Kelas X-3</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="select-mapel" style="font-size:0.75rem; font-weight:800; color:var(--clay-muted); text-transform:uppercase; display:block; margin-bottom:4px;">MATA PELAJARAN:</label>
+            <select id="select-mapel" onchange="onFilterChange()" style="padding:8px 12px; border-radius:10px; border:1.5px solid #CBD5E1; font-weight:700; background:#FFF; font-family:inherit; max-width:240px;">
+              <!-- Populated from data.js -->
+            </select>
+          </div>
+
+          <div>
+            <label for="select-semester" style="font-size:0.75rem; font-weight:800; color:var(--clay-muted); text-transform:uppercase; display:block; margin-bottom:4px;">SEMESTER:</label>
+            <select id="select-semester" onchange="onFilterChange()" style="padding:8px 12px; border-radius:10px; border:1.5px solid #CBD5E1; font-weight:700; background:#FFF; font-family:inherit;">
+              <option value="Ganjil">Semester Ganjil 2026/2027</option>
+              <option value="Genap">Semester Genap 2026/2027</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:10px;">
+          <button type="button" class="btn-clay-pill white" onclick="resetDefaultScores()" title="Kosongkan nilai kelas dan mata pelajaran ini">
+            <span>Kosongkan nilai</span>
+          </button>
+          <button type="button" class="btn-clay-pill primary" onclick="saveScoresToStorage()" style="box-shadow:0 6px 14px rgba(240,126,91,0.3);">
+            <span>💾 Simpan Nilai</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Info alert -->
+      <div style="background:#EFF6FF; border:1px solid #BFDBFE; border-radius:14px; padding:12px 18px; margin-bottom:18px; font-size:0.84rem; color:#1E40AF; display:flex; align-items:center; gap:10px;">
+        <span style="font-size:1.2rem;">💡</span>
+        <div>
+          Ketik langsung nilai pada kolom <strong>TP 1–4, ASTS, dan ASAS</strong>. Nilai Akhir (NA) dan status KKTP (75) akan terhitung otomatis seketika. Klik <strong>Rujuk Klinik Belajar</strong> jika murid membutuhkan pendampingan remedial.
+        </div>
+      </div>
+
+      <!-- Input Table -->
+      <div style="overflow-x:auto;">
+        <table style="width:100%; border-collapse:collapse; font-size:0.84rem;" id="rapor-input-table">
+          <thead>
+            <tr style="background:#F8FAFC; border-bottom:2px solid #E2E8F0; text-align:center;">
+              <th style="padding:10px; text-align:left;" width="40">No</th>
+              <th style="padding:10px; text-align:left;" width="100">NISN</th>
+              <th style="padding:10px; text-align:left;">Nama Murid</th>
+              <th style="padding:10px;" width="65">TP 1</th>
+              <th style="padding:10px;" width="65">TP 2</th>
+              <th style="padding:10px;" width="65">TP 3</th>
+              <th style="padding:10px;" width="65">TP 4</th>
+              <th style="padding:10px; background:#F1F5F9;" width="75">Rata F<br><span style="font-size:0.68rem; font-weight:normal; color:#64748B;">(40%)</span></th>
+              <th style="padding:10px;" width="65">ASTS<br><span style="font-size:0.68rem; font-weight:normal; color:#64748B;">(30%)</span></th>
+              <th style="padding:10px;" width="65">ASAS<br><span style="font-size:0.68rem; font-weight:normal; color:#64748B;">(30%)</span></th>
+              <th style="padding:10px; background:#FEF3C7; color:#92400E;" width="80">Nilai Akhir<br><span style="font-size:0.68rem; font-weight:normal;">(NA)</span></th>
+              <th style="padding:10px;" width="110">Status KKTP</th>
+              <th style="padding:10px;" width="130">Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="rapor-tbody">
+            <!-- Populated via JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ═════════ TAB CONTENT 2: REKAP LEGER NILAI KELAS ═════════ -->
+    <section id="rapor-tab-leger" class="clay-content-card" style="display:none;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; flex-wrap:wrap; gap:12px;">
+        <div>
+          <h3 style="font-size:1.2rem; font-weight:800; margin:0 0 4px; color:var(--clay-ink);" id="leger-title-text">
+            Rekapitulasi Leger Nilai Murid — Kelas X-1
+          </h3>
+          <p style="font-size:0.84rem; color:var(--clay-muted); margin:0;">
+            Tahun Pelajaran 2026/2027 · Evaluasi Ketuntasan Capaian Pembelajaran &amp; Peringkat Kelas
+          </p>
+        </div>
+        <div style="display:flex; gap:10px;">
+          <button type="button" class="btn-clay-pill white" onclick="exportLegerCSV()">
+            <span>📥 Unduh Spreadsheet (CSV)</span>
+          </button>
+          <button type="button" class="btn-clay-pill primary" onclick="window.print()">
+            <span>🖨️ Cetak Leger Kelas</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Analytics row -->
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:14px; margin-bottom:20px;">
+        <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:14px; padding:14px; text-align:center;">
+          <span style="font-size:0.75rem; font-weight:700; color:#64748B; text-transform:uppercase;">Nilai Tertinggi</span>
+          <div style="font-size:1.6rem; font-weight:800; color:#166534; font-family:'DM Mono', monospace;" id="leger-max-val">—</div>
+          <span style="font-size:0.72rem; color:#475569;" id="leger-max-student">Belum ada nilai lengkap</span>
+        </div>
+        <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:14px; padding:14px; text-align:center;">
+          <span style="font-size:0.75rem; font-weight:700; color:#64748B; text-transform:uppercase;">Nilai Terendah</span>
+          <div style="font-size:1.6rem; font-weight:800; color:#991B1B; font-family:'DM Mono', monospace;" id="leger-min-val">—</div>
+          <span style="font-size:0.72rem; color:#475569;" id="leger-min-student">Belum ada nilai lengkap</span>
+        </div>
+        <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:14px; padding:14px; text-align:center;">
+          <span style="font-size:0.75rem; font-weight:700; color:#64748B; text-transform:uppercase;">Murid Tuntas KKTP</span>
+          <div style="font-size:1.6rem; font-weight:800; color:#0284C7; font-family:'DM Mono', monospace;" id="leger-tuntas-count">—</div>
+          <span style="font-size:0.72rem; color:#475569;">Target Madrasah: 100%</span>
+        </div>
+        <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:14px; padding:14px; text-align:center;">
+          <span style="font-size:0.75rem; font-weight:700; color:#64748B; text-transform:uppercase;">Butuh Klinik Belajar</span>
+          <div style="font-size:1.6rem; font-weight:800; color:#D97706; font-family:'DM Mono', monospace;" id="leger-remed-count">—</div>
+          <span style="font-size:0.72rem; color:#475569;">Sesuai jadwal klinik</span>
+        </div>
+      </div>
+
+      <!-- Leger Table -->
+      <div style="overflow-x:auto;">
+        <table style="width:100%; border-collapse:collapse; font-size:0.84rem;" id="leger-full-table">
+          <thead>
+            <tr style="background:#F1F5F9; border-bottom:2px solid #CBD5E1; text-align:center;">
+              <th style="padding:10px;" width="50">Rank</th>
+              <th style="padding:10px; text-align:left;" width="100">NISN</th>
+              <th style="padding:10px; text-align:left;">Nama Murid</th>
+              <th style="padding:10px;" width="90">Rata Formatif</th>
+              <th style="padding:10px;" width="80">ASTS</th>
+              <th style="padding:10px;" width="80">ASAS</th>
+              <th style="padding:10px; background:#FEF3C7; font-weight:800; color:#92400E;" width="95">Nilai Akhir</th>
+              <th style="padding:10px;" width="80">Predikat</th>
+              <th style="padding:10px;" width="110">Ketuntasan</th>
+              <th style="padding:10px; text-align:left;">Catatan Capaian Kompetensi</th>
+            </tr>
+          </thead>
+          <tbody id="leger-tbody">
+            <!-- Populated via JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ═════════ TAB CONTENT 3: PRATINJAU RAPOR MURID (LHB) ═════════ -->
+    <section id="rapor-tab-preview" class="clay-content-card" style="display:none;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:12px;" class="no-print">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <label for="select-preview-student" style="font-weight:700; font-size:0.86rem; color:var(--clay-ink);">PILIH MURID:</label>
+          <select id="select-preview-student" onchange="renderLHBPreview(this.value)" style="padding:8px 14px; border-radius:10px; border:1.5px solid #CBD5E1; font-weight:700; background:#FFF; font-family:inherit;">
+            <!-- Populated via JavaScript -->
+          </select>
+        </div>
+        <div style="display:flex; gap:10px;">
+          <button type="button" class="btn-clay-pill white" onclick="window.print()">
+            <span>🖨️ Cetak Lembar Rapor Murid</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- The Official LHB Report Sheet -->
+      <div class="lhb-sheet" id="lhb-printable-area">
+        <!-- KOP MADRASAH -->
+        <div class="lhb-kop">
+          <img src="assets/iconmaicn.png" alt="Logo MA ICN" class="lhb-kop-logo">
+          <div class="lhb-kop-text">
+            <h2>KEMENTERIAN AGAMA REPUBLIK INDONESIA</h2>
+            <h2>KANTOR KEMENTERIAN AGAMA KABUPATEN PURWAKARTA</h2>
+            <h1>MA INSAN CENDEKIA NUSANTARA</h1>
+            <p>
+              NSM: 131232140089 · NPSN: 69989821 · Status Akreditasi: A (Unggul)<br>
+              Jl. Raya Simpang, Maracang, Babakancikao, Kabupaten Purwakarta, Jawa Barat 41151<br>
+              Website: kurikulum.maicn.sch.id · Email: maicn.purwakarta@gmail.com
+            </p>
+          </div>
+        </div>
+
+        <div style="text-align:center; margin-bottom:20px;">
+          <h3 style="font-size:1.15rem; font-weight:800; text-transform:uppercase; margin:0 0 4px; letter-spacing:0.5px;">
+            LAPORAN HASIL BELAJAR (LHB) PESERTA DIDIK
+          </h3>
+          <p style="font-size:0.82rem; color:#475569; margin:0;">
+            KURIKULUM MERDEKA MADRASAH (KMA NOMOR 450 TAHUN 2024)
+          </p>
+        </div>
+
+        <!-- IDENTITAS MURID -->
+        <div class="lhb-identity-grid">
+          <div><strong>Nama Murid:</strong> <span id="lhb-nama">Pilih murid</span></div>
+          <div><strong>Fase / Kelas:</strong> <span id="lhb-kelas">Fase E / Kelas X-1</span></div>
+          <div><strong>Nomor Induk / NISN:</strong> <span id="lhb-nisn">Belum tersedia / Belum tersedia</span></div>
+          <div><strong>Semester / TP:</strong> <span id="lhb-semester">Ganjil / 2026/2027</span></div>
+          <div><strong>Madrasah:</strong> MA Insan Cendekia Nusantara</div>
+          <div><strong>Wali Kelas:</strong> <span id="lhb-walikelas">Belum ditetapkan</span></div>
+        </div>
+
+        <!-- TABEL CAPAIAN KOMPETENSI -->
+        <table class="lhb-table">
+          <thead>
+            <tr>
+              <th width="40">No</th>
+              <th width="200" style="text-align:left;">Mata Pelajaran</th>
+              <th width="75">Nilai Akhir</th>
+              <th width="80">Capaian</th>
+              <th style="text-align:left;">Deskripsi Capaian Kompetensi</th>
+            </tr>
+          </thead>
+          <tbody id="lhb-subjects-tbody">
+            <!-- Rendered via JS -->
+          </tbody>
+        </table>
+
+        <!-- EKSTRAKURIKULER & TAHFIDZ -->
+        <div style="margin-bottom:20px;">
+          <h4 style="font-size:0.9rem; font-weight:800; margin:0 0 8px; color:#0F172A;">
+            B. EKSTRAKURIKULER &amp; PROGRAM UNGGULAN
+          </h4>
+          <table class="lhb-table">
+            <thead>
+              <tr>
+                <th width="40">No</th>
+                <th width="200" style="text-align:left;">Kegiatan / Program</th>
+                <th width="75">Predikat</th>
+                <th style="text-align:left;">Keterangan</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="text-align:center;">1</td>
+                <td><strong>Tahfidz Al-Qur'an (30 Juz)</strong></td>
+                <td style="text-align:center; font-weight:700; color:#166534;">Sangat Baik</td>
+                <td>Mencapai target hafalan Juz 1–3 dengan mutqin, makharijul huruf dan tajwid sangat baik.</td>
+              </tr>
+              <tr>
+                <td style="text-align:center;">2</td>
+                <td><strong>Karya Tulis Ilmiah (KTI) &amp; Riset</strong></td>
+                <td style="text-align:center; font-weight:700; color:#166534;">Sangat Baik</td>
+                <td>Aktif menyusun proposal riset sains lingkungan pesantren tentang energi terbarukan.</td>
+              </tr>
+              <tr>
+                <td style="text-align:center;">3</td>
+                <td><strong>Pramuka / Hizbul Wathan</strong></td>
+                <td style="text-align:center; font-weight:700;">Baik</td>
+                <td>Menunjukkan kedisiplinan regu, kepemimpinan, dan kepedulian sosial yang tinggi.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- CATATAN WALI KELAS -->
+        <div style="border:1px solid #CBD5E1; border-radius:10px; padding:12px 16px; margin-bottom:28px; background:#F8FAFC;">
+          <h4 style="font-size:0.85rem; font-weight:800; margin:0 0 6px; color:#0F172A;">
+            C. CATATAN AKADEMIK &amp; PEMBINAAN AKHLAK WALI KELAS:
+          </h4>
+          <p style="font-size:0.82rem; color:#334155; margin:0; line-height:1.5;" id="lhb-notes">
+            Ananda menunjukkan integritas tinggi, tekun dalam belajar sains dan menghafal Al-Qur'an. Pertahankan prestasi akademik dan terus amalkan nilai-nilai Rahmatan Lil 'Alamin dalam kehidupan berasrama.
+          </p>
+        </div>
+
+        <!-- TANDA TANGAN -->
+        <div class="lhb-signatures">
+          <div class="lhb-signature-box">
+            <div>
+              Mengetahui,<br>
+              <strong>Orang Tua / Wali Murid</strong>
+            </div>
+            <div style="border-bottom:1px solid #000; width:80%; margin:45px auto 4px;"></div>
+            <div>( ………………………………… )</div>
+          </div>
+
+          <div class="lhb-signature-box">
+            <div>
+              Purwakarta, 20 Desember 2026<br>
+              <strong>Wali Kelas X</strong>
+            </div>
+            <div style="border-bottom:1px solid #000; width:80%; margin:45px auto 4px;"></div>
+            <div><strong id="lhb-sign-walikelas">Belum ditetapkan</strong></div>
+          </div>
+
+          <div class="lhb-signature-box">
+            <div>
+              Mengetahui,<br>
+              <strong>Kepala Madrasah</strong>
+            </div>
+            <div style="border-bottom:1px solid #000; width:80%; margin:45px auto 4px;"></div>
+            <div><strong>Ahmad Ambari, S.Pd.I., M.Pd.</strong><br><span style="font-size:0.75rem; color:#64748B;">NIP. 197808152005011004</span></div>
+          </div>
+        </div>
+
+        <div style="text-align:center; margin-top:28px; font-size:0.75rem; color:#94A3B8; border-top:1px dashed #CBD5E1; padding-top:10px;">
+          Dokumen LHB ini sah diterbitkan melalui Portal Kurikulum MA ICN — Nomor Dokumen: MA-ICN/KAL-AK/2026-2027/001
+        </div>
+      </div>
+    </section>
+
+    <!-- ═════════ STICKY MOBILE BOTTOM NAVIGATION ═════════ -->
+    <nav class="clay-mobile-bottom-nav" aria-label="Navigasi cepat ponsel"><a href="index.html" class="clay-bottom-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7v10H3z"/><path d="M9 20v-7h6v7"/></svg><span>Beranda</span></a><a href="jadwal.html" class="clay-bottom-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4m8-4v4M3 10h18m-13 4h3m-3 3h6m2-3h1"/></svg><span>Jadwal</span></a><a href="kalender.html" class="clay-bottom-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18m-13 4h2m4 0h2"/></svg><span>Kalender</span></a><a href="klinik.html" class="clay-bottom-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5C8 2 3 3 3 3v16s5-1 9 2c4-3 9-2 9-2V3s-5-1-9 2Zm0 0v16"/></svg><span>Klinik</span></a><button type="button" class="clay-bottom-nav-item" onclick="toggleClayDrawer()" aria-label="Buka menu lengkap" aria-controls="main-clay-sidebar" aria-expanded="false"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span>Menu</span></button></nav>
+  </main>
+</div>
+
+<!-- ═════════ MODAL RUJUK KE KLINIK BELAJAR ═════════ -->
+<div id="modal-rujuk-klinik" class="rapor-modal-backdrop" role="dialog" aria-labelledby="modal-rujuk-title" aria-modal="true">
+  <div class="rapor-modal-card">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+      <h3 id="modal-rujuk-title" style="font-size:1.15rem; font-weight:800; margin:0; color:var(--clay-ink); display:flex; align-items:center; gap:8px;">
+        <span>🩺</span> Rujuk Murid ke Klinik Pembelajaran
+      </h3>
+      <button onclick="closeRujukModal()" style="border:none; background:transparent; font-size:1.3rem; cursor:pointer; color:var(--clay-muted);" type="button" aria-label="Tutup Modal">✕</button>
+    </div>
+
+    <div style="background:#FEF3C7; border:1px solid #FCD34D; border-radius:14px; padding:12px 16px; margin-bottom:16px; font-size:0.84rem; color:#92400E;">
+      Murid memperoleh Nilai Akhir di bawah ambang KKTP <strong>75</strong>. Diperlukan pendampingan remedial intensif pada slot Klinik Belajar mingguan.
+    </div>
+
+    <div style="font-size:0.86rem; margin-bottom:16px; line-height:1.6;">
+      <div><strong>Nama Murid:</strong> <span id="rujuk-santri-nama">-</span></div>
+      <div><strong>Kelas:</strong> <span id="rujuk-santri-kelas">-</span></div>
+      <div><strong>Mata Pelajaran:</strong> <span id="rujuk-santri-mapel">-</span></div>
+      <div><strong>Nilai Akhir Saat Ini:</strong> <span id="rujuk-santri-na" style="font-weight:800; color:#DC2626;">-</span> (KKTP: 75.0)</div>
+      <div><strong>Rekomendasi Slot:</strong> <span id="rujuk-slot">Selasa Sore (15.45 – 17.00 WIB)</span></div>
+    </div>
+
+    <div style="display:flex; justify-content:flex-end; gap:10px;">
+      <button type="button" class="btn-clay-pill white" onclick="closeRujukModal()">
+        <span>Batal</span>
+      </button>
+      <a id="rujuk-link-action" href="klinik.html" class="btn-clay-pill primary" style="box-shadow:0 6px 16px rgba(240,126,91,0.3);">
+        <span>🚀 Konfirmasi &amp; Buka Klinik Belajar ↗</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script src="assets/dashboard-clay.js"></script>
+<script type="module" src="assets/grade-page.mjs"></script>
+<script src="assets/curriculum-ui.js?v=20261026-audience1"></script>
+</body>
+</html>

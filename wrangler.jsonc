@@ -1,12 +1,25 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "curriculum-maicn",
+  "main": "server/worker.mjs",
+  "build": {
+    "command": "node scripts/build-site.mjs"
+  },
   "compatibility_date": "2026-07-02",
   "observability": {
     "enabled": true
   },
   "assets": {
-    "directory": "."
+    "directory": ".site",
+    "binding": "ASSETS",
+    "run_worker_first": true,
+    "html_handling": "none"
+  },
+  "vars": {
+    "ACCESS_ENABLED": "true",
+    "CLINIC_ENABLED": "true",
+    "SUPABASE_URL": "https://mqesvxweuygplrdxchkv.supabase.co",
+    "TURNSTILE_SITE_KEY": "0x4AAAAAAFmmrN7OKp5jr_8a"
   },
   "compatibility_flags": [
     "nodejs_compat"

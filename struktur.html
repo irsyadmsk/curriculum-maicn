@@ -6,8 +6,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Struktur Kurikulum & Profil Lulusan — MA Insan Cendekia Nusantara</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/styles.css?v=3.1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css?v=3.4">
+<link rel="stylesheet" href="assets/dashboard-clay.css?v=1.1">
 <style>
 .section-title { font-size: 1.8rem; font-weight: 800; color: var(--primary); margin: 48px 0 24px; text-align: center; }
 
@@ -80,7 +83,7 @@
 .cta-jadwal-text p { font-size: 0.92rem; color: rgba(255,255,255,0.85); max-width: 600px; }
 </style>
 <script src="data.js"></script>
-<script src="assets/app.js?v=3.0"></script>
+<script src="assets/app.js?v=3.2"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+Arabic:wght@400;600;700&display=swap">
 <link rel="stylesheet" href="assets/irsyads-v1/tokens.css">
 <link rel="stylesheet" href="assets/ecosystem.css">
@@ -89,9 +92,13 @@
 </script>
 <script src="assets/irsyads-v1/appearance.js"></script>
 <script src="assets/irsyads-v1/language.js"></script><script src="assets/irsyads-v1/launcher.js"></script>
-<script src="assets/ecosystem.js" defer></script>
+<link rel="stylesheet" href="assets/irsyads-v1/service-navigation.css"><script src="assets/irsyads-v1/service-navigation.js"></script><script src="assets/ecosystem.js" defer></script>
+<link rel="stylesheet" href="assets/curriculum-ui.css?v=20261026-clinic2-roster1">
+<script src="assets/student-roster-data.js?v=20261026"></script>
+<script src="assets/student-roster.js?v=20261026"></script>
+<link rel="stylesheet" href="assets/audience.css?v=20261026-audience1"><link rel="stylesheet" href="assets/clinic-page.css?v=20261026-audience1"><script type="module" src="assets/curriculum-access.mjs?v=20261026-audience1"></script>
 </head>
-<body>
+<body class="clay-theme curriculum-ui">
 
 <div class="bg-blobs" aria-hidden="true">
   <div class="bg-blob"></div>
@@ -113,34 +120,79 @@
 </div>
 
 <!-- Navbar Utama -->
-<nav class="navbar" id="navbar">
-  <a href="index.html" class="nav-brand">
-    <img src="assets/iconmaicn.png" alt="Logo">
-    <span>MA ICN</span>
-  </a>
-  <div class="nav-links" id="nav-links">
-    <a href="index.html" data-page="index">Beranda</a>
-    <a href="kalender.html" data-page="kalender">Kalender</a>
-    <a href="jadwal.html" data-page="jadwal">Jadwal</a>
-    <a href="struktur.html" data-page="struktur" class="active">Struktur Kurikulum</a>
-  </div>
-  <div class="nav-right">
-    <a class="btn-admin-nav" href="admin.html" title="Admin Kurikulum" aria-label="Admin Kurikulum"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg></a>
-    <button class="nav-toggle" id="nav-toggle" aria-label="Menu">☰</button>
-  </div>
+
+<div class="clay-app-layout">
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- SIDEBAR (Soft Sage Neumorphic Clay) -->
+  <!-- ══════════════════════════════════════════════ -->
+  <aside class="clay-sidebar" id="main-clay-sidebar" aria-label="Menu utama">
+ <button type="button" class="clay-drawer-close-btn" onclick="toggleClayDrawer(false)" aria-label="Tutup menu"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg></button>
+ <a class="ui-brand" href="index.html"><img src="assets/iconmaicn.png" width="36" height="44" alt="Lambang MA ICN"><span class="ui-brand-text"><strong>Curriculum<span style="color:var(--ui-accent)">.</span></strong><small>MA INSAN CENDEKIA NUSANTARA</small></span></a>
+ <p class="ui-school-label">Ruang akademik madrasah<br><strong>Tahun pelajaran 2026/2027</strong></p>
+ <nav class="clay-nav-menu" aria-label="Halaman kurikulum"><div class="clay-nav-section-title">RUANG AKADEMIK</div>
+<a class="clay-nav-item" href="index.html" title="Beranda"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7v10H3z"/><path d="M9 20v-7h6v7"/></svg><span>Beranda</span></a>
+<a class="clay-nav-item" href="jadwal.html" title="Jadwal mengajar"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4m8-4v4M3 10h18m-13 4h3m-3 3h6m2-3h1"/></svg><span>Jadwal mengajar</span></a><a href="info-murid.html" class="clay-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v1"/></svg><span>Info murid</span></a>
+<a data-needs="teacher" class="clay-nav-item" href="murid.html" title="Data murid"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 21v-3a6 6 0 0 1 12 0v3M16 5a3 3 0 0 1 0 6m2 4a5 5 0 0 1 3 4v2"/></svg><span>Data murid</span></a><a data-needs="teacher" href="presensi.html" class="clay-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 4h14v17H5zM8 2v4m8-4v4M8 12h8m-8 4h5"/></svg><span>Presensi &amp; jurnal</span></a><a data-needs="teacher" href="karakter.html" class="clay-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 21S2 14 2 8a5 5 0 0 1 10-2 5 5 0 0 1 10 2c0 6-10 13-10 13z"/></svg><span>Perkembangan murid</span></a>
+<a class="clay-nav-item" href="kalender.html" title="Kalender akademik"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18m-13 4h2m4 0h2"/></svg><span>Kalender akademik</span></a>
+<a class="clay-nav-item" href="klinik.html" title="Klinik pembelajaran"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3v5a5 5 0 0 0 10 0V3M4 3h4m6 0h4M11 13v3a5 5 0 0 0 10 0v-2"/><circle cx="21" cy="11" r="2"/></svg><span>Klinik pembelajaran</span></a>
+<div class="clay-nav-section-title">PERANGKAT & PENILAIAN</div>
+<a data-needs="teacher" class="clay-nav-item" href="buku-kerja.html" title="Buku kerja guru"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7V4h6l2 3h10v13H3Z"/></svg><span>Buku kerja guru</span></a>
+<a data-needs="teacher" class="clay-nav-item" href="rapor.html" title="E-Rapor &amp; Leger Nilai"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3v18h17M9 16v-5m5 5V7m5 9V4"/></svg><span>E-Rapor &amp; Leger Nilai</span></a>
+<a data-needs="teacher" class="clay-nav-item" href="asesmen.html" title="Asesmen &amp; bank soal"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="m8 12 3 3 5-6"/></svg><span>Asesmen &amp; bank soal</span></a>
+<div class="clay-nav-section-title">KURIKULUM MADRASAH</div>
+<a class="clay-nav-item" href="kom.html" title="Dokumen Kurikulum (KOM)"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H5v20h14V7Zm0 0v5h5M8 12h8m-8 4h6"/></svg><span>Dokumen Kurikulum (KOM)</span></a>
+<a class="clay-nav-item" href="kokurikuler.html" title="Kokurikuler &amp; Panca Cinta"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 3S6 1 4 10s8 15 13 7S20 3 20 3ZM4 21 15 9"/></svg><span>Kokurikuler &amp; Panca Cinta</span></a>
+<a data-needs="teacher" class="clay-nav-item active" href="struktur.html" title="Struktur &amp; KKTP" aria-current="page"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 10 5-10 5L2 8Zm-10 10 10 5 10-5M2 18l10 5 10-5"/></svg><span>Struktur &amp; KKTP</span></a>
+<a class="clay-nav-item" href="unggulan.html" title="Program unggulan"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 3 6 6 1-4.5 4.5 1 6.5-5.5-3-5.5 3 1-6.5L3 10l6-1z"/></svg><span>Program unggulan</span></a>
 </nav>
+ <div class="ui-sidebar-foot"><a data-needs="reviewer" href="admin.html" class="clay-nav-item" title="Admin kurikulum"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 3-1 3-3 1-2 5 2 5 3 1 1 3h6l1-3 3-1 2-5-2-5-3-1-1-3z"/><circle cx="12" cy="12" r="3"/></svg><span>Admin kurikulum</span></a>
+ <button type="button" class="clay-collapse-btn" onclick="toggleSidebarCollapse()" aria-label="Ciutkan menu" aria-expanded="true"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18m7-13-4 4 4 4"/></svg><span class="ui-collapse-label">Ciutkan menu</span></button>
+ <p>INQUIRE · ARTICULATE · EMPOWER</p></div>
+ </aside>
+<div class="clay-drawer-backdrop" onclick="toggleClayDrawer(false)" aria-hidden="true"></div>
 
-<div class="page-header">
-  <div class="container">
-    <h1 class="animate-up">Struktur Kurikulum &amp; Profil Lulusan</h1>
-    <p class="animate-up delay-100">Beban belajar, distribusi 22 mata pelajaran, sistem penilaian ketuntasan, dan 8 dimensi karakter santri MA ICN.</p>
-  </div>
-</div>
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- MAIN CONTENT AREA -->
+  <!-- ══════════════════════════════════════════════ -->
+  <main data-needs="teacher" class="clay-main-content">
 
-<div class="container">
+    <!-- Top App Bar -->
+    <header class="clay-topbar">
+      <div class="clay-topbar-left">
+        <button class="clay-mobile-menu-btn" onclick="toggleClayDrawer()" aria-label="Buka Menu Navigasi" title="Buka Menu" type="button">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+<line x1="3" y1="12" x2="21" y2="12"></line>
+<line x1="3" y1="6" x2="21" y2="6"></line>
+<line x1="3" y1="18" x2="21" y2="18"></line>
+</svg>
+</button>
+<h1 class="clay-page-title">Struktur Kurikulum &amp; Profil Lulusan</h1>
+        <span class="clay-badge-preview">FASE E · KELAS X</span>
+      </div>
 
-  <!-- ══ BEBAN & KETUNTASAN ══ -->
-  <div class="grid-2">
+      <div class="clay-topbar-right">
+        <div id="irsyads-service-nav" class="irsyads-nav-wrapper"></div>
+        <!-- Search Pill -->
+        <div class="clay-search-bar">
+          <span style="font-size:0.9rem; color:var(--clay-muted);">🔍</span>
+          <label for="topbar-search-struktur" class="sr-only">Cari mata pelajaran atau dimensi</label>
+          <input type="text" placeholder="Cari mapel atau dimensi..." id="topbar-search-struktur" aria-label="Cari mapel atau dimensi">
+        </div>
+
+        <!-- Exit / SSO Action -->
+        <a data-needs="reviewer" href="admin.html" class="clay-circle-btn" title="Admin &amp; SSO" aria-label="Admin &amp; SSO">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        </a>
+      </div>
+    </header>
+
+    <div style="margin-bottom: 20px;">
+      <p style="margin: 0; font-size: 0.92rem; color: var(--clay-muted);">
+        Beban belajar mingguan, distribusi 22 mata pelajaran, sistem penilaian ketuntasan (KKTP), dan 8 dimensi karakter murid MA ICN.
+      </p>
+    </div>
+<div class="grid-2">
     <div class="info-card animate-up delay-200">
       <h3>Beban Belajar Mingguan</h3>
       <div id="beban-container"></div>
@@ -172,11 +224,83 @@
     </table>
   </div>
 
+  <!-- ══ AUDIT BEBAN MENGAJAR & KELAYAKAN SIMPATIKA ══ -->
+  <h2 class="section-title animate-up" id="simpatika-audit" style="margin-top:40px;">Audit Beban Mengajar &amp; Kelayakan SIMPATIKA (24 JP)</h2>
+  <p style="text-align:center; color:var(--text-secondary); margin-bottom:20px; max-width:700px; margin-left:auto; margin-right:auto;" class="animate-up">
+    Analisis pemenuhan beban tatap muka minimal 24 JP per minggu sesuai Juknis SIMPATIKA Kemenag RI untuk kelayakan SKMT/SKBK dan Tunjangan Profesi Guru (TPG).
+  </p>
+
+  <div class="clay-stats-grid animate-up" style="margin-bottom:24px;">
+    <div class="clay-stat-card mint">
+      <div class="clay-stat-top">
+        <div class="clay-stat-icon-wrap">👥</div>
+        <span class="clay-stat-tag">Pendidik &amp; Staf</span>
+      </div>
+      <div class="clay-stat-val" id="stat-simpatika-total">21 Guru</div>
+      <div class="clay-stat-label">Terdata di Matriks KBM</div>
+    </div>
+    <div class="clay-stat-card blue">
+      <div class="clay-stat-top">
+        <div class="clay-stat-icon-wrap">⚖️</div>
+        <span class="clay-stat-tag">Ambang Batas</span>
+      </div>
+      <div class="clay-stat-val">≥ 24 JP</div>
+      <div class="clay-stat-label">Batas Minimal SIMPATIKA</div>
+    </div>
+    <div class="clay-stat-card amber">
+      <div class="clay-stat-top">
+        <div class="clay-stat-icon-wrap">✓</div>
+        <span class="clay-stat-tag">Kelayakan TPG</span>
+      </div>
+      <div class="clay-stat-val" id="stat-simpatika-ok">16 Guru</div>
+      <div class="clay-stat-label">Memenuhi Syarat (≥24 JP)</div>
+    </div>
+    <div class="clay-stat-card blush">
+      <div class="clay-stat-top">
+        <div class="clay-stat-icon-wrap">⚠️</div>
+        <span class="clay-stat-tag">Perlu Tambahan</span>
+      </div>
+      <div class="clay-stat-val" id="stat-simpatika-warn">5 Guru</div>
+      <div class="clay-stat-label">Tugas Tambahan / Matrikulasi</div>
+    </div>
+  </div>
+
+  <div class="table-wrap animate-up delay-100" style="margin-bottom:48px;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:10px;">
+      <div style="display:flex; gap:10px; align-items:center;">
+        <label for="filter-simpatika" class="sr-only">Filter Kelayakan SIMPATIKA</label>
+        <select id="filter-simpatika" onchange="renderSimpatikaTable(this.value)" style="padding:8px 12px; border-radius:10px; border:1.5px solid var(--border); font-family:inherit; font-size:0.85rem; background:var(--surface); font-weight:700;">
+          <option value="all">Semua Pendidik &amp; Staf (21 Guru)</option>
+          <option value="ok">Hanya Memenuhi Syarat (≥24 JP)</option>
+          <option value="warn">Hanya Belum Memenuhi (&lt;24 JP)</option>
+        </select>
+      </div>
+      <div style="font-size:0.82rem; color:var(--text-secondary);">
+        *Termasuk ekuivalensi tugas tambahan resmi (Waka +12 JP, Wali Kelas, Guru Piket)
+      </div>
+    </div>
+    <table class="data-table" id="simpatika-table">
+      <thead>
+        <tr>
+          <th width="50">No</th>
+          <th>Nama Guru &amp; Staf</th>
+          <th>Mata Pelajaran / Jabatan</th>
+          <th style="text-align:center;" width="90">Tatap Muka</th>
+          <th>Tugas Tambahan Resmi</th>
+          <th style="text-align:center;" width="95">Ekuivalensi</th>
+          <th style="text-align:center; background:#FEF3C7; color:#92400E;" width="100">Total Beban</th>
+          <th style="text-align:center;" width="150">Status SIMPATIKA</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
   <!-- ══ PROFIL LULUSAN (8 DIMENSI) ══ -->
   <div id="profil" style="scroll-margin-top: 100px;">
     <h2 class="section-title animate-up">8 Dimensi Profil Lulusan</h2>
     <p style="text-align:center; color:var(--text-secondary); margin-bottom:28px; max-width:650px; margin-left:auto; margin-right:auto;" class="animate-up">
-      Karakter dan kompetensi unggul yang ditargetkan terbentuk pada setiap santri selama menempuh pendidikan di MA ICN.
+      Karakter dan kompetensi unggul yang ditargetkan terbentuk pada setiap murid selama menempuh pendidikan di MA ICN.
     </p>
     <div class="dim-grid animate-up delay-100" id="dimensi-container"></div>
   </div>
@@ -203,7 +327,7 @@
   <div class="cta-jadwal-box animate-up">
     <div class="cta-jadwal-text">
       <h3>Ingin Melihat Jadwal KBM &amp; Rutinitas Asrama?</h3>
-      <p>Akses jadwal belajar per kelas (X-1, X-2, X-3) dan rutinitas harian santri dari subuh hingga malam hari secara rinci.</p>
+      <p>Akses jadwal belajar per kelas (X-1, X-2, X-3) dan rutinitas harian murid dari subuh hingga malam hari secara rinci.</p>
     </div>
     <a href="jadwal.html" class="btn btn-aqua" style="background:#fff; color:var(--primary); font-weight:800; white-space:nowrap;">Buka Jadwal Belajar →</a>
   </div>
@@ -211,6 +335,9 @@
 </div>
 
 <!-- ══ FOOTER ══ -->
+
+  </main><!-- End .clay-main-content -->
+</div><!-- End .clay-app-layout -->
 <footer>
   <div class="container footer-inner">
     <div>
@@ -302,7 +429,58 @@ document.addEventListener('DOMContentLoaded', () => {
       `).join('');
     }
   }
+
+  // Render Audit Beban Mengajar SIMPATIKA (24 JP)
+  window.renderSimpatikaTable = function(filter) {
+    if (!filter) filter = 'all';
+    const tbody = document.querySelector('#simpatika-table tbody');
+    if (!tbody) return;
+    const staffList = (MD.jadwal_kbm_v2 && MD.jadwal_kbm_v2.staff_ekuivalensi) ? MD.jadwal_kbm_v2.staff_ekuivalensi : [];
+
+    let okCount = 0;
+    let warnCount = 0;
+
+    let rowsHtml = '';
+    staffList.forEach((s, idx) => {
+      const jtm = s.total_jp_intra || 0;
+      const eq = s.ekuivalensi_jp || 0;
+      const totalBeban = jtm + eq;
+      const isEligible = totalBeban >= 24;
+
+      if (isEligible) okCount++;
+      else warnCount++;
+
+      if (filter === 'ok' && !isEligible) return;
+      if (filter === 'warn' && isEligible) return;
+
+      rowsHtml += '<tr>' +
+        '<td style="font-weight:700; color:var(--text-soft);">' + (idx + 1) + '</td>' +
+        '<td style="font-weight:700; color:var(--text-primary);">' + s.nama + '</td>' +
+        '<td>' + s.jabatan_mapel + '</td>' +
+        '<td style="text-align:center; font-family:\'DM Mono\',monospace; font-weight:700;">' + jtm + ' JP</td>' +
+        '<td style="font-size:0.85rem; color:var(--text-secondary);">' + (s.tugas_tambahan || '—') + '</td>' +
+        '<td style="text-align:center; font-family:\'DM Mono\',monospace;">+' + eq + ' JP</td>' +
+        '<td style="text-align:center; font-family:\'DM Mono\',monospace; font-weight:800; background:#FEF3C7; color:#92400E; font-size:1.05rem;">' + totalBeban + ' JP</td>' +
+        '<td style="text-align:center;">' +
+          (isEligible 
+            ? '<span class="badge-simpatika-ok">✓ MEMENUHI (≥24 JP)</span>' 
+            : '<span class="badge-simpatika-warn">⚠ KURANG JAM (&lt;24 JP)</span>') +
+        '</td>' +
+      '</tr>';
+    });
+
+    tbody.innerHTML = rowsHtml;
+
+    if (document.getElementById('stat-simpatika-total')) document.getElementById('stat-simpatika-total').textContent = staffList.length + ' Guru';
+    if (document.getElementById('stat-simpatika-ok')) document.getElementById('stat-simpatika-ok').textContent = okCount + ' Guru';
+    if (document.getElementById('stat-simpatika-warn')) document.getElementById('stat-simpatika-warn').textContent = warnCount + ' Guru';
+  };
+  window.renderSimpatikaTable('all');
 });
 </script>
+<!-- Sticky Mobile Bottom Navigation -->
+<nav class="clay-mobile-bottom-nav" aria-label="Navigasi cepat ponsel"><a href="index.html" class="clay-bottom-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7v10H3z"/><path d="M9 20v-7h6v7"/></svg><span>Beranda</span></a><a href="jadwal.html" class="clay-bottom-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4m8-4v4M3 10h18m-13 4h3m-3 3h6m2-3h1"/></svg><span>Jadwal</span></a><a href="kalender.html" class="clay-bottom-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18m-13 4h2m4 0h2"/></svg><span>Kalender</span></a><a href="klinik.html" class="clay-bottom-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5C8 2 3 3 3 3v16s5-1 9 2c4-3 9-2 9-2V3s-5-1-9 2Zm0 0v16"/></svg><span>Klinik</span></a><button type="button" class="clay-bottom-nav-item" onclick="toggleClayDrawer()" aria-label="Buka menu lengkap" aria-controls="main-clay-sidebar" aria-expanded="false"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span>Menu</span></button></nav>
+<script src="assets/dashboard-clay.js"></script>
+<script src="assets/curriculum-ui.js?v=20261026-audience1"></script>
 </body>
 </html>

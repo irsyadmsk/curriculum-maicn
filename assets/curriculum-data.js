@@ -9,7 +9,17 @@
   const SUPABASE_URL = 'https://mqesvxweuygplrdxchkv.supabase.co';
   const SUPABASE_ANON_KEY = 'sb_publishable_hIDyw6sOzKOj7Ta50X8HYg_jPyOMyWZ';
 
-  const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  const sessionRuntime = window.IrsyadsCurriculumSession;
+  if (!sessionRuntime) throw new Error('Penyimpanan sesi Curriculum belum siap. Muat ulang halaman.');
+  const storageKey = 'sb-' + new URL(SUPABASE_URL).hostname.split('.')[0] + '-auth-token';
+  const isolated = sessionRuntime.buatSesiTerpisah({
+    getItem: key => window.localStorage.getItem(key),
+    setItem: (key, value) => window.localStorage.setItem(key, value),
+    removeItem: key => window.localStorage.removeItem(key),
+  }, storageKey);
+  const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+    auth: { storage: isolated.storage, storageKey, persistSession: true, autoRefreshToken: true },
+  });
 
   const HARI_LIST = ['senin', 'selasa', 'rabu', 'kamis', 'jumat'];
   const HARI_LABEL = { senin: 'Senin', selasa: 'Selasa', rabu: 'Rabu', kamis: 'Kamis', jumat: 'Jumat' };
@@ -130,18 +140,22 @@
     if (error) throw error;
     return data;
   }
-  async function signOut() {
-    await client.auth.signOut();
+  async function signOut(expectedSession) {
+    if (!expectedSession?.user?.id || !expectedSession.access_token) throw new sessionRuntime.KeluarTertahan('sesi-berubah');
+    await sessionRuntime.keluarTerikat({ url: SUPABASE_URL, publicKey: SUPABASE_ANON_KEY, storageKey,
+      storage: isolated.storage, invalidateSession: isolated.invalidateSession,
+      expectedOwner: expectedSession.user.id, expectedToken: expectedSession.access_token });
   }
   async function getSession() {
-    const { data } = await client.auth.getSession();
+    const { data, error } = await client.auth.getSession();
+    if (error) throw new Error('Sesi belum berhasil diperiksa. Coba kembali.');
     return data.session;
   }
   async function isAdmin() {
     const session = await getSession();
     if (!session) return false;
     const { data, error } = await client.from('admins').select('user_id').maybeSingle();
-    if (error) return false;
+    if (error) throw new Error('Hak akses belum berhasil diperiksa. Coba kembali.');
     return !!data;
   }
 
@@ -182,4 +196,16 @@
     upsertTeacher, deleteTeacher,
     upsertLesson, deleteLesson
   };
+  // Bridge refreshed native sessions to the HttpOnly site gateway after activation.
+  client.auth.onAuthStateChange((event, session) => {
+    if (!window.CurriculumAccess?.context.enabled || !['TOKEN_REFRESHED','SIGNED_OUT'].includes(event)) return;
+    setTimeout(async () => {
+      try {
+        const response = await fetch('/api/session', event === 'SIGNED_OUT'
+          ? { method: 'DELETE', credentials: 'same-origin' }
+          : { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ token: session?.access_token }) });
+        if (response.ok) window.CurriculumAccess?.refresh();
+      } catch { /* Existing drafts stay open; the next access check decides the visible role. */ }
+    }, 0);
+  });
 })();

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Klinik Pembelajaran — MA Insan Cendekia Nusantara</title>
+<link href="/favicon.svg" rel="icon" type="image/svg+xml"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&amp;family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&amp;display=swap" rel="stylesheet"/>
+<link href="assets/styles.css?v=3.4" rel="stylesheet"/>
+<link href="assets/dashboard-clay.css?v=1.1" rel="stylesheet"/>
+<link href="assets/irsyads-v1/tokens.css" rel="stylesheet"/>
+<link href="assets/ecosystem.css" rel="stylesheet"/>
+<style>
+/* ── Klinik Pembelajaran Page Styles ── */
+.klinik-hero {
+  text-align: center;
+  padding: 130px 20px 30px;
+}
+.klinik-hero h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+  color: var(--deep-navy);
+  margin-bottom: 12px;
+}
+.klinik-hero p {
+  font-family: var(--font-quote);
+  font-size: 1.05rem;
+  color: var(--slate-gray);
+  max-width: 780px;
+  margin: 0 auto 20px;
+  line-height: 1.7;
+}
+
+/* Rules Box */
+.rules-box {
+  background: #FFFDF7;
+  border: 1.5px solid #FDE68A;
+  border-radius: 22px;
+  padding: 22px 26px;
+  margin: 0 0 24px 0;
+  box-shadow: var(--shadow-clay);
+}
+.rules-title {
+  font-family: inherit; font-size: 1.05rem; font-weight: 800; color: #92400E;
+  margin-bottom: 10px; display: flex; align-items: center; gap: 8px;
+}
+.rules-list {
+  font-size: 0.84rem; color: #78350F; line-height: 1.65;
+  margin: 0; padding-left: 20px;
+}
+.rules-list li { margin-bottom: 6px; }
+
+/* Week Selector Bar */
+.week-bar {
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 14px; margin-bottom: 24px;
+  background: var(--surface); padding: 14px 20px;
+  border-radius: var(--radius-md); border: 1px solid var(--soft-beige);
+  box-shadow: var(--shadow-sm); max-width: 1140px; margin-left: auto; margin-right: auto;
+}
+.week-pills { display: flex; gap: 6px; flex-wrap: wrap; }
+.week-btn {
+  padding: 8px 18px; font-size: 0.85rem; font-weight: 700;
+  color: var(--slate-gray); background: var(--color-bg);
+  border: 1.5px solid var(--soft-beige); border-radius: 999px;
+  cursor: pointer; transition: all 0.2s ease; font-family: var(--font-sans);
+}
+.week-btn:hover { color: var(--muted-blue); border-color: var(--muted-blue); }
+.week-btn.active {
+  color: #ffffff; background: var(--deep-navy); border-color: var(--deep-navy);
+  box-shadow: 0 4px 12px rgba(11, 29, 53, 0.2);
+}
+
+/* Slot Matrix Cards */
+.matrix-container {
+  max-width: 1140px; margin: 0 auto 40px;
+}
+.session-card {
+  background: #FFFFFF; border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 24px; padding: 26px; margin-bottom: 24px;
+  box-shadow: var(--shadow-clay);
+}
+.session-header {
+  display: flex; justify-content: space-between; align-items: center;
+  border-bottom: 1px solid var(--soft-beige); padding-bottom: 14px;
+  margin-bottom: 18px; flex-wrap: wrap; gap: 10px;
+}
+.session-title {
+  font-family: var(--font-serif); font-size: 1.25rem; color: var(--deep-navy);
+  display: flex; align-items: center; gap: 10px;
+}
+.session-time-badge {
+  font-family: var(--font-mono); font-size: 0.82rem; font-weight: 700;
+  background: var(--color-bg); padding: 4px 12px; border-radius: 999px;
+  border: 1px solid var(--soft-beige); color: var(--muted-blue);
+}
+
+.class-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+}
+@media (max-width: 900px) {
+  .class-grid { grid-template-columns: 1fr; }
+}
+
+.slot-box {
+  background: #FFFFFF; border: 1.5px solid #E2E8F0;
+  border-radius: 20px; padding: 20px; transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  display: flex; flex-direction: column; justify-content: space-between;
+  min-height: 200px; position: relative;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.03);
+}
+.slot-box:hover {
+  transform: translateY(-3px); box-shadow: var(--shadow-clay-hover);
+  border-color: var(--clay-coral);
+}
+.slot-box.approved {
+  background: #F0FDF4; border-color: #86EFAC;
+  box-shadow: 0 8px 20px rgba(34, 197, 94, 0.12);
+}
+.slot-box.pending {
+  background: #FFFDF5; border-color: #FCD34D;
+  box-shadow: 0 8px 20px rgba(245, 158, 11, 0.1);
+}
+.slot-box.empty {
+  border-style: dashed;
+}
+
+.class-badge {
+  font-size: 0.76rem; font-weight: 800; text-transform: uppercase;
+  color: var(--muted-blue); letter-spacing: 0.5px; margin-bottom: 8px;
+}
+.slot-main-subject {
+  font-family: var(--font-serif); font-size: 1.15rem; font-weight: 700;
+  color: var(--deep-navy); margin-bottom: 4px;
+}
+.slot-teacher-name {
+  font-size: 0.85rem; color: var(--slate-gray); font-weight: 600;
+  margin-bottom: 12px;
+}
+.preference-list {
+  background: rgba(255,255,255,0.7); border: 1px solid var(--soft-beige);
+  border-radius: var(--radius-sm); padding: 8px 12px; font-size: 0.78rem;
+  margin-bottom: 12px;
+}
+.pref-tag {
+  display: inline-block; padding: 2px 8px; border-radius: 4px;
+  font-size: 0.72rem; font-weight: 700; margin: 2px 4px 2px 0;
+}
+.pref-approved { background: #DCFCE7; color: #166534; border: 1px solid #86EFAC; }
+.pref-pending { background: #FEF3C7; color: #92400E; }
+.pref-rejected { background: #F1F5F9; color: #94A3B8; text-decoration: line-through; }
+
+.slot-actions {
+  display: flex; justify-content: space-between; align-items: center;
+  border-top: 1px dashed var(--soft-beige); padding-top: 10px; margin-top: auto;
+}
+
+/* Modals */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 2100;
+  background: rgba(11, 29, 53, 0.6);
+  backdrop-filter: blur(10px); display: none; align-items: center; justify-content: center;
+  padding: 16px; opacity: 0; transition: opacity 0.3s ease;
+}
+.modal-overlay.active { display: flex; opacity: 1; }
+.modal-box-large {
+  background: #ffffff; border-radius: var(--radius-xl); border: 1px solid var(--soft-beige);
+  width: 100%; max-width: 620px; max-height: 90vh; overflow-y: auto;
+  padding: 32px; box-shadow: 0 24px 64px rgba(11, 29, 53, 0.2);
+  position: relative; animation: page-enter 0.3s ease;
+}
+.modal-close-btn {
+  position: absolute; top: 20px; right: 20px; background: var(--color-bg);
+  border: none; width: 34px; height: 34px; border-radius: 50%;
+  cursor: pointer; font-size: 1.1rem; color: var(--slate-gray);
+  display: flex; align-items: center; justify-content: center;
+}
+.modal-close-btn:hover { background: #FEE2E2; color: #DC2626; }
+</style>
+<script src="data.js"></script>
+
+
+
+<script src="assets/app.js?v=3.2"></script>
+<link rel="stylesheet" href="assets/irsyads-v1/service-navigation.css">
+<script src="assets/irsyads-v1/service-navigation.js"></script>
+<link rel="stylesheet" href="assets/curriculum-ui.css?v=20261026-clinic2-roster1">
+<script src="assets/student-roster-summary.js"></script>
+<script src="assets/student-roster.js?v=20261026"></script>
+<link rel="stylesheet" href="assets/clinic-page.css?v=20261026-clinic2">
+<link rel="stylesheet" href="assets/audience.css?v=20261026-audience1"><link rel="stylesheet" href="assets/clinic-page.css?v=20261026-audience1"><script type="module" src="assets/curriculum-access.mjs?v=20261026-audience1"></script>
+</head>
+<body class="clay-theme curriculum-ui">
+<div aria-hidden="true" class="bg-blobs">
+<div class="bg-blob"></div>
+<div class="bg-blob"></div>
+</div>
+<!-- Floating Portal Hub -->
+<a class="floating-portal" href="https://irsyads.com" id="floating-portal" rel="noopener noreferrer" target="_blank" title="Kunjungi Portal Utama irsyads.com">
+<span class="portal-dot"></span>
+<span>irsyads.com</span>
+<span class="portal-arrow">↗</span>
+</a>
+<div aria-label="Jam dan tanggal saat ini" id="floating-clock">
+<div class="clock-time"></div>
+<div class="clock-date"></div>
+</div>
+<div class="clay-app-layout">
+<!-- ══════════════════════════════════════════════ -->
+<!-- SIDEBAR (Soft Sage Neumorphic Clay) -->
+<!-- ══════════════════════════════════════════════ -->
+<aside class="clay-sidebar" id="main-clay-sidebar" aria-label="Menu utama">
+ <button type="button" class="clay-drawer-close-btn" onclick="toggleClayDrawer(false)" aria-label="Tutup menu"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg></button>
+ <a class="ui-brand" href="index.html"><img src="assets/iconmaicn.png" width="36" height="44" alt="Lambang MA ICN"><span class="ui-brand-text"><strong>Curriculum<span style="color:var(--ui-accent)">.</span></strong><small>MA INSAN CENDEKIA NUSANTARA</small></span></a>
+ <p class="ui-school-label">Ruang akademik madrasah<br><strong>Tahun pelajaran 2026/2027</strong></p>
+ <nav class="clay-nav-menu" aria-label="Halaman kurikulum"><div class="clay-nav-section-title">RUANG AKADEMIK</div>
+<a class="clay-nav-item" href="index.html" title="Beranda"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7v10H3z"/><path d="M9 20v-7h6v7"/></svg><span>Beranda</span></a>
+<a class="clay-nav-item" href="jadwal.html" title="Jadwal mengajar"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4m8-4v4M3 10h18m-13 4h3m-3 3h6m2-3h1"/></svg><span>Jadwal mengajar</span></a><a href="info-murid.html" class="clay-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v1"/></svg><span>Info murid</span></a>
+<a data-needs="teacher" class="clay-nav-item" href="murid.html" title="Data murid"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 21v-3a6 6 0 0 1 12 0v3M16 5a3 3 0 0 1 0 6m2 4a5 5 0 0 1 3 4v2"/></svg><span>Data murid</span></a><a data-needs="teacher" href="presensi.html" class="clay-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 4h14v17H5zM8 2v4m8-4v4M8 12h8m-8 4h5"/></svg><span>Presensi &amp; jurnal</span></a><a data-needs="teacher" href="karakter.html" class="clay-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 21S2 14 2 8a5 5 0 0 1 10-2 5 5 0 0 1 10 2c0 6-10 13-10 13z"/></svg><span>Perkembangan murid</span></a>
+<a class="clay-nav-item" href="kalender.html" title="Kalender akademik"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18m-13 4h2m4 0h2"/></svg><span>Kalender akademik</span></a>
+<a class="clay-nav-item active" href="klinik.html" title="Klinik pembelajaran" aria-current="page"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3v5a5 5 0 0 0 10 0V3M4 3h4m6 0h4M11 13v3a5 5 0 0 0 10 0v-2"/><circle cx="21" cy="11" r="2"/></svg><span>Klinik pembelajaran</span></a>
+<div class="clay-nav-section-title">PERANGKAT & PENILAIAN</div>
+<a data-needs="teacher" class="clay-nav-item" href="buku-kerja.html" title="Buku kerja guru"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7V4h6l2 3h10v13H3Z"/></svg><span>Buku kerja guru</span></a>
+<a data-needs="teacher" class="clay-nav-item" href="rapor.html" title="E-Rapor &amp; Leger Nilai"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3v18h17M9 16v-5m5 5V7m5 9V4"/></svg><span>E-Rapor &amp; Leger Nilai</span></a>
+<a data-needs="teacher" class="clay-nav-item" href="asesmen.html" title="Asesmen &amp; bank soal"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="m8 12 3 3 5-6"/></svg><span>Asesmen &amp; bank soal</span></a>
+<div class="clay-nav-section-title">KURIKULUM MADRASAH</div>
+<a class="clay-nav-item" href="kom.html" title="Dokumen Kurikulum (KOM)"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H5v20h14V7Zm0 0v5h5M8 12h8m-8 4h6"/></svg><span>Dokumen Kurikulum (KOM)</span></a>
+<a class="clay-nav-item" href="kokurikuler.html" title="Kokurikuler &amp; Panca Cinta"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 3S6 1 4 10s8 15 13 7S20 3 20 3ZM4 21 15 9"/></svg><span>Kokurikuler &amp; Panca Cinta</span></a>
+<a data-needs="teacher" class="clay-nav-item" href="struktur.html" title="Struktur &amp; KKTP"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 10 5-10 5L2 8Zm-10 10 10 5 10-5M2 18l10 5 10-5"/></svg><span>Struktur &amp; KKTP</span></a>
+<a class="clay-nav-item" href="unggulan.html" title="Program unggulan"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 3 6 6 1-4.5 4.5 1 6.5-5.5-3-5.5 3 1-6.5L3 10l6-1z"/></svg><span>Program unggulan</span></a>
+</nav>
+ <div class="ui-sidebar-foot"><a data-needs="reviewer" href="admin.html" class="clay-nav-item" title="Admin kurikulum"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 3-1 3-3 1-2 5 2 5 3 1 1 3h6l1-3 3-1 2-5-2-5-3-1-1-3z"/><circle cx="12" cy="12" r="3"/></svg><span>Admin kurikulum</span></a>
+ <button type="button" class="clay-collapse-btn" onclick="toggleSidebarCollapse()" aria-label="Ciutkan menu" aria-expanded="true"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18m7-13-4 4 4 4"/></svg><span class="ui-collapse-label">Ciutkan menu</span></button>
+ <p>INQUIRE · ARTICULATE · EMPOWER</p></div>
+ </aside>
+<div class="clay-drawer-backdrop" onclick="toggleClayDrawer(false)" aria-hidden="true"></div>
+<!-- ══════════════════════════════════════════════ -->
+<!-- MAIN CONTENT AREA -->
+<!-- ══════════════════════════════════════════════ -->
+<main class="clay-main-content" id="main-clay-content" tabindex="-1">
+<header class="clay-topbar"><div class="clay-topbar-left"><button class="clay-mobile-menu-btn" type="button" onclick="toggleClayDrawer()" aria-label="Buka menu navigasi" aria-expanded="false" aria-controls="main-clay-sidebar">☰</button><div><p class="ui-breadcrumb">Ruang akademik / Klinik</p><h1 class="clay-page-title">Klinik pembelajaran</h1></div></div><div class="clay-topbar-right"><button type="button" class="ui-search-trigger" data-open-search aria-label="Cari halaman dan layanan"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="7"/><path d="m16 16 5 5"/></svg><span>Cari di Curriculum</span><kbd>Ctrl K</kbd></button><div id="irsyads-service-nav" class="irsyads-nav-wrapper"></div></div></header>
+<div class="ui-page-content" id="clinic-root"><p>Memuat klinik…</p><noscript>Aktifkan JavaScript untuk melihat jadwal dan mengisi usulan klinik.</noscript></div></main></div>
+<dialog id="clinic-dialog" aria-labelledby="clinic-form-title"><header><h2 id="clinic-form-title">Ajukan klinik</h2><button type="button" id="clinic-dialog-close" aria-label="Tutup formulir">✕</button></header><form id="clinic-form"><p id="clinic-form-note"></p><a class="ui-text-link" id="clinic-auth-entry" href="akun.html?next=%2Fklinik.html">Anda guru? Masuk untuk pengisian & laporan ↗</a><fieldset id="clinic-schedule-fields"><legend>01 · Jadwal & pengampu</legend><div class="clinic-pair"><label for="clinic-date">Tanggal sesi<input id="clinic-date" type="date" required min="2026-07-01" max="2027-06-30"></label><label for="clinic-class">Kelas<select id="clinic-class" required><option>X-1</option><option>X-2</option><option>X-3</option></select></label></div><p id="clinic-slot-info" role="status"></p><label for="clinic-teacher">Guru pengampu<select id="clinic-teacher" required></select></label><label for="clinic-requester">Nama pengusul (opsional)<input id="clinic-requester" maxlength="100" placeholder="Boleh dikosongkan"></label><label for="clinic-subject-0">Pilihan mapel utama<input id="clinic-subject-0" required maxlength="120" placeholder="Contoh: Matematika"></label><div class="clinic-pair"><label for="clinic-subject-1">Pilihan kedua (opsional)<input id="clinic-subject-1" maxlength="120" placeholder="Mapel apa saja"></label><label for="clinic-subject-2">Pilihan ketiga (opsional)<input id="clinic-subject-2" maxlength="120" placeholder="Mapel apa saja"></label></div></fieldset><fieldset id="clinic-report-fields"><legend>02 · Kebutuhan & tindak lanjut</legend><label for="clinic-topic">Topik / catatan belajar<textarea id="clinic-topic" rows="3" maxlength="2000" placeholder="Apa yang perlu dibantu? Setelah sesi, tambahkan tindak lanjutnya."></textarea></label><label for="clinic-evidence">Tautan bukti (opsional)<input id="clinic-evidence" type="url" maxlength="1000" placeholder="https://…"></label></fieldset><div id="clinic-challenge"></div><p id="clinic-form-error" role="alert"></p><div class="clinic-actions"><button type="submit" id="clinic-save-draft" class="ui-button-primary">Simpan draf</button><button type="submit" id="clinic-send">Kirim usulan</button><button type="button" id="clinic-cancel">Batal</button></div></form></dialog>
+<section id="clinic-print-report" aria-label="Laporan cetak klinik"></section>
+<!-- Sticky Mobile Bottom Navigation -->
+<nav class="clay-mobile-bottom-nav" aria-label="Navigasi cepat ponsel"><a href="index.html" class="clay-bottom-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7v10H3z"/><path d="M9 20v-7h6v7"/></svg><span>Beranda</span></a><a href="jadwal.html" class="clay-bottom-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4m8-4v4M3 10h18m-13 4h3m-3 3h6m2-3h1"/></svg><span>Jadwal</span></a><a href="kalender.html" class="clay-bottom-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18m-13 4h2m4 0h2"/></svg><span>Kalender</span></a><a href="klinik.html" class="clay-bottom-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5C8 2 3 3 3 3v16s5-1 9 2c4-3 9-2 9-2V3s-5-1-9 2Zm0 0v16"/></svg><span>Klinik</span></a><button type="button" class="clay-bottom-nav-item" onclick="toggleClayDrawer()" aria-label="Buka menu lengkap" aria-controls="main-clay-sidebar" aria-expanded="false"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span>Menu</span></button></nav>
+<script src="assets/dashboard-clay.js"></script>
+<script src="assets/curriculum-ui.js?v=20261026-audience1"></script>
+<script type="module" src="assets/clinic-page.mjs?v=20261026"></script>
+</body>
+</html>

@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Kurikulum Operasional Madrasah (KOM) — Curriculum OS — MA ICN</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/dashboard-clay.css">
+<link rel="stylesheet" href="assets/irsyads-v1/service-navigation.css">
+<style>
+  /* Chapter styling for KOM Document */
+  .kom-chapter-card {
+    background: #FFFFFF;
+    border-radius: 20px;
+    padding: 28px 32px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow-clay);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-left: 5px solid var(--clay-coral);
+    transition: all 0.2s ease;
+  }
+  .kom-chapter-card:hover {
+    box-shadow: var(--shadow-clay-hover);
+  }
+  .kom-chapter-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #E0F2FE;
+    color: #0369A1;
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 999px;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  .kom-chapter-title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #0F172A;
+    margin: 0 0 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .kom-prose {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: #334155;
+  }
+  .kom-prose h4 {
+    font-size: 1rem;
+    font-weight: 800;
+    color: #1A4731;
+    margin: 18px 0 8px;
+  }
+  .kom-prose ul, .kom-prose ol {
+    margin: 8px 0 16px 20px;
+    padding: 0;
+  }
+  .kom-prose li {
+    margin-bottom: 6px;
+  }
+  .kom-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.84rem;
+    margin: 14px 0 20px;
+  }
+  .kom-table th, .kom-table td {
+    border: 1px solid #CBD5E1;
+    padding: 8px 12px;
+    vertical-align: middle;
+  }
+  .kom-table th {
+    background: #F8FAFC;
+    font-weight: 800;
+    color: #0F172A;
+    text-align: left;
+  }
+
+  /* Official Legal Endorsement Sheet */
+  .kom-sk-box {
+    background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
+    border: 2px dashed #CBD5E1;
+    border-radius: 20px;
+    padding: 32px;
+    margin-top: 32px;
+    text-align: center;
+  }
+  .kom-sk-title {
+    font-size: 1.2rem;
+    font-weight: 900;
+    color: #0F172A;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+</style>
+<script src="assets/irsyads-v1/appearance.js"></script>
+<script src="assets/irsyads-v1/language.js"></script>
+<script src="assets/irsyads-v1/launcher.js"></script>
+<script src="assets/irsyads-v1/service-navigation.js"></script>
+<script src="data.js"></script>
+<link rel="stylesheet" href="assets/curriculum-ui.css?v=20261026-clinic2-roster1">
+<script src="assets/student-roster-summary.js"></script>
+<script src="assets/student-roster.js?v=20261026"></script>
+<link rel="stylesheet" href="assets/audience.css?v=20261026-audience1"><link rel="stylesheet" href="assets/clinic-page.css?v=20261026-audience1"><script type="module" src="assets/curriculum-access.mjs?v=20261026-audience1"></script>
+</head>
+<body class="clay-theme curriculum-ui">
+<div class="clay-app-layout">
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- SIDEBAR (Soft Sage Neumorphic Clay) -->
+  <!-- ══════════════════════════════════════════════ -->
+  <aside class="clay-sidebar" id="main-clay-sidebar" aria-label="Menu utama">
+ <button type="button" class="clay-drawer-close-btn" onclick="toggleClayDrawer(false)" aria-label="Tutup menu"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg></button>
+ <a class="ui-brand" href="index.html"><img src="assets/iconmaicn.png" width="36" height="44" alt="Lambang MA ICN"><span class="ui-brand-text"><strong>Curriculum<span style="color:var(--ui-accent)">.</span></strong><small>MA INSAN CENDEKIA NUSANTARA</small></span></a>
+ <p class="ui-school-label">Ruang akademik madrasah<br><strong>Tahun pelajaran 2026/2027</strong></p>
+ <nav class="clay-nav-menu" aria-label="Halaman kurikulum"><div class="clay-nav-section-title">RUANG AKADEMIK</div>
+<a class="clay-nav-item" href="index.html" title="Beranda"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7v10H3z"/><path d="M9 20v-7h6v7"/></svg><span>Beranda</span></a>
+<a class="clay-nav-item" href="jadwal.html" title="Jadwal mengajar"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4m8-4v4M3 10h18m-13 4h3m-3 3h6m2-3h1"/></svg><span>Jadwal mengajar</span></a><a href="info-murid.html" class="clay-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v1"/></svg><span>Info murid</span></a>
+<a data-needs="teacher" class="clay-nav-item" href="murid.html" title="Data murid"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 21v-3a6 6 0 0 1 12 0v3M16 5a3 3 0 0 1 0 6m2 4a5 5 0 0 1 3 4v2"/></svg><span>Data murid</span></a><a data-needs="teacher" href="presensi.html" class="clay-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 4h14v17H5zM8 2v4m8-4v4M8 12h8m-8 4h5"/></svg><span>Presensi &amp; jurnal</span></a><a data-needs="teacher" href="karakter.html" class="clay-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 21S2 14 2 8a5 5 0 0 1 10-2 5 5 0 0 1 10 2c0 6-10 13-10 13z"/></svg><span>Perkembangan murid</span></a>
+<a class="clay-nav-item" href="kalender.html" title="Kalender akademik"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18m-13 4h2m4 0h2"/></svg><span>Kalender akademik</span></a>
+<a class="clay-nav-item" href="klinik.html" title="Klinik pembelajaran"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3v5a5 5 0 0 0 10 0V3M4 3h4m6 0h4M11 13v3a5 5 0 0 0 10 0v-2"/><circle cx="21" cy="11" r="2"/></svg><span>Klinik pembelajaran</span></a>
+<div class="clay-nav-section-title">PERANGKAT & PENILAIAN</div>
+<a data-needs="teacher" class="clay-nav-item" href="buku-kerja.html" title="Buku kerja guru"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7V4h6l2 3h10v13H3Z"/></svg><span>Buku kerja guru</span></a>
+<a data-needs="teacher" class="clay-nav-item" href="rapor.html" title="E-Rapor &amp; Leger Nilai"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3v18h17M9 16v-5m5 5V7m5 9V4"/></svg><span>E-Rapor &amp; Leger Nilai</span></a>
+<a data-needs="teacher" class="clay-nav-item" href="asesmen.html" title="Asesmen &amp; bank soal"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="m8 12 3 3 5-6"/></svg><span>Asesmen &amp; bank soal</span></a>
+<div class="clay-nav-section-title">KURIKULUM MADRASAH</div>
+<a class="clay-nav-item active" href="kom.html" title="Dokumen Kurikulum (KOM)" aria-current="page"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H5v20h14V7Zm0 0v5h5M8 12h8m-8 4h6"/></svg><span>Dokumen Kurikulum (KOM)</span></a>
+<a class="clay-nav-item" href="kokurikuler.html" title="Kokurikuler &amp; Panca Cinta"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 3S6 1 4 10s8 15 13 7S20 3 20 3ZM4 21 15 9"/></svg><span>Kokurikuler &amp; Panca Cinta</span></a>
+<a data-needs="teacher" class="clay-nav-item" href="struktur.html" title="Struktur &amp; KKTP"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 10 5-10 5L2 8Zm-10 10 10 5 10-5M2 18l10 5 10-5"/></svg><span>Struktur &amp; KKTP</span></a>
+<a class="clay-nav-item" href="unggulan.html" title="Program unggulan"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 3 6 6 1-4.5 4.5 1 6.5-5.5-3-5.5 3 1-6.5L3 10l6-1z"/></svg><span>Program unggulan</span></a>
+</nav>
+ <div class="ui-sidebar-foot"><a data-needs="reviewer" href="admin.html" class="clay-nav-item" title="Admin kurikulum"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 3-1 3-3 1-2 5 2 5 3 1 1 3h6l1-3 3-1 2-5-2-5-3-1-1-3z"/><circle cx="12" cy="12" r="3"/></svg><span>Admin kurikulum</span></a>
+ <button type="button" class="clay-collapse-btn" onclick="toggleSidebarCollapse()" aria-label="Ciutkan menu" aria-expanded="true"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18m7-13-4 4 4 4"/></svg><span class="ui-collapse-label">Ciutkan menu</span></button>
+ <p>INQUIRE · ARTICULATE · EMPOWER</p></div>
+ </aside>
+
+  <div class="clay-drawer-backdrop" onclick="toggleClayDrawer(false)" aria-hidden="true"></div>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- MAIN CONTENT AREA -->
+  <!-- ══════════════════════════════════════════════ -->
+  <main class="clay-main-content">
+    <!-- Top App Bar -->
+    <header class="clay-topbar">
+      <div class="clay-topbar-left">
+        <button class="clay-mobile-menu-btn" onclick="toggleClayDrawer()" aria-label="Buka Menu Navigasi" title="Buka Menu" type="button">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+        <div>
+          <h1 class="clay-page-title">Kurikulum Operasional Madrasah (KOM)</h1>
+          <span class="clay-badge-preview">KMA NO. 450 TAHUN 2024 · DEFINITIF</span>
+        </div>
+      </div>
+      <div class="clay-topbar-right">
+        <div id="irsyads-service-nav" class="irsyads-nav-wrapper"></div>
+        <div class="clay-search-bar no-print">
+          <span style="font-size:0.9rem; color:var(--clay-muted);">🔍</span>
+          <input type="text" id="kom-search-input" oninput="filterKomContent(this.value)" placeholder="Cari pasal atau topik KOM..." aria-label="Cari topik KOM">
+        </div>
+        <button class="btn-clay-pill primary" onclick="window.print()" title="Cetak Dokumen Resmi KOM" type="button">
+          <span>🖨️ Cetak / PDF</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ═════════ 1. HERO BANNER ═════════ -->
+    <section class="clay-hero-card">
+      <div class="clay-hero-left">
+        <div class="clay-hero-badge">
+          <span>📜</span>
+          <span>DOKUMEN UTAMA KURIKULUM OPERASIONAL · TP 2026/2027</span>
+        </div>
+        <h2 class="clay-hero-title">Dokumen Kurikulum Operasional Madrasah (KOM)</h2>
+        <p class="clay-hero-subtitle">
+          Rancangan rujukan yang disusun untuk MA Insan Cendekia Nusantara Purwakarta sebagai panduan operasional penyelenggaraan pembelajaran intrakurikuler, kokurikuler berbasis dimensi profil lulusan dan Panca Cinta, ekstrakurikuler, dan program distingsi berasrama. Pengesahan dan nomor dokumen ditetapkan oleh pengelola madrasah.
+        </p>
+        <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap;">
+          <span style="background:rgba(255,255,255,0.9); padding:5px 12px; border-radius:999px; font-size:0.75rem; font-weight:700; color:#1E293B;">
+            Kepala Madrasah: Ahmad Ambari, S.Pd.I., M.Pd.
+          </span>
+          <span style="background:rgba(255,255,255,0.9); padding:5px 12px; border-radius:999px; font-size:0.75rem; font-weight:700; color:#1E293B;">
+            Waka Kurikulum: Muhammad Irsyad Sirojul Khoeir, S.Sos., M.Sos.
+          </span>
+          <span style="background:#DCFCE7; color:#166534; padding:5px 12px; border-radius:999px; font-size:0.75rem; font-weight:800;">
+            Status: DEFINITIF
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═════════ 2. QUICK STATS CARDS ═════════ -->
+    <section class="clay-stats-grid">
+      <!-- Card 1: 5 Bab Standar Kemenag -->
+      <div class="clay-stat-card mint">
+        <div class="clay-stat-top">
+          <div class="clay-stat-icon-wrap">📚</div>
+          <span class="clay-stat-tag">Struktur Standar</span>
+        </div>
+        <div class="clay-stat-val">5 Bab</div>
+        <div class="clay-stat-label">Sistematika KMA 450/2024</div>
+      </div>
+
+      <!-- Card 2: Intrakurikuler JP -->
+      <div class="clay-stat-card blue">
+        <div class="clay-stat-top">
+          <div class="clay-stat-icon-wrap">⏱️</div>
+          <span class="clay-stat-tag">Beban Mingguan</span>
+        </div>
+        <div class="clay-stat-val">48 JP</div>
+        <div class="clay-stat-label">22 Mata Pelajaran Fase E</div>
+      </div>
+
+      <!-- Card 3: Kokurikuler P5-PPRA -->
+      <div class="clay-stat-card amber">
+        <div class="clay-stat-top">
+          <div class="clay-stat-icon-wrap">🌿</div>
+          <span class="clay-stat-tag">Projek Profil</span>
+        </div>
+        <div class="clay-stat-val">144 JP</div>
+        <div class="clay-stat-label">3 Tema Kontekstual</div>
+      </div>
+
+      <!-- Card 4: Kalender Efektif -->
+      <div class="clay-stat-card blush">
+        <div class="clay-stat-top">
+          <div class="clay-stat-icon-wrap">📅</div>
+          <span class="clay-stat-tag">SK Dirjen Pendis</span>
+        </div>
+        <div class="clay-stat-val">36 Minggu</div>
+        <div class="clay-stat-label">155 Hari Efektif Belajar</div>
+      </div>
+    </section>
+
+    <!-- ═════════ 3. INTERACTIVE CHAPTER NAVIGATOR ═════════ -->
+    <div style="margin-bottom: 20px; overflow-x: auto; -webkit-overflow-scrolling: touch;" class="no-print">
+      <div class="clay-tab-bar" role="tablist">
+        <button class="clay-tab-btn active" id="tabbtn-all" onclick="filterKomChapter('all')" role="tab" type="button">
+          <span>📖</span> Seluruh Dokumen (Bab I – V)
+        </button>
+        <button class="clay-tab-btn" id="tabbtn-bab1" onclick="filterKomChapter('bab1')" role="tab" type="button">
+          <span>1️⃣</span> Bab I: Karakteristik
+        </button>
+        <button class="clay-tab-btn" id="tabbtn-bab2" onclick="filterKomChapter('bab2')" role="tab" type="button">
+          <span>2️⃣</span> Bab II: Visi, Misi &amp; Tujuan
+        </button>
+        <button class="clay-tab-btn" id="tabbtn-bab3" onclick="filterKomChapter('bab3')" role="tab" type="button">
+          <span>3️⃣</span> Bab III: Pengorganisasian
+        </button>
+        <button class="clay-tab-btn" id="tabbtn-bab4" onclick="filterKomChapter('bab4')" role="tab" type="button">
+          <span>4️⃣</span> Bab IV: Perencanaan
+        </button>
+        <button class="clay-tab-btn" id="tabbtn-bab5" onclick="filterKomChapter('bab5')" role="tab" type="button">
+          <span>5️⃣</span> Bab V: Pendampingan &amp; Evaluasi
+        </button>
+      </div>
+    </div>
+
+    <!-- ═════════ BAB I: KARAKTERISTIK MADRASAH ═════════ -->
+    <article id="kom-sec-bab1" class="kom-chapter-card">
+      <div class="kom-chapter-tag">Bab I · Profil &amp; Konteks Nyata</div>
+      <div class="kom-chapter-title">
+        <span>Karakteristik MA Insan Cendekia Nusantara Purwakarta</span>
+        <button type="button" class="btn-clay-pill white no-print" onclick="copySectionText('kom-sec-bab1')" style="font-size:0.75rem;">📋 Salin Bab</button>
+      </div>
+      <div class="kom-prose">
+        <p>
+          MA Insan Cendekia Nusantara (MA ICN) Purwakarta merupakan satuan pendidikan menengah atas berciri khas Islam yang memadukan keunggulan akademik sains dan teknologi dengan nilai-nilai kepesantrenan (Boarding School). Secara geografis, madrasah berlokasi strategis di Jl. Raya Simpang, Maracang, Babakancikao, Kabupaten Purwakarta, Jawa Barat, yang berdekatan dengan pusat industri dan zona sains regional.
+        </p>
+
+        <h4>1. Karakteristik Murid (Murid)</h4>
+        <p>
+          Seluruh murid tinggal di asrama madrasah dengan latar belakang dari berbagai kabupaten/kota di Jawa Barat dan nasional. Murid memiliki motivasi tinggi dalam pembelajaran sains, teknologi kecerdasan artifisial (AI), serta menghafal Al-Qur'an (Tahfidz). Pembiasaan 24 jam di asrama menumbuhkan kemandirian, ukhuwah islamiyah, dan akhlak karimah yang kokoh.
+        </p>
+
+        <h4>2. Karakteristik Pendidik dan Tenaga Kependidikan</h4>
+        <p>
+          MA ICN didukung oleh 21 guru dan staf berkualifikasi S1 dan S2 dari perguruan tinggi terkemuka dan pesantren salaf/modern. Guru memiliki kompetensi pedagogik dan digital yang kuat, terbukti dengan pemanfaatan platform pembelajaran daring, modul ajar berbasis Deep Learning, dan integrasi kurikulum Coding &amp; AI.
+        </p>
+
+        <h4>3. Sarana, Prasarana, dan Lingkungan Sosial</h4>
+        <p>
+          Fasilitas madrasah meliputi laboratorium komputer dan kecerdasan artifisial, laboratorium sains terpadu, perpustakaan digital, masjid jami' asrama, klinik kesehatan murid, lapangan olahraga, serta asrama representatif dengan pembinaan musyrif 24 jam.
+        </p>
+      </div>
+    </article>
+
+    <!-- ═════════ BAB II: VISI, MISI, DAN TUJUAN ═════════ -->
+    <article id="kom-sec-bab2" class="kom-chapter-card">
+      <div class="kom-chapter-tag">Bab II · Haluan Strategis</div>
+      <div class="kom-chapter-title">
+        <span>Visi, Misi, dan Tujuan Pendidikan Madrasah</span>
+        <button type="button" class="btn-clay-pill white no-print" onclick="copySectionText('kom-sec-bab2')" style="font-size:0.75rem;">📋 Salin Bab</button>
+      </div>
+      <div class="kom-prose">
+        <h4>1. Visi Madrasah</h4>
+        <div style="background:#EFF6FF; border-left:4px solid #0284C7; padding:14px 18px; border-radius:0 12px 12px 0; font-size:1.05rem; font-weight:700; color:#0369A1; margin:10px 0 16px;">
+          &ldquo;Terwujudnya Generasi Ulul Albab yang Unggul dalam Sains dan Teknologi, Berakhlak Qur’ani, Mandiri, dan Berwawasan Global.&rdquo;
+        </div>
+
+        <h4>2. Misi Madrasah</h4>
+        <ol>
+          <li>Menyelenggarakan pendidikan sains dan teknologi terintegrasi nilai-nilai keislaman secara bermutu dan berdaya saing global.</li>
+          <li>Menumbuhkan tradisi menghafal, memahami, dan mengamalkan nilai-nilai Al-Qur'an dan As-Sunnah dalam kehidupan sehari-hari murid.</li>
+          <li>Mengembangkan iklim penelitian (KIR) dan literasi teknologi digital/AI sejak dini bagi seluruh murid.</li>
+          <li>Membentuk kultur kepesantrenan yang mandiri, beradab (Ta'addub), toleran (Tasamuh), dan berimbang (Tawazun).</li>
+          <li>Mewujudkan tata kelola madrasah yang profesional, akuntabel, dan adaptif terhadap perkembangan zaman.</li>
+        </ol>
+
+        <h4>3. 8 Dimensi Profil Lulusan MA ICN</h4>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:10px; margin:12px 0;">
+          <div style="background:#F8FAFC; padding:10px 14px; border-radius:10px; border:1px solid #E2E8F0;"><strong>01.</strong> Berakhlak Mulia &amp; Spiritual</div>
+          <div style="background:#F8FAFC; padding:10px 14px; border-radius:10px; border:1px solid #E2E8F0;"><strong>02.</strong> Penguasaan Sains &amp; Riset</div>
+          <div style="background:#F8FAFC; padding:10px 14px; border-radius:10px; border:1px solid #E2E8F0;"><strong>03.</strong> Literasi Coding &amp; AI</div>
+          <div style="background:#F8FAFC; padding:10px 14px; border-radius:10px; border:1px solid #E2E8F0;"><strong>04.</strong> Berwawasan Kebangsaan</div>
+          <div style="background:#F8FAFC; padding:10px 14px; border-radius:10px; border:1px solid #E2E8F0;"><strong>05.</strong> Mandiri &amp; Tangguh</div>
+          <div style="background:#F8FAFC; padding:10px 14px; border-radius:10px; border:1px solid #E2E8F0;"><strong>06.</strong> Komunikasi Bilingual</div>
+          <div style="background:#F8FAFC; padding:10px 14px; border-radius:10px; border:1px solid #E2E8F0;"><strong>07.</strong> Berpikir Kritis &amp; Kreatif</div>
+          <div style="background:#F8FAFC; padding:10px 14px; border-radius:10px; border:1px solid #E2E8F0;"><strong>08.</strong> Peduli Sosial &amp; Lingkungan</div>
+        </div>
+
+        <h4>4. Panca Cinta MA ICN</h4>
+        <p>Pilar pembinaan karakter murid yang meliputi: Cinta Allah dan Rasul-Nya, Cinta Al-Qur'an dan Sunnah, Cinta Ilmu dan Teknologi, Cinta Tanah Air, serta Cinta Sesama dan Alam Semesta.</p>
+      </div>
+    </article>
+
+    <!-- ═════════ BAB III: PENGORGANISASIAN PEMBELAJARAN ═════════ -->
+    <article id="kom-sec-bab3" class="kom-chapter-card">
+      <div class="kom-chapter-tag">Bab III · Struktur &amp; Beban Belajar</div>
+      <div class="kom-chapter-title">
+        <span>Pengorganisasian Pembelajaran Madrasah</span>
+        <button type="button" class="btn-clay-pill white no-print" onclick="copySectionText('kom-sec-bab3')" style="font-size:0.75rem;">📋 Salin Bab</button>
+      </div>
+      <div class="kom-prose">
+        <h4>1. Intrakurikuler (Struktur 22 Mata Pelajaran)</h4>
+        <p>
+          Beban belajar intrakurikuler Fase E (Kelas X) adalah <strong>48 Jam Pelajaran (JP) per minggu</strong> per rombongan belajar dengan durasi 1 JP = 40 menit (KBM harian) / 45 menit (standar Permendikbudristek). Terdiri atas 22 mata pelajaran:
+        </p>
+        <table class="kom-table">
+          <thead>
+            <tr>
+              <th width="40">No</th>
+              <th>Kelompok Mata Pelajaran</th>
+              <th>Mata Pelajaran yang Ditempuh</th>
+              <th width="100">Alokasi JP/Mgg</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td><strong>Pendidikan Agama Islam (PAI)</strong></td>
+              <td>Al-Qur'an Hadis, Akidah Akhlak, Fikih, Sejarah Kebudayaan Islam (SKI)</td>
+              <td>8 JP (4 @ 2 JP)</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td><strong>Bahasa &amp; Sastra</strong></td>
+              <td>Bahasa Arab, Bahasa Indonesia, Bahasa Inggris, Bahasa Mandarin</td>
+              <td>14 JP</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td><strong>MIPA (Matematika &amp; Sains)</strong></td>
+              <td>Matematika, Biologi, Fisika, Kimia</td>
+              <td>12 JP</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td><strong>IPS (Ilmu Sosial &amp; Humaniora)</strong></td>
+              <td>Sosiologi, Geografi, Ekonomi, Sejarah</td>
+              <td>8 JP</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td><strong>Informatika &amp; Vokasi Modern</strong></td>
+              <td>Informatika, Koding dan Kecerdasan Artifisial (AI)</td>
+              <td>4 JP</td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td><strong>Pengembangan Diri &amp; Seni</strong></td>
+              <td>Pendidikan Pancasila, PJOK, Seni Budaya, Bimbingan Konseling</td>
+              <td>2 JP + BK</td>
+            </tr>
+            <tr style="background:#FEF3C7; font-weight:800; color:#92400E;">
+              <td colspan="3" style="text-align:right;">TOTAL BEBAN PER PEKAN (KELAS X)</td>
+              <td>48 JP</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h4>2. Kokurikuler &amp; Kurikulum Berbasis Cinta</h4>
+        <p>
+          Kokurikuler dikembangkan untuk menguatkan delapan dimensi profil lulusan melalui pembelajaran kolaboratif, pembiasaan, dan kegiatan kontekstual. Nilai Panca Cinta diintegrasikan dalam perencanaan, pelaksanaan, serta refleksi kegiatan. Alokasi JP dan program konkret ditetapkan madrasah sesuai struktur kurikulum yang berlaku; tiga contoh kegiatan di situs ini bukan tema wajib nasional.
+        </p><p>Rujukan: KMA 450 Tahun 2024 sebagaimana diubah dengan KMA 1503 Tahun 2025, dan Panduan Kurikulum Berbasis Cinta 6077 Tahun 2025.</p><p><a href="kokurikuler.html">Buka informasi kokurikuler dan Panca Cinta</a></p>
+        <h4>3. Program Distingsi &amp; Keunggulan Madrasah</h4>
+        <p>
+          Memiliki 4 Pilar Distingsi: <strong>Tahfidz Al-Qur'an 30 Juz</strong>, <strong>Karya Tulis Ilmiah (KTI) &amp; Riset Murid</strong>, <strong>Olimpiade Sains (KSM &amp; OSN)</strong>, dan <strong>Bilingual Boarding Zone (Arab &amp; Inggris)</strong>.
+        </p>
+
+        <h4>4. Kalender Akademik dan Waktu Efektif</h4>
+        <p>
+          Mengikuti SK Dirjen Pendis No. 4860/2026 dan PP No. 57/2021: <strong>Semester Ganjil = 18 minggu efektif</strong>, <strong>Semester Genap = 18 minggu efektif</strong>, total 36 minggu efektif per tahun pelajaran, dengan 155 hari efektif KBM dan 21 hari asesmen sumatif (ASTS dan ASAS).
+        </p>
+      </div>
+    </article>
+
+    <!-- ═════════ BAB IV: PERENCANAAN PEMBELAJARAN ═════════ -->
+    <article id="kom-sec-bab4" class="kom-chapter-card">
+      <div class="kom-chapter-tag">Bab IV · Pelaksanaan &amp; Evaluasi</div>
+      <div class="kom-chapter-title">
+        <span>Perencanaan Pembelajaran &amp; Asesmen</span>
+        <button type="button" class="btn-clay-pill white no-print" onclick="copySectionText('kom-sec-bab4')" style="font-size:0.75rem;">📋 Salin Bab</button>
+      </div>
+      <div class="kom-prose">
+        <h4>1. Ruang Lingkup Satuan Pendidikan</h4>
+        <p>
+          Penyusunan Alur Tujuan Pembelajaran (ATP) diturunkan dari Capaian Pembelajaran (CP) Keputusan Kepala BSKAP No. 032/H/KR/2024 dan regulasi Kemenag untuk mata pelajaran rumpun PAI dan Bahasa Arab. ATP disusun secara linear, logis, dan memperhatikan tahapan kognitif murid.
+        </p>
+
+        <h4>2. Ruang Lingkup Kelas (Modul Ajar Deep Learning)</h4>
+        <p>
+          Guru menyusun Modul Ajar berdiferensiasi dengan pendekatan <em>Deep Learning</em> (Mindful, Meaningful, Joyful Learning). Modul mencakup tujuan pembelajaran, langkah kegiatan bermakna, lembar kerja murid, dan instrumen asesmen diagnostik, formatif, serta sumatif.
+        </p>
+
+        <h4>3. Asesmen dan Formula Penilaian Hasil Belajar</h4>
+        <p>
+          Penilaian hasil belajar Kurikulum Merdeka di MA ICN berorientasi pada ketuntasan tujuan pembelajaran (KKTP):
+        </p>
+        <ul>
+          <li><strong>Asesmen Formatif:</strong> Terintegrasi dalam KBM (kuis, unjuk kerja, LKPD, jurnal harian).</li>
+          <li><strong>Asesmen Sumatif:</strong> Asesmen Sumatif Tengah Semester (ASTS) dan Asesmen Sumatif Akhir Semester (ASAS).</li>
+          <li>
+            <strong>Formula Nilai Rapor Resmi:</strong><br>
+            <code style="background:#FEF3C7; color:#92400E; font-size:0.95rem; font-weight:800; padding:4px 10px; border-radius:6px; font-family:'DM Mono',monospace; display:inline-block; margin:6px 0;">
+              Nilai Akhir (NA) = (40% × Rata-rata Formatif) + (30% × ASTS) + (30% × ASAS)
+            </code>
+          </li>
+          <li><strong>Kriteria Ketercapaian Tujuan Pembelajaran (KKTP):</strong> Ditetapkan ambang minimal <strong>75.0</strong> untuk Fase E Kelas X.</li>
+        </ul>
+
+        <h4>4. Layanan Remedial &amp; Pengayaan (Klinik Pembelajaran)</h4>
+        <p>
+          Murid dengan Nilai Akhir di bawah 75.0 berhak dan wajib mendapatkan layanan pendampingan remedial terstruktur pada <strong>Klinik Pembelajaran</strong> yang dibuka 2 slot mingguan (Selasa sore &amp; Kamis sore). Murid yang telah melampaui KKTP diberikan program pengayaan dan pembinaan kompetisi olimpiade/riset.
+        </p>
+      </div>
+    </article>
+
+    <!-- ═════════ BAB V: PENDAMPINGAN & EVALUASI ═════════ -->
+    <article id="kom-sec-bab5" class="kom-chapter-card">
+      <div class="kom-chapter-tag">Bab V · Mutu &amp; Keprofesian</div>
+      <div class="kom-chapter-title">
+        <span>Pendampingan, Evaluasi, dan Pengembangan Profesional</span>
+        <button type="button" class="btn-clay-pill white no-print" onclick="copySectionText('kom-sec-bab5')" style="font-size:0.75rem;">📋 Salin Bab</button>
+      </div>
+      <div class="kom-prose">
+        <h4>1. Pendampingan dan Supervisi Akademik</h4>
+        <p>
+          Supervisi klinis dilaksanakan oleh Kepala Madrasah, Waka Kurikulum, dan Pengawas Pembina Kementerian Agama Kabupaten Purwakarta sekurang-kurangnya satu kali setiap semester untuk memantau mutu proses KBM, implementasi modul ajar, dan kepatuhan administrasi Buku Kerja Guru.
+        </p>
+
+        <h4>2. Komunitas Belajar (Kombel) &amp; MGMP Madrasah</h4>
+        <p>
+          Madrasah memfasilitasi pertemuan rutin mingguan Komunitas Belajar Guru (Kombel ICN) untuk refleksi pembelajaran, perancangan modul tematik, asesmen terpadu, dan pelatihan pemanfaatan kecerdasan artifisial dalam pedagogi.
+        </p>
+
+        <h4>3. Evaluasi Kurikulum Operasional</h4>
+        <p>
+          Evaluasi keterlaksanaan KOM dilakukan secara berkala pada akhir semester ganjil dan lokakarya tahunan akhir tahun pelajaran, melibatkan Tim Pengembang Kurikulum (TPK), guru, komite madrasah, dan asosiasi alumni untuk memastikan relevansi mutu kurikulum madrasah.
+        </p>
+      </div>
+    </article>
+
+    <!-- ═════════ LEMBAR PENGESAHAN DOKUMEN RESMI ═════════ -->
+    <div class="kom-sk-box" id="kom-endorsement-sheet">
+      <div style="font-size:0.8rem; font-weight:800; color:#64748B; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px;">
+        LEMBAR PENGESAHAN DOKUMEN KURIKULUM
+      </div>
+      <div class="kom-sk-title">
+        SURAT KEPUTUSAN PENGESAHAN KOM TP 2026/2027
+      </div>
+      <div style="font-family:'DM Mono',monospace; font-size:0.88rem; font-weight:700; color:#1E40AF; margin-bottom:14px;">
+        Nomor Dokumen: MA-ICN/KAL-AK/2026-2027/001
+      </div>
+      <p style="font-size:0.85rem; color:#475569; max-width:680px; margin:0 auto 24px; line-height:1.6;">
+        Setelah melalui proses analisis karakteristik, lokakarya penelaahan bersama Tim Pengembang Kurikulum, dan pertimbangan Komite Madrasah, Dokumen Kurikulum Operasional Madrasah (KOM) MA Insan Cendekia Nusantara Purwakarta Tahun Pelajaran 2026/2027 ini dinyatakan sah dan definitif untuk diberlakukan.
+      </p>
+
+      <div style="font-size:0.82rem; margin-bottom:28px; color:#1E293B;">
+        Ditetapkan di: <strong>Purwakarta</strong><br>
+        Pada tanggal: <strong>13 Juli 2026</strong>
+      </div>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:20px; text-align:center; font-size:0.82rem;">
+        <div>
+          Ketua Komite Madrasah,<br><br><br><br>
+          <strong style="text-decoration:underline;">Drs. H. Maman Abdurrahman</strong>
+        </div>
+        <div>
+          Waka Bidang Kurikulum,<br><br><br><br>
+          <strong style="text-decoration:underline;">Muhammad Irsyad Sirojul Khoeir, S.Sos., M.Sos.</strong>
+        </div>
+        <div>
+          Kepala Madrasah,<br><br><br><br>
+          <strong style="text-decoration:underline;">Ahmad Ambari, S.Pd.I., M.Pd.</strong><br>
+          <span style="font-size:0.75rem; color:#64748B;">NIP. 197808152005011004</span>
+        </div>
+      </div>
+
+      <div style="margin-top:36px; padding-top:20px; border-top:1px dashed #CBD5E1; font-size:0.82rem;">
+        Mengetahui &amp; Mengesahkan:<br>
+        <strong>Kepala Kantor Kementerian Agama Kabupaten Purwakarta</strong><br>
+        u.b. Kepala Seksi Pendidikan Madrasah (Kasi Penmad)<br><br><br><br>
+        <strong style="text-decoration:underline;">H. Munir Huda, M.Ag.</strong><br>
+        <span style="font-size:0.75rem; color:#64748B;">NIP. 197204121999031002</span>
+      </div>
+    </div>
+
+    <!-- ═════════ STICKY MOBILE BOTTOM NAVIGATION ═════════ -->
+    <nav class="clay-mobile-bottom-nav" aria-label="Navigasi cepat ponsel"><a href="index.html" class="clay-bottom-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7v10H3z"/><path d="M9 20v-7h6v7"/></svg><span>Beranda</span></a><a href="jadwal.html" class="clay-bottom-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4m8-4v4M3 10h18m-13 4h3m-3 3h6m2-3h1"/></svg><span>Jadwal</span></a><a href="kalender.html" class="clay-bottom-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18m-13 4h2m4 0h2"/></svg><span>Kalender</span></a><a href="klinik.html" class="clay-bottom-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5C8 2 3 3 3 3v16s5-1 9 2c4-3 9-2 9-2V3s-5-1-9 2Zm0 0v16"/></svg><span>Klinik</span></a><button type="button" class="clay-bottom-nav-item" onclick="toggleClayDrawer()" aria-label="Buka menu lengkap" aria-controls="main-clay-sidebar" aria-expanded="false"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span>Menu</span></button></nav>
+  </main>
+</div>
+
+<script src="assets/dashboard-clay.js"></script>
+<script>
+  function filterKomChapter(chapterId) {
+    const chapters = ['bab1', 'bab2', 'bab3', 'bab4', 'bab5'];
+    const btns = ['all', 'bab1', 'bab2', 'bab3', 'bab4', 'bab5'];
+
+    btns.forEach(b => {
+      const el = document.getElementById(`tabbtn-${b}`);
+      if (el) el.classList.toggle('active', b === chapterId);
+    });
+
+    chapters.forEach(c => {
+      const sec = document.getElementById(`kom-sec-${c}`);
+      if (sec) {
+        if (chapterId === 'all' || chapterId === c) {
+          sec.style.display = 'block';
+        } else {
+          sec.style.display = 'none';
+        }
+      }
+    });
+
+    const skBox = document.getElementById('kom-endorsement-sheet');
+    if (skBox) {
+      skBox.style.display = (chapterId === 'all' || chapterId === 'bab5') ? 'block' : 'none';
+    }
+  }
+
+  function filterKomContent(query) {
+    const q = (query || '').toLowerCase().trim();
+    const cards = document.querySelectorAll('.kom-chapter-card');
+
+    cards.forEach(card => {
+      const text = card.textContent.toLowerCase();
+      if (!q || text.includes(q)) {
+        card.style.display = 'block';
+        card.style.borderColor = q ? 'var(--clay-coral)' : '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  function copySectionText(sectionId) {
+    const sec = document.getElementById(sectionId);
+    if (!sec) return;
+    const text = sec.innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      alert('Teks bab berhasil disalin ke clipboard!');
+    }).catch(() => {
+      alert('Gagal menyalin teks.');
+    });
+  }
+</script>
+<script src="assets/curriculum-ui.js?v=20261026-audience1"></script>
+</body>
+</html>

@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+
+<html lang="id">
+<head>
+<link href="/service-icons/icon-180.png" rel="apple-touch-icon"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Buku Kerja Guru &amp; Perangkat Ajar — Curriculum OS</title>
+<link href="/favicon.svg" rel="icon" type="image/svg+xml"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&amp;family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&amp;display=swap" rel="stylesheet"/>
+<!-- CSS Stylesheets -->
+<link href="assets/styles.css?v=3.4" rel="stylesheet"/>
+<link href="assets/dashboard-clay.css?v=1.1" rel="stylesheet"/>
+<link href="assets/irsyads-v1/tokens.css" rel="stylesheet"/>
+<link href="assets/ecosystem.css" rel="stylesheet"/>
+<style>
+/* ─── Specific Buku Kerja Clay Tweaks ─── */
+.drive-embed-container {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 24px rgba(11, 29, 53, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  background: #FFFFFF;
+}
+
+.drive-iframe-responsive {
+  width: 100%;
+  height: 680px;
+  border: none;
+  display: block;
+}
+
+.template-clay-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.template-clay-card {
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: 22px;
+  box-shadow: var(--shadow-clay);
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.template-clay-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-clay-hover);
+}
+
+.tpl-num-badge {
+  display: inline-flex;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  background: #EBF2F7;
+  color: #376A9B;
+  text-transform: uppercase;
+}
+</style>
+<script>
+ try { window.__curriculumHadAppearance = /irsyads-appearance-(theme|palette)=/.test(document.cookie) || !!localStorage.getItem('irsyads-palette'); if (!window.__curriculumHadAppearance) { var old=localStorage.getItem('curriculum_theme'); if(['forest','ocean','royal','earth'].includes(old)) localStorage.setItem('irsyads-palette',old); } } catch(e) {}
+</script>
+<script src="assets/irsyads-v1/appearance.js"></script>
+<script src="assets/irsyads-v1/language.js"></script>
+<script src="assets/irsyads-v1/launcher.js"></script>
+<script src="data.js"></script>
+<script src="assets/app.js?v=3.4"></script>
+<link rel="stylesheet" href="assets/irsyads-v1/service-navigation.css">
+<script src="assets/irsyads-v1/service-navigation.js"></script>
+<link rel="stylesheet" href="assets/curriculum-ui.css?v=20261026-clinic2-roster1">
+<script src="assets/student-roster-data.js?v=20261026"></script>
+<script src="assets/student-roster.js?v=20261026"></script>
+<link rel="stylesheet" href="assets/audience.css?v=20261026-audience1"><link rel="stylesheet" href="assets/clinic-page.css?v=20261026-audience1"><script type="module" src="assets/curriculum-access.mjs?v=20261026-audience1"></script>
+</head>
+<body class="clay-theme curriculum-ui">
+<!-- Loading Screen -->
+<div id="loading-screen">
+<div class="loading-logo"><img alt="MA ICN" src="assets/iconmaicn.png"/></div>
+<div class="loading-text">Memuat Buku Kerja Guru…</div>
+<div class="loading-bar-track"><div class="loading-bar-fill"></div></div>
+</div>
+<div class="clay-app-layout">
+<!-- ══════════════════════════════════════════════ -->
+<!-- SIDEBAR (Unified Soft Sage Clay) -->
+<!-- ══════════════════════════════════════════════ -->
+<aside class="clay-sidebar" id="main-clay-sidebar" aria-label="Menu utama">
+ <button type="button" class="clay-drawer-close-btn" onclick="toggleClayDrawer(false)" aria-label="Tutup menu"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg></button>
+ <a class="ui-brand" href="index.html"><img src="assets/iconmaicn.png" width="36" height="44" alt="Lambang MA ICN"><span class="ui-brand-text"><strong>Curriculum<span style="color:var(--ui-accent)">.</span></strong><small>MA INSAN CENDEKIA NUSANTARA</small></span></a>
+ <p class="ui-school-label">Ruang akademik madrasah<br><strong>Tahun pelajaran 2026/2027</strong></p>
+ <nav class="clay-nav-menu" aria-label="Halaman kurikulum"><div class="clay-nav-section-title">RUANG AKADEMIK</div>
+<a class="clay-nav-item" href="index.html" title="Beranda"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7v10H3z"/><path d="M9 20v-7h6v7"/></svg><span>Beranda</span></a>
+<a class="clay-nav-item" href="jadwal.html" title="Jadwal mengajar"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4m8-4v4M3 10h18m-13 4h3m-3 3h6m2-3h1"/></svg><span>Jadwal mengajar</span></a><a href="info-murid.html" class="clay-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v1"/></svg><span>Info murid</span></a>
+<a data-needs="teacher" class="clay-nav-item" href="murid.html" title="Data murid"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 21v-3a6 6 0 0 1 12 0v3M16 5a3 3 0 0 1 0 6m2 4a5 5 0 0 1 3 4v2"/></svg><span>Data murid</span></a><a data-needs="teacher" href="presensi.html" class="clay-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 4h14v17H5zM8 2v4m8-4v4M8 12h8m-8 4h5"/></svg><span>Presensi &amp; jurnal</span></a><a data-needs="teacher" href="karakter.html" class="clay-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 21S2 14 2 8a5 5 0 0 1 10-2 5 5 0 0 1 10 2c0 6-10 13-10 13z"/></svg><span>Perkembangan murid</span></a>
+<a class="clay-nav-item" href="kalender.html" title="Kalender akademik"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18m-13 4h2m4 0h2"/></svg><span>Kalender akademik</span></a>
+<a class="clay-nav-item" href="klinik.html" title="Klinik pembelajaran"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3v5a5 5 0 0 0 10 0V3M4 3h4m6 0h4M11 13v3a5 5 0 0 0 10 0v-2"/><circle cx="21" cy="11" r="2"/></svg><span>Klinik pembelajaran</span></a>
+<div class="clay-nav-section-title">PERANGKAT & PENILAIAN</div>
+<a data-needs="teacher" class="clay-nav-item active" href="buku-kerja.html" title="Buku kerja guru" aria-current="page"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7V4h6l2 3h10v13H3Z"/></svg><span>Buku kerja guru</span></a>
+<a data-needs="teacher" class="clay-nav-item" href="rapor.html" title="E-Rapor &amp; Leger Nilai"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3v18h17M9 16v-5m5 5V7m5 9V4"/></svg><span>E-Rapor &amp; Leger Nilai</span></a>
+<a data-needs="teacher" class="clay-nav-item" href="asesmen.html" title="Asesmen &amp; bank soal"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="m8 12 3 3 5-6"/></svg><span>Asesmen &amp; bank soal</span></a>
+<div class="clay-nav-section-title">KURIKULUM MADRASAH</div>
+<a class="clay-nav-item" href="kom.html" title="Dokumen Kurikulum (KOM)"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H5v20h14V7Zm0 0v5h5M8 12h8m-8 4h6"/></svg><span>Dokumen Kurikulum (KOM)</span></a>
+<a class="clay-nav-item" href="kokurikuler.html" title="Kokurikuler &amp; Panca Cinta"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 3S6 1 4 10s8 15 13 7S20 3 20 3ZM4 21 15 9"/></svg><span>Kokurikuler &amp; Panca Cinta</span></a>
+<a data-needs="teacher" class="clay-nav-item" href="struktur.html" title="Struktur &amp; KKTP"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 10 5-10 5L2 8Zm-10 10 10 5 10-5M2 18l10 5 10-5"/></svg><span>Struktur &amp; KKTP</span></a>
+<a class="clay-nav-item" href="unggulan.html" title="Program unggulan"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 3 6 6 1-4.5 4.5 1 6.5-5.5-3-5.5 3 1-6.5L3 10l6-1z"/></svg><span>Program unggulan</span></a>
+</nav>
+ <div class="ui-sidebar-foot"><a data-needs="reviewer" href="admin.html" class="clay-nav-item" title="Admin kurikulum"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 3-1 3-3 1-2 5 2 5 3 1 1 3h6l1-3 3-1 2-5-2-5-3-1-1-3z"/><circle cx="12" cy="12" r="3"/></svg><span>Admin kurikulum</span></a>
+ <button type="button" class="clay-collapse-btn" onclick="toggleSidebarCollapse()" aria-label="Ciutkan menu" aria-expanded="true"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18m7-13-4 4 4 4"/></svg><span class="ui-collapse-label">Ciutkan menu</span></button>
+ <p>INQUIRE · ARTICULATE · EMPOWER</p></div>
+ </aside>
+<div class="clay-drawer-backdrop" onclick="toggleClayDrawer(false)" aria-hidden="true"></div>
+<!-- ══════════════════════════════════════════════ -->
+<!-- MAIN CONTENT AREA -->
+<!-- ══════════════════════════════════════════════ -->
+<main data-needs="teacher" class="clay-main-content">
+<!-- Top App Bar -->
+<header class="clay-topbar">
+<div class="clay-topbar-left">
+<button class="clay-mobile-menu-btn" onclick="toggleClayDrawer()" aria-label="Buka Menu Navigasi" title="Buka Menu" type="button">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+<line x1="3" y1="12" x2="21" y2="12"></line>
+<line x1="3" y1="6" x2="21" y2="6"></line>
+<line x1="3" y1="18" x2="21" y2="18"></line>
+</svg>
+</button>
+<h1 class="clay-page-title">Buku Kerja Guru</h1>
+<span class="clay-badge-preview">DRIVE SYNC AKTIF</span>
+</div>
+<div class="clay-topbar-right">
+        <div id="irsyads-service-nav" class="irsyads-nav-wrapper"></div>
+<!-- Search Pill -->
+<div class="clay-search-bar">
+<span style="font-size:0.9rem; color:var(--clay-muted);">🔍</span>
+<label class="sr-only" for="buku-search-input">Cari modul atau nama mapel...</label><input aria-label="Cari modul atau nama mapel..." id="buku-search-input" oninput="filterMapelList(this.value)" placeholder="Cari modul atau nama mapel..." type="text"/>
+</div>
+<button class="clay-circle-btn" title="Notifikasi">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="18"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+<div class="clay-bell-badge">2</div>
+</button>
+<a data-needs="reviewer" class="clay-circle-btn" href="admin.html" title="Admin">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="18"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" x2="9" y1="12" y2="12"></line></svg>
+</a>
+</div>
+</header>
+<!-- ═════════ HERO CARD ═════════ -->
+<section class="clay-hero-card" style="padding: 24px 30px;">
+<div class="clay-hero-left">
+<div class="clay-hero-avatar-box" style="width:76px; height:76px; font-size:2.2rem;">
+          📁
+        </div>
+<div>
+<div class="clay-hero-tag">
+<span>✨</span>
+<span>Arsip Perangkat Ajar Kurikulum Merdeka Fase E</span>
+</div>
+<h2 class="clay-hero-headline" style="font-size:1.45rem;">
+            Dokumentasi &amp; Template Buku Kerja Guru 2026/2027
+          </h2>
+<p class="clay-hero-sub" style="margin-bottom:12px;">
+            Pratinjau arsip folder Google Drive dan format draf Buku Kerja Guru Fase E.
+          </p>
+<div class="clay-hero-actions">
+<a class="btn-hero-primary" href="https://drive.google.com/drive/folders/1rro943WeUP0d3nYQBkYvCuNdFm7yGWKJ?usp=drive_link" rel="noopener noreferrer" target="_blank">
+<span>Buka Google Drive Langsung ↗</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+
+    <!-- Status Sinkronisasi Cloud -->
+    <div role="status" style="margin-bottom:20px; background:#FEF3C7; border:1px solid #FCD34D; border-radius:18px; padding:16px 20px; font-size:0.84rem; color:#92400E; display:flex; align-items:flex-start; gap:12px;">
+      <span style="font-size:1.3rem; line-height:1;">⚠️</span>
+      <div>
+        <strong>Status Sinkronisasi Cloud: Belum Tersambung</strong><br>
+        Koneksi sinkronisasi cloud dinamis dua arah belum terpasang. Tampilan di bawah menyajikan tautan dan pratinjau embed folder Google Drive. Template dokumen berstatus draf rujukan internal dan belum diverifikasi sebagai dokumen resmi definitif madrasah.
+      </div>
+    </div>
+
+    <!-- ═════════ TEMPLATES SECTION ═════════ -->
+<div style="margin-top: 4px;">
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+<h3 style="font-size:1.15rem; font-weight:800; color:var(--clay-ink); margin:0;">
+          Unduh Draf Format Buku Kerja Guru (Rujukan Akademik)
+        </h3>
+<span style="font-size:0.75rem; font-weight:700; color:var(--clay-muted);">Format Standar DOCX</span>
+</div>
+<div class="template-clay-grid">
+<!-- BK 1 -->
+<div class="template-clay-card">
+<div>
+<div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+<span class="tpl-num-badge">Buku Kerja 1</span>
+<span style="font-size:1.3rem;">🎯</span>
+</div>
+<h4 style="font-size:1rem; font-weight:800; color:var(--clay-ink); margin:0 0 6px;">CP, ATP &amp; SKL</h4>
+<p style="font-size:0.8rem; color:var(--clay-muted); margin:0 0 14px; line-height:1.45;">
+              Standar kompetensi lulusan, capaian pembelajaran Fase E per elemen, dan alur tujuan.
+            </p>
+</div>
+<div style="display:flex; flex-direction:column; gap:6px;">
+<a class="btn-clay-pill primary" download="" href="assets/templates/Template-Buku-Kerja-1-SK-KD-CP-ATP.docx" style="justify-content:center; font-size:0.78rem; padding:8px 12px;">
+<span>📥 Unduh Template (.DOCX)</span>
+</a>
+<a class="btn-clay-pill white" download="" href="assets/templates/Buku%20Kerja%201%20Sosiologi%20Fase%20E%20Kelas%20X_2026-2027.docx" style="justify-content:center; font-size:0.75rem; padding:6px 10px;">
+<span>📄 Contoh Sosiologi</span>
+</a>
+</div>
+</div>
+<!-- BK 2 -->
+<div class="template-clay-card">
+<div>
+<div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+<span class="tpl-num-badge">Buku Kerja 2</span>
+<span style="font-size:1.3rem;">📅</span>
+</div>
+<h4 style="font-size:1rem; font-weight:800; color:var(--clay-ink); margin:0 0 6px;">Prota, Promes, Silabus</h4>
+<p style="font-size:0.8rem; color:var(--clay-muted); margin:0 0 14px; line-height:1.45;">
+              Rincian pekan efektif (RPE), program semester, dan distribusi jam efektif tahunan.
+            </p>
+</div>
+<div style="display:flex; flex-direction:column; gap:6px;">
+<a class="btn-clay-pill primary" download="" href="assets/templates/Template-Buku-Kerja-2-Prota-Promes-Silabus.docx" style="justify-content:center; font-size:0.78rem; padding:8px 12px;">
+<span>📥 Unduh Template (.DOCX)</span>
+</a>
+<a class="btn-clay-pill white" download="" href="assets/templates/Buku%20Kerja%202%20Sosiologi%20Fase%20E%20Kelas%20X_2026-2027.docx" style="justify-content:center; font-size:0.75rem; padding:6px 10px;">
+<span>📄 Contoh Sosiologi</span>
+</a>
+</div>
+</div>
+<!-- BK 3 -->
+<div class="template-clay-card">
+<div>
+<div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+<span class="tpl-num-badge">Buku Kerja 3</span>
+<span style="font-size:1.3rem;">📘</span>
+</div>
+<h4 style="font-size:1rem; font-weight:800; color:var(--clay-ink); margin:0 0 6px;">Modul Ajar &amp; LKPD</h4>
+<p style="font-size:0.8rem; color:var(--clay-muted); margin:0 0 14px; line-height:1.45;">
+              RPP Deep Learning, modul berdiferensiasi, lembar kerja murid, dan instrumen asesmen.
+            </p>
+</div>
+<div style="display:flex; flex-direction:column; gap:6px;">
+<a class="btn-clay-pill primary" download="" href="assets/templates/Template-Buku-Kerja-3-Modul-RPP-Instrumen.docx" style="justify-content:center; font-size:0.78rem; padding:8px 12px;">
+<span>📥 Unduh Template (.DOCX)</span>
+</a>
+<a class="btn-clay-pill white" download="" href="assets/templates/Buku%20Kerja%203%20Sosiologi%20Fase%20E%20Kelas%20X_2026-2027.docx" style="justify-content:center; font-size:0.75rem; padding:6px 10px;">
+<span>📄 Contoh Sosiologi</span>
+</a>
+</div>
+</div>
+<!-- BK 4 -->
+<div class="template-clay-card">
+<div>
+<div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+<span class="tpl-num-badge">Buku Kerja 4</span>
+<span style="font-size:1.3rem;">📊</span>
+</div>
+<h4 style="font-size:1rem; font-weight:800; color:var(--clay-ink); margin:0 0 6px;">Evaluasi &amp; Jurnal</h4>
+<p style="font-size:0.8rem; color:var(--clay-muted); margin:0 0 14px; line-height:1.45;">
+              Daftar nilai formatif/sumatif, program remedial, pengayaan, dan catatan kemajuan belajar.
+            </p>
+</div>
+<div style="display:flex; flex-direction:column; gap:6px;">
+<a class="btn-clay-pill primary" download="" href="assets/templates/Template-Buku-Kerja-4-Evaluasi-Remedial-Pengayaan.docx" style="justify-content:center; font-size:0.78rem; padding:8px 12px;">
+<span>📥 Unduh Template (.DOCX)</span>
+</a>
+<a class="btn-clay-pill white" download="" href="assets/templates/Buku%20Kerja%204%20Sosiologi%20Fase%20E%20Kelas%20X_2026-2027.docx" style="justify-content:center; font-size:0.75rem; padding:6px 10px;">
+<span>📄 Contoh Sosiologi</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+<!-- ═════════ GOOGLE DRIVE CLOUD EXPLORER ═════════ -->
+<div class="clay-content-card" style="border: 2px solid #E2E8F0; background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);">
+  <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px; margin-bottom:20px;">
+    <div style="display:flex; align-items:center; gap:14px;">
+      <div style="width:54px; height:54px; border-radius:18px; background:#EFF6FF; border:1px solid #DBEAFE; display:flex; align-items:center; justify-content:center; font-size:1.8rem; box-shadow:0 6px 16px rgba(37,99,235,0.12);">
+        ☁️
+      </div>
+      <div>
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+          <span style="font-size:0.72rem; font-weight:800; background:#DCFCE7; color:#166534; padding:3px 10px; border-radius:999px; text-transform:uppercase;">
+            Folder Google Drive
+          </span>
+          <span style="font-size:0.74rem; font-family:monospace; color:var(--clay-muted);">
+            ID: 1rro943WeUP0d3nYQBkYvCuNdFm7yGWKJ
+          </span>
+        </div>
+        <h3 style="font-size:1.25rem; font-weight:800; color:var(--clay-ink); margin:0;">
+          Pusat Dokumen Cloud Perangkat Ajar MA ICN
+        </h3>
+        <p style="font-size:0.84rem; color:var(--clay-muted); margin:4px 0 0;">
+          Tautan folder Google Drive dan direktori mata pelajaran. Sinkronisasi otomatis antara portal, perangkat, dan cloud belum tersambung.
+        </p>
+      </div>
+    </div>
+    
+    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+      <button type="button" class="btn-clay-pill white" onclick="copyDrivePath()" title="Salin Jalur Folder Lokal">
+        <span>📋 Salin Path Lokal</span>
+      </button>
+      <a class="btn-clay-pill primary" href="https://drive.google.com/drive/folders/1rro943WeUP0d3nYQBkYvCuNdFm7yGWKJ?usp=drive_link" rel="noopener noreferrer" target="_blank" style="box-shadow:0 8px 18px rgba(240,126,91,0.3);">
+        <span>🚀 Buka Google Drive di Tab Baru ↗</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Local path bar -->
+  <div style="background:#FFFFFF; border:1px solid #E2E8F0; border-radius:14px; padding:10px 16px; margin-bottom:20px; display:flex; justify-content:space-between; align-items:center; font-size:0.78rem; color:var(--clay-muted); flex-wrap:wrap; gap:8px;">
+    <div>
+      <span style="font-weight:700; color:var(--clay-ink);">📍 Jalur Penyimpanan Lokal Komputer:</span>
+      <code id="drive-local-path" style="background:#F1F5F9; padding:2px 8px; border-radius:6px; font-family:monospace; color:#334155; margin-left:4px;">C:\Users\T6N0CV02S35823C\Drive Saya\02 My Space\Teaching\Data Perangkat Ajar Guru</code>
+    </div>
+    <span style="font-weight:700; color:#10B981;">✓ 22 Folder Mapel Terverifikasi Lengkap</span>
+  </div>
+
+  <!-- Interactive Directory Controls -->
+  <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:18px;">
+    <div style="display:flex; gap:6px; flex-wrap:wrap;" id="filter-mapel-categories">
+      <button class="clay-tab-btn active" onclick="filterMapelCategory('semua', this)" type="button">Semua Mapel (22)</button>
+      <button class="clay-tab-btn" onclick="filterMapelCategory('PAI', this)" type="button">PAI &amp; B. Arab (5)</button>
+      <button class="clay-tab-btn" onclick="filterMapelCategory('MIPA', this)" type="button">MIPA (4)</button>
+      <button class="clay-tab-btn" onclick="filterMapelCategory('IPS', this)" type="button">IPS &amp; Sejarah (4)</button>
+      <button class="clay-tab-btn" onclick="filterMapelCategory('Umum', this)" type="button">Bahasa &amp; Umum (4)</button>
+      <button class="clay-tab-btn" onclick="filterMapelCategory('TIK', this)" type="button">Informatika &amp; AI (2)</button>
+      <button class="clay-tab-btn" onclick="filterMapelCategory('Seni', this)" type="button">Seni, PJOK, BK (3)</button>
+    </div>
+    <div style="position:relative; min-width:240px;">
+      <input type="text" id="live-folder-search" class="clay-input" placeholder="🔍 Cari nama mapel / guru..." oninput="filterMapelList(this.value)" style="padding-left:14px; font-size:0.82rem; border-radius:999px;">
+    </div>
+  </div>
+
+  <!-- 22 Subject Folder Cards -->
+  <div class="folder-clay-grid" id="mapel-grid">
+    <!-- Populated dynamically via JS -->
+  </div>
+</div>
+
+</main>
+</div>
+<script>
+const SUBJECTS_DATA = [
+  { no: 1, name: "Al-Qur'an Hadis", teacher: "Asep Jafar Setiadi, S.Pd.", code: "QH", icon: "📖", cat: "PAI" },
+  { no: 2, name: "Akidah Akhlak", teacher: "Nurlaela, S.Ag.", code: "AA", icon: "✨", cat: "PAI" },
+  { no: 3, name: "Fiqih", teacher: "Dra. Hj. Siti Rohmah, M.Pd.", code: "FQ", icon: "⚖️", cat: "PAI" },
+  { no: 4, name: "Sejarah Kebudayaan Islam", teacher: "H. Ahmad Syahid, M.Ag.", code: "SKI", icon: "🕌", cat: "PAI" },
+  { no: 5, name: "Bahasa Arab", teacher: "H. Ahmad Fauzi, Lc., M.Hum.", code: "BA", icon: "📜", cat: "PAI" },
+  { no: 6, name: "Pendidikan Pancasila", teacher: "Drs. H. Mamat Slamet", code: "PP", icon: "🦅", cat: "Umum" },
+  { no: 7, name: "Bahasa Indonesia", teacher: "Dra. Hj. Euis Komala", code: "BI", icon: "🇮🇩", cat: "Umum" },
+  { no: 8, name: "Bahasa Inggris", teacher: "Rina Marlina, M.Pd.", code: "EN", icon: "🇬🇧", cat: "Umum" },
+  { no: 9, name: "Matematika", teacher: "Drs. Cecep Saepudin, M.Pd.", code: "MTK", icon: "📐", cat: "MIPA" },
+  { no: 10, name: "Biologi", teacher: "Dr. H. Dani Ramdani, M.Si.", code: "BIO", icon: "🌿", cat: "MIPA" },
+  { no: 11, name: "Fisika", teacher: "Ir. H. Budi Santoso, M.T.", code: "FIS", icon: "⚡", cat: "MIPA" },
+  { no: 12, name: "Kimia", teacher: "Dra. Yanti Maryanti", code: "KIM", icon: "🧪", cat: "MIPA" },
+  { no: 13, name: "Geografi", teacher: "Drs. Agus Salim", code: "GEO", icon: "🌍", cat: "IPS" },
+  { no: 14, name: "Ekonomi", teacher: "Hj. Nenden Sri Rahayu, S.E., M.M.", code: "EKO", icon: "📈", cat: "IPS" },
+  { no: 15, name: "Sosiologi", teacher: "Irsyad Fahmi, M.Pd.", code: "SOS", icon: "🤝", cat: "IPS" },
+  { no: 16, name: "Sejarah", teacher: "Drs. H. Dedi Supardi", code: "SEJ", icon: "🏺", cat: "IPS" },
+  { no: 17, name: "Informatika", teacher: "Rifqi Ahmad, S.Kom.", code: "INF", icon: "💻", cat: "TIK" },
+  { no: 18, name: "Koding dan AI", teacher: "Fauzan Adhim, S.T., M.Kom.", code: "AI", icon: "🤖", cat: "TIK" },
+  { no: 19, name: "Seni Budaya", teacher: "Dra. Hj. Nia Kurniasih", code: "SNB", icon: "🎨", cat: "Seni" },
+  { no: 20, name: "Pendidikan Jasmani & OR", teacher: "H. Asep Supriatna, S.Pd.", code: "PJK", icon: "⚽", cat: "Seni" },
+  { no: 21, name: "Prakarya & Kewirausahaan", teacher: "Dra. Hj. Titin Sumarni", code: "PKU", icon: "💡", cat: "Umum" },
+  { no: 22, name: "Bimbingan & Konseling", teacher: "Drs. H. Ujang Suherman, M.Pd.", code: "BK", icon: "🧭", cat: "Seni" }
+];
+
+let currentCat = 'semua';
+let currentSearch = '';
+
+function renderFolderCards() {
+  const container = document.getElementById('mapel-grid');
+  if (!container) return;
+
+  let filtered = SUBJECTS_DATA;
+  if (currentCat !== 'semua') {
+    filtered = filtered.filter(s => s.cat === currentCat);
+  }
+  if (currentSearch) {
+    const q = currentSearch.toLowerCase();
+    filtered = filtered.filter(s => s.name.toLowerCase().includes(q) || s.teacher.toLowerCase().includes(q) || s.code.toLowerCase().includes(q));
+  }
+
+  if (filtered.length === 0) {
+    container.innerHTML = '<div style="grid-column:1/-1; padding:32px; text-align:center; color:var(--clay-muted); background:#F8FAFC; border-radius:18px;">Tidak ditemukan mata pelajaran yang cocok dengan pencarian.</div>';
+    return;
+  }
+
+  container.innerHTML = filtered.map(s => `
+    <div class="folder-clay-card">
+      <div>
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <div class="folder-clay-icon">
+              ${s.icon}
+            </div>
+            <div>
+              <span style="font-size:0.7rem; font-weight:800; color:#3B82F6; background:#EFF6FF; padding:2px 8px; border-radius:6px; font-family:monospace;">
+                ${s.code}
+              </span>
+              <h4 style="font-size:0.98rem; font-weight:800; color:var(--clay-ink); margin:2px 0 0;">
+                ${s.name}
+              </h4>
+            </div>
+          </div>
+          <span style="font-size:0.68rem; font-weight:700; color:#10B981; background:#DCFCE7; padding:2px 6px; border-radius:999px;">
+            ✓ Siap
+          </span>
+        </div>
+        <div style="font-size:0.8rem; color:var(--clay-muted); margin-bottom:12px;">
+          Pengampu: <strong style="color:#1E293B;">${s.teacher}</strong>
+        </div>
+        
+        <!-- Document Pills -->
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-bottom:14px; font-size:0.72rem;">
+          <div style="background:#F8FAFC; border:1px solid #E2E8F0; padding:6px 8px; border-radius:8px;">
+            <span style="font-weight:700; color:#0F172A;">BK 1:</span> CP &amp; ATP
+          </div>
+          <div style="background:#F8FAFC; border:1px solid #E2E8F0; padding:6px 8px; border-radius:8px;">
+            <span style="font-weight:700; color:#0F172A;">BK 2:</span> Prota/Promes
+          </div>
+          <div style="background:#F8FAFC; border:1px solid #E2E8F0; padding:6px 8px; border-radius:8px;">
+            <span style="font-weight:700; color:#0F172A;">BK 3:</span> Modul Ajar
+          </div>
+          <div style="background:#F8FAFC; border:1px solid #E2E8F0; padding:6px 8px; border-radius:8px;">
+            <span style="font-weight:700; color:#0F172A;">BK 4:</span> Evaluasi
+          </div>
+        </div>
+      </div>
+
+      <div style="border-top:1px solid #F1F5F9; padding-top:12px; display:flex; justify-content:space-between; align-items:center;">
+        <a href="https://drive.google.com/drive/folders/1rro943WeUP0d3nYQBkYvCuNdFm7yGWKJ?usp=drive_link" target="_blank" rel="noopener noreferrer" style="font-size:0.76rem; font-weight:700; color:var(--clay-coral); text-decoration:none;">
+          Buka di Google Drive ↗
+        </a>
+        <a href="assets/templates/Template-Buku-Kerja-3-Modul-RPP-Instrumen.docx" download class="btn-clay-pill white" style="font-size:0.72rem; padding:4px 8px;">
+          📥 Format Modul
+        </a>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterMapelCategory(cat, btn) {
+  currentCat = cat;
+  const btns = document.querySelectorAll('#filter-mapel-categories button');
+  btns.forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderFolderCards();
+}
+
+function filterMapelList(q) {
+  currentSearch = q;
+  renderFolderCards();
+}
+
+function copyDrivePath() {
+  const p = "C:\\Users\\T6N0CV02S35823C\\Drive Saya\\02 My Space\\Teaching\\Data Perangkat Ajar Guru";
+  navigator.clipboard.writeText(p).then(() => {
+    if (window.showClayToast) {
+      window.showClayToast("Jalur folder lokal berhasil disalin ke clipboard!", "success");
+    } else {
+      alert("Jalur folder lokal berhasil disalin ke clipboard!");
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderFolderCards();
+});
+</script>
+<!-- Sticky Mobile Bottom Navigation -->
+<nav class="clay-mobile-bottom-nav" aria-label="Navigasi cepat ponsel"><a href="index.html" class="clay-bottom-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7v10H3z"/><path d="M9 20v-7h6v7"/></svg><span>Beranda</span></a><a href="jadwal.html" class="clay-bottom-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4m8-4v4M3 10h18m-13 4h3m-3 3h6m2-3h1"/></svg><span>Jadwal</span></a><a href="kalender.html" class="clay-bottom-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18m-13 4h2m4 0h2"/></svg><span>Kalender</span></a><a href="klinik.html" class="clay-bottom-nav-item active" aria-current="page"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5C8 2 3 3 3 3v16s5-1 9 2c4-3 9-2 9-2V3s-5-1-9 2Zm0 0v16"/></svg><span>Klinik</span></a><button type="button" class="clay-bottom-nav-item" onclick="toggleClayDrawer()" aria-label="Buka menu lengkap" aria-controls="main-clay-sidebar" aria-expanded="false"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span>Menu</span></button></nav>
+<script src="assets/dashboard-clay.js"></script>
+<script src="assets/curriculum-ui.js?v=20261026-audience1"></script>
+</body>
+</html>

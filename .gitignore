@@ -1,6 +1,15 @@
 # wrangler files
+.site/
 .wrangler
 .dev.vars*
 !.dev.vars.example
 .env*
 !.env.example
+
+# Private school inputs and local release evidence never belong in the public repository.
+assets/student-roster-data.js
+private-inputs/
+scratch/
+*.xlsx
+docs/archive/
+*.log
