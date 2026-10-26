@@ -1,828 +1,121 @@
 <!DOCTYPE html>
+
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Portal Kurikulum — MA Insan Cendekia Nusantara</title>
-<link rel="stylesheet" href="assets/styles.css?v=3.1">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<script src="data.js"></script>
-<script src="assets/app.js?v=3.0"></script>
-<style>
-/* ─── Penyesuaian Visual Beranda Baru ─── */
-.hero-actions {
-  margin-top: 32px;
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-/* ─── Topic Selector + 4-Card Insight Gallery (Prompt #3) ─── */
-.topic-section-wrap {
-  margin-top: 48px;
-  margin-bottom: 56px;
-}
-
-.topic-nav-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 24px;
-  margin-bottom: 36px;
-}
-
-.topic-nav {
-  display: inline-flex;
-  gap: 8px;
-  background: rgba(25, 42, 64, 0.05);
-  border: 1px solid rgba(25, 42, 64, 0.08);
-  padding: 6px;
-  border-radius: 999px;
-  box-shadow: inset 0 1px 3px rgba(25, 42, 64, 0.04);
-  max-width: 100%;
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-.topic-nav::-webkit-scrollbar { display: none; }
-
-.topic-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
-  border-radius: 999px;
-  border: none;
-  background: transparent;
-  color: var(--color-ink-2);
-  font-family: inherit;
-  font-size: 0.88rem;
-  font-weight: 600;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: all 0.25s cubic-bezier(0.22, 0.8, 0.3, 1);
-}
-.topic-pill:hover {
-  color: var(--color-ink);
-  background: rgba(255, 255, 255, 0.6);
-}
-.topic-pill.active {
-  background: var(--primary);
-  color: #ffffff;
-  font-weight: 700;
-  box-shadow: 0 4px 14px rgba(18, 106, 90, 0.28);
-}
-.topic-pill-icon {
-  font-size: 1.05rem;
-  line-height: 1;
-}
-
-/* Gallery Grid */
-.insight-deck-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 22px;
-}
-@media (max-width: 1080px) {
-  .insight-deck-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 600px) {
-  .insight-deck-grid { grid-template-columns: 1fr; }
-  .topic-nav { border-radius: 16px; padding: 6px; width: 100%; justify-content: flex-start; }
-  .topic-pill { padding: 8px 14px; font-size: 0.82rem; }
-}
-
-/* Insight Card */
-.insight-card {
-  background: var(--surface);
-  border: 1px solid rgba(20, 24, 62, 0.08);
-  border-radius: 20px;
-  padding: 26px 22px;
-  box-shadow: 0 4px 16px rgba(20, 24, 62, 0.04);
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  text-decoration: none;
-  color: inherit;
-  transition: transform 0.35s cubic-bezier(0.22, 0.8, 0.3, 1),
-              box-shadow 0.35s cubic-bezier(0.22, 0.8, 0.3, 1),
-              opacity 0.3s ease,
-              border-color 0.3s ease;
-  animation: deckReveal 0.4s cubic-bezier(0.22, 0.8, 0.3, 1) both;
-  animation-delay: calc(var(--i, 0) * 55ms);
-}
-
-@keyframes deckReveal {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Subtle focus/blur tactile interaction */
-.insight-deck-grid:hover .insight-card {
-  opacity: 0.75;
-}
-.insight-deck-grid:hover .insight-card:hover {
-  opacity: 1;
-  transform: translateY(-6px);
-  border-color: rgba(18, 106, 90, 0.35);
-  box-shadow: 0 16px 36px rgba(20, 24, 62, 0.09), 0 0 0 1px rgba(18, 106, 90, 0.15);
-}
-
-/* Card Aura Background Glow */
-.card-aura {
-  position: absolute;
-  top: -50px;
-  right: -50px;
-  width: 160px;
-  height: 160px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(46, 196, 182, 0.18) 0%, rgba(18, 106, 90, 0.05) 50%, transparent 70%);
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-.insight-card:hover .card-aura {
-  opacity: 1;
-}
-
-.card-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  margin-bottom: 14px;
-}
-
-.card-eyebrow {
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--text-soft);
-}
-
-.card-badge {
-  font-size: 0.7rem;
-  font-weight: 700;
-  padding: 3px 9px;
-  border-radius: 999px;
-  line-height: 1.2;
-}
-.badge-teal   { background: rgba(18, 106, 90, 0.1); color: var(--primary); }
-.badge-gold   { background: rgba(237, 182, 80, 0.18); color: #8a6503; }
-.badge-purple { background: rgba(142, 68, 173, 0.1); color: #8e44ad; }
-.badge-blue   { background: rgba(41, 128, 185, 0.1); color: #2980b9; }
-
-.card-title {
-  font-size: 1.18rem;
-  font-weight: 800;
-  color: var(--primary);
-  line-height: 1.35;
-  margin-bottom: 10px;
-}
-
-.card-desc {
-  font-size: 0.86rem;
-  color: var(--text-secondary);
-  line-height: 1.6;
-  margin-bottom: 18px;
-  flex-grow: 1;
-}
-
-.card-metric {
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
-  padding: 9px 14px;
-  background: rgba(20, 24, 62, 0.03);
-  border: 1px solid rgba(20, 24, 62, 0.06);
-  border-radius: 12px;
-  margin-bottom: 18px;
-}
-
-.metric-val {
-  font-family: 'DM Mono', monospace;
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--primary);
-}
-
-.metric-sub {
-  font-size: 0.78rem;
-  color: var(--text-soft);
-  font-weight: 500;
-}
-
-.card-action {
-  font-size: 0.84rem;
-  font-weight: 800;
-  color: var(--primary);
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  text-decoration: none;
-  transition: gap 0.2s ease, color 0.2s ease;
-  margin-top: auto;
-}
-.insight-card:hover .card-action {
-  gap: 10px;
-  color: var(--aqua-deep);
-}
-.card-arrow {
-  transition: transform 0.2s ease;
-}
-.insight-card:hover .card-arrow {
-  transform: translateX(3px);
-}
-
-.summary-grid {
-  display: grid;
-  grid-template-columns: 1.3fr 1fr;
-  gap: 28px;
-  margin-bottom: 48px;
-}
-@media (max-width: 900px) {
-  .summary-grid { grid-template-columns: 1fr; }
-}
-
-.summary-box {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 30px;
-  box-shadow: var(--shadow-sm);
-}
-.summary-box h3 {
-  font-size: 1.2rem;
-  font-weight: 800;
-  color: var(--primary);
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.summary-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  padding: 12px 0;
-  border-bottom: 1px solid var(--border);
-}
-.summary-item:last-child { border-bottom: none; }
-.summary-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--aqua-deep);
-  margin-top: 6px;
-  flex-shrink: 0;
-}
-.summary-title { font-weight: 700; font-size: 0.92rem; color: var(--text-primary); }
-.summary-desc  { font-size: 0.82rem; color: var(--text-soft); margin-top: 2px; }
-</style>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+Arabic:wght@400;600;700&display=swap">
-<link rel="stylesheet" href="assets/irsyads-v1/tokens.css">
-<link rel="stylesheet" href="assets/ecosystem.css">
+<link href="/service-icons/icon-180.png" rel="apple-touch-icon"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Beranda Kurikulum — MA Insan Cendekia Nusantara</title>
+<link href="/favicon.svg" rel="icon" type="image/svg+xml"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&amp;family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&amp;display=swap" rel="stylesheet"/>
+<!-- CSS Stylesheets -->
+<link href="assets/styles.css?v=3.4" rel="stylesheet"/>
+<link href="assets/dashboard-clay.css?v=1.1" rel="stylesheet"/>
+<link href="assets/irsyads-v1/tokens.css" rel="stylesheet"/>
+<link href="assets/ecosystem.css" rel="stylesheet"/>
 <script>
  try { window.__curriculumHadAppearance = /irsyads-appearance-(theme|palette)=/.test(document.cookie) || !!localStorage.getItem('irsyads-palette'); if (!window.__curriculumHadAppearance) { var old=localStorage.getItem('curriculum_theme'); if(['forest','ocean','royal','earth'].includes(old)) localStorage.setItem('irsyads-palette',old); } } catch(e) {}
 </script>
 <script src="assets/irsyads-v1/appearance.js"></script>
-<script src="assets/irsyads-v1/language.js"></script><script src="assets/irsyads-v1/launcher.js"></script>
-<script src="assets/ecosystem.js" defer></script>
+<script src="assets/irsyads-v1/language.js"></script>
+<script src="assets/irsyads-v1/launcher.js"></script>
+<script src="data.js"></script>
+
+<link rel="stylesheet" href="assets/irsyads-v1/service-navigation.css">
+<script src="assets/irsyads-v1/service-navigation.js"></script>
+<meta name="description" content="Ruang akademik MA Insan Cendekia Nusantara: jadwal mengajar, kalender, guru pengampu, dan perangkat ajar 2026/2027.">
+<link rel="stylesheet" href="assets/curriculum-ui.css?v=20261026-clinic2-roster1">
+<script src="assets/student-roster-summary.js"></script>
+<script src="assets/student-roster.js?v=20261026"></script>
+<link rel="stylesheet" href="assets/clinic-page.css?v=20261026-clinic2">
+<link rel="stylesheet" href="assets/audience.css?v=20261026-audience1"><link rel="stylesheet" href="assets/clinic-page.css?v=20261026-audience1"><script type="module" src="assets/curriculum-access.mjs?v=20261026-audience1"></script>
 </head>
-<body>
-
-<!-- Background Blobs -->
-<div class="bg-blobs" aria-hidden="true">
-  <div class="bg-blob"></div>
-  <div class="bg-blob"></div>
-  <div class="bg-blob"></div>
-</div>
-
-<!-- Loading Screen -->
-<div id="loading-screen">
-  <div class="loading-logo"><img src="assets/iconmaicn.png" alt="MA ICN"></div>
-  <div class="loading-text">Memuat Kurikulum…</div>
-  <div class="loading-bar-track"><div class="loading-bar-fill"></div></div>
-</div>
-
-<!-- Floating Portal Hub -->
-<a href="https://irsyads.com" target="_blank" rel="noopener noreferrer" class="floating-portal" id="floating-portal" title="Kunjungi Portal Utama irsyads.com">
-  <span class="portal-dot"></span>
-  <span>irsyads.com</span>
-  <span class="portal-arrow">↗</span>
-</a>
-
-<!-- Floating Clock -->
-<div id="floating-clock" aria-label="Jam dan tanggal saat ini">
-  <div class="clock-time"></div>
-  <div class="clock-date"></div>
-</div>
-
-<!-- Navbar Utama (4 Menu Inti) -->
-<nav class="navbar" id="navbar">
-  <a href="index.html" class="nav-brand">
-    <img src="assets/iconmaicn.png" alt="Logo">
-    <span>MA ICN</span>
-  </a>
-  <div class="nav-links" id="nav-links">
-    <a href="index.html" data-page="index" class="active">Beranda</a>
-    <a href="kalender.html" data-page="kalender">Kalender</a>
-    <a href="jadwal.html" data-page="jadwal">Jadwal</a>
-    <a href="struktur.html" data-page="struktur">Struktur Kurikulum</a>
-  </div>
-  <div class="nav-right">
-    <a class="btn-admin-nav" href="admin.html" title="Admin Kurikulum" aria-label="Admin Kurikulum"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg></a>
-    <button class="nav-toggle" id="nav-toggle" aria-label="Menu">☰</button>
-  </div>
+<body class="clay-theme curriculum-ui" data-page="beranda">
+<a href="#main-clay-content" class="skip-link">Lewati ke konten utama</a>
+<div class="clay-app-layout">
+<aside class="clay-sidebar" id="main-clay-sidebar" aria-label="Menu utama">
+ <button type="button" class="clay-drawer-close-btn" onclick="toggleClayDrawer(false)" aria-label="Tutup menu"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg></button>
+ <a class="ui-brand" href="index.html"><img src="assets/iconmaicn.png" width="36" height="44" alt="Lambang MA ICN"><span class="ui-brand-text"><strong>Curriculum<span style="color:var(--ui-accent)">.</span></strong><small>MA INSAN CENDEKIA NUSANTARA</small></span></a>
+ <p class="ui-school-label">Ruang akademik madrasah<br><strong>Tahun pelajaran 2026/2027</strong></p>
+ <nav class="clay-nav-menu" aria-label="Halaman kurikulum"><div class="clay-nav-section-title">RUANG AKADEMIK</div>
+<a class="clay-nav-item active" href="index.html" title="Beranda" aria-current="page"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7v10H3z"/><path d="M9 20v-7h6v7"/></svg><span>Beranda</span></a>
+<a class="clay-nav-item" href="jadwal.html" title="Jadwal mengajar"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4m8-4v4M3 10h18m-13 4h3m-3 3h6m2-3h1"/></svg><span>Jadwal mengajar</span></a><a href="info-murid.html" class="clay-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v1"/></svg><span>Info murid</span></a>
+<a data-needs="teacher" class="clay-nav-item" href="murid.html" title="Data murid"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 21v-3a6 6 0 0 1 12 0v3M16 5a3 3 0 0 1 0 6m2 4a5 5 0 0 1 3 4v2"/></svg><span>Data murid</span></a><a data-needs="teacher" href="presensi.html" class="clay-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 4h14v17H5zM8 2v4m8-4v4M8 12h8m-8 4h5"/></svg><span>Presensi &amp; jurnal</span></a><a data-needs="teacher" href="karakter.html" class="clay-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 21S2 14 2 8a5 5 0 0 1 10-2 5 5 0 0 1 10 2c0 6-10 13-10 13z"/></svg><span>Perkembangan murid</span></a>
+<a class="clay-nav-item" href="kalender.html" title="Kalender akademik"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18m-13 4h2m4 0h2"/></svg><span>Kalender akademik</span></a>
+<a class="clay-nav-item" href="klinik.html" title="Klinik pembelajaran"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3v5a5 5 0 0 0 10 0V3M4 3h4m6 0h4M11 13v3a5 5 0 0 0 10 0v-2"/><circle cx="21" cy="11" r="2"/></svg><span>Klinik pembelajaran</span></a>
+<div class="clay-nav-section-title">PERANGKAT & PENILAIAN</div>
+<a data-needs="teacher" class="clay-nav-item" href="buku-kerja.html" title="Buku kerja guru"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7V4h6l2 3h10v13H3Z"/></svg><span>Buku kerja guru</span></a>
+<a data-needs="teacher" class="clay-nav-item" href="rapor.html" title="E-Rapor &amp; Leger Nilai"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3v18h17M9 16v-5m5 5V7m5 9V4"/></svg><span>E-Rapor &amp; Leger Nilai</span></a>
+<a data-needs="teacher" class="clay-nav-item" href="asesmen.html" title="Asesmen &amp; bank soal"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="m8 12 3 3 5-6"/></svg><span>Asesmen &amp; bank soal</span></a>
+<div class="clay-nav-section-title">KURIKULUM MADRASAH</div>
+<a class="clay-nav-item" href="kom.html" title="Dokumen Kurikulum (KOM)"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H5v20h14V7Zm0 0v5h5M8 12h8m-8 4h6"/></svg><span>Dokumen Kurikulum (KOM)</span></a>
+<a class="clay-nav-item" href="kokurikuler.html" title="Kokurikuler &amp; Panca Cinta"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 3S6 1 4 10s8 15 13 7S20 3 20 3ZM4 21 15 9"/></svg><span>Kokurikuler &amp; Panca Cinta</span></a>
+<a data-needs="teacher" class="clay-nav-item" href="struktur.html" title="Struktur &amp; KKTP"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 10 5-10 5L2 8Zm-10 10 10 5 10-5M2 18l10 5 10-5"/></svg><span>Struktur &amp; KKTP</span></a>
+<a class="clay-nav-item" href="unggulan.html" title="Program unggulan"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 3 6 6 1-4.5 4.5 1 6.5-5.5-3-5.5 3 1-6.5L3 10l6-1z"/></svg><span>Program unggulan</span></a>
 </nav>
-
-<!-- Page Content -->
-<div class="page-content">
-
-  <!-- ══ HERO ══ -->
-  <section class="hero" id="hero-section">
-    <div class="hero-bg-img" aria-hidden="true"></div>
-    <div class="hero-glow" aria-hidden="true"></div>
-    <div class="container hero-inner">
-      <div class="hero-badge animate-up" id="hero-badge">Status: DEFINITIF · TP 2026/2027</div>
-      <h1 class="animate-up delay-100" id="hero-title">
-        Portal <span>Kurikulum</span>
-      </h1>
-      <p class="hero-sub animate-up delay-200" id="hero-desc">
-        Pusat Informasi Akademik, Kalender Pendidikan, dan Jadwal KBM MA Insan Cendekia Nusantara
-      </p>
-      <p class="hero-warm animate-up delay-300">
-        "Kurikulum adalah peta yang menuntun ikhtiar belajar, mengantarkan santri menjadi pribadi berilmu dan berakhlak mulia."
-      </p>
-      <div class="hero-actions animate-up delay-400">
-        <a href="kalender.html" class="btn btn-aqua">Buka Kalender Akademik →</a>
-        <a href="jadwal.html" class="btn btn-ghost">Jadwal KBM &amp; Boarding</a>
-        <a href="struktur.html" class="btn btn-ghost">Struktur Kurikulum</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══ STATISTIK AKADEMIK STRIP ══ -->
-  <div class="container">
-    <div class="stats-strip" id="stats-container"></div>
-  </div>
-
-  <!-- ══ EKSPLORASI TOPIK & INSIGHT GALLERY (Prompt #3) ══ -->
-  <section class="container topic-section-wrap" id="eksplorasi-kurikulum">
-    <div class="section-header animate-up">
-      <div class="section-tag">Pusat Layanan &amp; Eksplorasi</div>
-      <h2 class="section-title">Eksplorasi Kurikulum Terpadu</h2>
-      <p class="section-sub">Pilih domain topik di bawah ini untuk melihat indikator resmi, beban belajar, dan pedoman madrasah</p>
-    </div>
-
-    <!-- Segmented Topic Selector -->
-    <div class="topic-nav-container animate-up delay-100">
-      <div class="topic-nav" role="tablist" aria-label="Kategori Topik Kurikulum">
-        <button class="topic-pill active" data-topic="pilar" role="tab" aria-selected="true">
-          <span class="topic-pill-icon">🏛️</span>
-          <span>Pilar &amp; Regulasi</span>
-        </button>
-        <button class="topic-pill" data-topic="kalender" role="tab" aria-selected="false">
-          <span class="topic-pill-icon">📅</span>
-          <span>Kalender &amp; Asesmen</span>
-        </button>
-        <button class="topic-pill" data-topic="jadwal" role="tab" aria-selected="false">
-          <span class="topic-pill-icon">⏰</span>
-          <span>Jadwal &amp; Asrama</span>
-        </button>
-        <button class="topic-pill" data-topic="profil" role="tab" aria-selected="false">
-          <span class="topic-pill-icon">🌟</span>
-          <span>Profil Santri</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- 4-Card Insight Deck Grid -->
-    <div class="insight-deck-grid" id="insight-deck">
-      <!-- Injected via JavaScript -->
-    </div>
-  </section>
-
-  <!-- ══ RINGKASAN REGULASI & INFORMASI PENTING ══ -->
-  <div class="container">
-    <div class="summary-grid">
-      <!-- Box 1: Ketentuan Akademik Pokok -->
-      <div class="summary-box animate-up">
-        <h3>📌 Prinsip Penyelenggaraan KBM</h3>
-        <div class="summary-item">
-          <div class="summary-dot"></div>
-          <div>
-            <div class="summary-title">Beban Belajar Kelas X (Fase E)</div>
-            <div class="summary-desc">48 Jam Pelajaran (JP) per minggu per rombel. Durasi 1 JP = 45 menit (Senin–Kamis 10 JP, Jumat 8 JP).</div>
-          </div>
-        </div>
-        <div class="summary-item">
-          <div class="summary-dot"></div>
-          <div>
-            <div class="summary-title">Ketuntasan Hari &amp; Minggu Efektif</div>
-            <div class="summary-desc">18 minggu efektif per semester (Total 36 minggu/tahun) memenuhi ambang batas minimal PP No. 57/2021 dan SK Dirjen Pendis No. 4860/2026.</div>
-          </div>
-        </div>
-        <div class="summary-item">
-          <div class="summary-dot"></div>
-          <div>
-            <div class="summary-title">Formula Penilaian Rapor</div>
-            <div class="summary-desc">Nilai Rapor = (65% × Sumatif Harian) + (35% × Asesmen Akhir Semester). Target KKTP Kelas X adalah 82.</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Box 2: Landasan Hukum Kurikulum -->
-      <div class="summary-box animate-up delay-100">
-        <h3>⚖️ Regulasi Acuan</h3>
-        <div class="summary-item">
-          <div class="summary-dot"></div>
-          <div>
-            <div class="summary-title">KMA No. 1503 Tahun 2025 &amp; KMA No. 450 Tahun 2024</div>
-            <div class="summary-desc">Pedoman resmi penyelenggaraan Kurikulum Merdeka di lingkungan madrasah.</div>
-          </div>
-        </div>
-        <div class="summary-item">
-          <div class="summary-dot"></div>
-          <div>
-            <div class="summary-title">Permendikbudristek No. 12 Tahun 2024</div>
-            <div class="summary-desc">Standar kurikulum pendidikan dasar dan menengah nasional.</div>
-          </div>
-        </div>
-        <div class="summary-item">
-          <div class="summary-dot"></div>
-          <div>
-            <div class="summary-title">SK Dirjen Pendidikan Islam No. 4860 Tahun 2026</div>
-            <div class="summary-desc">Pedoman penyusunan kalender pendidikan madrasah TP 2026/2027.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══ WARM SECTION / PESAN KURIKULUM ══ -->
-  <div class="container">
-    <div class="warm-section animate-up">
-      <div class="warm-inner">
-        <div class="warm-tag">✦ Komitmen Mutu</div>
-        <h2>Mewujudkan Generasi Berilmu,<br>Mandiri &amp; Berakhlak Qur'ani</h2>
-        <p>
-          Portal Kurikulum <strong>MA Insan Cendekia Nusantara</strong> dihadirkan sebagai instrumen transparansi akademik.
-          Seluruh jadwal, alokasi jam mengajar, dan tahapan asesmen dirancang secara terukur untuk menjamin hak belajar santri
-          serta memudahkan kolaborasi antara pendidik, santri, dan orang tua.
-        </p>
-        <p style="margin-top:16px;font-size:0.9rem;color:rgba(255,255,255,0.7);">
-          — Wakil Kepala Bidang Kurikulum MA ICN
-        </p>
-      </div>
-    </div>
-  </div>
-
-</div><!-- /page-content -->
-
-<!-- ══ FOOTER ══ -->
-<footer>
-  <div class="container footer-inner">
-    <div>
-      <div class="footer-brand">
-        <strong id="footer-madrasah">MA Insan Cendekia Nusantara Purwakarta</strong>
-      </div>
-      <div class="footer-meta">
-        Pusat Informasi Akademik &amp; Kurikulum<br>
-        Waka Kurikulum: <span id="footer-waka"></span> &middot; Dok: <span id="footer-doc"></span>
-      </div>
-    </div>
-    <div class="footer-right">
-      <div class="clock-badge" id="footer-year"></div>
-    </div>
-  </div>
-</footer>
-
-<div id="toast"></div>
-
-<!-- ══ MODAL: LOGIN ADMIN ══ -->
-<div class="modal-overlay" id="modal-login">
-  <div class="modal-box">
-    <button class="modal-close" data-close-modal="modal-login">✕</button>
-    <div class="modal-logo"><img src="assets/iconmaicn.png" alt="Logo"></div>
-    <div class="modal-title">Masuk Admin</div>
-    <div class="modal-sub">Akses panel pengelolaan kurikulum</div>
-    <div class="login-error" id="login-error"></div>
-    <form id="login-form">
-      <div class="form-group">
-        <label>Email / Username</label>
-        <input type="text" id="login-user" placeholder="nama@maicn.sch.id atau username" autocomplete="username" required>
-      </div>
-      <div class="form-group">
-        <label>Password</label>
-        <input type="password" id="login-pass" placeholder="••••••••" autocomplete="current-password" required>
-      </div>
-      <button type="submit" class="btn btn-primary btn-full" style="margin-top:8px;">Masuk →</button>
-    </form>
-    <p style="text-align:center;font-size:0.8rem;color:var(--text-soft);margin-top:16px;">
-      Khusus Waka Kurikulum &amp; Administrator
-    </p>
-  </div>
+ <div class="ui-sidebar-foot"><a data-needs="reviewer" href="admin.html" class="clay-nav-item" title="Admin kurikulum"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 3-1 3-3 1-2 5 2 5 3 1 1 3h6l1-3 3-1 2-5-2-5-3-1-1-3z"/><circle cx="12" cy="12" r="3"/></svg><span>Admin kurikulum</span></a>
+ <button type="button" class="clay-collapse-btn" onclick="toggleSidebarCollapse()" aria-label="Ciutkan menu" aria-expanded="true"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18m7-13-4 4 4 4"/></svg><span class="ui-collapse-label">Ciutkan menu</span></button>
+ <p>INQUIRE · ARTICULATE · EMPOWER</p></div>
+ </aside>
+<div class="clay-drawer-backdrop" aria-hidden="true"></div>
+<main class="clay-main-content" id="main-clay-content" tabindex="-1">
+<header class="clay-topbar">
+ <div class="clay-topbar-left"><button class="clay-mobile-menu-btn" type="button" onclick="toggleClayDrawer()" aria-label="Buka menu navigasi" aria-expanded="false" aria-controls="main-clay-sidebar"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+ <div><p class="ui-breadcrumb">Ruang akademik / Ringkasan</p><h1 class="clay-page-title">Beranda kurikulum</h1></div></div>
+ <div class="clay-topbar-right"><button type="button" class="ui-search-trigger" data-open-search aria-label="Cari halaman dan layanan"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="7"/><path d="m16 16 5 5"/></svg><span>Cari di Curriculum</span><kbd>Ctrl K</kbd></button><div id="irsyads-service-nav" class="irsyads-nav-wrapper"></div></div>
+</header>
+<div class="ui-page-content">
+<section class="ui-welcome" id="section-overview" aria-labelledby="welcome-title">
+ <div class="ui-welcome-copy"><div class="ui-eyebrow"><span class="ui-status-dot" aria-hidden="true"></span>SELAMAT DATANG DI RUANG AKADEMIK</div>
+ <h2 id="welcome-title">Klinik pembelajaran.<br><em>Terarah setiap pekan.</em></h2>
+ <p>Ajukan klinik, lihat jadwal yang disetujui, dan siapkan kegiatan belajar. Satu ruang untuk kebutuhan akademik madrasah.</p>
+ <div class="ui-welcome-actions"><a class="ui-button ui-button-primary" href="klinik.html"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4m8-4v4M3 10h18m-13 4h3m-3 3h6m2-3h1"/></svg>Buka klinik<svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a><a class="ui-button ui-button-secondary" href="jadwal.html"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5C8 2 3 3 3 3v16s5-1 9 2c4-3 9-2 9-2V3s-5-1-9 2Zm0 0v16"/></svg>Jadwal kelas</a></div></div>
+ <div class="ui-term-card"><div class="ui-term-top"><span>TAHUN PELAJARAN 2026/2027</span><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18m-13 4h2m4 0h2"/></svg></div><strong id="ui-term-name">Kalender akademik</strong><p id="ui-term-range">13 Juli 2026 – 18 Juni 2027</p><div class="ui-term-progress" role="progressbar" aria-label="Perjalanan semester berdasarkan tanggal" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span></span></div><div class="ui-term-note"><span id="ui-today-label">Ringkasan tahun pelajaran</span><span id="ui-term-progress-label"></span></div></div>
+</section>
+<section class="ui-panel" aria-labelledby="clinic-home-title"><div class="ui-section-heading"><div><h2 id="clinic-home-title">Klinik terdekat</h2><p>Jadwal yang sudah disetujui kurikulum</p></div><a class="ui-text-link" href="klinik.html">Semua klinik ↗</a></div><div id="clinic-home-agenda"><p class="ui-empty">Memuat agenda klinik…</p></div></section>
+<section class="ui-panel monday-home-panel" aria-labelledby="monday-title"><div class="ui-section-heading"><div><p class="ui-eyebrow">AGENDA SETELAH KLINIK</p><h2 id="monday-title">Senin, JP 1</h2><p>Jadwal blok per tanggal</p></div><label class="monday-date-label">Tanggal Senin<input type="date" id="monday-date"></label></div><div id="monday-home-agenda"><p class="ui-empty">Memuat kegiatan Senin…</p></div></section>
+<section class="ui-audience-panel" id="audience-room" data-audience-copy-panel><div data-public-content><p class="ui-eyebrow">UNTUK MURID & TAMU</p><h2>Informasi belajar, tanpa perlu akun.</h2><p>Lihat jadwal kelas, ikuti pengumuman Klinik yang sudah disetujui, dan kenali kegiatan kokurikuler. Permintaan pendampingan bisa diajukan dengan atau tanpa login.</p><div class="ui-audience-links"><a class="ui-button ui-button-secondary" href="jadwal.html">Jadwal kelas</a><a class="ui-button ui-button-secondary" href="klinik.html">Ajukan kebutuhan Klinik</a><a class="ui-button ui-button-secondary" href="info-murid.html">Buka info murid</a></div></div><div data-needs="teacher"><p class="ui-eyebrow">RUANG GURU MADRASAH</p><h2>Siapkan pembelajaran dan dampingi murid.</h2><p>Akun guru membuka data murid, presensi, catatan perkembangan, asesmen, dan laporan. Konfirmasi Klinik tetap oleh admin atau kurikulum.</p><div class="ui-audience-links"><a class="ui-button ui-button-secondary" href="presensi.html">Presensi & jurnal</a><a class="ui-button ui-button-secondary" href="karakter.html">Catatan perkembangan</a><a class="ui-button ui-button-secondary" href="murid.html">Data murid</a></div></div></section><section class="ui-stats" aria-label="Ringkasan data kurikulum">
+ <div class="ui-stat"><div class="ui-stat-icon"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 21v-3a6 6 0 0 1 12 0v3M16 5a3 3 0 0 1 0 6m2 4a5 5 0 0 1 3 4v2"/></svg></div><div><strong id="ui-stat-teachers">21</strong><span>Guru pengampu</span></div></div>
+ <div class="ui-stat"><div class="ui-stat-icon"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 10 5-10 5L2 8Zm-10 10 10 5 10-5M2 18l10 5 10-5"/></svg></div><div><strong id="ui-stat-classes">3</strong><span>Rombel jadwal kelas X</span></div></div>
+ <div class="ui-stat"><div class="ui-stat-icon"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18m-13 4h2m4 0h2"/></svg></div><div><strong id="ui-stat-students">57</strong><span>Murid kelas X</span></div></div>
+ <div class="ui-stat"><div class="ui-stat-icon"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div><strong id="ui-stat-duration">40<span style="display:inline;font-size:12px;margin-left:4px">mnt</span></strong><span>Durasi JP jadwal reguler</span></div></div>
+</section>
+<div class="ui-overview-grid">
+ <section class="ui-panel" aria-labelledby="ui-schedule-title"><div class="ui-section-heading"><div><h2 id="ui-schedule-title">Jadwal mengajar</h2><p>Rujukan KBM reguler kelas X</p></div><a class="ui-text-link" href="jadwal.html">Jadwal lengkap<svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div>
+ <div class="ui-selectors"><div class="ui-segmented" role="group" aria-label="Pilih kelas"><button type="button" data-schedule-class="X-1" aria-pressed="true">X-1</button><button type="button" data-schedule-class="X-2" aria-pressed="false">X-2</button><button type="button" data-schedule-class="X-3" aria-pressed="false">X-3</button></div><label for="ui-schedule-day">Hari<select id="ui-schedule-day"><option value="senin">Senin</option><option value="selasa">Selasa</option><option value="rabu">Rabu</option><option value="kamis">Kamis</option><option value="jumat">Jumat</option></select></label></div>
+ <div id="ui-schedule-list" class="ui-schedule-list" aria-live="polite"><p class="ui-empty">Memuat jadwal dari data kurikulum…</p></div>
+ <div class="ui-schedule-foot"><span id="ui-schedule-summary">Jadwal reguler · bukan catatan kehadiran</span><a data-needs="teacher" class="ui-text-link" href="jadwal.html#tab-presensi">Buka presensi<svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div></section>
+ <section class="ui-panel" aria-labelledby="ui-agenda-title"><div class="ui-section-heading"><div><h2 id="ui-agenda-title">Agenda akademik</h2><p id="ui-agenda-subtitle">Dari kalender tahun pelajaran</p></div><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18m-13 4h2m4 0h2"/></svg></div><div class="ui-agenda-list" id="ui-agenda-list"><p class="ui-empty">Memuat agenda…</p></div><a class="ui-text-link" href="kalender.html">Jelajahi kalender<svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></section>
 </div>
+<section class="ui-tools-section" id="section-modules" aria-labelledby="tools-title"><div class="ui-section-heading"><div><h2 id="tools-title" data-audience-copy data-public-copy="Informasi belajar" data-teacher-copy="Ruang kerja guru">Informasi belajar</h2><p>Akses cepat untuk kebutuhan pembelajaran.</p></div><span class="ui-chip">KURIKULUM MADRASAH</span></div><div class="ui-tools-grid">
+<a data-needs="teacher" class="ui-tool" href="rapor.html"><div class="ui-tool-top"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3v18h17M9 16v-5m5 5V7m5 9V4"/></svg><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></div><h3>E-Rapor &amp; Leger Nilai</h3><p>Rekap penilaian dan laporan hasil belajar.</p></a>
+<a data-needs="teacher" class="ui-tool" href="asesmen.html"><div class="ui-tool-top"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="m8 12 3 3 5-6"/></svg><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></div><h3>Asesmen &amp; bank soal</h3><p>Persiapkan instrumen evaluasi pembelajaran.</p></a>
+<a class="ui-tool" href="klinik.html"><div class="ui-tool-top"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3v5a5 5 0 0 0 10 0V3M4 3h4m6 0h4M11 13v3a5 5 0 0 0 10 0v-2"/><circle cx="21" cy="11" r="2"/></svg><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></div><h3>Klinik pembelajaran</h3><p>Pendampingan dan rencana belajar lanjutan.</p></a>
+<a class="ui-tool" href="kokurikuler.html"><div class="ui-tool-top"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 3S6 1 4 10s8 15 13 7S20 3 20 3ZM4 21 15 9"/></svg><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></div><h3>Kokurikuler &amp; Panca Cinta</h3><p>Tema projek dan pembiasaan karakter.</p></a>
+</div></section>
+<section id="section-teachers" class="ui-panel ui-teacher-panel" aria-labelledby="teachers-title"><div class="ui-section-heading"><div><h2 id="teachers-title">Kenali guru pengampu</h2><p>Direktori pengampu mata pelajaran MA ICN.</p></div><a class="ui-text-link" href="jadwal.html#tab-matriks">Matriks guru<svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div>
+<div class="ui-teacher-toolbar"><div class="ui-field-search"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="7"/><path d="m16 16 5 5"/></svg><label for="portal-teacher-search" class="sr-only">Cari guru atau mata pelajaran</label><input type="search" id="portal-teacher-search" placeholder="Cari nama, mata pelajaran, atau kode…" oninput="filterPortalTeachers(event)"></div><span id="portal-teacher-count" class="ui-teacher-count" role="status">21 guru pengampu</span></div>
+<div id="portal-teacher-list" class="teacher-grid-list" tabindex="0" role="region" aria-label="Daftar guru, gulir untuk melihat semua"></div><div id="portal-teacher-empty" class="ui-empty" hidden><strong>Guru tidak ditemukan</strong>Coba nama, mata pelajaran, atau kode yang lain.</div>
+<noscript><p>Direktori interaktif memerlukan JavaScript. <a href="jadwal.html#tab-matriks">Buka matriks guru.</a></p></noscript></section>
+<section id="section-calendar" class="ui-calendar-section" aria-labelledby="calendar-title"><div class="ui-section-heading"><div><h2 id="calendar-title">Satu tahun, terencana</h2><p>Kalender akademik definitif 2026/2027.</p></div><a class="ui-text-link" href="kalender.html">Lihat kalender<svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div>
+<div class="ui-period-grid"><article class="ui-period"><span class="ui-chip ui-chip-green">SEMESTER 01</span><h3>Semester ganjil</h3><p>13 Jul 2026 – 18 Des 2026<br>18 pekan efektif pembelajaran.</p><a class="ui-text-link" href="kalender.html">Jelajahi kegiatan<svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></article>
+<article class="ui-period"><span class="ui-chip">JEDA SEMESTER</span><h3>Libur lintas tahun</h3><p>21 Des 2026 – 03 Jan 2027<br>Libur semester dan kedatangan murid; KBM kembali 4 Januari.</p><span class="jp-badge-zero">0 JP · Non-KBM / Libur Semester</span></article>
+<article class="ui-period"><span class="ui-chip">SEMESTER 02</span><h3>Semester genap</h3><p>04 Jan 2027 – 18 Jun 2027<br>18 pekan efektif pembelajaran.</p><a class="ui-text-link" href="kalender.html">Jelajahi kegiatan<svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></article></div></section>
+<section data-needs="teacher" id="section-workbooks" class="ui-workbooks" aria-labelledby="workbooks-title"><div><span class="ui-eyebrow">PERANGKAT AJAR</span><h2 id="workbooks-title">Persiapan baik. Pembelajaran bermakna.</h2><p>Jelajahi buku kerja dan template perangkat ajar. <strong>Draf Rujukan Internal</strong> di Drive; belum tersinkronisasi otomatis.</p></div><div class="ui-workbooks-actions"><a class="ui-button" href="https://drive.google.com/drive/folders/1rro943WeUP0d3nYQBkYvCuNdFm7yGWKJ" target="_blank" rel="noopener noreferrer">Folder Drive<svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7m0-7L10 14M10 3H3v18h18v-7"/></svg></a><a data-needs="teacher" class="ui-button ui-button-primary" href="buku-kerja.html">Buka buku kerja<svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div></section>
+<section class="ui-ecosystem" id="section-doors" aria-labelledby="ecosystem-title"><div class="ui-section-heading"><div><h2 id="ecosystem-title">Terhubung dalam satu ekosistem</h2><p>Ruang pengetahuan, pembelajaran, dan pengelolaan.</p></div></div><div class="irsyads-portal-doors" aria-label="Pintu Ekosistem Irsyads">
+<a href="https://irsyads.com/" class="portal-door-card link-portal-site" data-door="site" target="_blank" rel="noopener noreferrer"><div class="portal-door-icon"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></svg></div><div class="portal-door-info"><div class="portal-door-title">Irsyads</div><div class="portal-door-desc">Pemikiran, riset, dan karya.</div></div><span class="portal-door-arrow" aria-hidden="true">↗</span></a>
+<a href="https://academy.irsyads.com/" class="portal-door-card link-portal-academy" data-door="academy" target="_blank" rel="noopener noreferrer"><div class="portal-door-icon"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5C8 2 3 3 3 3v16s5-1 9 2c4-3 9-2 9-2V3s-5-1-9 2Zm0 0v16"/></svg></div><div class="portal-door-info"><div class="portal-door-title">Irsyads Academy</div><div class="portal-door-desc">Kelas, materi, dan pembelajaran.</div></div><span class="portal-door-arrow" aria-hidden="true">↗</span></a>
+<a data-needs="reviewer" href="https://studio.irsyads.com/?lang=id#kurikulum" class="portal-door-card link-portal-studio" data-door="studio" target="_blank" rel="noopener noreferrer"><div class="portal-door-icon"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 10 5-10 5L2 8Zm-10 10 10 5 10-5M2 18l10 5 10-5"/></svg></div><div class="portal-door-info"><div class="portal-door-title">Studio Kurikulum</div><div class="portal-door-desc">Ruang kelola · perlu otorisasi.</div></div><span class="portal-door-arrow" aria-hidden="true">↗</span></a>
+</div></section>
+<footer class="ui-footer"><span>© 2026 MA Insan Cendekia Nusantara · Curriculum</span><span>INQUIRE · ARTICULATE · EMPOWER</span><a href="kom.html">Dokumen Kurikulum (KOM)</a></footer>
 
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const MD = window.MASTER_DATA;
-  if (!MD) return;
-
-  document.getElementById('hero-badge').textContent = `Status: ${MD.meta.status} · TP ${MD.meta.tahun_pelajaran}`;
-  document.getElementById('hero-desc').textContent =
-    `Pusat Informasi Akademik, Kalender Pendidikan, dan Jadwal KBM ${MD.meta.madrasah}`;
-
-  document.getElementById('footer-madrasah').textContent = MD.meta.madrasah;
-  document.getElementById('footer-waka').textContent = MD.meta.waka_kurikulum;
-  document.getElementById('footer-doc').textContent = MD.meta.no_dokumen;
-  document.getElementById('footer-year').textContent = `TP ${MD.meta.tahun_pelajaran}`;
-
-  const hl = MD.headline;
-  document.getElementById('stats-container').innerHTML = `
-    <div class="stat-card animate-up">
-      <div class="stat-num" data-target="${hl.hari_efektif}">0</div>
-      <div class="stat-label">Hari Efektif</div>
-      <div class="stat-sub">Total PBM Murni</div>
-    </div>
-    <div class="stat-card c-gold animate-up delay-100">
-      <div class="stat-num" data-target="${hl.total_jp}">0</div>
-      <div class="stat-label">Total JP</div>
-      <div class="stat-sub">Sen–Kam 10 JP · Jum 8 JP</div>
-    </div>
-    <div class="stat-card c-purple animate-up delay-200">
-      <div class="stat-num" data-target="${hl.minggu_efektif}">0</div>
-      <div class="stat-label">Minggu Efektif</div>
-      <div class="stat-sub">Ganjil ${hl.minggu_ganjil} · Genap ${hl.minggu_genap}</div>
-    </div>
-    <div class="stat-card c-red animate-up delay-300">
-      <div class="stat-num" data-target="${hl.hari_sumatif}">0</div>
-      <div class="stat-label">Hari Sumatif</div>
-      <div class="stat-sub">STS ${hl.sumatif_sts} · SAS ${hl.sumatif_sas}</div>
-    </div>
-    <div class="stat-card c-blue animate-up delay-400">
-      <div class="stat-num" data-target="${hl.jumlah_rombel}">0</div>
-      <div class="stat-label">Rombel</div>
-      <div class="stat-sub">Fase E / Kelas X</div>
-    </div>
-  `;
-
-  // ─── Data & Handler Eksplorasi Topik Kurikulum (Prompt #3) ───
-  const TOPIC_DATA = {
-    pilar: [
-      {
-        eyebrow: 'FASE E · KELAS X',
-        badge: 'Beban Resmi',
-        badgeClass: 'badge-teal',
-        title: 'Alokasi Belajar 48 JP',
-        desc: 'Beban pembelajaran terstruktur setiap pekan per rombel sesuai regulasi madrasah (Senin–Kamis 10 JP, Jumat 8 JP).',
-        metricVal: '48 JP',
-        metricSub: '/ pekan per rombel',
-        actionText: 'Pelajari Struktur Mapel',
-        link: 'struktur.html'
-      },
-      {
-        eyebrow: 'DISTRIBUSI KBM',
-        badge: 'Terpadu',
-        badgeClass: 'badge-gold',
-        title: '22 Mata Pelajaran',
-        desc: 'Integrasi sinergis antara rumpun PAI Kemenag, Mata Pelajaran Umum Nasional, dan Muatan Lokal Pesantren.',
-        metricVal: '22 Mapel',
-        metricSub: 'PAI, Umum & Mulok',
-        actionText: 'Lihat Daftar Mapel',
-        link: 'struktur.html#tabel-mapel'
-      },
-      {
-        eyebrow: 'STANDAR KELULUSAN',
-        badge: 'Target Mutu',
-        badgeClass: 'badge-purple',
-        title: 'Ketuntasan KKTP 82',
-        desc: 'Kriteria Ketercapaian Tujuan Pembelajaran fase E dengan formula rapor (65% Sumatif Harian + 35% SAS).',
-        metricVal: 'KKTP 82',
-        metricSub: 'skor ambang tuntas',
-        actionText: 'Cek Formula Rapor',
-        link: 'struktur.html#kktp'
-      },
-      {
-        eyebrow: 'PAYUNG HUKUM',
-        badge: 'Kemenag RI',
-        badgeClass: 'badge-blue',
-        title: 'Landasan Regulasi',
-        desc: 'Berlandaskan KMA 1503 Th 2025, KMA 450 Th 2024, dan SK Dirjen Pendis No. 4860 Th 2026.',
-        metricVal: 'KMA 1503',
-        metricSub: '& Permendikbudristek',
-        actionText: 'Lihat Regulasi Resmi',
-        link: 'struktur.html'
-      }
-    ],
-    kalender: [
-      {
-        eyebrow: 'TAHUN AJARAN',
-        badge: 'PP 57/2021',
-        badgeClass: 'badge-teal',
-        title: '36 Pekan Efektif',
-        desc: 'Total minggu pembelajaran efektif murni sepanjang tahun ajaran (18 pekan semester ganjil & 18 pekan genap).',
-        metricVal: '36 Pekan',
-        metricSub: '18 Pekan / Semester',
-        actionText: 'Buka Kalender Akademik',
-        link: 'kalender.html'
-      },
-      {
-        eyebrow: 'EVALUASI BERKALA',
-        badge: 'Formatif-Sumatif',
-        badgeClass: 'badge-gold',
-        title: 'Sumatif Tengah Semester',
-        desc: 'Asesmen periodik untuk memetakan capaian kompetensi santri di pertengahan semester ganjil dan genap.',
-        metricVal: '2 Agenda',
-        metricSub: 'STS Ganjil & Genap',
-        actionText: 'Cek Jadwal STS',
-        link: 'kalender.html'
-      },
-      {
-        eyebrow: 'PENILAIAN AKHIR',
-        badge: 'Penentu Rapor',
-        badgeClass: 'badge-purple',
-        title: 'Sumatif Akhir Semester',
-        desc: 'Asesmen akhir semester komprehensif penentu nilai rapor dengan pembagian rapor terstandar.',
-        metricVal: 'Bobot 35%',
-        metricSub: 'penentu nilai akhir',
-        actionText: 'Cek Agenda SAS',
-        link: 'kalender.html'
-      },
-      {
-        eyebrow: 'MATRIKS VISUAL',
-        badge: 'Interaktif',
-        badgeClass: 'badge-blue',
-        title: 'Kalender 12 Bulan',
-        desc: 'Tampilan matriks visual dengan filter warna otomatis: Hari Belajar Efektif, Asesmen, dan Libur Resmi.',
-        metricVal: '12 Bulan',
-        metricSub: 'navigasi terpadu',
-        actionText: 'Eksplorasi Kalender',
-        link: 'kalender.html'
-      }
-    ],
-    jadwal: [
-      {
-        eyebrow: 'EFISIENSI WAKTU',
-        badge: 'Standar KBM',
-        badgeClass: 'badge-teal',
-        title: 'Durasi 45 Menit / JP',
-        desc: 'Alokasi waktu optimal per jam pelajaran untuk mengoptimalkan pendalaman materi dan interaksi aktif santri.',
-        metricVal: '45 Menit',
-        metricSub: 'per jam pelajaran',
-        actionText: 'Lihat Jadwal KBM',
-        link: 'jadwal.html'
-      },
-      {
-        eyebrow: 'ROMBEL FASE E',
-        badge: '3 Kelas',
-        badgeClass: 'badge-gold',
-        title: 'Roster X-1 s.d X-3',
-        desc: 'Penjadwalan mata pelajaran terkoordinasi rapi per kelas tanpa tumpang-tindih jam mengajar ustadz/guru.',
-        metricVal: '3 Rombel',
-        metricSub: 'X-1, X-2, dan X-3',
-        actionText: 'Cek Roster Harian',
-        link: 'jadwal.html'
-      },
-      {
-        eyebrow: 'KEHIDUPAN ASRAMA',
-        badge: 'Terpadu',
-        badgeClass: 'badge-purple',
-        title: 'Ritme 24 Jam Boarding',
-        desc: 'Keselarasan antara rutinitas belajar kelas, murajaah tahfidz, waktu makan, dan istirahat berkualitas.',
-        metricVal: '24 Jam',
-        metricSub: 'ekosistem santri',
-        actionText: 'Lihat Ritme Asrama',
-        link: 'jadwal.html'
-      },
-      {
-        eyebrow: 'DISIPLIN SPIRITUAL',
-        badge: 'Yaumiyah',
-        badgeClass: 'badge-blue',
-        title: 'Ibadah Berjamaah',
-        desc: 'Pembiasaan shalat 5 waktu berjamaah di masjid, shalat dhuha, tadarrus Al-Quran, dan dzikir harian.',
-        metricVal: '5 Waktu',
-        metricSub: 'shalat berjamaah',
-        actionText: 'Cek Jadwal Ibadah',
-        link: 'jadwal.html'
-      }
-    ],
-    profil: [
-      {
-        eyebrow: 'STANDAR MUTU',
-        badge: 'Output Lulusan',
-        badgeClass: 'badge-teal',
-        title: '8 Dimensi Kelulusan',
-        desc: 'Karakter utuh santri: Beriman, Berakhlak Mulia, Mandiri, Bernalar Kritis, Kreatif, Berwawasan & Terampil.',
-        metricVal: '8 Dimensi',
-        metricSub: 'profil santri unggul',
-        actionText: 'Pelajari 8 Dimensi',
-        link: 'struktur.html#profil'
-      },
-      {
-        eyebrow: 'FILOSOFI DASAR',
-        badge: 'Nilai Inti',
-        badgeClass: 'badge-gold',
-        title: 'Panca Cinta ICN',
-        desc: 'Lima fondasi cinta: Cinta Allah & Rasul, Cinta Ilmu, Cinta Al-Quran, Cinta Kebajikan, dan Cinta Tanah Air.',
-        metricVal: '5 Cinta',
-        metricSub: 'pilar karakter',
-        actionText: 'Lihat Panduan Nilai',
-        link: 'struktur.html#profil'
-      },
-      {
-        eyebrow: 'BUDAYA PESANTREN',
-        badge: 'Prioritas Utama',
-        badgeClass: 'badge-purple',
-        title: 'Adab di Atas Ilmu',
-        desc: 'Penanaman adab mulia kepada pengajar, orang tua, sesama rekan santri, dan kebersihan lingkungan hidup.',
-        metricVal: 'Akhlak',
-        metricSub: 'fondasi ilmu syari',
-        actionText: 'Lihat Budaya Adab',
-        link: 'struktur.html#profil'
-      },
-      {
-        eyebrow: 'VISI MADRASAH',
-        badge: 'Cendekia',
-        badgeClass: 'badge-blue',
-        title: 'Generasi Ulul Albab',
-        desc: 'Menempa insan cendekia yang menguasai sains modern sekaligus teguh memegang nilai spiritual Islam.',
-        metricVal: 'Sains & Agama',
-        metricSub: 'integrasi holistik',
-        actionText: 'Baca Visi Akademik',
-        link: 'struktur.html#profil'
-      }
-    ]
-  };
-
-  const deckEl = document.getElementById('insight-deck');
-  function renderDeck(topicKey) {
-    if (!deckEl) return;
-    const cards = TOPIC_DATA[topicKey] || TOPIC_DATA.pilar;
-    deckEl.innerHTML = cards.map((c, i) => `
-      <a href="${c.link}" class="insight-card" style="--i: ${i};">
-        <div class="card-aura" aria-hidden="true"></div>
-        <div class="card-top">
-          <span class="card-eyebrow">${c.eyebrow}</span>
-          <span class="card-badge ${c.badgeClass}">${c.badge}</span>
-        </div>
-        <h3 class="card-title">${c.title}</h3>
-        <p class="card-desc">${c.desc}</p>
-        <div class="card-metric">
-          <span class="metric-val">${c.metricVal}</span>
-          <span class="metric-sub">${c.metricSub}</span>
-        </div>
-        <div class="card-action">
-          <span>${c.actionText}</span>
-          <span class="card-arrow">&rarr;</span>
-        </div>
-      </a>
-    `).join('');
-  }
-
-  // Initial render
-  renderDeck('pilar');
-
-  // Topic pill click handlers
-  const topicPills = document.querySelectorAll('.topic-pill');
-  topicPills.forEach(pill => {
-    pill.addEventListener('click', () => {
-      topicPills.forEach(p => {
-        p.classList.remove('active');
-        p.setAttribute('aria-selected', 'false');
-      });
-      pill.classList.add('active');
-      pill.setAttribute('aria-selected', 'true');
-      const topic = pill.dataset.topic;
-      renderDeck(topic);
-    });
-  });
-
-  if ('IntersectionObserver' in window) {
-    const obs = new IntersectionObserver((entries, o) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-          if (entry.target.classList.contains('stat-num') && !entry.target.dataset.counted) {
-            entry.target.dataset.counted = 'true';
-            window.AppUtils.countUp(entry.target);
-          }
-          o.unobserve(entry.target);
-        }
-      });
-    }, { rootMargin:'0px 0px -40px 0px', threshold:0.08 });
-    document.querySelectorAll('#stats-container .animate-up, #stats-container .stat-num').forEach(el => obs.observe(el));
-  }
-});
-</script>
-</body>
-</html>
+</div></main></div>
+<nav class="clay-mobile-bottom-nav" aria-label="Navigasi cepat ponsel"><a href="index.html" class="clay-bottom-nav-item active" aria-current="page"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7v10H3z"/><path d="M9 20v-7h6v7"/></svg><span>Beranda</span></a><a href="jadwal.html" class="clay-bottom-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4m8-4v4M3 10h18m-13 4h3m-3 3h6m2-3h1"/></svg><span>Jadwal</span></a><a href="kalender.html" class="clay-bottom-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18m-13 4h2m4 0h2"/></svg><span>Kalender</span></a><a href="klinik.html" class="clay-bottom-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5C8 2 3 3 3 3v16s5-1 9 2c4-3 9-2 9-2V3s-5-1-9 2Zm0 0v16"/></svg><span>Klinik</span></a><button type="button" class="clay-bottom-nav-item" onclick="toggleClayDrawer()" aria-label="Buka menu lengkap" aria-controls="main-clay-sidebar" aria-expanded="false"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span>Menu</span></button></nav>
+<script src="assets/dashboard-clay.js"></script>
+<script src="assets/curriculum-ui.js?v=20261026-audience1"></script>
+<script type="module" src="assets/clinic-home.mjs?v=20261026"></script>
+<script type="module" src="assets/monday-block.mjs?v=20261026"></script>
+</body></html>

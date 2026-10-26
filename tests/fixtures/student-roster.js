@@ -1,0 +1,2 @@
+// Fictional inputs for public-source tests. Never loaded by the production site.
+window.MAICN_STUDENT_ROSTER={schemaVersion:1,tahunPelajaran:'2026/2027',source:{file:'fictional-fixture',sha256:'fixture'},classes:Object.fromEntries(['X-1','X-2','X-3'].map(kelas=>[kelas,Array.from({length:19},(_,index)=>({id:`fixture-${kelas}-${index+1}`,nama:`Murid Contoh ${kelas} ${index+1}`,kelas,nomor:index+1,nis:null,nisn:null,source:'fixture'}))])),unassigned:[{id:'fixture-unassigned',nama:'Murid Contoh Belum Ditempatkan',kelas:null,nomor:null,nis:null,nisn:null,source:'fixture'}]};

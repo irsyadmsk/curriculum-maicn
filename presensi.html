@@ -1,0 +1,1747 @@
+<!DOCTYPE html>
+
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Presensi &amp; jurnal guru — MA Insan Cendekia Nusantara</title>
+<link href="/favicon.svg" rel="icon" type="image/svg+xml"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&amp;family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&amp;display=swap" rel="stylesheet"/>
+<link href="assets/styles.css?v=3.4" rel="stylesheet"/>
+<link href="assets/dashboard-clay.css?v=1.1" rel="stylesheet"/>
+<link href="assets/irsyads-v1/tokens.css" rel="stylesheet"/>
+<link href="assets/ecosystem.css" rel="stylesheet"/>
+<style>
+/* ── Academic Luxury Customizations for Jadwal ── */
+.schedule-hero {
+  text-align: center;
+  padding: 130px 20px 30px;
+}
+.schedule-hero h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+  color: var(--deep-navy);
+  margin-bottom: 12px;
+}
+.schedule-hero p {
+  font-family: var(--font-quote);
+  font-size: 1.05rem;
+  color: var(--slate-gray);
+  max-width: 760px;
+  margin: 0 auto 20px;
+  line-height: 1.7;
+}
+
+/* Tab Bar */
+.tab-bar { max-width: 1200px; margin: 0 auto 24px; }
+.tab-nav {
+  display: flex; gap: 8px; border-bottom: 2px solid var(--soft-beige);
+  overflow-x: auto; scrollbar-width: none; padding-bottom: 2px;
+}
+.tab-nav::-webkit-scrollbar { display: none; }
+.tab-btn {
+  padding: 11px 22px; font-size: 0.9rem; font-weight: 700;
+  color: var(--slate-gray); background: none; border: none; cursor: pointer;
+  border-bottom: 3px solid transparent; margin-bottom: -3px;
+  transition: all 0.25s ease; border-radius: 8px 8px 0 0;
+  font-family: var(--font-sans); white-space: nowrap;
+}
+.tab-btn:hover { color: var(--muted-blue); background: rgba(55, 106, 155, 0.05); }
+.tab-btn.active {
+  color: var(--deep-navy); border-bottom-color: var(--muted-blue);
+  background: var(--surface); font-weight: 800;
+}
+
+.tab-content { display: none; }
+.tab-content.active { display: block; animation: page-enter 0.4s var(--ease-entry); }
+
+/* Control Panel Bar */
+.schedule-controls {
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 14px; margin-bottom: 20px;
+  background: var(--surface); padding: 14px 20px;
+  border-radius: var(--radius-md); border: 1px solid var(--soft-beige);
+  box-shadow: var(--shadow-sm);
+}
+.class-pills, .day-pills { display: flex; gap: 6px; flex-wrap: wrap; }
+.kbm-pill {
+  padding: 8px 18px; font-size: 0.85rem; font-weight: 700;
+  color: var(--slate-gray); background: var(--color-bg);
+  border: 1.5px solid var(--soft-beige); border-radius: 999px;
+  cursor: pointer; transition: all 0.2s ease; font-family: var(--font-sans);
+}
+.kbm-pill:hover { color: var(--muted-blue); border-color: var(--muted-blue); }
+.kbm-pill.active {
+  color: #ffffff; background: var(--deep-navy); border-color: var(--deep-navy);
+  box-shadow: 0 4px 12px rgba(11, 29, 53, 0.2);
+}
+.kbm-pill.day-pill.active {
+  background: var(--muted-blue); border-color: var(--muted-blue);
+  box-shadow: 0 4px 12px rgba(55, 106, 155, 0.25);
+}
+
+.action-buttons { display: flex; gap: 8px; flex-wrap: wrap; }
+.btn-action {
+  padding: 8px 16px; font-size: 0.82rem; font-weight: 700;
+  border-radius: 999px; cursor: pointer; display: inline-flex;
+  align-items: center; gap: 6px; transition: all 0.2s ease;
+  border: 1.5px solid transparent; text-decoration: none;
+}
+.btn-izin { background: #FEF3C7; color: #92400E; border-color: #FCD34D; }
+.btn-izin:hover { background: #FDE68A; }
+.btn-switch { background: #E0F2FE; color: #0369A1; border-color: #BAE6FD; }
+.btn-switch:hover { background: #BAE6FD; }
+.btn-print { background: var(--surface); color: var(--deep-navy); border-color: var(--soft-beige); }
+.btn-print:hover { background: var(--color-bg); }
+
+/* Table Wrapper */
+.table-wrap {
+  overflow-x: auto; background: var(--surface); border-radius: var(--radius-lg);
+  padding: 24px; box-shadow: var(--shadow-sm); border: 1px solid var(--soft-beige);
+}
+table.custom-table {
+  width: 100%; border-collapse: collapse; min-width: 820px; font-size: 0.88rem;
+}
+table.custom-table th {
+  background: var(--color-bg); color: var(--deep-navy); padding: 12px 14px;
+  text-align: left; font-weight: 800; border-bottom: 2px solid var(--soft-beige);
+  font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.5px;
+}
+table.custom-table td {
+  padding: 12px 14px; border-bottom: 1px solid var(--soft-beige);
+  color: var(--deep-navy); vertical-align: middle;
+}
+table.custom-table tr:hover td { background: rgba(243, 237, 226, 0.4); }
+
+/* Badges */
+.mapel-card {
+  display: flex; flex-direction: column; gap: 2px;
+}
+.mapel-title {
+  font-weight: 700; color: var(--deep-navy); font-size: 0.92rem;
+}
+.guru-sub {
+  font-size: 0.78rem; color: var(--slate-gray); display: flex;
+  align-items: center; gap: 6px;
+}
+.guru-code {
+  display: inline-block; padding: 1px 6px; background: var(--soft-beige);
+  color: var(--deep-navy); border-radius: 4px; font-family: var(--font-mono);
+  font-size: 0.72rem; font-weight: 700;
+}
+.break-badge-row {
+  background: #FFFBEB !important; color: #92400E !important;
+  text-align: center; font-family: var(--font-quote);
+  font-style: italic; font-size: 0.85rem; font-weight: 600; padding: 10px !important;
+}
+.status-pill {
+  display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px;
+  border-radius: 999px; font-size: 0.74rem; font-weight: 700;
+}
+.st-hadir { background: #DCFCE7; color: #166534; }
+.st-izin { background: #FEF3C7; color: #92400E; }
+.st-switch { background: #E0F2FE; color: #0369A1; }
+.st-inval { background: #FCE7F3; color: #9D174D; }
+
+/* Subtext Note */
+.kbm-info-bar {
+  font-family: var(--font-quote); font-size: 0.88rem; color: var(--slate-gray);
+  margin-bottom: 14px; line-height: 1.6; font-style: italic;
+  padding: 10px 16px; background: rgba(217, 204, 185, 0.25);
+  border-left: 3px solid var(--muted-blue); border-radius: 0 8px 8px 0;
+}
+
+/* Modals */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 2100;
+  background: rgba(11, 29, 53, 0.6);
+  backdrop-filter: blur(10px); display: none; align-items: center; justify-content: center;
+  padding: 16px; opacity: 0; transition: opacity 0.3s ease;
+}
+.modal-overlay.active { display: flex; opacity: 1; }
+.modal-box-large {
+  background: #ffffff; border-radius: var(--radius-xl); border: 1px solid var(--soft-beige);
+  width: 100%; max-width: 620px; max-height: 90vh; overflow-y: auto;
+  padding: 32px; box-shadow: 0 24px 64px rgba(11, 29, 53, 0.2);
+  position: relative; animation: page-enter 0.3s ease;
+}
+.modal-close-btn {
+  position: absolute; top: 20px; right: 20px; background: var(--color-bg);
+  border: none; width: 34px; height: 34px; border-radius: 50%;
+  cursor: pointer; font-size: 1.1rem; color: var(--slate-gray);
+  display: flex; align-items: center; justify-content: center;
+}
+.modal-close-btn:hover { background: #FEE2E2; color: #DC2626; }
+
+.jp-comparator {
+  background: var(--color-bg); border: 1.5px dashed var(--soft-beige);
+  padding: 14px 18px; border-radius: var(--radius-md); margin-top: 10px;
+}
+.jp-match-ok { color: #166534; font-weight: 700; font-size: 0.85rem; }
+.jp-match-bad { color: #991B1B; font-weight: 700; font-size: 0.85rem; }
+</style>
+<script src="data.js"></script>
+
+
+
+<script src="assets/app.js?v=3.2"></script>
+<link rel="stylesheet" href="assets/irsyads-v1/service-navigation.css">
+<script src="assets/irsyads-v1/service-navigation.js"></script>
+<link rel="stylesheet" href="assets/curriculum-ui.css?v=20261026-clinic2-roster1">
+<script src="assets/student-roster-data.js?v=20261026"></script>
+<script src="assets/student-roster.js?v=20261026"></script>
+<link rel="stylesheet" href="assets/clinic-page.css?v=20261026-clinic2">
+<link rel="stylesheet" href="assets/audience.css?v=20261026-audience1"><link rel="stylesheet" href="assets/clinic-page.css?v=20261026-audience1"><script type="module" src="assets/curriculum-access.mjs?v=20261026-audience1"></script>
+</head>
+<body class="clay-theme curriculum-ui">
+<div aria-hidden="true" class="bg-blobs">
+<div class="bg-blob"></div>
+<div class="bg-blob"></div>
+</div>
+<!-- Floating Portal Hub -->
+<a class="floating-portal" href="https://irsyads.com" id="floating-portal" rel="noopener noreferrer" target="_blank" title="Kunjungi Portal Utama irsyads.com">
+<span class="portal-dot"></span>
+<span>irsyads.com</span>
+<span class="portal-arrow">↗</span>
+</a>
+<div aria-label="Jam dan tanggal saat ini" id="floating-clock">
+<div class="clock-time"></div>
+<div class="clock-date"></div>
+</div>
+<div class="clay-app-layout">
+<!-- ══════════════════════════════════════════════ -->
+<!-- SIDEBAR (Soft Sage Neumorphic Clay) -->
+<!-- ══════════════════════════════════════════════ -->
+<aside class="clay-sidebar" id="main-clay-sidebar" aria-label="Menu utama">
+ <button type="button" class="clay-drawer-close-btn" onclick="toggleClayDrawer(false)" aria-label="Tutup menu"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg></button>
+ <a class="ui-brand" href="index.html"><img src="assets/iconmaicn.png" width="36" height="44" alt="Lambang MA ICN"><span class="ui-brand-text"><strong>Curriculum<span style="color:var(--ui-accent)">.</span></strong><small>MA INSAN CENDEKIA NUSANTARA</small></span></a>
+ <p class="ui-school-label">Ruang akademik madrasah<br><strong>Tahun pelajaran 2026/2027</strong></p>
+ <nav class="clay-nav-menu" aria-label="Halaman kurikulum"><div class="clay-nav-section-title">RUANG AKADEMIK</div>
+<a class="clay-nav-item" href="index.html" title="Beranda"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7v10H3z"/><path d="M9 20v-7h6v7"/></svg><span>Beranda</span></a>
+<a class="clay-nav-item active" href="jadwal.html" title="Jadwal mengajar" aria-current="page"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4m8-4v4M3 10h18m-13 4h3m-3 3h6m2-3h1"/></svg><span>Jadwal mengajar</span></a><a href="info-murid.html" class="clay-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v1"/></svg><span>Info murid</span></a>
+<a data-needs="teacher" class="clay-nav-item" href="murid.html" title="Data murid"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 21v-3a6 6 0 0 1 12 0v3M16 5a3 3 0 0 1 0 6m2 4a5 5 0 0 1 3 4v2"/></svg><span>Data murid</span></a><a data-needs="teacher" href="presensi.html" class="clay-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 4h14v17H5zM8 2v4m8-4v4M8 12h8m-8 4h5"/></svg><span>Presensi &amp; jurnal</span></a><a data-needs="teacher" href="karakter.html" class="clay-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 21S2 14 2 8a5 5 0 0 1 10-2 5 5 0 0 1 10 2c0 6-10 13-10 13z"/></svg><span>Perkembangan murid</span></a>
+<a class="clay-nav-item" href="kalender.html" title="Kalender akademik"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18m-13 4h2m4 0h2"/></svg><span>Kalender akademik</span></a>
+<a class="clay-nav-item" href="klinik.html" title="Klinik pembelajaran"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3v5a5 5 0 0 0 10 0V3M4 3h4m6 0h4M11 13v3a5 5 0 0 0 10 0v-2"/><circle cx="21" cy="11" r="2"/></svg><span>Klinik pembelajaran</span></a>
+<div class="clay-nav-section-title">PERANGKAT & PENILAIAN</div>
+<a data-needs="teacher" class="clay-nav-item" href="buku-kerja.html" title="Buku kerja guru"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7V4h6l2 3h10v13H3Z"/></svg><span>Buku kerja guru</span></a>
+<a data-needs="teacher" class="clay-nav-item" href="rapor.html" title="E-Rapor &amp; Leger Nilai"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3v18h17M9 16v-5m5 5V7m5 9V4"/></svg><span>E-Rapor &amp; Leger Nilai</span></a>
+<a data-needs="teacher" class="clay-nav-item" href="asesmen.html" title="Asesmen &amp; bank soal"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="m8 12 3 3 5-6"/></svg><span>Asesmen &amp; bank soal</span></a>
+<div class="clay-nav-section-title">KURIKULUM MADRASAH</div>
+<a class="clay-nav-item" href="kom.html" title="Dokumen Kurikulum (KOM)"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H5v20h14V7Zm0 0v5h5M8 12h8m-8 4h6"/></svg><span>Dokumen Kurikulum (KOM)</span></a>
+<a class="clay-nav-item" href="kokurikuler.html" title="Kokurikuler &amp; Panca Cinta"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 3S6 1 4 10s8 15 13 7S20 3 20 3ZM4 21 15 9"/></svg><span>Kokurikuler &amp; Panca Cinta</span></a>
+<a data-needs="teacher" class="clay-nav-item" href="struktur.html" title="Struktur &amp; KKTP"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 10 5-10 5L2 8Zm-10 10 10 5 10-5M2 18l10 5 10-5"/></svg><span>Struktur &amp; KKTP</span></a>
+<a class="clay-nav-item" href="unggulan.html" title="Program unggulan"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 3 6 6 1-4.5 4.5 1 6.5-5.5-3-5.5 3 1-6.5L3 10l6-1z"/></svg><span>Program unggulan</span></a>
+</nav>
+ <div class="ui-sidebar-foot"><a data-needs="reviewer" href="admin.html" class="clay-nav-item" title="Admin kurikulum"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 3-1 3-3 1-2 5 2 5 3 1 1 3h6l1-3 3-1 2-5-2-5-3-1-1-3z"/><circle cx="12" cy="12" r="3"/></svg><span>Admin kurikulum</span></a>
+ <button type="button" class="clay-collapse-btn" onclick="toggleSidebarCollapse()" aria-label="Ciutkan menu" aria-expanded="true"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18m7-13-4 4 4 4"/></svg><span class="ui-collapse-label">Ciutkan menu</span></button>
+ <p>INQUIRE · ARTICULATE · EMPOWER</p></div>
+ </aside>
+<div class="clay-drawer-backdrop" onclick="toggleClayDrawer(false)" aria-hidden="true"></div>
+<!-- ══════════════════════════════════════════════ -->
+<!-- MAIN CONTENT AREA -->
+<!-- ══════════════════════════════════════════════ -->
+<main data-needs="teacher" class="clay-main-content">
+<!-- Top App Bar -->
+<header class="clay-topbar">
+<div class="clay-topbar-left">
+<button class="clay-mobile-menu-btn" onclick="toggleClayDrawer()" aria-label="Buka Menu Navigasi" title="Buka Menu" type="button">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+<line x1="3" y1="12" x2="21" y2="12"></line>
+<line x1="3" y1="6" x2="21" y2="6"></line>
+<line x1="3" y1="18" x2="21" y2="18"></line>
+</svg>
+</button>
+<h1 class="clay-page-title">Presensi &amp; jurnal guru</h1>
+<span class="clay-badge-preview">FASE E · KELAS X</span>
+</div>
+<div class="clay-topbar-right">
+        <div id="irsyads-service-nav" class="irsyads-nav-wrapper"></div>
+<!-- Search Pill -->
+<div class="clay-search-bar">
+<span style="font-size:0.9rem; color:var(--clay-muted);">🔍</span>
+<label class="sr-only" for="topbar-search-jadwal">Cari guru, mapel, kelas...</label><input aria-label="Cari guru, mapel, kelas..." id="topbar-search-jadwal" onkeyup="if(event.key==='Enter') document.getElementById('search-guru')?.focus()" placeholder="Cari guru, mapel, kelas..." type="text"/>
+</div>
+<!-- Notification Bell -->
+<button class="clay-circle-btn" onclick="alert('Notifikasi: 1 guru izin dinas hari ini (Ust. Afsal) &amp; 1 permohonan switch disetujui.')" title="Notifikasi">
+<svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="18"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+<div class="clay-bell-badge">2</div>
+</button>
+<!-- Exit / SSO Action -->
+<a data-needs="reviewer" aria-label="Admin &amp; SSO" class="clay-circle-btn" href="admin.html" title="Admin &amp; SSO">
+<svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="18"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" x2="9" y1="12" y2="12"></line></svg>
+</a>
+</div>
+</header>
+
+<!-- ═════════ EKOSISTEM IRSYADS GATEWAY DOORS ═════════ -->
+
+<!-- Subheader Info Pill -->
+<div class="ui-schedule-intro" style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+<div>
+<p style="margin: 0; font-size: 0.92rem; color: var(--clay-muted);">
+          Jadwal Reguler Kelas X (Fase E), Matriks 21 Guru, Roster Guru Piket, Log Izin/Switch JP Setara, serta Presensi Digital T.P. 2026/2027.
+        </p>
+</div>
+<div style="display:flex; gap:8px;">
+<button class="btn-action btn-izin" onclick="openIzinModal()" data-needs="teacher">+ Form Izin Guru</button>
+<button class="btn-action btn-switch" onclick="openSwitchModal()" data-needs="teacher">🔄 Form Switch JP</button>
+</div>
+</div>
+<!-- ═════════ TAB NAVIGATION PILL BAR ═════════ -->
+<div class="clay-tab-bar" style="margin-bottom: 24px;">
+<button class="clay-tab-btn tab-btn active" data-tab="tab-kbm" onclick="switchScheduleTab('tab-kbm', this)">📅 Jadwal KBM per Kelas</button>
+<button class="clay-tab-btn tab-btn" data-tab="tab-matriks" onclick="switchScheduleTab('tab-matriks', this)">👥 Matriks Mengajar 21 Guru</button>
+<button class="clay-tab-btn tab-btn" data-tab="tab-piket" onclick="switchScheduleTab('tab-piket', this)" data-needs="teacher">🛡️ Daftar Guru Piket Harian</button>
+<button class="clay-tab-btn tab-btn" data-tab="tab-inval" onclick="switchScheduleTab('tab-inval', this)" data-needs="teacher">🔄 Log Izin &amp; Switch Guru</button>
+<button class="clay-tab-btn tab-btn" data-tab="tab-asrama" onclick="switchScheduleTab('tab-asrama', this)">🕌 Rutinitas Harian Asrama</button>
+<button class="clay-tab-btn tab-btn" data-tab="tab-presensi" onclick="switchScheduleTab('tab-presensi', this)" data-needs="teacher">✍️ Presensi KBM (Login Guru)</button>
+</div>
+<div class="clay-content-card" style="padding: 24px; min-height: 520px; margin-bottom: 30px;">
+<div class="tab-content active" id="tab-kbm"><section class="ui-panel monday-schedule-panel" aria-label="Kegiatan blok Senin JP 1"><div class="ui-section-heading"><h2>Blok Senin · JP 1</h2><label class="monday-date-label">Tanggal Senin<input type="date" id="monday-date"></label></div><div id="monday-schedule-agenda"></div></section>
+<div class="schedule-controls">
+<div style="display:flex; flex-direction:column; gap:8px;">
+<div style="font-size:0.75rem; font-weight:800; text-transform:uppercase; color:var(--slate-gray); letter-spacing:0.5px;">PILIH KELAS:</div>
+<div class="class-pills">
+<button class="kbm-pill active" onclick="setKBMClass('X-1', this)">Kelas X-1</button>
+<button class="kbm-pill" onclick="setKBMClass('X-2', this)">Kelas X-2</button>
+<button class="kbm-pill" onclick="setKBMClass('X-3', this)">Kelas X-3</button>
+</div>
+</div>
+<div style="display:flex; flex-direction:column; gap:8px;">
+<div style="font-size:0.75rem; font-weight:800; text-transform:uppercase; color:var(--slate-gray); letter-spacing:0.5px;">PILIH HARI:</div>
+<div class="day-pills">
+<button class="kbm-pill day-pill active" onclick="setKBMDay('senin', this)">Senin</button>
+<button class="kbm-pill day-pill" onclick="setKBMDay('selasa', this)">Selasa</button>
+<button class="kbm-pill day-pill" onclick="setKBMDay('rabu', this)">Rabu</button>
+<button class="kbm-pill day-pill" onclick="setKBMDay('kamis', this)">Kamis</button>
+<button class="kbm-pill day-pill" onclick="setKBMDay('jumat', this)">Jumat</button>
+</div>
+</div>
+<div class="action-buttons">
+<button class="btn-action btn-izin" onclick="openIzinModal()" data-needs="teacher">
+<span>📝</span> Lapor Izin / Absen
+        </button>
+<button class="btn-action btn-switch" onclick="openSwitchModal()" data-needs="teacher">
+<span>🔄</span> Tukar Jadwal (JP Sama)
+        </button>
+<button class="btn-action btn-print" onclick="window.print()">
+<span>🖨️</span> Cetak Jadwal
+        </button>
+</div>
+</div>
+<div class="kbm-info-bar" id="kbm-desc-bar">
+      Memuat keterangan jadwal KBM…
+    </div>
+<div class="table-wrap">
+<table class="custom-table" id="table-kbm">
+<thead>
+<tr>
+<th width="70">JP</th>
+<th width="140">Waktu</th>
+<th width="90">Durasi</th>
+<th>Mata Pelajaran &amp; Guru Pengampu</th>
+<th width="180">Status Kehadiran / Inval</th>
+<th style="text-align:center;" width="120">Aksi</th>
+</tr>
+</thead>
+<tbody id="tbody-kbm">
+<!-- Rendered via JavaScript -->
+</tbody>
+</table>
+</div>
+</div>
+<!-- ═════════ TAB 2: MATRIKS GURU ═════════ -->
+<div class="tab-content" id="tab-matriks">
+<div class="schedule-controls">
+<div style="display:flex; gap:10px; align-items:center; flex:1;">
+<label class="sr-only" for="search-guru">Cari nama guru atau mata pelajaran…</label><input aria-label="Cari nama guru atau mata pelajaran…" id="search-guru" placeholder="Cari nama guru atau mata pelajaran…" style="padding:10px 14px; border-radius:var(--radius-pill); border:1.5px solid var(--soft-beige); width:100%; max-width:380px; font-family:var(--font-sans); font-size:0.88rem;" type="text"/>
+</div>
+<div style="font-size:0.85rem; font-weight:700; color:var(--deep-navy);">
+        Total: 21 Guru Mata Pelajaran
+      </div>
+</div>
+<div class="table-wrap">
+<table class="custom-table">
+<thead>
+<tr>
+<th width="50">No</th>
+<th>Nama Guru &amp; Gelar</th>
+<th>Mata Pelajaran</th>
+<th>Senin</th>
+<th>Selasa</th>
+<th>Rabu</th>
+<th>Kamis</th>
+<th>Jumat</th>
+<th style="text-align:center;" width="70">JP/Pkn</th>
+<th>Hari Kosong</th>
+<th>Tugas Tambahan</th>
+</tr>
+</thead>
+<tbody id="tbody-matriks">
+<!-- Rendered via JavaScript -->
+</tbody>
+</table>
+</div>
+</div>
+<!-- ═════════ TAB 3: GURU PIKET PER HARI & JURNAL ═════════ -->
+<div class="tab-content" id="tab-piket" data-needs="teacher">
+<div class="schedule-controls">
+<div>
+<h3 style="font-size:1.15rem; margin-bottom:4px; font-weight:800; color:var(--deep-navy);">🛡️ Roster &amp; Catatan Guru Piket Harian</h3>
+<p style="font-size:0.84rem; color:var(--slate-gray); margin:0;">
+          Daftar 10 guru piket terjadwal per hari (Senin s.d. Jumat), penanganan inval guru, dan buku jurnal catatan piket harian.
+        </p>
+</div>
+<div class="action-buttons">
+<button class="btn-action" onclick="openCatatanPiketModal()" style="background:var(--deep-navy); color:#fff;" data-needs="teacher">
+          + Tambah Catatan Guru Piket
+        </button>
+</div>
+</div>
+<!-- Filter Hari Piket -->
+<div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:20px;">
+<div class="day-pills">
+<button class="kbm-pill active" onclick="filterPiketDay('all', this)">Semua Hari</button>
+<button class="kbm-pill" onclick="filterPiketDay('Senin', this)">Senin</button>
+<button class="kbm-pill" onclick="filterPiketDay('Selasa', this)">Selasa</button>
+<button class="kbm-pill" onclick="filterPiketDay('Rabu', this)">Rabu</button>
+<button class="kbm-pill" onclick="filterPiketDay('Kamis', this)">Kamis</button>
+<button class="kbm-pill" onclick="filterPiketDay('Jumat', this)">Jumat</button>
+</div>
+<div style="font-size:0.82rem; color:var(--slate-gray);">
+        Setiap hari: <strong>1 Tim Putra</strong> &amp; <strong>1 Tim Putri</strong>
+</div>
+</div>
+<!-- Tabel Roster Guru Piket Per Hari -->
+<div class="table-wrap" style="margin-bottom:32px;">
+<table class="custom-table">
+<thead>
+<tr>
+<th width="60">No</th>
+<th width="110">Hari</th>
+<th width="140">Tim Piket</th>
+<th>Nama Guru Piket</th>
+<th>Mata Pelajaran</th>
+<th width="90">JP Mengajar</th>
+<th width="120">Total JP+Piket</th>
+<th width="130">Aksi Hari</th>
+</tr>
+</thead>
+<tbody id="tbody-piket">
+<!-- Rendered via JavaScript -->
+</tbody>
+</table>
+</div>
+<!-- Section: Catatan / Jurnal Guru Piket Harian -->
+<div style="background:#FFFFFF; border:1px solid var(--border); border-radius:var(--radius-lg); padding:24px; box-shadow:var(--shadow-sm);">
+<div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:18px; padding-bottom:14px; border-bottom:1px solid var(--border);">
+<div>
+<h4 style="font-size:1.1rem; font-weight:800; color:var(--deep-navy); margin:0;">
+            📝 Log Jurnal &amp; Catatan Guru Piket Harian
+          </h4>
+<p style="font-size:0.82rem; color:var(--slate-gray); margin:4px 0 0;">
+            Laporan kedisiplinan apel pagi, murid sakit/izin, serta penanganan guru berhalangan (inval).
+          </p>
+</div>
+<div style="display:flex; gap:10px; align-items:center;">
+<label class="sr-only" for="filter-piket-date">Filter Piket Date</label><input aria-label="Filter Piket Date" id="filter-piket-date" onchange="filterPiketLogsByDate(this.value)" style="padding:6px 12px; border:1px solid var(--border); border-radius:8px; font-size:0.82rem;" type="date"/>
+<button class="btn btn-sm btn-ghost" onclick="resetPiketLogFilter()">Reset</button>
+</div>
+</div>
+<div class="table-wrap">
+<table class="custom-table">
+<thead>
+<tr>
+<th width="105">Tanggal &amp; Hari</th>
+<th width="170">Guru Piket</th>
+<th width="180">Apel Pagi &amp; Disiplin</th>
+<th width="170">Murid Sakit / Izin</th>
+<th>Inval &amp; Guru Berhalangan</th>
+<th>Catatan Khusus</th>
+<th width="90">Status</th>
+</tr>
+</thead>
+<tbody id="tbody-catatan-piket">
+<!-- Rendered via JavaScript -->
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- ═════════ TAB 4: LOG IZIN & SWITCH ═════════ -->
+<div class="tab-content" id="tab-inval" data-needs="teacher">
+<div class="schedule-controls">
+<div>
+<h3 style="font-size:1.1rem; margin-bottom:4px;">Rekapitulasi Izin Mengajar &amp; Tukar Jadwal</h3>
+<p style="font-size:0.82rem; color:var(--slate-gray); margin:0;">
+          Daftar pengajuan guru yang berhalangan hadir beserta penunjukan guru pengganti (Inval) atau hasil switch jam pelajaran setara.
+        </p>
+</div>
+<div class="action-buttons">
+<button class="btn-action btn-izin" onclick="openIzinModal()" data-needs="teacher">+ Input Form Izin</button>
+<button class="btn-action btn-switch" onclick="openSwitchModal()" data-needs="teacher">+ Form Switch JP</button>
+</div>
+</div>
+<div class="table-wrap">
+<table class="custom-table">
+<thead>
+<tr>
+<th width="110">Tanggal</th>
+<th width="100">Jenis</th>
+<th>Guru Terkait</th>
+<th>Mata Pelajaran &amp; Kelas</th>
+<th width="90">JP</th>
+<th>Keterangan / Rencana Inval / Switch</th>
+<th width="100">Status</th>
+</tr>
+</thead>
+<tbody id="tbody-izin-log">
+<!-- Rendered via JS -->
+</tbody>
+</table>
+</div>
+</div>
+<!-- ═════════ TAB 5: RUTINITAS ASRAMA ═════════ -->
+<div class="tab-content" id="tab-asrama">
+<div class="schedule-controls">
+<div class="class-pills">
+<button class="kbm-pill active" onclick="setAsramaDay('senin_kamis', this)">Senin – Kamis</button>
+<button class="kbm-pill" onclick="setAsramaDay('jumat', this)">Jumat Berkah</button>
+<button class="kbm-pill" onclick="setAsramaDay('sabtu', this)">Sabtu (KBS &amp; Wirausaha)</button>
+</div>
+</div>
+<div class="table-wrap">
+<table class="custom-table">
+<thead>
+<tr>
+<th width="60">No</th>
+<th width="150">Waktu</th>
+<th width="110">Durasi</th>
+<th>Agenda Kegiatan</th>
+<th>Catatan Pelaksanaan</th>
+<th width="130">Kategori</th>
+</tr>
+</thead>
+<tbody id="tbody-asrama">
+<!-- Rendered via JS -->
+</tbody>
+</table>
+</div>
+</div>
+<!-- ═════════ TAB 6: PRESENSI KBM DENGAN LOGIN GURU ═════════ -->
+<div class="tab-content" id="tab-presensi" data-needs="teacher">
+<!-- Unauthenticated View -->
+<div id="presensi-auth-gate" style="display:none; background:#FFFFFF; border:1px solid var(--border); border-radius:var(--radius-lg); padding:40px 24px; text-align:center; max-width:680px; margin:20px auto; box-shadow:var(--shadow-md);">
+<div style="font-size:2.8rem; margin-bottom:14px;">🔐</div>
+<h3 style="font-family:var(--font-serif); font-size:1.45rem; color:var(--deep-navy); margin-bottom:10px;">
+        Portal Presensi KBM &amp; Jurnal Digital Guru
+      </h3>
+<p style="font-size:0.9rem; color:var(--slate-gray); line-height:1.6; margin-bottom:24px;">
+        Pengisian daftar hadir murid dan jurnal materi ajar memerlukan autentikasi pengajar. Silakan masuk dengan akun guru atau melalui SSO <code>id.irsyads.com</code> untuk memeriksa akses madrasah.
+      </p>
+<p><a class="ui-button ui-button-primary" href="akun.html?next=%2Fpresensi.html" data-access-fixed="true">Masuk akun guru</a></p></div>
+<div id="presensi-workspace" style="display:none;">
+<!-- Teacher Profile Banner -->
+<div style="background:linear-gradient(135deg, #0B1D35 0%, #173863 100%); color:#fff; border-radius:16px; padding:20px 24px; margin-bottom:28px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+<div style="display:flex; align-items:center; gap:16px;">
+<div id="auth-teacher-avatar" style="width:48px; height:48px; border-radius:50%; background:var(--muted-blue); color:#fff; display:flex; align-items:center; justify-content:center; font-size:1.3rem; font-weight:800;">
+            👨‍🏫
+          </div>
+<div>
+<div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:1px; color:#A7C5EB; font-weight:700;">Akun guru terverifikasi</div>
+<div id="auth-teacher-name" style="font-size:1.2rem; font-weight:800;">Nama Guru</div>
+<div id="auth-teacher-mapel" style="font-size:0.85rem; color:#E0ECFB;">Mata Pelajaran</div>
+</div>
+</div>
+<div style="display:flex; gap:10px;">
+<button class="btn btn-sm" onclick="handleGuruLogout()" style="background:rgba(255,255,255,0.15); color:#fff; border:1px solid rgba(255,255,255,0.25);">
+            Keluar Akun ↩
+          </button>
+</div>
+</div>
+<!-- Presensi Input Card -->
+<div style="background:#fff; border:1px solid var(--border); border-radius:16px; padding:24px; box-shadow:var(--shadow-sm); margin-bottom:32px;">
+<h4 style="font-size:1.15rem; font-weight:800; color:var(--deep-navy); margin-bottom:16px;">
+          📝 Form Presensi &amp; Jurnal Pertemuan KBM
+        </h4>
+<div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:14px; margin-bottom:18px;">
+<div class="form-group">
+<label for="pres-tgl" style="font-size:0.8rem; font-weight:700; color:var(--slate-gray);">Tanggal KBM</label>
+<input id="pres-tgl" style="width:100%; padding:8px 12px; border:1px solid var(--border); border-radius:8px;" type="date"/>
+</div>
+<div class="form-group">
+<label for="pres-kelas" style="font-size:0.8rem; font-weight:700; color:var(--slate-gray);">Kelas</label>
+<select id="pres-kelas" onchange="loadStudentsForPresensi()" style="width:100%; padding:8px 12px; border:1px solid var(--border); border-radius:8px;">
+<option value="X-1">Kelas X-1</option>
+<option value="X-2">Kelas X-2</option>
+<option value="X-3">Kelas X-3</option>
+</select>
+</div>
+<div class="form-group">
+<label for="pres-jp-slot" style="font-size:0.8rem; font-weight:700; color:var(--slate-gray);">Jam Pelajaran (JP)</label>
+<select id="pres-jp-slot" style="width:100%; padding:8px 12px; border:1px solid var(--border); border-radius:8px;">
+<option value="JP 1-2 (07.30 - 08.50)">JP 1-2 (07.30 - 08.50)</option>
+<option value="JP 3-4 (08.50 - 10.10)">JP 3-4 (08.50 - 10.10)</option>
+<option value="JP 5-6 (10.25 - 11.45)">JP 5-6 (10.25 - 11.45)</option>
+<option value="JP 7-8 (13.00 - 14.20)">JP 7-8 (13.00 - 14.20)</option>
+<option value="JP 9 (14.20 - 15.00)">JP 9 (14.20 - 15.00)</option>
+</select>
+</div>
+</div>
+<div class="form-group" style="margin-bottom:20px;">
+<label for="pres-materi" style="font-size:0.8rem; font-weight:700; color:var(--slate-gray);">Topik / Materi Pembelajaran &amp; Capaian (CP/TP)</label>
+<input id="pres-materi" placeholder="Contoh: Interaksi Sosial dan Dinamika Kelompok (Fase E)" required="" style="width:100%; padding:10px 14px; border:1px solid var(--border); border-radius:8px;" type="text"/>
+</div>
+<!-- Student Attendance Table -->
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:10px;">
+<div style="font-size:0.9rem; font-weight:700; color:var(--deep-navy);">Daftar Kehadiran Murid</div>
+<div style="display:flex; gap:8px;">
+<button class="btn btn-sm btn-ghost" onclick="setAllAttendance('H')" style="border:1px solid var(--border);" type="button">✓ Semua Hadir</button>
+</div>
+</div>
+<div class="table-wrap" style="margin-bottom:20px; max-height:420px; overflow-y:auto;">
+<table class="custom-table">
+<thead>
+<tr>
+<th width="50">No</th>
+<th width="110">NISN</th>
+<th>Nama Murid</th>
+<th style="text-align:center;" width="240">Status Kehadiran</th>
+<th>Catatan Khusus Murid</th>
+</tr>
+</thead>
+<tbody id="tbody-presensi-students">
+<!-- Rendered via JS -->
+</tbody>
+</table>
+</div>
+<button class="btn btn-primary" onclick="submitPresensiKBM()" style="background:var(--deep-navy); color:#fff; padding:12px 24px; font-weight:700;" type="button">
+          💾 Simpan presensi di perangkat
+        </button>
+</div>
+<!-- Rekap Presensi Table -->
+<div style="background:#fff; border:1px solid var(--border); border-radius:16px; padding:24px; box-shadow:var(--shadow-sm);">
+<h4 style="font-size:1.1rem; font-weight:800; color:var(--deep-navy); margin-bottom:14px;">
+          📊 Riwayat Presensi &amp; Jurnal KBM Kelas X
+        </h4>
+<div class="table-wrap">
+<table class="custom-table">
+<thead>
+<tr>
+<th width="105">Tanggal</th>
+<th width="80">Kelas</th>
+<th width="110">Jam KBM</th>
+<th width="160">Mata Pelajaran</th>
+<th>Materi Ajar</th>
+<th width="160">Statistik Hadir</th>
+<th width="100">Status</th>
+</tr>
+</thead>
+<tbody id="tbody-rekap-presensi">
+<!-- Rendered via JS -->
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div><!-- End .clay-content-card -->
+</div><section class="irsyads-portal-doors" aria-label="Pintu Ekosistem Irsyads">
+  <a href="https://irsyads.com/" class="portal-door-card link-portal-site" data-door="site" target="_blank" rel="noopener noreferrer">
+    <div class="portal-door-icon door-site" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+    </div>
+    <div class="portal-door-info">
+      <div class="portal-door-title">
+        <span>irsyads.com</span>
+        <span class="portal-door-badge badge-site">Utama</span>
+      </div>
+      <div class="portal-door-desc">Riset, pemikiran sosiologi, karya &amp; agenda</div>
+    </div>
+    <span class="portal-door-arrow" aria-hidden="true">↗</span>
+  </a>
+
+  <a href="https://academy.irsyads.com/" class="portal-door-card link-portal-academy" data-door="academy" target="_blank" rel="noopener noreferrer">
+    <div class="portal-door-icon door-academy" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+    </div>
+    <div class="portal-door-info">
+      <div class="portal-door-title">
+        <span>Irsyads Academy</span>
+        <span class="portal-door-badge badge-academy">Belajar</span>
+      </div>
+      <div class="portal-door-desc">Kelas interaktif, modul Kurikulum Merdeka &amp; CBT</div>
+    </div>
+    <span class="portal-door-arrow" aria-hidden="true">↗</span>
+  </a>
+
+  <a data-needs="reviewer" href="https://studio.irsyads.com/?lang=id#kurikulum" class="portal-door-card link-portal-studio" data-door="studio" target="_blank" rel="noopener noreferrer">
+    <div class="portal-door-icon door-studio" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M9 3v18M3 9h18"></path></svg>
+    </div>
+    <div class="portal-door-info">
+      <div class="portal-door-title">
+        <span>Studio Kurikulum</span>
+        <span class="portal-door-badge badge-studio">Ruang Kerja</span>
+      </div>
+      <div class="portal-door-desc">Pintu kelola kurikulum &amp; klinik (perlu otorisasi)</div>
+    </div>
+    <span class="portal-door-arrow" aria-hidden="true">↗</span>
+  </a>
+</section></main><!-- End .clay-main-content -->
+</div><!-- End .clay-app-layout -->
+<!-- ═════════ MODAL: FORM IZIN GURU ═════════ -->
+<div class="modal-overlay" id="modal-izin">
+<div class="modal-box-large">
+<button class="modal-close-btn" onclick="closeModal('modal-izin')">✕</button>
+<h2 style="font-family:var(--font-serif); font-size:1.4rem; color:var(--deep-navy); margin-bottom:4px;">
+      Form Pengajuan Izin Tidak Mengajar
+    </h2>
+<p style="font-size:0.85rem; color:var(--slate-gray); margin-bottom:20px;">
+      Isi formulir ini jika Anda berhalangan hadir untuk mengajar pada hari tertentu.
+    </p>
+<form id="form-izin-guru" onsubmit="submitFormIzin(event)">
+<div class="form-group">
+<label for="izin-guru-select">Nama Guru Pemohon</label>
+<select id="izin-guru-select" required="">
+<option value="">-- Pilih Nama Guru --</option>
+</select>
+</div>
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+<div class="form-group">
+<label for="izin-tanggal">Tanggal Berhalangan</label>
+<input id="izin-tanggal" required="" type="date"/>
+</div>
+<div class="form-group">
+<label for="izin-jenis">Jenis Keterangan</label>
+<select id="izin-jenis" required="">
+<option value="Sakit">Sakit</option>
+<option value="Tugas Dinas Luar">Tugas Dinas Luar Madrasah</option>
+<option value="Izin Pribadi">Izin Kepentingan Mendesak</option>
+<option value="Cuti">Cuti Resmi</option>
+</select>
+</div>
+</div>
+<div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px;">
+<div class="form-group">
+<label for="izin-hari">Hari</label>
+<select id="izin-hari" required="">
+<option value="senin">Senin</option>
+<option value="selasa">Selasa</option>
+<option value="rabu">Rabu</option>
+<option value="kamis">Kamis</option>
+<option value="jumat">Jumat</option>
+</select>
+</div>
+<div class="form-group">
+<label for="izin-kelas">Kelas Terdampak</label>
+<select id="izin-kelas" required="">
+<option value="X-1">Kelas X-1</option>
+<option value="X-2">Kelas X-2</option>
+<option value="X-3">Kelas X-3</option>
+<option value="Semua Kelas X">Semua Kelas X</option>
+</select>
+</div>
+<div class="form-group">
+<label for="izin-jp">Jumlah JP Ditinggalkan</label>
+<input id="izin-jp" max="6" min="1" required="" type="number" value="2"/>
+</div>
+</div>
+<div class="form-group">
+<label for="izin-alasan">Alasan / Keterangan Izin</label>
+<textarea id="izin-alasan" placeholder="Contoh: Mengikuti Rapat Koordinasi Kurikulum Kemenag di Bandung..." required="" rows="2" style="width:100%; padding:10px; border-radius:var(--radius-sm); border:1px solid var(--soft-beige);"></textarea>
+</div>
+<div class="form-group">
+<label for="izin-tugas">Tugas Terstruktur untuk Murid (Wajib)</label>
+<textarea id="izin-tugas" placeholder="Contoh: Mengerjakan LKS Bab 3 Halaman 45 nomor 1-10 secara berkelompok..." required="" rows="2" style="width:100%; padding:10px; border-radius:var(--radius-sm); border:1px solid var(--soft-beige);"></textarea>
+</div>
+<div class="form-group">
+<label for="izin-inval-type">Pilihan Penanganan Pembelajaran</label>
+<select id="izin-inval-type" onchange="toggleInvalOptions(this.value)">
+<option value="guru_piket">Didampingi Guru Piket (Inval)</option>
+<option value="tukar_jadwal">Tukar Jadwal dengan Guru Lain (Switch JP Sama)</option>
+</select>
+</div>
+<div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
+<button class="btn btn-ghost" onclick="closeModal('modal-izin')" type="button">Batal</button>
+<button class="btn btn-primary" type="submit">Kirim Permohonan Izin</button>
+</div>
+</form>
+</div>
+</div>
+<!-- ═════════ MODAL: FORM SWITCH JADWAL GURU ═════════ -->
+<div class="modal-overlay" id="modal-switch">
+<div class="modal-box-large">
+<button class="modal-close-btn" onclick="closeModal('modal-switch')">✕</button>
+<h2 style="font-family:var(--font-serif); font-size:1.4rem; color:var(--deep-navy); margin-bottom:4px;">
+      Form Pertukaran Jadwal Mengajar (Switch JP Sama)
+    </h2>
+<p style="font-size:0.85rem; color:var(--slate-gray); margin-bottom:18px;">
+      Ajukan pergantian hari mengajar dengan rekan guru lain. Syarat mutlak: <strong>Jumlah JP yang ditukar harus sama persis</strong>.
+    </p>
+<form id="form-switch-guru" onsubmit="submitFormSwitch(event)">
+<div style="background:rgba(55,106,155,0.06); padding:16px; border-radius:var(--radius-md); border:1px solid var(--soft-beige); margin-bottom:16px;">
+<div style="font-weight:800; font-size:0.82rem; color:var(--muted-blue); margin-bottom:8px; text-transform:uppercase;">
+          1. JADWAL ASAL (Guru Pemohon)
+        </div>
+<div class="form-group">
+<label for="sw-guru-1">Nama Guru Pemohon</label>
+<select id="sw-guru-1" onchange="calculateJPMatch()" required="">
+<option value="">-- Pilih Guru Pemohon --</option>
+</select>
+</div>
+<div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;">
+<div class="form-group">
+<label for="sw-hari-1">Hari Asal</label>
+<select id="sw-hari-1" required="">
+<option value="Senin">Senin</option>
+<option value="Selasa">Selasa</option>
+<option value="Rabu">Rabu</option>
+<option value="Kamis">Kamis</option>
+<option value="Jumat">Jumat</option>
+</select>
+</div>
+<div class="form-group">
+<label for="sw-kelas-1">Kelas</label>
+<select id="sw-kelas-1" required="">
+<option value="X-1">Kelas X-1</option>
+<option value="X-2">Kelas X-2</option>
+<option value="X-3">Kelas X-3</option>
+</select>
+</div>
+<div class="form-group">
+<label for="sw-jp-1">Jumlah JP Asal</label>
+<input id="sw-jp-1" max="5" min="1" onchange="calculateJPMatch()" onkeyup="calculateJPMatch()" required="" type="number" value="2"/>
+</div>
+</div>
+</div>
+<div style="background:rgba(217,204,185,0.2); padding:16px; border-radius:var(--radius-md); border:1px solid var(--soft-beige); margin-bottom:16px;">
+<div style="font-weight:800; font-size:0.82rem; color:var(--deep-navy); margin-bottom:8px; text-transform:uppercase;">
+          2. JADWAL PENGGANTI (Guru Rekan Tukar)
+        </div>
+<div class="form-group">
+<label for="sw-guru-2">Nama Guru Rekan Tukar</label>
+<select id="sw-guru-2" onchange="calculateJPMatch()" required="">
+<option value="">-- Pilih Rekan Guru --</option>
+</select>
+</div>
+<div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;">
+<div class="form-group">
+<label for="sw-hari-2">Hari Pengganti</label>
+<select id="sw-hari-2" required="">
+<option value="Kamis">Kamis</option>
+<option value="Rabu">Rabu</option>
+<option value="Selasa">Selasa</option>
+<option value="Senin">Senin</option>
+<option value="Jumat">Jumat</option>
+</select>
+</div>
+<div class="form-group">
+<label for="sw-kelas-2">Kelas</label>
+<select id="sw-kelas-2" required="">
+<option value="X-1">Kelas X-1</option>
+<option value="X-2">Kelas X-2</option>
+<option value="X-3">Kelas X-3</option>
+</select>
+</div>
+<div class="form-group">
+<label for="sw-jp-2">Jumlah JP Pengganti</label>
+<input id="sw-jp-2" max="5" min="1" onchange="calculateJPMatch()" onkeyup="calculateJPMatch()" required="" type="number" value="2"/>
+</div>
+</div>
+</div>
+<!-- JP Comparator Box -->
+<div class="jp-comparator" id="jp-comparator-box">
+<div class="jp-match-ok" id="jp-match-text">
+          ✅ Jumlah JP Setara (2 JP = 2 JP). Siap diajukan ke Waka Kurikulum.
+        </div>
+</div>
+<div class="form-group" style="margin-top:14px;">
+<label for="sw-alasan">Alasan Kesepakatan Tukar Jadwal</label>
+<textarea id="sw-alasan" placeholder="Contoh: Kesepakatan bersama karena Guru A ada ujian kompetensi pada hari Selasa..." required="" rows="2" style="width:100%; padding:10px; border-radius:var(--radius-sm); border:1px solid var(--soft-beige);"></textarea>
+</div>
+<div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
+<button class="btn btn-ghost" onclick="closeModal('modal-switch')" type="button">Batal</button>
+<button class="btn btn-primary" id="btn-submit-switch" type="submit">Ajukan Pertukaran Jadwal</button>
+</div>
+</form>
+</div>
+</div>
+<!-- ═════════ MODAL: CATATAN GURU PIKET ═════════ -->
+<div class="modal-overlay" id="modal-catatan-piket">
+<div class="modal-box-large">
+<button class="modal-close-btn" onclick="closeModal('modal-catatan-piket')">✕</button>
+<h2 style="font-family:var(--font-serif); font-size:1.4rem; color:var(--deep-navy); margin-bottom:4px;">
+      Form Catatan Jurnal Guru Piket Harian
+    </h2>
+<p style="font-size:0.85rem; color:var(--slate-gray); margin-bottom:20px;">
+      Dokumentasikan catatan apel, kedisiplinan, murid yang berobat/izin, serta penanganan inval guru pengampu.
+    </p>
+<form id="form-catatan-piket" onsubmit="submitCatatanPiket(event)">
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+<div class="form-group">
+<label for="cp-tanggal">Tanggal Pelaksanaan</label>
+<input id="cp-tanggal" required="" type="date"/>
+</div>
+<div class="form-group">
+<label for="cp-hari">Hari Piket</label>
+<select id="cp-hari" onchange="updatePiketGuruByDay(this.value)" required="">
+<option value="Senin">Senin</option>
+<option value="Selasa">Selasa</option>
+<option value="Rabu">Rabu</option>
+<option value="Kamis">Kamis</option>
+<option value="Jumat">Jumat</option>
+</select>
+</div>
+</div>
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+<div class="form-group">
+<label for="cp-guru">Guru Piket yang Bertugas</label>
+<select id="cp-guru" required="">
+<!-- Rendered from PIKET -->
+</select>
+</div>
+<div class="form-group">
+<label for="cp-jam">Jam Dinas Piket</label>
+<input id="cp-jam" required="" type="text" value="06.45 - 15.00 WIB"/>
+</div>
+</div>
+<div class="form-group">
+<label for="cp-apel">Laporan Apel Pagi &amp; Kedisiplinan</label>
+<textarea id="cp-apel" placeholder="Contoh: Apel pagi berjalan lancar dan khidmat. 2 murid terlambat 5 menit diberikan pembinaan adab." required="" rows="2"></textarea>
+</div>
+<div class="form-group">
+<label for="cp-santri">Murid Sakit / Izin Asrama (UKS)</label>
+<textarea id="cp-santri" placeholder="Contoh: 1 murid X-1 istirahat di UKS karena flu ringan, sudah diperiksa tim medis." rows="2"></textarea>
+</div>
+<div class="form-group">
+<label for="cp-inval">Guru Berhalangan &amp; Penanganan Inval / Badalan</label>
+<textarea id="cp-inval" placeholder="Contoh: Ust. Afsal izin dinas; kelas X-1 JP 1-2 didampingi guru piket (tugas modul terbimbing)." rows="2"></textarea>
+</div>
+<div class="form-group">
+<label for="cp-catatan">Catatan Khusus / Kejadian / Rekomendasi Kurikulum</label>
+<textarea id="cp-catatan" placeholder="Catatan fasilitas kelas, kebersihan, atau usulan kegiatan belajar…" rows="2"></textarea>
+</div>
+<div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
+<button class="btn btn-ghost" onclick="closeModal('modal-catatan-piket')" type="button">Batal</button>
+<button class="btn btn-primary" style="background:var(--deep-navy); color:#fff;" type="submit">Simpan Catatan Piket ✦</button>
+</div>
+</form>
+</div>
+</div>
+<footer>
+<div class="container footer-inner">
+<div class="footer-brand">
+<strong>MA Insan Cendekia Nusantara Purwakarta</strong>
+<div class="footer-meta">
+        Pusat Tata Kelola Kurikulum, Jadwal KBM, &amp; Administrasi Akademik Madrasah Aliyah.<br/>
+        Tahun Pelajaran 2026/2027 · Berdasarkan Dokumen Resmi Kurikulum Merdeka Fase E.
+      </div>
+</div>
+<div class="footer-right">
+<div class="clock-badge">TP 2026/2027 · Reguler 40 Menit/JP</div>
+</div>
+</div>
+</footer>
+<div id="toast"></div>
+<!-- JavaScript Logic -->
+<script>
+(function() {
+  let teacherStorageOK=true;
+  const teacherStorage={getItem(key){const c=window.CurriculumAccess?.context;return window.CurriculumAccess?.has('teacher')&&c?.user_id?localStorage.getItem(key+'__'+c.user_id):null},setItem(key,value){if(!teacherStorageOK)throw Error('Catatan belum terbaca. Data lama tidak ditimpa.');const c=window.CurriculumAccess?.context;if(!window.CurriculumAccess?.has('teacher')||!c?.user_id)throw Error('Akun guru diperlukan.');localStorage.setItem(key+'__'+c.user_id,value)},removeItem(){throw Error('Gunakan halaman akun untuk keluar.')}};
+  const MD = window.MASTER_DATA || {};
+  const KBM = MD.jadwal_kbm_v2 || {};
+  const JADWAL = KBM.jadwal_mingguan || {};
+  const MATRIKS = KBM.matriks_guru || [];
+  const PIKET = KBM.guru_piket || [];
+  const ASRAMA = MD.jadwal_harian || {};
+
+  let currentClass = 'X-1';
+  let currentDay = 'senin';
+  let currentAsramaDay = 'senin_kamis';
+
+  // Local storage logs for Izin and Switch
+  let logsIzin = JSON.parse(teacherStorage.getItem('maicn_kbm_izin_logs') || '[]');
+
+  // Seed default sample if empty
+  
+
+  // Populate Dropdown for Teachers
+  function populateTeacherDropdowns() {
+    const selects = ['izin-guru-select', 'sw-guru-1', 'sw-guru-2'];
+    selects.forEach(selId => {
+      const el = document.getElementById(selId);
+      if (!el) return;
+      el.innerHTML = '<option value="">-- Pilih Nama Guru --</option>';
+      MATRIKS.forEach(g => {
+        const opt = document.createElement('option');
+        opt.value = g.nama;
+        opt.textContent = `${g.nama} (${g.mapel})`;
+        el.appendChild(opt);
+      });
+    });
+  }
+
+  // Switch Main Tab
+  window.switchScheduleTab = function(tabId, btn) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(tabId).classList.add('active');
+    btn.classList.add('active');
+  };
+
+  // Set Class Pill
+  window.setKBMClass = function(cls, btn) {
+    document.querySelectorAll('.class-pills .kbm-pill').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    currentClass = cls;
+    renderKBMTable();
+  };
+
+  // Set Day Pill
+  window.setKBMDay = function(day, btn) {
+    document.querySelectorAll('.day-pills .day-pill').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    currentDay = day;
+    renderKBMTable();
+  };
+
+  // Set Asrama Day
+  window.setAsramaDay = function(dayKey, btn) {
+    document.querySelectorAll('#tab-asrama .kbm-pill').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    currentAsramaDay = dayKey;
+    renderAsramaTable();
+  };
+
+  // Render KBM Table
+  function renderKBMTable() {
+    const tbody = document.getElementById('tbody-kbm');
+    const descBar = document.getElementById('kbm-desc-bar');
+    if (!tbody) return;
+
+    const dayName = currentDay.charAt(0).toUpperCase() + currentDay.slice(1);
+    descBar.innerHTML = `📌 <strong>Jadwal KBM ${currentClass} — Hari ${dayName}</strong> · Durasi 40 Menit per Jam Pelajaran · Tahun Pelajaran 2026/2027`;
+
+    const slots = (JADWAL[currentDay] || []);
+    if (!slots.length) {
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:30px; color:var(--slate-gray);">Data jadwal belum tersedia untuk hari ini.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = slots.map(slot => {
+      if (slot.is_break) {
+        return `
+          <tr>
+            <td colspan="6" class="break-badge-row">
+              ☕ — ${slot.break_label || 'ISTIRAHAT / ISHOMA'} (${slot.waktu} · ${slot.durasi}) —
+            </td>
+          </tr>
+        `;
+      }
+
+      const kelasInfo = slot.kelas ? slot.kelas[currentClass] : null;
+      const mapel = kelasInfo ? kelasInfo.mapel : '–';
+      const guruNama = kelasInfo ? kelasInfo.guru_nama : '–';
+      const guruKode = kelasInfo ? kelasInfo.guru_kode : '';
+
+      // Check if there is an active izin or switch for this class & guru today
+      let statusBadge = '<span class="status-pill st-hadir">● Terjadwal Hadir</span>';
+      const matchedIzin = logsIzin.find(l => 
+        (l.guru === guruNama || l.guru.includes(guruNama)) && 
+        (l.kelas === currentClass || l.kelas === 'Semua Kelas X')
+      );
+
+      if (matchedIzin) {
+        if (matchedIzin.jenis.includes('Tukar') || matchedIzin.jenis.includes('Switch')) {
+          statusBadge = `<span class="status-pill st-switch">🔄 ${matchedIzin.jenis}</span>`;
+        } else {
+          statusBadge = `<span class="status-pill st-izin">⚠️ ${matchedIzin.jenis}</span>`;
+        }
+      }
+
+      return `
+        <tr>
+          <td style="font-family:var(--font-mono); font-weight:700; color:var(--muted-blue);">${slot.jam_ke}</td>
+          <td style="font-family:var(--font-mono); font-weight:600;">${slot.waktu}</td>
+          <td style="font-size:0.82rem; color:var(--slate-gray);">${slot.durasi}</td>
+          <td>
+            <div class="mapel-card">
+              <div class="mapel-title" ${currentDay === 'senin' && String(slot.jam_ke) === '1' ? 'data-monday-activity' : ''}>${mapel}</div>
+              <div class="guru-sub">
+                <span class="guru-code">${guruKode || 'GR'}</span>
+                <span>${guruNama}</span>
+              </div>
+            </div>
+          </td>
+          <td>${statusBadge}</td>
+          <td style="text-align:center;">
+            ${currentDay === 'senin' && String(slot.jam_ke) === '1' ? '<button type="button" class="btn-action" onclick="window.openMondayBlock()">Lihat / pilih JP 1</button>' : ''}
+            <button class="btn-action btn-izin" style="padding:4px 10px; font-size:0.75rem;" 
+                    onclick="openIzinModalPreFill('${guruNama}', '${currentDay}', '${currentClass}', '${slot.jam_ke}')" title="Lapor Izin atau Inval" data-needs="teacher">
+              Izin / Inval
+            </button>
+          </td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  // Render Matriks Guru Table
+  function renderMatriksTable(filterText = '') {
+    const tbody = document.getElementById('tbody-matriks');
+    if (!tbody) return;
+
+    const filtered = MATRIKS.filter(g => {
+      const q = filterText.toLowerCase();
+      return g.nama.toLowerCase().includes(q) || g.mapel.toLowerCase().includes(q);
+    });
+
+    tbody.innerHTML = filtered.map(g => `
+      <tr>
+        <td style="font-weight:700; color:var(--muted-blue); text-align:center;">${g.no}</td>
+        <td>
+          <div style="font-weight:700; color:var(--deep-navy);">${g.nama}</div>
+          <span class="guru-code" style="margin-top:2px;">Kode: ${g.kode || '–'}</span>
+        </td>
+        <td style="font-weight:600; color:var(--deep-navy);">${g.mapel}</td>
+        <td style="font-size:0.82rem;">${g.jadwal.senin}</td>
+        <td style="font-size:0.82rem;">${g.jadwal.selasa}</td>
+        <td style="font-size:0.82rem;">${g.jadwal.rabu}</td>
+        <td style="font-size:0.82rem;">${g.jadwal.kamis}</td>
+        <td style="font-size:0.82rem;">${g.jadwal.jumat}</td>
+        <td style="font-family:var(--font-mono); font-weight:800; color:var(--muted-blue); text-align:center;">${g.jp_pekan}</td>
+        <td style="font-size:0.8rem; color:var(--slate-gray); font-style:italic;">${g.hari_kosong || '–'}</td>
+        <td style="font-size:0.8rem; font-weight:600; color:var(--deep-navy);">${g.tugas_tambahan || '–'}</td>
+      </tr>
+    `).join('');
+  }
+
+  // Render Guru Piket Table
+  function renderPiketTable() {
+    const tbody = document.getElementById('tbody-piket');
+    if (!tbody) return;
+
+    tbody.innerHTML = PIKET.map(p => `
+      <tr>
+        <td style="font-weight:700; text-align:center;">${p.no}</td>
+        <td><span style="font-weight:800; color:var(--muted-blue);">${p.hari}</span></td>
+        <td><span class="status-pill" style="background:rgba(55,106,155,0.1); color:var(--muted-blue); font-size:0.75rem;">${p.tim}</span></td>
+        <td style="font-weight:700; color:var(--deep-navy);">${p.nama} (${p.gender})</td>
+        <td>${p.mapel}</td>
+        <td style="font-family:var(--font-mono); font-weight:700; text-align:center;">${p.jp_mengajar} JP</td>
+        <td style="font-weight:800; color:var(--deep-navy);">${p.total_jp_piket}</td>
+      </tr>
+    `).join('');
+  }
+
+  // Render Log Izin & Switch
+  function renderIzinLogTable() {
+    const tbody = document.getElementById('tbody-izin-log');
+    if (!tbody) return;
+
+    if (!logsIzin.length) {
+      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:20px; color:var(--slate-gray);">Belum ada riwayat izin atau pergantian jadwal.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = logsIzin.map(item => `
+      <tr>
+        <td style="font-family:var(--font-mono); font-weight:600;">${item.tanggal}</td>
+        <td><span class="status-pill ${item.jenis.includes('Tukar') ? 'st-switch' : 'st-izin'}">${item.jenis}</span></td>
+        <td style="font-weight:700; color:var(--deep-navy);">${item.guru}</td>
+        <td>${item.mapel} (${item.kelas})</td>
+        <td style="font-family:var(--font-mono); font-weight:700; text-align:center;">${item.jp} JP</td>
+        <td style="font-size:0.83rem; line-height:1.5;">
+          <strong>Alasan:</strong> ${item.keterangan}<br>
+          <span style="color:var(--slate-gray);"><strong>Tindak Lanjut / Inval:</strong> ${item.penanganan || item.tugas || '–'}</span>
+        </td>
+        <td><span class="status-pill st-hadir">${item.status || 'Disetujui'}</span></td>
+      </tr>
+    `).join('');
+  }
+
+  // Render Asrama Table
+  function renderAsramaTable() {
+    const tbody = document.getElementById('tbody-asrama');
+    if (!tbody) return;
+
+    const list = ASRAMA[currentAsramaDay] || [];
+    tbody.innerHTML = list.map(item => `
+      <tr>
+        <td style="font-weight:800; color:var(--muted-blue); text-align:center;">${item.no}</td>
+        <td style="font-family:var(--font-mono); font-weight:700;">${item.waktu}</td>
+        <td style="font-size:0.85rem; color:var(--slate-gray);">${item.durasi}</td>
+        <td style="font-weight:700; color:var(--deep-navy);">${item.kegiatan}</td>
+        <td style="font-size:0.85rem; font-style:italic;">${item.catatan || '–'}</td>
+        <td><span class="status-pill" style="background:#F1F5F9; color:var(--slate-gray); font-size:0.75rem;">${item.status}</span></td>
+      </tr>
+    `).join('');
+  }
+
+  // JP Match Calculation in Switch Modal
+  window.calculateJPMatch = function() {
+    const jp1 = parseInt(document.getElementById('sw-jp-1').value, 10) || 0;
+    const jp2 = parseInt(document.getElementById('sw-jp-2').value, 10) || 0;
+    const txt = document.getElementById('jp-match-text');
+    const btn = document.getElementById('btn-submit-switch');
+
+    if (jp1 === jp2 && jp1 > 0) {
+      txt.className = 'jp-match-ok';
+      txt.innerHTML = `✅ Jumlah JP Setara (${jp1} JP = ${jp2} JP). Valid &amp; Siap Ditukar.`;
+      btn.disabled = false;
+      btn.style.opacity = '1';
+    } else {
+      txt.className = 'jp-match-bad';
+      txt.innerHTML = `⚠️ Jumlah JP Tidak Sama (${jp1} JP vs ${jp2} JP). Syarat mutlak tukar jadwal: JP harus setara!`;
+      btn.disabled = true;
+      btn.style.opacity = '0.5';
+    }
+  };
+
+  // Open & Close Modals
+  window.openIzinModal = function() {
+    document.getElementById('modal-izin').classList.add('active');
+  };
+  window.openIzinModalPreFill = function(guru, hari, kelas, jam) {
+    openIzinModal();
+    if (guru && guru !== '–') document.getElementById('izin-guru-select').value = guru;
+    if (hari) document.getElementById('izin-hari').value = hari;
+    if (kelas) document.getElementById('izin-kelas').value = kelas;
+  };
+  window.openSwitchModal = function() {
+    document.getElementById('modal-switch').classList.add('active');
+    calculateJPMatch();
+  };
+  window.closeModal = function(id) {
+    document.getElementById(id).classList.remove('active');
+  };
+
+  // Submit Form Izin
+  window.submitFormIzin = function(e) {
+    e.preventDefault();
+    const guru = document.getElementById('izin-guru-select').value;
+    const tgl = document.getElementById('izin-tanggal').value;
+    const jenis = document.getElementById('izin-jenis').value;
+    const hari = document.getElementById('izin-hari').value;
+    const kelas = document.getElementById('izin-kelas').value;
+    const jp = parseInt(document.getElementById('izin-jp').value, 10) || 2;
+    const alasan = document.getElementById('izin-alasan').value;
+    const tugas = document.getElementById('izin-tugas').value;
+    const penanganan = document.getElementById('izin-inval-type').value === 'guru_piket' ? 
+      'Didampingi Guru Piket (Inval Terjadwal)' : 'Tukar Jadwal dengan Guru Lain';
+
+    const newLog = {
+      id: 'izin-' + Date.now(),
+      tanggal: tgl,
+      jenis: jenis,
+      guru: guru,
+      mapel: 'Mapel Pengampu',
+      kelas: kelas,
+      jp: jp,
+      keterangan: alasan,
+      tugas: tugas,
+      penanganan: penanganan,
+      status: 'Disetujui'
+    };
+
+    logsIzin.unshift(newLog);
+    teacherStorage.setItem('maicn_kbm_izin_logs', JSON.stringify(logsIzin));
+    closeModal('modal-izin');
+    window.AppUtils.toast('Permohonan izin berhasil dicatat & divalidasi!');
+    renderKBMTable();
+    renderIzinLogTable();
+  };
+
+  // Submit Form Switch
+  window.submitFormSwitch = function(e) {
+    e.preventDefault();
+    const g1 = document.getElementById('sw-guru-1').value;
+    const h1 = document.getElementById('sw-hari-1').value;
+    const k1 = document.getElementById('sw-kelas-1').value;
+    const jp1 = parseInt(document.getElementById('sw-jp-1').value, 10);
+
+    const g2 = document.getElementById('sw-guru-2').value;
+    const h2 = document.getElementById('sw-hari-2').value;
+    const k2 = document.getElementById('sw-kelas-2').value;
+    const jp2 = parseInt(document.getElementById('sw-jp-2').value, 10);
+
+    if (jp1 !== jp2) {
+      alert('Peringatan: Jumlah JP harus sama persis untuk pertukaran jadwal!');
+      return;
+    }
+
+    const alasan = document.getElementById('sw-alasan').value;
+    const newLog = {
+      id: 'switch-' + Date.now(),
+      tanggal: new Date().toISOString().slice(0, 10),
+      jenis: 'Tukar Jadwal (Switch)',
+      guru: `${g1} ↔ ${g2}`,
+      mapel: `Pertukaran ${h1} (${k1}) ↔ ${h2} (${k2})`,
+      kelas: `${k1} & ${k2}`,
+      jp: jp1,
+      keterangan: alasan,
+      tugas: 'Kedua guru mengajar di slot jam pengganti masing-masing.',
+      penanganan: `Switch JP Setara (${jp1} JP)`,
+      status: 'Disetujui'
+    };
+
+    logsIzin.unshift(newLog);
+    teacherStorage.setItem('maicn_kbm_izin_logs', JSON.stringify(logsIzin));
+    closeModal('modal-switch');
+    window.AppUtils.toast('Pertukaran jadwal (Switch JP) berhasil disimpan!');
+    renderKBMTable();
+    renderIzinLogTable();
+  };
+
+
+  // ══════════════════════════════════════════════════════════
+  // GURU PIKET PER HARI & JURNAL PIKET
+  // ══════════════════════════════════════════════════════════
+  let currentPiketDay = 'all';
+  let logsCatatanPiket = JSON.parse(teacherStorage.getItem('maicn_catatan_piket_v1') || '[]');
+
+  
+
+  // Filter Piket by Day
+  window.filterPiketDay = function(day, btn) {
+    currentPiketDay = day;
+    const parent = btn.parentElement;
+    parent.querySelectorAll('.kbm-pill').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderPiketTable();
+  };
+
+  // Render Guru Piket Table (Day Filtered)
+  function renderPiketTable() {
+    const tbody = document.getElementById('tbody-piket');
+    if (!tbody) return;
+
+    let filtered = PIKET;
+    if (currentPiketDay !== 'all') {
+      filtered = PIKET.filter(p => p.hari.toLowerCase() === currentPiketDay.toLowerCase());
+    }
+
+    if (!filtered.length) {
+      tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:20px; color:var(--slate-gray);">Tidak ada jadwal piket untuk hari ini.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = filtered.map(p => `
+      <tr>
+        <td style="font-weight:700; text-align:center;">${p.no}</td>
+        <td><span style="font-weight:800; color:var(--muted-blue);">${p.hari}</span></td>
+        <td><span class="status-pill" style="background:rgba(55,106,155,0.1); color:var(--muted-blue); font-size:0.75rem;">${p.tim}</span></td>
+        <td style="font-weight:700; color:var(--deep-navy);">${p.nama} (${p.gender})</td>
+        <td>${p.mapel}</td>
+        <td style="font-family:var(--font-mono); font-weight:700; text-align:center;">${p.jp_mengajar} JP</td>
+        <td style="font-weight:800; color:var(--deep-navy);">${p.total_jp_piket}</td>
+        <td>
+          <button class="btn btn-sm" style="background:var(--soft-beige); color:var(--deep-navy); border:1px solid var(--border); font-size:0.75rem; padding:4px 8px;" onclick="openCatatanPiketModal('${p.hari}', '${p.nama}')" data-needs="teacher">
+            + Jurnal Hari Ini
+          </button>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  // Render Catatan Piket Log Table
+  function renderCatatanPiketTable(filterDate = '') {
+    const tbody = document.getElementById('tbody-catatan-piket');
+    if (!tbody) return;
+
+    let list = logsCatatanPiket;
+    if (filterDate) {
+      list = list.filter(item => item.tanggal === filterDate);
+    }
+
+    if (!list.length) {
+      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:24px; color:var(--slate-gray);">Belum ada catatan piket untuk tanggal yang dipilih.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = list.map(item => `
+      <tr>
+        <td style="font-family:var(--font-mono); font-weight:700; color:var(--deep-navy);">
+          ${item.tanggal}<br>
+          <span style="font-size:0.75rem; color:var(--muted-blue); font-weight:600;">${item.hari}</span>
+        </td>
+        <td style="font-weight:700; color:var(--deep-navy); font-size:0.86rem;">
+          ${item.guru}<br>
+          <span style="font-size:0.72rem; color:var(--slate-gray); font-family:var(--font-mono);">${item.jam}</span>
+        </td>
+        <td style="font-size:0.82rem; line-height:1.45;">${item.apel}</td>
+        <td style="font-size:0.82rem; line-height:1.45;">${item.santri || '–'}</td>
+        <td style="font-size:0.82rem; line-height:1.45;">${item.inval || '–'}</td>
+        <td style="font-size:0.82rem; line-height:1.45; color:var(--slate-gray);">${item.catatan || '–'}</td>
+        <td><span class="status-pill st-hadir">${item.status || 'Tercatat'}</span></td>
+      </tr>
+    `).join('');
+  }
+
+  window.filterPiketLogsByDate = function(val) {
+    renderCatatanPiketTable(val);
+  };
+
+  window.resetPiketLogFilter = function() {
+    const el = document.getElementById('filter-piket-date');
+    if (el) el.value = '';
+    renderCatatanPiketTable();
+  };
+
+  window.openCatatanPiketModal = function(optDay = '', optGuru = '') {
+    const modal = document.getElementById('modal-catatan-piket');
+    if (!modal) return;
+
+    const tglEl = document.getElementById('cp-tanggal');
+    const hariEl = document.getElementById('cp-hari');
+    
+    // Set today
+    const now = new Date();
+    const isoDate = now.toISOString().split('T')[0];
+    if (tglEl) tglEl.value = isoDate;
+
+    // Detect day if not given
+    const daysName = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+    const currentDayName = daysName[now.getDay()] || 'Senin';
+    const dayToSet = optDay || (['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat'].includes(currentDayName) ? currentDayName : 'Senin');
+
+    if (hariEl) {
+      hariEl.value = dayToSet;
+      updatePiketGuruByDay(dayToSet);
+    }
+
+    if (optGuru) {
+      const guruEl = document.getElementById('cp-guru');
+      if (guruEl) guruEl.value = optGuru;
+    }
+
+    modal.classList.add('active');
+  };
+
+  window.updatePiketGuruByDay = function(hari) {
+    const guruEl = document.getElementById('cp-guru');
+    if (!guruEl) return;
+    const piketTeachers = PIKET.filter(p => p.hari.toLowerCase() === hari.toLowerCase());
+    guruEl.innerHTML = '';
+    if (piketTeachers.length) {
+      piketTeachers.forEach(p => {
+        const opt = document.createElement('option');
+        opt.value = `${p.nama} (${p.tim})`;
+        opt.textContent = `${p.nama} (${p.tim} · ${p.mapel})`;
+        guruEl.appendChild(opt);
+      });
+      // Add option for both
+      const optBoth = document.createElement('option');
+      optBoth.value = piketTeachers.map(p => p.nama).join(' & ');
+      optBoth.textContent = 'Kedua Guru Piket (Tim Putra & Tim Putri)';
+      guruEl.appendChild(optBoth);
+    } else {
+      guruEl.innerHTML = '<option value="Guru Piket MA ICN">Guru Piket MA ICN</option>';
+    }
+  };
+
+  window.submitCatatanPiket = function(e) {
+    e.preventDefault();
+    const tgl = document.getElementById('cp-tanggal').value;
+    const hari = document.getElementById('cp-hari').value;
+    const guru = document.getElementById('cp-guru').value;
+    const jam = document.getElementById('cp-jam').value;
+    const apel = document.getElementById('cp-apel').value;
+    const murid = document.getElementById('cp-santri').value;
+    const inval = document.getElementById('cp-inval').value;
+    const catatan = document.getElementById('cp-catatan').value;
+
+    const newLog = {
+      id: 'piket-' + Date.now(),
+      tanggal: tgl,
+      hari: hari,
+      guru: guru,
+      jam: jam,
+      apel: apel,
+      santri: murid || 'Nihil murid izin.',
+      inval: inval || 'Seluruh guru hadir lengkap.',
+      catatan: catatan || '–',
+      status: 'Terverifikasi'
+    };
+
+    logsCatatanPiket.unshift(newLog);
+    teacherStorage.setItem('maicn_catatan_piket_v1', JSON.stringify(logsCatatanPiket));
+    closeModal('modal-catatan-piket');
+    window.AppUtils.toast('Catatan guru piket harian berhasil didokumentasikan!');
+    renderCatatanPiketTable();
+  };
+
+  // ══════════════════════════════════════════════════════════
+  // PRESENSI KBM DENGAN LOGIN GURU
+  // ══════════════════════════════════════════════════════════
+  const STUDENTS_DATA = Object.fromEntries(['X-1','X-2','X-3'].map(kelas => [kelas, window.StudentRoster.forClass(kelas)]));
+
+  let currentTeacherAuth = null;
+  let logsPresensiKBM = JSON.parse(teacherStorage.getItem('maicn_presensi_kbm_logs') || '[]');
+
+
+  function populatePresensiLoginDropdown() {
+    const sel = document.getElementById('presensi-login-select');
+    if (!sel) return;
+    sel.innerHTML = '<option value="">-- Pilih Nama Guru Pengampu --</option>';
+    MATRIKS.forEach(g => {
+      const opt = document.createElement('option');
+      opt.value = JSON.stringify({ nama: g.nama, mapel: g.mapel });
+      opt.textContent = `${g.nama} — ${g.mapel}`;
+      sel.appendChild(opt);
+    });
+  }
+
+  function checkTeacherAuth() {
+    const gate = document.getElementById('presensi-auth-gate');
+    const workspace = document.getElementById('presensi-workspace');
+    if (!gate || !workspace) return;
+
+    if (currentTeacherAuth && window.CurriculumAccess?.has('teacher') && currentTeacherAuth.uid===window.CurriculumAccess.context.user_id) {
+      gate.style.display = 'none';
+      workspace.style.display = 'block';
+
+      const nameEl = document.getElementById('auth-teacher-name');
+      const mapelEl = document.getElementById('auth-teacher-mapel');
+      if (nameEl) nameEl.textContent = currentTeacherAuth.nama;
+      if (mapelEl) mapelEl.textContent = `Mata Pelajaran: ${currentTeacherAuth.mapel}`;
+
+      const tglEl = document.getElementById('pres-tgl');
+      if (tglEl && !tglEl.value) {
+        tglEl.value = new Date().toISOString().split('T')[0];
+      }
+
+      loadStudentsForPresensi();
+      renderRekapPresensiTable();
+    } else {
+      gate.style.display = 'block';
+      workspace.style.display = 'none';
+      populatePresensiLoginDropdown();
+    }
+  }
+
+  window.handleGuruQuickLogin = function(){location.href='akun.html?next=%2Fpresensi.html';};
+  window.handleGuruLogout = function(){location.href='akun.html';};
+
+  window.loadStudentsForPresensi = function() {
+    const kelasSel = document.getElementById('pres-kelas');
+    const tbody = document.getElementById('tbody-presensi-students');
+    if (!kelasSel || !tbody) return;
+
+    const cls = kelasSel.value;
+    const students = STUDENTS_DATA[cls] || [];
+
+    tbody.innerHTML = students.map((s, idx) => `
+      <tr data-student-id="${s.id}">
+        <td style="font-weight:700; text-align:center;">${idx + 1}</td>
+        <td style="font-family:var(--font-mono); font-size:0.8rem; color:var(--slate-gray);">${s.nisn || '—'}</td>
+        <td style="font-weight:700; color:var(--deep-navy);">${window.StudentRoster.escapeHTML(s.nama)}</td>
+        <td style="text-align:center;">
+          <div style="display:inline-flex; gap:12px; font-weight:700; font-size:0.82rem;">
+            <label style="cursor:pointer; color:#1E6B39;"><input type="radio" name="st_${s.id}" value="H"> H</label>
+            <label style="cursor:pointer; color:#C28100;"><input type="radio" name="st_${s.id}" value="S"> S</label>
+            <label style="cursor:pointer; color:#376A9B;"><input type="radio" name="st_${s.id}" value="I"> I</label>
+            <label style="cursor:pointer; color:#A71D2A;"><input type="radio" name="st_${s.id}" value="A"> A</label>
+          </div>
+        </td>
+        <td>
+          <input type="text" placeholder="Catatan opsional…" style="width:100%; padding:4px 8px; font-size:0.8rem; border:1px solid var(--border); border-radius:6px;">
+        </td>
+      </tr>
+    `).join('');
+  };
+
+  window.setAllAttendance = function(status) {
+    const radios = document.querySelectorAll('#tbody-presensi-students input[type="radio"]');
+    radios.forEach(r => {
+      if (r.value === status) r.checked = true;
+    });
+  };
+
+  window.submitPresensiKBM = function() {
+    if (!currentTeacherAuth || !window.CurriculumAccess?.has('teacher') || currentTeacherAuth.uid!==window.CurriculumAccess.context.user_id) {
+      alert('Sesi guru berakhir. Silakan masuk kembali.');
+      checkTeacherAuth();
+      return;
+    }
+
+    const tgl = document.getElementById('pres-tgl').value;
+    const cls = document.getElementById('pres-kelas').value;
+    const jp = document.getElementById('pres-jp-slot').value;
+    const materi = document.getElementById('pres-materi').value;
+
+    if (!materi.trim()) {
+      alert('Mohon isi topik atau materi pembelajaran yang diajarkan.');
+      return;
+    }
+
+    const rows = document.querySelectorAll('#tbody-presensi-students tr');
+    if ([...rows].some(row => !row.querySelector('input[type=radio]:checked'))) {
+      alert('Pilih status kehadiran untuk setiap murid sebelum menyimpan.');
+      return;
+    }
+    let hadir = 0, sakit = 0, izin = 0, alpa = 0;
+
+    rows.forEach(tr => {
+      const studentId = tr.getAttribute('data-student-id');
+      const checked = tr.querySelector(`input[name="st_${studentId}"]:checked`);
+      const val = checked.value;
+      if (val === 'H') hadir++;
+      else if (val === 'S') sakit++;
+      else if (val === 'I') izin++;
+      else if (val === 'A') alpa++;
+    });
+
+    const newPres = {
+      id: 'pres-' + Date.now(),
+      tanggal: tgl,
+      kelas: cls,
+      jp: jp,
+      guru: currentTeacherAuth.nama,
+      mapel: currentTeacherAuth.mapel,
+      materi: materi.trim(),
+      hadir: hadir,
+      sakit: sakit,
+      izin: izin,
+      alpa: alpa,
+      total: hadir + sakit + izin + alpa,
+      status: 'Tersimpan & TTD'
+    };
+
+    logsPresensiKBM.unshift(newPres);
+    teacherStorage.setItem('maicn_presensi_kbm_logs', JSON.stringify(logsPresensiKBM));
+    document.getElementById('pres-materi').value = '';
+    window.AppUtils.toast(`Presensi KBM ${cls} berhasil disimpan & ditandatangani secara digital!`);
+    renderRekapPresensiTable();
+  };
+
+  function renderRekapPresensiTable() {
+    const tbody = document.getElementById('tbody-rekap-presensi');
+    if (!tbody) return;
+
+    if (!logsPresensiKBM.length) {
+      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:20px; color:var(--slate-gray);">Belum ada riwayat presensi yang terekam.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = logsPresensiKBM.map(item => `
+      <tr>
+        <td style="font-family:var(--font-mono); font-weight:700;">${item.tanggal}</td>
+        <td><span class="status-pill" style="background:#EBF2F7; color:var(--muted-blue); font-weight:800;">${item.kelas}</span></td>
+        <td style="font-size:0.8rem; font-family:var(--font-mono);">${item.jp}</td>
+        <td style="font-weight:700; color:var(--deep-navy);">
+          ${item.mapel}<br>
+          <span style="font-size:0.75rem; color:var(--slate-gray); font-weight:500;">${item.guru}</span>
+        </td>
+        <td style="font-size:0.82rem; line-height:1.45;">${item.materi}</td>
+        <td>
+          <div style="font-size:0.8rem; font-weight:700;">
+            <span style="color:#1E6B39;">${item.hadir} H</span> · 
+            <span style="color:#C28100;">${item.sakit} S</span> · 
+            <span style="color:#376A9B;">${item.izin} I</span> · 
+            <span style="color:#A71D2A;">${item.alpa} A</span>
+          </div>
+          <div style="font-size:0.72rem; color:var(--slate-gray);">Total: ${item.total} Murid</div>
+        </td>
+        <td><span class="status-pill st-hadir">${item.status}</span></td>
+      </tr>
+    `).join('');
+  }
+
+  let boundTeacher=null;
+  function syncVerifiedTeacher(){const access=window.CurriculumAccess,c=access?.context;if(!access?.has('teacher')||!c?.user_id){currentTeacherAuth=null;logsIzin=[];logsCatatanPiket=[];logsPresensiKBM=[];boundTeacher=null;checkTeacherAuth();return}if(boundTeacher!==c.user_id){boundTeacher=c.user_id;teacherStorageOK=true;try{logsIzin=JSON.parse(teacherStorage.getItem('maicn_kbm_izin_logs')||'[]');logsCatatanPiket=JSON.parse(teacherStorage.getItem('maicn_catatan_piket_v1')||'[]');logsPresensiKBM=JSON.parse(teacherStorage.getItem('maicn_presensi_kbm_logs')||'[]')}catch{teacherStorageOK=false;logsIzin=[];logsCatatanPiket=[];logsPresensiKBM=[];window.AppUtils.toast('Catatan perangkat belum dapat dibaca. Data asal dipertahankan.')}}currentTeacherAuth={uid:c.user_id,nama:c.teacher||'Pengelola madrasah',mapel:'Akun guru madrasah terverifikasi'};checkTeacherAuth();renderIzinLogTable();renderCatatanPiketTable();}
+  window.addEventListener('curriculum-access-changed',syncVerifiedTeacher);
+  document.addEventListener('DOMContentLoaded',()=>{if(window.CurriculumAccess?.ready)syncVerifiedTeacher()});
+  // Initialization
+  document.addEventListener('DOMContentLoaded', () => {
+        // Initialize Piket Table & Logs
+    renderPiketTable();
+    renderCatatanPiketTable();
+
+    // Initialize Presensi
+    checkTeacherAuth();
+
+    populateTeacherDropdowns();
+    renderKBMTable();
+    renderMatriksTable();
+    renderPiketTable();
+    renderIzinLogTable();
+    renderAsramaTable();
+
+    // Search Matriks Input
+    const searchInput = document.getElementById('search-guru');
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        renderMatriksTable(e.target.value);
+      });
+    }
+  });
+
+  window.openQuickJournalModal = function() {
+    const el = document.getElementById('modal-quick-journal');
+    if (el) {
+      el.classList.add('active');
+      const d = document.getElementById('qj-date');
+      if (d) d.value = new Date().toISOString().slice(0, 10);
+    }
+  };
+
+  window.submitQuickJournal = function(e){e.preventDefault();if(!window.CurriculumAccess?.has('teacher')){location.href='akun.html?next=%2Fpresensi.html';return;}try{const key='maicn_jurnal_kbm_logs',raw=teacherStorage.getItem(key),rows=raw===null?[]:JSON.parse(raw);if(!Array.isArray(rows))throw Error();const record={id:crypto.randomUUID(),owner:window.CurriculumAccess.context.user_id,tanggal:new Date(Date.now()+7*3600000).toISOString().slice(0,10),mapel:document.getElementById('qj-mapel').value,kelas:document.getElementById('qj-class').value,jp:document.getElementById('qj-jp').value,topik:document.getElementById('qj-topic').value};teacherStorage.setItem(key,JSON.stringify([...rows,record]));window.AppUtils.toast('Jurnal tersimpan pada perangkat untuk akun guru ini.');document.getElementById('modal-quick-journal').classList.remove('active');}catch{window.AppUtils.toast('Jurnal belum tersimpan. Isian dan data lama dipertahankan.');}};
+
+})();
+</script>
+<!-- ═════════ QUICK JOURNAL MODAL ═════════ -->
+<div class="modal-overlay" id="modal-quick-journal">
+<div class="modal-box-large">
+<button class="modal-close-btn" onclick="closeModal('modal-quick-journal')">✕</button>
+<h2 style="font-family:var(--font-serif); font-size:1.4rem; color:var(--deep-navy); margin-bottom:4px;">
+      Isi Jurnal Mengajar Cepat
+    </h2>
+<p style="font-size:0.85rem; color:var(--slate-gray); margin-bottom:20px;">
+      Catat ringkasan topik materi dan absensi KBM hari ini langsung ke sistem.
+    </p>
+<form id="form-quick-journal" onsubmit="submitQuickJournal(event)">
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+<div class="form-group">
+<label for="qj-date">Tanggal</label>
+<input id="qj-date" required="" type="date"/>
+</div>
+<div class="form-group">
+<label for="qj-class">Pilih Kelas</label>
+<select id="qj-class" required="">
+<option value="X-1">Kelas X-1</option>
+<option value="X-2">Kelas X-2</option>
+<option value="X-3">Kelas X-3</option>
+</select>
+</div>
+</div>
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+<div class="form-group">
+<label for="qj-mapel">Mata Pelajaran</label>
+<input id="qj-mapel" placeholder="Contoh: Sosiologi" required="" type="text"/>
+</div>
+<div class="form-group">
+<label for="qj-jp">Jam Pelajaran (JP)</label>
+<input id="qj-jp" placeholder="Contoh: JP 1 - 2 (07.00 - 08.20)" required="" type="text"/>
+</div>
+</div>
+<div class="form-group">
+<label for="qj-topic">Topik / Materi Pembelajaran</label>
+<textarea id="qj-topic" placeholder="Tuliskan capaian pembelajaran atau resume ringkas..." required="" rows="3"></textarea>
+</div>
+<div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
+<button class="btn btn-ghost" onclick="closeModal('modal-quick-journal')" type="button">Batal</button>
+<button class="btn btn-primary" style="background:#F07E5B; border-color:#F07E5B; color:#fff;" type="submit">Simpan Jurnal ✦</button>
+</div>
+</form>
+</div>
+</div>
+<!-- Sticky Mobile Bottom Navigation -->
+<nav class="clay-mobile-bottom-nav" aria-label="Navigasi cepat ponsel"><a href="index.html" class="clay-bottom-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7v10H3z"/><path d="M9 20v-7h6v7"/></svg><span>Beranda</span></a><a href="jadwal.html" class="clay-bottom-nav-item active" aria-current="page"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4m8-4v4M3 10h18m-13 4h3m-3 3h6m2-3h1"/></svg><span>Jadwal</span></a><a href="kalender.html" class="clay-bottom-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18m-13 4h2m4 0h2"/></svg><span>Kalender</span></a><a href="klinik.html" class="clay-bottom-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5C8 2 3 3 3 3v16s5-1 9 2c4-3 9-2 9-2V3s-5-1-9 2Zm0 0v16"/></svg><span>Klinik</span></a><button type="button" class="clay-bottom-nav-item" onclick="toggleClayDrawer()" aria-label="Buka menu lengkap" aria-controls="main-clay-sidebar" aria-expanded="false"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span>Menu</span></button></nav>
+<script src="assets/dashboard-clay.js?v=1.1"></script>
+<script src="assets/curriculum-ui.js?v=20261026-audience1"></script>
+<script type="module" src="assets/monday-block.mjs?v=20261026"></script>
+<script>document.addEventListener("DOMContentLoaded",()=>{const button=document.querySelector('[data-tab="tab-presensi"]');if(button)window.switchScheduleTab('tab-presensi',button);});</script></body>
+</html>

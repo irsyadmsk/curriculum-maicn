@@ -365,6 +365,12 @@
   animation: irsyads-muncul var(--durasi-muncul) var(--ease-masuk) backwards,
     irsyads-naik var(--durasi-naik) var(--ease-masuk) backwards;
 }
+[data-motion="reduce"] *, [data-motion="reduce"] *::before, [data-motion="reduce"] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
 @media (prefers-reduced-motion: reduce) {
   .masuk-layar { animation: none; }
 }
