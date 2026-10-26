@@ -9,3 +9,4 @@ export function accountTeacher(context,teachers){
  const byName=teachers.filter(t=>key(t.nama)===key(context.teacher));
  return byName.length===1?byName[0]:null;
 }
+export function proposalSubjects(teacherMode,values){return (teacherMode?values.slice(0,1):values).map(value=>String(value||'').trim()).filter(Boolean)}
