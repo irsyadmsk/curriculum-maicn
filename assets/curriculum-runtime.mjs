@@ -1,5 +1,5 @@
 let pending;
-/** Reuse the existing isolated Curriculum session; no assumed cross-domain browser session. */
+/** Reuse the Irsyads ID shared session; the Worker verifies native identity and school roles. */
 export async function curriculumDB(){
  if(window.CurriculumDB)return window.CurriculumDB;
  pending??=(async()=>{

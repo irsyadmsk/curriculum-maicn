@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Modul Ajar — Curriculum OS · MA ICN</title>
+<title>Modul Ajar — Curriculum</title>
 <link rel="stylesheet" href="assets/styles.css?v=3.1">
 <style>
 .modul-filter { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:28px; }
@@ -50,7 +50,7 @@
 </div>
 
 <div id="loading-screen">
-  <div class="loading-logo"><img src="assets/iconmaicn.png" alt="MA ICN"></div>
+  <div class="loading-logo"><img src="assets/curriculum-mark.svg" alt="Curriculum"></div>
   <div class="loading-text">Memuat Kurikulum…</div>
   <div class="loading-bar-track"><div class="loading-bar-fill"></div></div>
 </div>
@@ -73,8 +73,8 @@
 
 <nav class="navbar" id="navbar">
   <a href="index.html" class="nav-brand">
-    <img src="assets/iconmaicn.png" alt="Logo">
-    <span>MA ICN</span>
+    <img src="assets/curriculum-mark.svg" alt="Logo">
+    <span>Curriculum</span>
   </a>
   <div class="nav-links" id="nav-links">
     <a href="index.html" data-page="index">Beranda</a>
@@ -94,7 +94,7 @@
     <div class="section-header animate-up">
       <div class="section-tag">Pustaka Digital</div>
       <h2 class="section-title">Modul Ajar</h2>
-      <p class="section-sub">Seluruh perangkat ajar yang diunggah oleh guru MA ICN</p>
+      <p class="section-sub">Seluruh perangkat ajar yang diunggah oleh guru Curriculum</p>
       <button type="button" class="btn btn-ghost btn-sm" id="module-account">Masuk akun modul</button>
       <p class="section-sub" id="module-account-status" role="status"></p>
     </div>
@@ -119,7 +119,7 @@
 <footer>
   <div class="container footer-inner">
     <div>
-      <div class="footer-brand"><strong id="footer-madrasah">MA Insan Cendekia Nusantara Purwakarta</strong></div>
+      <div class="footer-brand"><strong id="footer-madrasah">Curriculum</strong></div>
       <div class="footer-meta">Pusat Informasi Akademik &amp; Kurikulum<br>
         Waka Kurikulum: <span id="footer-waka"></span> · Dok: <span id="footer-doc"></span>
       </div>
@@ -179,9 +179,9 @@
 <div class="modal-overlay" id="modal-login">
   <div class="modal-box">
     <button class="modal-close" data-close-modal="modal-login">✕</button>
-    <div class="modal-logo"><img src="assets/iconmaicn.png" alt="Logo"></div>
+    <div class="modal-logo"><img src="assets/curriculum-mark.svg" alt="Logo"></div>
     <div class="modal-title">Masuk</div>
-    <div class="modal-sub">Akun modul guru &amp; administrator MA ICN</div>
+    <div class="modal-sub">Akun modul guru &amp; administrator Curriculum</div>
     <div class="login-error" id="login-error"></div>
     <form id="login-form">
       <div class="form-group">
@@ -244,7 +244,7 @@
     </div>
     <div class="admin-panel-content" id="panel-info">
       <p style="font-size:0.9rem;color:var(--text-soft);line-height:1.7;">
-        <strong>Curriculum OS v3.0</strong> — Firebase Edition<br>MA Insan Cendekia Nusantara Purwakarta
+        <strong>Curriculum v3.0</strong> — Firebase Edition<br>Curriculum
       </p>
       <div class="callout">📌 Akun guru dibuat oleh admin di Firebase Console → Authentication → Add user</div>
       <div class="callout" style="margin-top:10px;">🔐 Hak akses akun modul dikelola admin di Firestore → users → [uid] → role: "guru" atau "admin"</div>
@@ -257,7 +257,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const MD = window.MASTER_DATA;
   if (MD) {
-    document.getElementById('footer-madrasah').textContent = MD.meta.madrasah;
+    document.getElementById('footer-madrasah').textContent = 'Curriculum';
     document.getElementById('footer-waka').textContent     = MD.meta.waka_kurikulum;
     document.getElementById('footer-doc').textContent      = MD.meta.no_dokumen;
     document.getElementById('footer-year').textContent     = `TP ${MD.meta.tahun_pelajaran}`;

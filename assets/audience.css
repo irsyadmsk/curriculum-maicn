@@ -14,3 +14,4 @@ body.curriculum-ui [hidden]{display:none!important}
 .monday-date-label select{font:inherit;font-size:16px;min-height:44px;padding:8px 12px;border:1px solid var(--ui-border);border-radius:8px;background:var(--ui-surface);color:var(--ui-ink)}
 
 [data-retired-control]{display:none!important}
+.account-sso{display:grid;gap:8px;margin-block:24px}.account-sso .ui-button{min-height:50px;display:flex;align-items:center;justify-content:center;gap:12px;white-space:normal;text-align:center}.account-sso p{margin:0;text-align:center}.ui-brand img{width:40px;height:40px;flex-shrink:0}.ui-brand:focus-visible,.account-sso a:focus-visible{outline:3px solid var(--ui-accent);outline-offset:4px}
