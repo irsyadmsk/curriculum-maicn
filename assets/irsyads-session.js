@@ -1,4 +1,4 @@
-// Generated locally from irsyads shared session sources; run node scripts/export-curriculum-session.mjs. No SDK client, credentials or provider migration.
+// Generated from canonical Irsyads shared SSO session sources.
 var IrsyadsCurriculumSession = (() => {
   var __defProp = Object.defineProperty;
   var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -22,12 +22,12 @@ var IrsyadsCurriculumSession = (() => {
   var stdin_exports = {};
   __export(stdin_exports, {
     KeluarTertahan: () => KeluarTertahan,
-    buatSesiTerpisah: () => buatSesiTerpisah,
     keluarTerikat: () => keluarTerikat,
+    penyimpananSesi: () => penyimpananSesi,
     pesanGalatKeluar: () => pesanGalatKeluar
   });
 
-  // packages/supabase/src/sesi.ts
+  // node-read:C:\Users\T6N0CV02S35823C\Github\irsyads\packages\supabase\src\sesi.ts
   var POTONG = 3e3;
   var adaPeramban = () => typeof document !== "undefined";
   function domainInduk() {
@@ -197,7 +197,7 @@ var IrsyadsCurriculumSession = (() => {
     }
   };
 
-  // packages/supabase/src/hasil-keluar.ts
+  // node-read:C:\Users\T6N0CV02S35823C\Github\irsyads\packages\supabase\src\hasil-keluar.ts
   var messages = {
     "tidak-pasti": "Logout belum terkonfirmasi. Periksa koneksi dan sesi Anda sebelum mencoba lagi.",
     "sesi-berubah": "Sesi Anda berubah. Sesi yang lebih baru tetap masuk; periksa akun aktif sebelum melanjutkan.",
@@ -215,7 +215,7 @@ var IrsyadsCurriculumSession = (() => {
     return error instanceof KeluarTertahan ? messages[error.hasil] : messages["tidak-pasti"];
   }
 
-  // packages/supabase/src/keluar-terikat.ts
+  // node-read:C:\Users\T6N0CV02S35823C\Github\irsyads\packages\supabase\src\keluar-terikat.ts
   async function keluarTerikat(config) {
     const base = new URL(config.url), deadline = config.deadlineMs ?? 15e3;
     const scope = config.scope ?? "local";
@@ -268,42 +268,6 @@ var IrsyadsCurriculumSession = (() => {
     } finally {
       if (timer !== void 0) clearTimeout(timer);
     }
-  }
-
-  // packages/supabase/src/sesi-terpisah.ts
-  function buatSesiTerpisah(base, key) {
-    if (!/^[A-Za-z0-9_-]{1,180}$/.test(key)) throw Error("Invalid isolated session key");
-    const marker = (owner, token) => {
-      const id = identitasToken(token);
-      return id && id.owner === owner ? `${key}-revoked-${id.owner}-${id.session}` : null;
-    };
-    const revoked = (value) => {
-      try {
-        const record = JSON.parse(value), name = marker(record.user?.id, record.access_token);
-        return name !== null && base.getItem(name) === "1";
-      } catch {
-        return false;
-      }
-    };
-    const storage = {
-      getItem(k) {
-        const value = base.getItem(k);
-        return k === key && value !== null && revoked(value) ? null : value;
-      },
-      setItem(k, value) {
-        if (k !== key || !revoked(value)) base.setItem(k, value);
-      },
-      removeItem(k) {
-        base.removeItem(k);
-      }
-    };
-    const invalidateSession = (owner, token) => {
-      const name = marker(owner, token);
-      if (!name) return false;
-      base.setItem(name, "1");
-      return base.getItem(name) === "1";
-    };
-    return { storage, invalidateSession };
   }
   return __toCommonJS(stdin_exports);
 })();
