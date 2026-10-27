@@ -1,0 +1,190 @@
+{
+  "generated_at": "2026-10-26T07:31:35.856506+00:00",
+  "evidence": "local source and synthetic verification only",
+  "remote_enabled": false,
+  "production_applied": false,
+  "release_package": false,
+  "note": "Source review manifest; does not authorize release of unrelated dirty work. Other HTML pages only receive the shared presentation cache version.",
+  "files": [
+    {
+      "repo": "curriculum-maicn",
+      "path": "index.html",
+      "bytes": 28378,
+      "sha256": "45ea8d80e654d7fb2dee0d07d7db746fd0b21928227732e33cf6d79aaa90d2df"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "klinik.html",
+      "bytes": 20942,
+      "sha256": "97f1c7ff799190ef9ed4c9468ecd26ba516e103bbf966dd747dbda83e4ef5998"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "jadwal.html",
+      "bytes": 89990,
+      "sha256": "bc03ed4b11ab6f129b5cc8261e84dcb05714b5c7eb888d5264355d6a90a7ec5b"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "assets/clinic-core.mjs",
+      "bytes": 7434,
+      "sha256": "3654dd172cc0163e7d1e753cc438bc891a1b47171209f2104693d566e4bd8ec9"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "assets/clinic-client.mjs",
+      "bytes": 6190,
+      "sha256": "8443d5ff2e0b7e00b6eccc8fb70edc4ba86379831abf623285f39dfdfc2927a0"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "assets/clinic-page.mjs",
+      "bytes": 23102,
+      "sha256": "d64625b8eba3ffccf084e71b449e7c5e53fb14d2252d5af4c030b90371785e51"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "assets/clinic-page.css",
+      "bytes": 12179,
+      "sha256": "4642354df534a917ef7ab347e013df5eee72b02493d082235a87c15fc49a711c"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "assets/clinic-home.mjs",
+      "bytes": 2249,
+      "sha256": "54dcbcb355f004b02b1590d54b22ddeba09dd14a00e59cba1667a8db42e061b3"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "assets/monday-block.mjs",
+      "bytes": 3448,
+      "sha256": "87fa0961126cdce125192b165717d6426c37c12df13044f98b1d590ad06d6d8a"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "assets/curriculum-runtime.mjs",
+      "bytes": 651,
+      "sha256": "aacb7456811dbffc58609faa6cc4d60b2c001e12e7f7106d116ccc8489d79961"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "assets/curriculum-ui.js",
+      "bytes": 27825,
+      "sha256": "92be508c02174734a0d5b45bdfad8d732300690e2c7728635dc49eb186035597"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "assets/curriculum-ui.css",
+      "bytes": 48315,
+      "sha256": "309377faf8f956f245f1f5b6fffcb6802acc52b3e7349df0d6eda349da62b4d4"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "tests/clinic-workflow.test.mjs",
+      "bytes": 6741,
+      "sha256": "fd985b7f2e7623f1803238a558f9abd61505742f398802df2b1e63919ead7e1f"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "docs/2026-10-26_CLINIC_AND_MONDAY_LOCAL.md",
+      "bytes": 6535,
+      "sha256": "5095640f0b37fa47e783a4734b54c93b39ac786793aab7a00b259ff40d52838b"
+    },
+    {
+      "repo": "irsyads",
+      "path": "packages/curriculum-clinic/clinic-core.mjs",
+      "bytes": 7434,
+      "sha256": "3654dd172cc0163e7d1e753cc438bc891a1b47171209f2104693d566e4bd8ec9"
+    },
+    {
+      "repo": "irsyads",
+      "path": "packages/curriculum-clinic/clinic-client.mjs",
+      "bytes": 6190,
+      "sha256": "8443d5ff2e0b7e00b6eccc8fb70edc4ba86379831abf623285f39dfdfc2927a0"
+    },
+    {
+      "repo": "irsyads",
+      "path": "packages/curriculum-clinic/clinic-core.d.mts",
+      "bytes": 1853,
+      "sha256": "e9289878882a0cf1c480103fe95bbbf07f413db6facfd9f48d70146eea77908f"
+    },
+    {
+      "repo": "irsyads",
+      "path": "packages/curriculum-clinic/clinic-client.d.mts",
+      "bytes": 1762,
+      "sha256": "458cea847295f4ff980f786f89625fa4d95a4ecfb9b307754aea37894e45f16f"
+    },
+    {
+      "repo": "irsyads",
+      "path": "apps/studio/src/components/studio/curriculum/CurriculumWorkspace.tsx",
+      "bytes": 24843,
+      "sha256": "2ffbc4dae48b3faa1cd188b0308f1a4bb5fcb00dee13f79f50311881fed05350"
+    },
+    {
+      "repo": "irsyads",
+      "path": "apps/studio/src/components/studio/curriculum/ClinicReview.tsx",
+      "bytes": 14322,
+      "sha256": "f44319c4babeee22ef61fba0ce5cc890609ec94b5269c4bc94c23074d2187d75"
+    },
+    {
+      "repo": "irsyads",
+      "path": "apps/studio/src/components/studio/curriculum/MondayBlock.tsx",
+      "bytes": 5765,
+      "sha256": "ce7feaff19efd76c6031dae8d4c51b5e1b1b2c2898ad811c31ade554ef9bcc72"
+    },
+    {
+      "repo": "irsyads",
+      "path": "apps/studio/src/components/studio/curriculum/clinic-review.css",
+      "bytes": 5418,
+      "sha256": "c0fd5bf92174fe021efe873a48ba3626288ab272cedbcff3f9a390cd4152d1ea"
+    },
+    {
+      "repo": "irsyads",
+      "path": "apps/studio/src/lib/clinic-workflow.ts",
+      "bytes": 970,
+      "sha256": "7162dd6ca4bff92b4181ec5ddcfd2945382ca6549b89f8dc485d687308493016"
+    },
+    {
+      "repo": "irsyads",
+      "path": "scripts/export-curriculum-clinic.mjs",
+      "bytes": 764,
+      "sha256": "dc69cfde3926b89a5472ab74d7440405dc5b385af92fa38b639cc877f5e896aa"
+    },
+    {
+      "repo": "irsyads",
+      "path": "scripts/preview-clinic-workflow.mjs",
+      "bytes": 7455,
+      "sha256": "662ed0103a49692fdc0055f54c87ad0b36c10849ac1d80b6cfab72380886da48"
+    },
+    {
+      "repo": "irsyads",
+      "path": "tests/clinic-workflow-20261026.test.mjs",
+      "bytes": 8101,
+      "sha256": "a91ba9432c940527bc99c67afb361d3db061f375cf12d2cfc2297618023d6a66"
+    },
+    {
+      "repo": "irsyads",
+      "path": "tests/clinic-review-ui-20261026.test.mjs",
+      "bytes": 6312,
+      "sha256": "6eb694778c776fdd3543bf753923a6371714b73b8b3b3b202bf3657db187139f"
+    },
+    {
+      "repo": "irsyads",
+      "path": "ops/review/clinic-workflow-20261026/prepare.sql",
+      "bytes": 18137,
+      "sha256": "770bd83f934523fae2bd4590a104ccb69603bed8d487ec1dce69ae3bd1c4c87d"
+    },
+    {
+      "repo": "irsyads",
+      "path": "ops/review/clinic-workflow-20261026/close-writes.sql",
+      "bytes": 332,
+      "sha256": "95e8e23148ff4dc7454f0dd346664380fc0384ff99549b491c706b9ec9631f97"
+    },
+    {
+      "repo": "irsyads",
+      "path": "ops/review/clinic-workflow-20261026/README.md",
+      "bytes": 5847,
+      "sha256": "eaad8cb271971d18db1300ff24868b0796248dc912eb2345692482168086c9d7"
+    }
+  ]
+}

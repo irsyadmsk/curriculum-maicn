@@ -1,0 +1,379 @@
+{
+  "scope": "CURR-01 audience and KBC terminology continuation",
+  "date": "2026-10-26",
+  "evidence": "local source and synthetic tests only",
+  "released": false,
+  "production_sql_applied": false,
+  "native_auth_acceptance": false,
+  "files": [
+    {
+      "repo": "curriculum-maicn",
+      "path": "server/worker.mjs",
+      "bytes": 9864,
+      "sha256": "31353fdc501637d14c3e3cb1249c1d289c4a6513e3cec68d368b3531fa93bd30"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "scripts/build-site.mjs",
+      "bytes": 2627,
+      "sha256": "d7f716aedd08667e58e29eb0f56922eae085b007b0692645ce790e67856334d3"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "scripts/preview-site.mjs",
+      "bytes": 5123,
+      "sha256": "8b313dfc2f318f52a2b651d9093f93ab2e25f788c12bc0d94517bf1c4d9a87ae"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "wrangler.jsonc",
+      "bytes": 638,
+      "sha256": "23a21ce39fc1c8605153f293a95d4c00903bf8fa71328756332bc7a0c98e2b47"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "akun.html",
+      "bytes": 13299,
+      "sha256": "e841f8e5262f8e6a40421a1eb685fe4a6426b543d00db5ee71093d015674501e"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "info-murid.html",
+      "bytes": 14071,
+      "sha256": "6283c3377852db5317b3c184310fe7e848642aea4ca9f29a8a480bf0178d59ad"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "kokurikuler.html",
+      "bytes": 15864,
+      "sha256": "201723626bc66fbfd909989ead5611030a71ea60ad5177df1199ba7c41045d7a"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "karakter.html",
+      "bytes": 15436,
+      "sha256": "7d15264b328b4dbbb9cdc231c630f8b2850e39607c5161116551039c7a1bb37f"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "presensi.html",
+      "bytes": 89002,
+      "sha256": "b3995f4da4e20c17ed9ffc3999a7d9889779658974dd52ff3cb7bcdca6d9ab09"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "p5-ppra.html",
+      "bytes": 269,
+      "sha256": "195f19979a9b125e6ab81ba828a42a39690c69beced70111e0cd69e5c5514511"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "index.html",
+      "bytes": 30875,
+      "sha256": "62cb42cb13f40ff447e00a9b63845b0ff55f9d621fe6c82c1ab285b308debf7d"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "jadwal.html",
+      "bytes": 89003,
+      "sha256": "4aede95c2cb5a007f90954ce02237eb5c68cdf06a8b7a09854a62f049a7f66dc"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "kalender.html",
+      "bytes": 59524,
+      "sha256": "8a40dceea0d3f42ebd3ce8eb7329ccddf6eeb4e9b916ba61f3edb74a87eb14e7"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "murid.html",
+      "bytes": 15436,
+      "sha256": "46be0a89e740d840e18bbd1e908d9b6aaa6e1a44569e9a5462e96c609eb274c2"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "rapor.html",
+      "bytes": 39748,
+      "sha256": "5e2f2337281b9a527da478bcca782077df036c6869a97ab10a1fd48188aa95d0"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "buku-kerja.html",
+      "bytes": 33569,
+      "sha256": "6307435413dcb3ad6201b5f4b2becb8a0eded20d707eded836e6af340bd815f6"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "asesmen.html",
+      "bytes": 34973,
+      "sha256": "b17f1ae9e33539384005c6651840149e412fec9e7c1c2b7a226d8f5b20995533"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "struktur.html",
+      "bytes": 32317,
+      "sha256": "6f11ca29be31b6fba5069e939c7117b3601952a9eef14562433dd308f9c5211b"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "kom.html",
+      "bytes": 38410,
+      "sha256": "25dbb0dbc4d2403074102cb414e200ad19ad4f0c6774d7c1f117222b1d306916"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "unggulan.html",
+      "bytes": 22988,
+      "sha256": "9647563f1397c7638fd6ffecfed2ac15d5a7beeb16645e9cc9589bb4dc51eca4"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "admin.html",
+      "bytes": 70250,
+      "sha256": "beb3954fa33d9fd1d05cb36b6002df31d5e7c8965b8e50048233634d524603bc"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "assets/curriculum-access.mjs",
+      "bytes": 6231,
+      "sha256": "dd602fdf45723d61fe6b965508bcf228be83e2f3290385e7036f06c5b206cbde"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "assets/account-page.mjs",
+      "bytes": 3187,
+      "sha256": "6077007e4045bbe04c0417a30762878c9749549184ded725e9faf504e9bc5156"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "assets/audience.css",
+      "bytes": 4504,
+      "sha256": "2c09ec4677815aaa5760d284bd17b7816e75ddd4e81f322f09ab197559e2d795"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "assets/grade-page.mjs",
+      "bytes": 243,
+      "sha256": "8397f18fea5c4d2c4ff14d4ddaaa7889d17865f1f5dd7010a6e6dec480db0234"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "assets/report-roster.js",
+      "bytes": 14633,
+      "sha256": "0d2017937669c0e31a4d269f8bf7470f17f673ceb90cdf280a64038351a39f32"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "assets/student-info.mjs",
+      "bytes": 1173,
+      "sha256": "f05f62cee454df14deac19bd7bd72f97c32b5a6595e287bd9d2474ce99391669"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "assets/terminology.mjs",
+      "bytes": 1459,
+      "sha256": "14c704db61a44ee83c1ecb99847cde94f51d5e3b6b8d099668175fa93c8712a1"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "assets/kokurikuler-records.js",
+      "bytes": 5834,
+      "sha256": "70d8c67d8ad74b9585f6c449a9569cd740a1e50e0a124175b010ec2e073e4bf0"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "assets/clinic-page.mjs",
+      "bytes": 25734,
+      "sha256": "4c5ff34cf80b9f9df4c3e445bc2ce723759803b747a367a45224c0aeada7b7f7"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "assets/clinic-page.css",
+      "bytes": 12179,
+      "sha256": "4642354df534a917ef7ab347e013df5eee72b02493d082235a87c15fc49a711c"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "assets/clinic-home.mjs",
+      "bytes": 2246,
+      "sha256": "0a91dc7a104a07180043b8629b02162610a4ce3703cbf06f0766644963bb6b57"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "assets/monday-block.mjs",
+      "bytes": 3531,
+      "sha256": "f1c96779c068f8bfa9acbfa4198b76d781d11e0b791c14f3bd463beb6ddfcc43"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "assets/curriculum-ui.js",
+      "bytes": 28111,
+      "sha256": "26182e4d9d412419a2f6677d856631f67bb7b070633263b4e6d7a2380a280068"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "assets/curriculum-ui.css",
+      "bytes": 48315,
+      "sha256": "309377faf8f956f245f1f5b6fffcb6802acc52b3e7349df0d6eda349da62b4d4"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "assets/curriculum-runtime.mjs",
+      "bytes": 651,
+      "sha256": "aacb7456811dbffc58609faa6cc4d60b2c001e12e7f7106d116ccc8489d79961"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "assets/curriculum-data.js",
+      "bytes": 8434,
+      "sha256": "e2ca464c6f64e91c670f08f920a5a35678d621896fd223f98f3fa64b3a39f176"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "assets/student-roster-summary.js",
+      "bytes": 127,
+      "sha256": "c9dc56e646c204cf3af202de52ac1342260f3967edcbd915ef31b3b450541299"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "assets/student-roster.js",
+      "bytes": 5597,
+      "sha256": "44e9ed95a0f955345786b30155c17dc1f0044ad225407d0d23cb9fb0f2f43732"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "scripts/import-student-roster.py",
+      "bytes": 4730,
+      "sha256": "6090f443a8a8103c2c15908797f03d3a9429ba3c5b7ff774a3ebfc9c6da7d715"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "tests/audience-worker.test.mjs",
+      "bytes": 10145,
+      "sha256": "62122f52bb3783b038c0331a33005eefa5d6f071bd00f461f100b61469e07ba3"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "tests/clinic-workflow.test.mjs",
+      "bytes": 7526,
+      "sha256": "3eeb3a18a1c10f869f8a89fb9ae7cbbdcadd0ce019ccfb9be61a0e7f2f157475"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "tests/student-roster.test.mjs",
+      "bytes": 6123,
+      "sha256": "583e30d1870b5fa3d79f5f6f9aeaa4e80e11c5ed8753fd9c56baab28c5f0083e"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "tests/madrasah-features.test.mjs",
+      "bytes": 7051,
+      "sha256": "cbaaa64f1826777704802df65ba7faf5e0aed1728013380a8145e7ea33fa3d3b"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "tests/max-ui-ux.test.mjs",
+      "bytes": 5937,
+      "sha256": "f48815a3833e82c2f5982bbf33f7d628070d7be46294291341a4c57f350a7911"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "tests/p5-ppra-mobile-ux.test.mjs",
+      "bytes": 2816,
+      "sha256": "8b919e1a61e4e1a897f1cfee16a52174b9daa95e7bd4e73b6aab13a0fd27dcea"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "assets/clinic-core.mjs",
+      "bytes": 8211,
+      "sha256": "330fa4c4109a7a8fe0522a7f7a2d0f29248a73fc321c00070a2d07fbe98c7c45"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "assets/clinic-client.mjs",
+      "bytes": 6190,
+      "sha256": "8443d5ff2e0b7e00b6eccc8fb70edc4ba86379831abf623285f39dfdfc2927a0"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "assets/access-core.mjs",
+      "bytes": 2074,
+      "sha256": "74b89d185865be42563f7bba22714a37bde84bfbf29176ccb42acced2f56a60d"
+    },
+    {
+      "repo": "irsyads",
+      "path": "packages/curriculum-clinic/clinic-core.mjs",
+      "bytes": 8211,
+      "sha256": "330fa4c4109a7a8fe0522a7f7a2d0f29248a73fc321c00070a2d07fbe98c7c45"
+    },
+    {
+      "repo": "irsyads",
+      "path": "packages/curriculum-clinic/clinic-core.d.mts",
+      "bytes": 2091,
+      "sha256": "fc61fa3c1055734bc2b3c782613c86865d1fbd66da891ebee38038d7a31aa053"
+    },
+    {
+      "repo": "irsyads",
+      "path": "packages/curriculum-clinic/access-core.mjs",
+      "bytes": 2074,
+      "sha256": "74b89d185865be42563f7bba22714a37bde84bfbf29176ccb42acced2f56a60d"
+    },
+    {
+      "repo": "irsyads",
+      "path": "scripts/export-curriculum-clinic.mjs",
+      "bytes": 828,
+      "sha256": "4d5bcc7ce1c3d2c8929dd52f6b36e199dc23a3379b5b3833ea3968174a639772"
+    },
+    {
+      "repo": "irsyads",
+      "path": "scripts/preview-clinic-workflow.mjs",
+      "bytes": 7642,
+      "sha256": "49da6215417ad42670a642758bffaa24253087748cf8e42d556cd1dcf276f506"
+    },
+    {
+      "repo": "irsyads",
+      "path": "ops/review/clinic-workflow-20261026/prepare.sql",
+      "bytes": 25504,
+      "sha256": "3a843c6ebe15d800bd517b56fcb0e890c624a4cb6b8f945dd2e94dbdaf79c52e"
+    },
+    {
+      "repo": "irsyads",
+      "path": "ops/review/clinic-workflow-20261026/close-writes.sql",
+      "bytes": 449,
+      "sha256": "1ea2ae8b23f01f92a5db33a1e5cc1baad28ee3b68c16051b9a39d3762563d7da"
+    },
+    {
+      "repo": "irsyads",
+      "path": "ops/review/clinic-workflow-20261026/README.md",
+      "bytes": 7281,
+      "sha256": "f5cf02ff5ec9a1fbaa4df34fbed4f2d53de71f6b2a78caa2e95e33a5070374a6"
+    },
+    {
+      "repo": "irsyads",
+      "path": "apps/studio/src/components/studio/curriculum/ClinicReview.tsx",
+      "bytes": 14574,
+      "sha256": "a0ed818884558588ee0f79f56ddc7f87105836464bf9eb51178af71d492b737f"
+    },
+    {
+      "repo": "irsyads",
+      "path": "tests/clinic-workflow-20261026.test.mjs",
+      "bytes": 13592,
+      "sha256": "84a8ef1488df5b3d6f07a1a50d72ed4990c78cc5539a72be748734e06e9a470d"
+    }
+  ],
+  "preserved_sources": [
+    {
+      "repo": "curriculum-maicn",
+      "path": "data.js",
+      "bytes": 219942,
+      "sha256": "82eea17ce893c8d0dee227e0813aa1a19d98f7e77cf97d72ac0f94dee1a912c1"
+    },
+    {
+      "repo": "curriculum-maicn",
+      "path": "assets/student-roster-data.js",
+      "bytes": 13361,
+      "sha256": "33541356ad63cd7b955e15760ee087a1a4a3cd6d4a8b37696a999fc0e8460bc4"
+    }
+  ],
+  "public_build_assets": 76
+}

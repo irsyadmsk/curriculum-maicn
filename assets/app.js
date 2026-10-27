@@ -46,6 +46,11 @@ window.AppUtils = {
 const Auth = {
   _user: null,
   _profile: null,
+  _revision: 0,
+  _logoutBusy: false,
+  _loginBusy: false,
+  _pageActive: true,
+  _pageRevision: 0,
 
   isLoggedIn() { return !!this._user; },
 
@@ -53,38 +58,88 @@ const Auth = {
 
   async login(email, password) {
     if (!window.auth) throw new Error('Firebase belum siap');
-    const cred = await window.auth.signInWithEmailAndPassword(email, password);
-    return cred.user;
+    if (this._logoutBusy || this._loginBusy) throw new Error('Perubahan sesi masih diproses. Tunggu sebelum mencoba lagi.');
+    this._loginBusy = true;
+    try { const cred = await window.auth.signInWithEmailAndPassword(email, password); return cred.user; }
+    finally { this._loginBusy = false; }
   },
 
   async logout() {
-    if (!window.auth) return;
+    if (!window.auth) throw new Error('Layanan akun modul belum siap. Muat ulang halaman.');
+    if (this._loginBusy) throw new Error('Perubahan sesi masih diproses. Tunggu sebelum mencoba lagi.');
+    const expected = this._user, revision = this._revision;
+    if (window.auth.currentUser !== expected) throw new Error('Sesi akun berubah. Periksa akun aktif sebelum melanjutkan.');
     await window.auth.signOut();
+    if (window.auth.currentUser || this._revision > revision + 1) throw new Error('Sesi akun berubah. Hasil logout perlu diperiksa sebelum melanjutkan.');
+    this._user = null; this._profile = null; this._revision++;
   },
 
   // Dipanggil saat auth state berubah
   onStateChange(callback) {
-    if (!window.auth) { callback(null, null); return; }
-    window.auth.onAuthStateChanged(async (user) => {
+    if (!window.auth) { callback(null, null); return () => {}; }
+    let active = true, localRevision = 0;
+    const unsubscribe = window.auth.onAuthStateChanged(async (user) => {
+      const readRevision = ++localRevision;
+      if (!active || window.auth.currentUser !== user) return;
+      const changed = this._user !== user;
+      if (changed) { this._revision++; this._profile = null; }
       this._user = user;
+      const revision = this._revision;
+      // Hide the previous account's role controls while its replacement's
+      // profile is still loading. Identity does not grant a role by itself.
+      if (changed && user) callback(user, null);
+      let profile = null;
       if (user) {
         // Ambil profil dari Firestore
         try {
           const snap = await window.db.collection('users').doc(user.uid).get();
-          this._profile = snap.exists ? { ...snap.data(), uid: user.uid, email: user.email } : null;
+          profile = snap.exists ? { ...snap.data(), uid: user.uid, email: user.email } : null;
         } catch {
-          this._profile = null;
+          profile = null;
         }
-      } else {
-        this._profile = null;
       }
-      callback(user, this._profile);
+      if (!active || readRevision !== localRevision || revision !== this._revision || this._user !== user || window.auth.currentUser !== user) return;
+      this._profile = profile;
+      callback(user, profile);
     });
+    return () => { active = false; localRevision++; unsubscribe?.(); };
   },
 
   isAdmin() { return this._profile?.role === 'admin'; },
   isGuru()  { return this._profile?.role === 'guru' || this.isAdmin(); }
 };
+if (typeof window !== 'undefined' && typeof window.addEventListener === 'function') {
+  window.addEventListener('pagehide', () => { Auth._pageActive = false; Auth._pageRevision++; });
+  window.addEventListener('pageshow', () => { Auth._pageActive = true; Auth._pageRevision++; });
+}
+
+// Safe UI outcome/lifecycle only. Native Firebase signOut concurrency still
+// needs SDK/provider acceptance; never claim it targets an immutable session.
+async function requestFirebaseLogout(completed = () => {}) {
+  if (Auth._logoutBusy || !Auth._pageActive) return false;
+  const pageRevision = Auth._pageRevision;
+  Auth._logoutBusy = true;
+  const buttons = ['btn-logout', 'btn-logout-guru', 'module-account'].map(id => document.getElementById(id)).filter(Boolean);
+  buttons.forEach(button => { button.disabled = true; button.setAttribute('aria-busy', 'true'); });
+  let alert = document.getElementById('firebase-logout-error');
+  if (alert) alert.hidden = true;
+  try {
+    await Auth.logout();
+    if (!Auth._pageActive || pageRevision !== Auth._pageRevision) return false;
+    completed();
+    return true;
+  } catch {
+    if (!Auth._pageActive || pageRevision !== Auth._pageRevision) return false;
+    if (!alert) {
+      alert = document.createElement('p'); alert.id = 'firebase-logout-error';
+      alert.setAttribute('role', 'alert'); alert.tabIndex = -1; alert.className = 'login-error show';
+      (document.querySelector('.modal.active .modal-body') || document.getElementById('module-account-status')?.parentElement || document.body).appendChild(alert);
+    }
+    alert.textContent = 'Logout akun modul belum terkonfirmasi. Periksa koneksi dan akun aktif sebelum mencoba lagi.';
+    alert.hidden = false; alert.focus();
+    return false;
+  } finally { Auth._logoutBusy = false; buttons.forEach(button => { button.disabled = false; button.removeAttribute('aria-busy'); }); }
+}
 
 // ─── Comments Module (Firebase Firestore) ───
 const Comments = {
@@ -353,16 +408,13 @@ function initLoginModal() {
   });
 
   document.getElementById('btn-logout')?.addEventListener('click', async () => {
-    await Auth.logout();
-    AppUtils.closeModal('modal-admin');
-    AppUtils.closeModal('modal-guru');
-    AppUtils.toast('Berhasil keluar.');
+    await requestFirebaseLogout(() => {
+      AppUtils.closeModal('modal-admin'); AppUtils.closeModal('modal-guru'); AppUtils.toast('Berhasil keluar.');
+    });
   });
 
   document.getElementById('btn-logout-guru')?.addEventListener('click', async () => {
-    await Auth.logout();
-    AppUtils.closeModal('modal-guru');
-    AppUtils.toast('Berhasil keluar.');
+    await requestFirebaseLogout(() => { AppUtils.closeModal('modal-guru'); AppUtils.toast('Berhasil keluar.'); });
   });
 }
 

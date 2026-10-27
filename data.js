@@ -1,3792 +1,8197 @@
+// Curriculum OS Master Data 2026/2027 - Synchronized from official Excel
 window.MASTER_DATA = {
- "meta": {
-  "madrasah": "MA Insan Cendekia Nusantara Purwakarta",
-  "tahun_pelajaran": "2026/2027",
-  "fase": "Fase E (Kelas X)",
-  "no_dokumen": "MA-ICN/KAL-AK/2026-2027/001",
-  "status": "DEFINITIF",
-  "waka_kurikulum": "Muhammad Irsyad Sirojul Khoeir, S.Sos., M.Sos.",
-  "landasan_hukum_utama": [
-   "KMA No. 1503 Tahun 2025",
-   "KMA No. 450 Tahun 2024",
-   "Permendikbudristek No. 12 Tahun 2024",
-   "SK Dirjen Pendidikan Islam No. 4860 Tahun 2026",
-   "PP No. 57 Tahun 2021"
+  "meta": {
+    "madrasah": "MA Insan Cendekia Nusantara Purwakarta",
+    "tahun_pelajaran": "2026/2027",
+    "fase": "Fase E (Kelas X)",
+    "no_dokumen": "MA-ICN/KAL-AK/2026-2027/001",
+    "status": "DEFINITIF",
+    "waka_kurikulum": "Muhammad Irsyad Sirojul Khoeir, S.Sos., M.Sos.",
+    "landasan_hukum_utama": [
+      "KMA No. 1503 Tahun 2025",
+      "KMA No. 450 Tahun 2024",
+      "Permendikbudristek No. 12 Tahun 2024",
+      "SK Dirjen Pendidikan Islam No. 4860 Tahun 2026",
+      "PP No. 57 Tahun 2021"
+    ],
+    "catatan_minggu_efektif": "Minggu efektif Semester Ganjil = 18 (pas batas minimal SK Dirjen PI No. 4860/2026, min. 18 minggu/semester). Total tahun = 36 minggu (pas batas minimal ≥36/tahun, PP No. 57/2021). Tidak ada kelonggaran tambahan; setiap pekan efektif yang hilang akan menembus ambang minimal."
+  },
+  "headline": {
+    "hari_efektif": 155,
+    "minggu_efektif": 36,
+    "minggu_ganjil": 18,
+    "minggu_genap": 18,
+    "total_jp": 1465,
+    "hari_sumatif": 21,
+    "sumatif_sts": 10,
+    "sumatif_sas": 11,
+    "jp_ganjil": 770,
+    "jp_genap": 695,
+    "durasi_1jp_menit": 45,
+    "jumlah_rombel": 4,
+    "beban_per_minggu_kelas": 48
+  },
+  "kalender_harian": {
+    "2026-06-20": {
+      "c": "kedatangan_timur",
+      "l": "Kedatangan Peserta Didik Indonesia Timur & Wilayah",
+      "s": "",
+      "p": "Program Pra Tahun Ajaran"
+    },
+    "2026-06-21": {
+      "c": "kedatangan_timur",
+      "l": "Kedatangan Peserta Didik Indonesia Timur & Wilayah",
+      "s": "",
+      "p": "Program Pra Tahun Ajaran"
+    },
+    "2026-06-22": {
+      "c": "mat_orientasi",
+      "l": "Orientasi",
+      "s": "",
+      "p": "Program Pra Tahun Ajaran"
+    },
+    "2026-06-23": {
+      "c": "mat_pre",
+      "l": "Pra-Tes Matrikulasi Tahap I",
+      "s": "",
+      "p": "Program Pra Tahun Ajaran"
+    },
+    "2026-06-24": {
+      "c": "mat_kbm",
+      "l": "Matrikulasi Tahap I",
+      "s": "",
+      "p": "Program Pra Tahun Ajaran"
+    },
+    "2026-06-25": {
+      "c": "mat_kbm",
+      "l": "Matrikulasi Tahap I",
+      "s": "",
+      "p": "Program Pra Tahun Ajaran"
+    },
+    "2026-06-26": {
+      "c": "mat_kbm",
+      "l": "Matrikulasi Tahap I",
+      "s": "",
+      "p": "Program Pra Tahun Ajaran"
+    },
+    "2026-06-27": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "",
+      "p": "Program Pra Tahun Ajaran"
+    },
+    "2026-06-28": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "",
+      "p": "Program Pra Tahun Ajaran"
+    },
+    "2026-06-29": {
+      "c": "mat_kbm",
+      "l": "Matrikulasi Tahap I",
+      "s": "",
+      "p": "Program Pra Tahun Ajaran"
+    },
+    "2026-06-30": {
+      "c": "mat_kbm",
+      "l": "Matrikulasi Tahap I",
+      "s": "",
+      "p": "Program Pra Tahun Ajaran"
+    },
+    "2026-07-01": {
+      "c": "mat_kbm",
+      "l": "Matrikulasi Tahap I",
+      "s": "",
+      "p": "Program Pra Tahun Ajaran"
+    },
+    "2026-07-02": {
+      "c": "mat_kbm",
+      "l": "Matrikulasi Tahap I",
+      "s": "",
+      "p": "Program Pra Tahun Ajaran"
+    },
+    "2026-07-03": {
+      "c": "mat_post",
+      "l": "Pasca-Tes Matrikulasi Tahap I",
+      "s": "",
+      "p": "Program Pra Tahun Ajaran"
+    },
+    "2026-07-04": {
+      "c": "kedatangan_reguler",
+      "l": "Kedatangan Peserta Didik Reguler",
+      "s": "",
+      "p": "Program Pra Tahun Ajaran"
+    },
+    "2026-07-05": {
+      "c": "kedatangan_reguler",
+      "l": "Kedatangan Peserta Didik Reguler",
+      "s": "",
+      "p": "Program Pra Tahun Ajaran"
+    },
+    "2026-07-06": {
+      "c": "matsama",
+      "l": "Masa Ta'aruf Murid Madrasah (MATSAMA)",
+      "s": "",
+      "p": "Program Pra Tahun Ajaran"
+    },
+    "2026-07-07": {
+      "c": "matsama",
+      "l": "Masa Ta'aruf Murid Madrasah (MATSAMA)",
+      "s": "",
+      "p": "Program Pra Tahun Ajaran"
+    },
+    "2026-07-08": {
+      "c": "matsama",
+      "l": "Masa Ta'aruf Murid Madrasah (MATSAMA)",
+      "s": "",
+      "p": "Program Pra Tahun Ajaran"
+    },
+    "2026-07-09": {
+      "c": "matsama",
+      "l": "Masa Ta'aruf Murid Madrasah (MATSAMA)",
+      "s": "",
+      "p": "Program Pra Tahun Ajaran"
+    },
+    "2026-07-10": {
+      "c": "matsama",
+      "l": "Masa Ta'aruf Murid Madrasah (MATSAMA)",
+      "s": "",
+      "p": "Program Pra Tahun Ajaran"
+    },
+    "2026-07-11": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "",
+      "p": "Program Pra Tahun Ajaran"
+    },
+    "2026-07-12": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "",
+      "p": "Program Pra Tahun Ajaran"
+    },
+    "2026-07-13": {
+      "c": "mat_pre",
+      "l": "Pra-Tes Matrikulasi Reguler",
+      "s": "",
+      "p": "Program Pra Tahun Ajaran"
+    },
+    "2026-07-14": {
+      "c": "mat_kbm",
+      "l": "Matrikulasi Reguler",
+      "s": "",
+      "p": ""
+    },
+    "2026-07-15": {
+      "c": "mat_kbm",
+      "l": "Matrikulasi Reguler",
+      "s": "",
+      "p": ""
+    },
+    "2026-07-16": {
+      "c": "mat_kbm",
+      "l": "Matrikulasi Reguler",
+      "s": "",
+      "p": ""
+    },
+    "2026-07-17": {
+      "c": "mat_kbm",
+      "l": "Matrikulasi Reguler",
+      "s": "",
+      "p": ""
+    },
+    "2026-07-18": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "",
+      "p": ""
+    },
+    "2026-07-19": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "",
+      "p": ""
+    },
+    "2026-07-20": {
+      "c": "mat_kbm",
+      "l": "Matrikulasi Reguler",
+      "s": "",
+      "p": ""
+    },
+    "2026-07-21": {
+      "c": "mat_kbm",
+      "l": "Matrikulasi Reguler",
+      "s": "",
+      "p": ""
+    },
+    "2026-07-22": {
+      "c": "mat_kbm",
+      "l": "Matrikulasi Reguler",
+      "s": "",
+      "p": ""
+    },
+    "2026-07-23": {
+      "c": "mat_kbm",
+      "l": "Matrikulasi Reguler",
+      "s": "",
+      "p": ""
+    },
+    "2026-07-24": {
+      "c": "mat_post",
+      "l": "Pasca-Tes Matrikulasi Reguler",
+      "s": "",
+      "p": ""
+    },
+    "2026-07-25": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-07-26": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-07-27": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-07-28": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-07-29": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-07-30": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-07-31": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-08-01": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-08-02": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-08-03": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-08-04": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-08-05": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-08-06": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-08-07": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-08-08": {
+      "c": "libur_mingguan",
+      "l": "Ceramah / Pengajian (Ust. Abdul Somad)",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-08-09": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-08-10": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-08-11": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-08-12": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-08-13": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-08-14": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-08-15": {
+      "c": "libur_mingguan",
+      "l": "Open House – Hari Terakhir Karantina & Awal Pesiar",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-08-16": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-08-17": {
+      "c": "libur_nasional",
+      "l": "Hari Ulang Tahun Kemerdekaan Republik Indonesia ke-81",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-08-18": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-08-19": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-08-20": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-08-21": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-08-22": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-08-23": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-08-24": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-08-25": {
+      "c": "libur_nasional",
+      "l": "Maulid Nabi Muhammad SAW / Program DKM",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-08-26": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-08-27": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-08-28": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-08-29": {
+      "c": "libur_mingguan",
+      "l": "LDKS",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-08-30": {
+      "c": "libur_mingguan",
+      "l": "LDKS",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-08-31": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-09-01": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-09-02": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-09-03": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-09-04": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-09-05": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-09-06": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-09-07": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-09-08": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-09-09": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-09-10": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-09-11": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-09-12": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-09-13": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-09-14": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-09-15": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-09-16": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-09-17": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-09-18": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-09-19": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-09-20": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-09-21": {
+      "c": "sts",
+      "l": "Sumatif Tengah Semester (STS) Ganjil",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-09-22": {
+      "c": "sts",
+      "l": "Sumatif Tengah Semester (STS) Ganjil",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-09-23": {
+      "c": "sts",
+      "l": "Sumatif Tengah Semester (STS) Ganjil",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-09-24": {
+      "c": "sts",
+      "l": "Sumatif Tengah Semester (STS) Ganjil",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-09-25": {
+      "c": "sts",
+      "l": "Sumatif Tengah Semester (STS) Ganjil",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-09-26": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-09-27": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-09-28": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-09-29": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-09-30": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-10-01": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-10-02": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-10-03": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-10-04": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-10-05": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-10-06": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-10-07": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-10-08": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-10-09": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-10-10": {
+      "c": "libur_mingguan",
+      "l": "Pelatihan / Workshop Kesiswaan",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-10-11": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-10-12": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-10-13": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-10-14": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-10-15": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-10-16": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-10-17": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-10-18": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-10-19": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-10-20": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-10-21": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-10-22": {
+      "c": "hari_santri",
+      "l": "Hari Santri",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-10-23": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-10-24": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-10-25": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-10-26": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-10-27": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-10-28": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-10-29": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-10-30": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-10-31": {
+      "c": "libur_mingguan",
+      "l": "Puncak Bulan Bahasa",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-11-01": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-11-02": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-11-03": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-11-04": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-11-05": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-11-06": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-11-07": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-11-08": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-11-09": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-11-10": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-11-11": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-11-12": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-11-13": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-11-14": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-11-15": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-11-16": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-11-17": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-11-18": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-11-19": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-11-20": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-11-21": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-11-22": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-11-23": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-11-24": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-11-25": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-11-26": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-11-27": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-11-28": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-11-29": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-11-30": {
+      "c": "sas",
+      "l": "Sumatif Akhir Semester (SAS) Ganjil",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-12-01": {
+      "c": "sas",
+      "l": "Sumatif Akhir Semester (SAS) Ganjil",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-12-02": {
+      "c": "sas",
+      "l": "Sumatif Akhir Semester (SAS) Ganjil",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-12-03": {
+      "c": "sas",
+      "l": "Sumatif Akhir Semester (SAS) Ganjil",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-12-04": {
+      "c": "sas",
+      "l": "Sumatif Akhir Semester (SAS) Ganjil",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-12-05": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-12-06": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-12-07": {
+      "c": "remedial",
+      "l": "Remedial dan Pengayaan",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-12-08": {
+      "c": "remedial",
+      "l": "Remedial dan Pengayaan",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-12-09": {
+      "c": "remedial",
+      "l": "Remedial dan Pengayaan",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-12-10": {
+      "c": "remedial",
+      "l": "Remedial dan Pengayaan",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-12-11": {
+      "c": "remedial",
+      "l": "Remedial dan Pengayaan",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-12-12": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-12-13": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-12-14": {
+      "c": "kesiswaan",
+      "l": "Class Meeting & Pekan Olahraga Madrasah",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-12-15": {
+      "c": "kesiswaan",
+      "l": "Class Meeting & Pekan Olahraga Madrasah",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-12-16": {
+      "c": "kesiswaan",
+      "l": "Class Meeting & Pekan Olahraga Madrasah",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-12-17": {
+      "c": "kesiswaan",
+      "l": "Class Meeting & Haflah Taqrim",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-12-18": {
+      "c": "rapor",
+      "l": "Pembagian Rapor Semester Ganjil",
+      "s": "GANJIL",
+      "p": ""
+    },
+    "2026-12-19": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "",
+      "p": ""
+    },
+    "2026-12-20": {
+      "c": "libur_mingguan",
+      "l": "Penutupan dan Rihlah Guru",
+      "s": "",
+      "p": ""
+    },
+    "2026-12-21": {
+      "c": "libur_semester",
+      "l": "Libur Semester Ganjil",
+      "s": "",
+      "p": ""
+    },
+    "2026-12-22": {
+      "c": "libur_semester",
+      "l": "Libur Semester Ganjil",
+      "s": "",
+      "p": ""
+    },
+    "2026-12-23": {
+      "c": "libur_semester",
+      "l": "Libur Semester Ganjil",
+      "s": "",
+      "p": ""
+    },
+    "2026-12-24": {
+      "c": "libur_semester",
+      "l": "Libur Semester Ganjil",
+      "s": "",
+      "p": ""
+    },
+    "2026-12-25": {
+      "c": "libur_nasional",
+      "l": "Hari Raya Natal",
+      "s": "",
+      "p": ""
+    },
+    "2026-12-26": {
+      "c": "cuti_bersama",
+      "l": "Cuti Bersama Hari Raya Natal",
+      "s": "",
+      "p": ""
+    },
+    "2026-12-27": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "",
+      "p": ""
+    },
+    "2026-12-28": {
+      "c": "libur_semester",
+      "l": "Libur Semester Ganjil",
+      "s": "",
+      "p": ""
+    },
+    "2026-12-29": {
+      "c": "libur_semester",
+      "l": "Libur Semester Ganjil",
+      "s": "",
+      "p": ""
+    },
+    "2026-12-30": {
+      "c": "libur_semester",
+      "l": "Libur Semester Ganjil",
+      "s": "",
+      "p": ""
+    },
+    "2026-12-31": {
+      "c": "libur_semester",
+      "l": "Libur Semester Ganjil",
+      "s": "",
+      "p": ""
+    },
+    "2027-01-01": {
+      "c": "libur_nasional",
+      "l": "Tahun Baru Masehi 2027",
+      "s": "",
+      "p": ""
+    },
+    "2027-01-02": {
+      "c": "kedatangan_reguler",
+      "l": "Kedatangan Peserta Didik Semester Genap",
+      "s": "",
+      "p": ""
+    },
+    "2027-01-03": {
+      "c": "kedatangan_reguler",
+      "l": "Kedatangan Peserta Didik Semester Genap",
+      "s": "",
+      "p": ""
+    },
+    "2027-01-04": {
+      "c": "pembelajaran",
+      "l": "Awal Masuk Semester Genap",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-01-05": {
+      "c": "libur_nasional",
+      "l": "Isra' Mi'raj Nabi Muhammad SAW",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-01-06": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-01-07": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-01-08": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-01-09": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-01-10": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-01-11": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-01-12": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-01-13": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-01-14": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-01-15": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-01-16": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-01-17": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-01-18": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-01-19": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-01-20": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-01-21": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-01-22": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-01-23": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-01-24": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-01-25": {
+      "c": "unggulan",
+      "l": "Pekan Lomba Sains, Art, Sport, Religion & Language",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-01-26": {
+      "c": "unggulan",
+      "l": "Pekan Lomba Sains, Art, Sport, Religion & Language",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-01-27": {
+      "c": "unggulan",
+      "l": "Pekan Lomba Sains, Art, Sport, Religion & Language",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-01-28": {
+      "c": "unggulan",
+      "l": "Pekan Lomba Sains, Art, Sport, Religion & Language",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-01-29": {
+      "c": "unggulan",
+      "l": "Pekan Lomba Sains, Art, Sport, Religion & Language",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-01-30": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-01-31": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-02-01": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-02-02": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-02-03": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-02-04": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-02-05": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-02-06": {
+      "c": "libur_nasional",
+      "l": "Tahun Baru Imlek 2578",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-02-07": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-02-08": {
+      "c": "libur_nasional",
+      "l": "Libur Awal Ramadan 1448 H (Perkiraan)",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-02-09": {
+      "c": "libur_nasional",
+      "l": "Libur Awal Ramadan 1448 H (Perkiraan)",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-02-10": {
+      "c": "libur_nasional",
+      "l": "Libur Awal Ramadan 1448 H (Perkiraan)",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-02-11": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Ramadan – Syahrun Ma'al Qur'an",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-02-12": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Ramadan – Syahrun Ma'al Qur'an",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-02-13": {
+      "c": "libur_mingguan",
+      "l": "Syahrun Ma'al Qur'an & Daurah Al-Qur'an",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-02-14": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-02-15": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Ramadan – Sanlat",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-02-16": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Ramadan – Sanlat",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-02-17": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Ramadan – Sanlat",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-02-18": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Ramadan – Sanlat",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-02-19": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Ramadan – Sanlat",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-02-20": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-02-21": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-02-22": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Ramadan – Sanlat",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-02-23": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Ramadan – Sanlat",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-02-24": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Ramadan – Nuzulul Qur'an",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-02-25": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Ramadan – Sanlat",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-02-26": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Ramadan – Sanlat",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-02-27": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-02-28": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-03-01": {
+      "c": "sts",
+      "l": "Sumatif Tengah Semester (STS) Genap",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-03-02": {
+      "c": "sts",
+      "l": "Sumatif Tengah Semester (STS) Genap",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-03-03": {
+      "c": "sts",
+      "l": "Sumatif Tengah Semester (STS) Genap",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-03-04": {
+      "c": "sts",
+      "l": "Sumatif Tengah Semester (STS) Genap",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-03-05": {
+      "c": "sts",
+      "l": "Sumatif Tengah Semester (STS) Genap",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-03-06": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-03-07": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-03-08": {
+      "c": "libur_nasional",
+      "l": "Libur Menjelang Idul Fitri",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-03-09": {
+      "c": "cuti_bersama",
+      "l": "Cuti Bersama Menjelang Idul Fitri/ Hari Raya Nyepi",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-03-10": {
+      "c": "libur_nasional",
+      "l": "Hari Raya Idul Fitri 1 Syawal 1448 H (Perkiraan)",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-03-11": {
+      "c": "libur_nasional",
+      "l": "Hari Raya Idul Fitri 1 Syawal 1448 H (Perkiraan)",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-03-12": {
+      "c": "cuti_bersama",
+      "l": "Cuti Bersama Idul Fitri",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-03-13": {
+      "c": "cuti_bersama",
+      "l": "Cuti Bersama Idul Fitri",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-03-14": {
+      "c": "cuti_bersama",
+      "l": "Cuti Bersama Idul Fitri",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-03-15": {
+      "c": "libur_nasional",
+      "l": "Libur Nasional / Cuti Bersama",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-03-16": {
+      "c": "libur_nasional",
+      "l": "Libur Nasional / Cuti Bersama",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-03-17": {
+      "c": "libur_nasional",
+      "l": "Libur Nasional / Cuti Bersama",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-03-18": {
+      "c": "libur_nasional",
+      "l": "Libur Nasional / Cuti Bersama",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-03-19": {
+      "c": "libur_nasional",
+      "l": "Libur Nasional / Cuti Bersama",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-03-20": {
+      "c": "boarding",
+      "l": "Kembali ke Asrama Pasca Idul Fitri",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-03-21": {
+      "c": "boarding",
+      "l": "Kembali ke Asrama Pasca Idul Fitri",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-03-22": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-03-23": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-03-24": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-03-25": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-03-26": {
+      "c": "libur_nasional",
+      "l": "Wafat Yesus Kristus & Muhadharah Kubra",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-03-27": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-03-28": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-03-29": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-03-30": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-03-31": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-04-01": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-04-02": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-04-03": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-04-04": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-04-05": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-04-06": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-04-07": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-04-08": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-04-09": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-04-10": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-04-11": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-04-12": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-04-13": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-04-14": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-04-15": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-04-16": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-04-17": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-04-18": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-04-19": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-04-20": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-04-21": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-04-22": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-04-23": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-04-24": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-04-25": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-04-26": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-04-27": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-04-28": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-04-29": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-04-30": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-05-01": {
+      "c": "libur_nasional",
+      "l": "Hari Buruh Internasional",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-05-02": {
+      "c": "libur_mingguan",
+      "l": "Hari Pendidikan Nasional",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-05-03": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-05-04": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-05-05": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-05-06": {
+      "c": "libur_nasional",
+      "l": "Kenaikan Yesus Kristus",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-05-07": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-05-08": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-05-09": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-05-10": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-05-11": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-05-12": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-05-13": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-05-14": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-05-15": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-05-16": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-05-17": {
+      "c": "libur_nasional",
+      "l": "Hari Raya Idul Adha 1448 H (Perkiraan)",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-05-18": {
+      "c": "cuti_bersama",
+      "l": "Cuti Bersama Idul Adha (Perkiraan)",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-05-19": {
+      "c": "cuti_bersama",
+      "l": "Cuti Bersama Idul Adha (Perkiraan)",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-05-20": {
+      "c": "libur_nasional",
+      "l": "Hari Raya Waisak & Hari Kebangkitan Nasional",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-05-21": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-05-22": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-05-23": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-05-24": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-05-25": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-05-26": {
+      "c": "pembelajaran",
+      "l": "Pembelajaran Efektif",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-05-27": {
+      "c": "sas",
+      "l": "Sumatif Akhir Semester (SAS) Genap",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-05-28": {
+      "c": "sas",
+      "l": "Sumatif Akhir Semester (SAS) Genap",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-05-29": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-05-30": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-05-31": {
+      "c": "sas",
+      "l": "Sumatif Akhir Semester (SAS) Genap",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-06-01": {
+      "c": "libur_nasional",
+      "l": "Hari Lahir Pancasila",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-06-02": {
+      "c": "sas",
+      "l": "Sumatif Akhir Semester (SAS) Genap",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-06-03": {
+      "c": "sas",
+      "l": "Sumatif Akhir Semester (SAS) Genap",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-06-04": {
+      "c": "sas",
+      "l": "Sumatif Akhir Semester (SAS) Genap",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-06-05": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-06-06": {
+      "c": "libur_mingguan",
+      "l": "1 Muharram 1449 H",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-06-07": {
+      "c": "madrasah",
+      "l": "Penyelesaian Penilaian & Pengolahan Rapor",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-06-08": {
+      "c": "remedial",
+      "l": "Pengayaan dan Remedial",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-06-09": {
+      "c": "remedial",
+      "l": "Pengayaan dan Remedial",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-06-10": {
+      "c": "remedial",
+      "l": "Pengayaan dan Remedial",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-06-11": {
+      "c": "remedial",
+      "l": "Pengayaan dan Remedial",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-06-12": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-06-13": {
+      "c": "libur_mingguan",
+      "l": "Libur Mingguan",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-06-14": {
+      "c": "kesiswaan",
+      "l": "Class Meeting & Pekan Olahraga Madrasah",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-06-15": {
+      "c": "kesiswaan",
+      "l": "Class Meeting & Pekan Olahraga Madrasah",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-06-16": {
+      "c": "kesiswaan",
+      "l": "Class Meeting & Pekan Olahraga Madrasah",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-06-17": {
+      "c": "kesiswaan",
+      "l": "Class Meeting & Panggung Gembira",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-06-18": {
+      "c": "rapor",
+      "l": "Pembagian Rapor Akhir Tahun Pelajaran",
+      "s": "GENAP",
+      "p": ""
+    },
+    "2027-06-19": {
+      "c": "libur_semester",
+      "l": "Libur Akhir Tahun Pelajaran",
+      "s": "",
+      "p": ""
+    },
+    "2027-06-20": {
+      "c": "libur_semester",
+      "l": "Libur Akhir Tahun Pelajaran",
+      "s": "",
+      "p": ""
+    }
+  },
+  "rekap_hari_efektif_bulan": [
+    {
+      "bulan": "Juli 2026",
+      "semester": "Ganjil",
+      "hari_efektif": 5,
+      "sumatif": 0,
+      "total_jp": 48
+    },
+    {
+      "bulan": "Agustus 2026",
+      "semester": "Ganjil",
+      "hari_efektif": 19,
+      "sumatif": 0,
+      "total_jp": 182
+    },
+    {
+      "bulan": "September 2026",
+      "semester": "Ganjil",
+      "hari_efektif": 17,
+      "sumatif": 5,
+      "total_jp": 164
+    },
+    {
+      "bulan": "Oktober 2026",
+      "semester": "Ganjil",
+      "hari_efektif": 21,
+      "sumatif": 0,
+      "total_jp": 191
+    },
+    {
+      "bulan": "November 2026",
+      "semester": "Ganjil",
+      "hari_efektif": 20,
+      "sumatif": 1,
+      "total_jp": 185
+    },
+    {
+      "bulan": "Desember 2026",
+      "semester": "Ganjil/Libur",
+      "hari_efektif": 0,
+      "sumatif": 4,
+      "total_jp": 0
+    },
+    {
+      "bulan": "Januari 2027",
+      "semester": "Genap",
+      "hari_efektif": 14,
+      "sumatif": 0,
+      "total_jp": 134
+    },
+    {
+      "bulan": "Februari 2027",
+      "semester": "Genap",
+      "hari_efektif": 17,
+      "sumatif": 0,
+      "total_jp": 162
+    },
+    {
+      "bulan": "Maret 2027",
+      "semester": "Genap",
+      "hari_efektif": 7,
+      "sumatif": 5,
+      "total_jp": 65
+    },
+    {
+      "bulan": "April 2027",
+      "semester": "Genap",
+      "hari_efektif": 22,
+      "sumatif": 0,
+      "total_jp": 210
+    },
+    {
+      "bulan": "Mei 2027",
+      "semester": "Genap",
+      "hari_efektif": 13,
+      "sumatif": 3,
+      "total_jp": 124
+    },
+    {
+      "bulan": "Juni 2027",
+      "semester": "Genap/Libur",
+      "hari_efektif": 0,
+      "sumatif": 3,
+      "total_jp": 0
+    }
   ],
-  "catatan_minggu_efektif": "Minggu efektif Semester Ganjil = 18 (pas batas minimal SK Dirjen PI No. 4860/2026, min. 18 minggu/semester). Total tahun = 36 minggu (pas batas minimal ≥36/tahun, PP No. 57/2021). Tidak ada kelonggaran tambahan; setiap pekan efektif yang hilang akan menembus ambang minimal."
- },
- "headline": {
-  "hari_efektif": 155,
-  "minggu_efektif": 36,
-  "minggu_ganjil": 18,
-  "minggu_genap": 18,
-  "total_jp": 1465,
-  "hari_sumatif": 21,
-  "sumatif_sts": 10,
-  "sumatif_sas": 11,
-  "jp_ganjil": 770,
-  "jp_genap": 695,
-  "durasi_1jp_menit": 45,
-  "jumlah_rombel": 4,
-  "beban_per_minggu_kelas": 48
- },
- "kalender_harian": {
-  "2026-06-20": {
-   "c": "kedatangan_timur",
-   "l": "Kedatangan Peserta Didik Indonesia Timur & Wilayah",
-   "s": "",
-   "p": "Program Pra Tahun Ajaran"
-  },
-  "2026-06-21": {
-   "c": "kedatangan_timur",
-   "l": "Kedatangan Peserta Didik Indonesia Timur & Wilayah",
-   "s": "",
-   "p": "Program Pra Tahun Ajaran"
-  },
-  "2026-06-22": {
-   "c": "mat_orientasi",
-   "l": "Orientasi",
-   "s": "",
-   "p": "Program Pra Tahun Ajaran"
-  },
-  "2026-06-23": {
-   "c": "mat_pre",
-   "l": "Pra-Tes Matrikulasi Tahap I",
-   "s": "",
-   "p": "Program Pra Tahun Ajaran"
-  },
-  "2026-06-24": {
-   "c": "mat_kbm",
-   "l": "Matrikulasi Tahap I",
-   "s": "",
-   "p": "Program Pra Tahun Ajaran"
-  },
-  "2026-06-25": {
-   "c": "mat_kbm",
-   "l": "Matrikulasi Tahap I",
-   "s": "",
-   "p": "Program Pra Tahun Ajaran"
-  },
-  "2026-06-26": {
-   "c": "mat_kbm",
-   "l": "Matrikulasi Tahap I",
-   "s": "",
-   "p": "Program Pra Tahun Ajaran"
-  },
-  "2026-06-27": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "",
-   "p": "Program Pra Tahun Ajaran"
-  },
-  "2026-06-28": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "",
-   "p": "Program Pra Tahun Ajaran"
-  },
-  "2026-06-29": {
-   "c": "mat_kbm",
-   "l": "Matrikulasi Tahap I",
-   "s": "",
-   "p": "Program Pra Tahun Ajaran"
-  },
-  "2026-06-30": {
-   "c": "mat_kbm",
-   "l": "Matrikulasi Tahap I",
-   "s": "",
-   "p": "Program Pra Tahun Ajaran"
-  },
-  "2026-07-01": {
-   "c": "mat_kbm",
-   "l": "Matrikulasi Tahap I",
-   "s": "",
-   "p": "Program Pra Tahun Ajaran"
-  },
-  "2026-07-02": {
-   "c": "mat_kbm",
-   "l": "Matrikulasi Tahap I",
-   "s": "",
-   "p": "Program Pra Tahun Ajaran"
-  },
-  "2026-07-03": {
-   "c": "mat_post",
-   "l": "Pasca-Tes Matrikulasi Tahap I",
-   "s": "",
-   "p": "Program Pra Tahun Ajaran"
-  },
-  "2026-07-04": {
-   "c": "kedatangan_reguler",
-   "l": "Kedatangan Peserta Didik Reguler",
-   "s": "",
-   "p": "Program Pra Tahun Ajaran"
-  },
-  "2026-07-05": {
-   "c": "kedatangan_reguler",
-   "l": "Kedatangan Peserta Didik Reguler",
-   "s": "",
-   "p": "Program Pra Tahun Ajaran"
-  },
-  "2026-07-06": {
-   "c": "matsama",
-   "l": "Masa Ta'aruf Murid Madrasah (MATSAMA)",
-   "s": "",
-   "p": "Program Pra Tahun Ajaran"
-  },
-  "2026-07-07": {
-   "c": "matsama",
-   "l": "Masa Ta'aruf Murid Madrasah (MATSAMA)",
-   "s": "",
-   "p": "Program Pra Tahun Ajaran"
-  },
-  "2026-07-08": {
-   "c": "matsama",
-   "l": "Masa Ta'aruf Murid Madrasah (MATSAMA)",
-   "s": "",
-   "p": "Program Pra Tahun Ajaran"
-  },
-  "2026-07-09": {
-   "c": "matsama",
-   "l": "Masa Ta'aruf Murid Madrasah (MATSAMA)",
-   "s": "",
-   "p": "Program Pra Tahun Ajaran"
-  },
-  "2026-07-10": {
-   "c": "matsama",
-   "l": "Masa Ta'aruf Murid Madrasah (MATSAMA)",
-   "s": "",
-   "p": "Program Pra Tahun Ajaran"
-  },
-  "2026-07-11": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "",
-   "p": "Program Pra Tahun Ajaran"
-  },
-  "2026-07-12": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "",
-   "p": "Program Pra Tahun Ajaran"
-  },
-  "2026-07-13": {
-   "c": "mat_pre",
-   "l": "Pra-Tes Matrikulasi Reguler",
-   "s": "",
-   "p": "Program Pra Tahun Ajaran"
-  },
-  "2026-07-14": {
-   "c": "mat_kbm",
-   "l": "Matrikulasi Reguler",
-   "s": "",
-   "p": ""
-  },
-  "2026-07-15": {
-   "c": "mat_kbm",
-   "l": "Matrikulasi Reguler",
-   "s": "",
-   "p": ""
-  },
-  "2026-07-16": {
-   "c": "mat_kbm",
-   "l": "Matrikulasi Reguler",
-   "s": "",
-   "p": ""
-  },
-  "2026-07-17": {
-   "c": "mat_kbm",
-   "l": "Matrikulasi Reguler",
-   "s": "",
-   "p": ""
-  },
-  "2026-07-18": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "",
-   "p": ""
-  },
-  "2026-07-19": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "",
-   "p": ""
-  },
-  "2026-07-20": {
-   "c": "mat_kbm",
-   "l": "Matrikulasi Reguler",
-   "s": "",
-   "p": ""
-  },
-  "2026-07-21": {
-   "c": "mat_kbm",
-   "l": "Matrikulasi Reguler",
-   "s": "",
-   "p": ""
-  },
-  "2026-07-22": {
-   "c": "mat_kbm",
-   "l": "Matrikulasi Reguler",
-   "s": "",
-   "p": ""
-  },
-  "2026-07-23": {
-   "c": "mat_kbm",
-   "l": "Matrikulasi Reguler",
-   "s": "",
-   "p": ""
-  },
-  "2026-07-24": {
-   "c": "mat_post",
-   "l": "Pasca-Tes Matrikulasi Reguler",
-   "s": "",
-   "p": ""
-  },
-  "2026-07-25": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-07-26": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-07-27": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-07-28": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-07-29": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-07-30": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-07-31": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-08-01": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-08-02": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-08-03": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-08-04": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-08-05": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-08-06": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-08-07": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-08-08": {
-   "c": "libur_mingguan",
-   "l": "Ceramah / Pengajian (Ust. Abdul Somad)",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-08-09": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-08-10": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-08-11": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-08-12": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-08-13": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-08-14": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-08-15": {
-   "c": "libur_mingguan",
-   "l": "Open House – Hari Terakhir Karantina & Awal Pesiar",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-08-16": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-08-17": {
-   "c": "libur_nasional",
-   "l": "Hari Ulang Tahun Kemerdekaan Republik Indonesia ke-81",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-08-18": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-08-19": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-08-20": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-08-21": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-08-22": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-08-23": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-08-24": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-08-25": {
-   "c": "libur_nasional",
-   "l": "Maulid Nabi Muhammad SAW / Program DKM",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-08-26": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-08-27": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-08-28": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-08-29": {
-   "c": "libur_mingguan",
-   "l": "LDKS",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-08-30": {
-   "c": "libur_mingguan",
-   "l": "LDKS",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-08-31": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-09-01": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-09-02": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-09-03": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-09-04": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-09-05": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-09-06": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-09-07": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-09-08": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-09-09": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-09-10": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-09-11": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-09-12": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-09-13": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-09-14": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-09-15": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-09-16": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-09-17": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-09-18": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-09-19": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-09-20": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-09-21": {
-   "c": "sts",
-   "l": "Sumatif Tengah Semester (STS) Ganjil",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-09-22": {
-   "c": "sts",
-   "l": "Sumatif Tengah Semester (STS) Ganjil",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-09-23": {
-   "c": "sts",
-   "l": "Sumatif Tengah Semester (STS) Ganjil",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-09-24": {
-   "c": "sts",
-   "l": "Sumatif Tengah Semester (STS) Ganjil",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-09-25": {
-   "c": "sts",
-   "l": "Sumatif Tengah Semester (STS) Ganjil",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-09-26": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-09-27": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-09-28": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-09-29": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-09-30": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-10-01": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-10-02": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-10-03": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-10-04": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-10-05": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-10-06": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-10-07": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-10-08": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-10-09": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-10-10": {
-   "c": "libur_mingguan",
-   "l": "Pelatihan / Workshop Kesiswaan",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-10-11": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-10-12": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-10-13": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-10-14": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-10-15": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-10-16": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-10-17": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-10-18": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-10-19": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-10-20": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-10-21": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-10-22": {
-   "c": "hari_santri",
-   "l": "Hari Santri",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-10-23": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-10-24": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-10-25": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-10-26": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-10-27": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-10-28": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-10-29": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-10-30": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-10-31": {
-   "c": "libur_mingguan",
-   "l": "Puncak Bulan Bahasa",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-11-01": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-11-02": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-11-03": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-11-04": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-11-05": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-11-06": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-11-07": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-11-08": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-11-09": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-11-10": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-11-11": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-11-12": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-11-13": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-11-14": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-11-15": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-11-16": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-11-17": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-11-18": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-11-19": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-11-20": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-11-21": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-11-22": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-11-23": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-11-24": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-11-25": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-11-26": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-11-27": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-11-28": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-11-29": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-11-30": {
-   "c": "sas",
-   "l": "Sumatif Akhir Semester (SAS) Ganjil",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-12-01": {
-   "c": "sas",
-   "l": "Sumatif Akhir Semester (SAS) Ganjil",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-12-02": {
-   "c": "sas",
-   "l": "Sumatif Akhir Semester (SAS) Ganjil",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-12-03": {
-   "c": "sas",
-   "l": "Sumatif Akhir Semester (SAS) Ganjil",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-12-04": {
-   "c": "sas",
-   "l": "Sumatif Akhir Semester (SAS) Ganjil",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-12-05": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-12-06": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-12-07": {
-   "c": "remedial",
-   "l": "Remedial dan Pengayaan",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-12-08": {
-   "c": "remedial",
-   "l": "Remedial dan Pengayaan",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-12-09": {
-   "c": "remedial",
-   "l": "Remedial dan Pengayaan",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-12-10": {
-   "c": "remedial",
-   "l": "Remedial dan Pengayaan",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-12-11": {
-   "c": "remedial",
-   "l": "Remedial dan Pengayaan",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-12-12": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-12-13": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-12-14": {
-   "c": "kesiswaan",
-   "l": "Class Meeting & Pekan Olahraga Madrasah",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-12-15": {
-   "c": "kesiswaan",
-   "l": "Class Meeting & Pekan Olahraga Madrasah",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-12-16": {
-   "c": "kesiswaan",
-   "l": "Class Meeting & Pekan Olahraga Madrasah",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-12-17": {
-   "c": "kesiswaan",
-   "l": "Class Meeting & Haflah Taqrim",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-12-18": {
-   "c": "rapor",
-   "l": "Pembagian Rapor Semester Ganjil",
-   "s": "GANJIL",
-   "p": ""
-  },
-  "2026-12-19": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "",
-   "p": ""
-  },
-  "2026-12-20": {
-   "c": "libur_mingguan",
-   "l": "Penutupan dan Rihlah Guru",
-   "s": "",
-   "p": ""
-  },
-  "2026-12-21": {
-   "c": "libur_semester",
-   "l": "Libur Semester Ganjil",
-   "s": "",
-   "p": ""
-  },
-  "2026-12-22": {
-   "c": "libur_semester",
-   "l": "Libur Semester Ganjil",
-   "s": "",
-   "p": ""
-  },
-  "2026-12-23": {
-   "c": "libur_semester",
-   "l": "Libur Semester Ganjil",
-   "s": "",
-   "p": ""
-  },
-  "2026-12-24": {
-   "c": "libur_semester",
-   "l": "Libur Semester Ganjil",
-   "s": "",
-   "p": ""
-  },
-  "2026-12-25": {
-   "c": "libur_nasional",
-   "l": "Hari Raya Natal",
-   "s": "",
-   "p": ""
-  },
-  "2026-12-26": {
-   "c": "cuti_bersama",
-   "l": "Cuti Bersama Hari Raya Natal",
-   "s": "",
-   "p": ""
-  },
-  "2026-12-27": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "",
-   "p": ""
-  },
-  "2026-12-28": {
-   "c": "libur_semester",
-   "l": "Libur Semester Ganjil",
-   "s": "",
-   "p": ""
-  },
-  "2026-12-29": {
-   "c": "libur_semester",
-   "l": "Libur Semester Ganjil",
-   "s": "",
-   "p": ""
-  },
-  "2026-12-30": {
-   "c": "libur_semester",
-   "l": "Libur Semester Ganjil",
-   "s": "",
-   "p": ""
-  },
-  "2026-12-31": {
-   "c": "libur_semester",
-   "l": "Libur Semester Ganjil",
-   "s": "",
-   "p": ""
-  },
-  "2027-01-01": {
-   "c": "libur_nasional",
-   "l": "Tahun Baru Masehi 2027",
-   "s": "",
-   "p": ""
-  },
-  "2027-01-02": {
-   "c": "kedatangan_reguler",
-   "l": "Kedatangan Peserta Didik Semester Genap",
-   "s": "",
-   "p": ""
-  },
-  "2027-01-03": {
-   "c": "kedatangan_reguler",
-   "l": "Kedatangan Peserta Didik Semester Genap",
-   "s": "",
-   "p": ""
-  },
-  "2027-01-04": {
-   "c": "pembelajaran",
-   "l": "Awal Masuk Semester Genap",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-01-05": {
-   "c": "libur_nasional",
-   "l": "Isra' Mi'raj Nabi Muhammad SAW",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-01-06": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-01-07": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-01-08": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-01-09": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-01-10": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-01-11": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-01-12": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-01-13": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-01-14": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-01-15": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-01-16": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-01-17": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-01-18": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-01-19": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-01-20": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-01-21": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-01-22": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-01-23": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-01-24": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-01-25": {
-   "c": "unggulan",
-   "l": "Pekan Lomba Sains, Art, Sport, Religion & Language",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-01-26": {
-   "c": "unggulan",
-   "l": "Pekan Lomba Sains, Art, Sport, Religion & Language",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-01-27": {
-   "c": "unggulan",
-   "l": "Pekan Lomba Sains, Art, Sport, Religion & Language",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-01-28": {
-   "c": "unggulan",
-   "l": "Pekan Lomba Sains, Art, Sport, Religion & Language",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-01-29": {
-   "c": "unggulan",
-   "l": "Pekan Lomba Sains, Art, Sport, Religion & Language",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-01-30": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-01-31": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-02-01": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-02-02": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-02-03": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-02-04": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-02-05": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-02-06": {
-   "c": "libur_nasional",
-   "l": "Tahun Baru Imlek 2578",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-02-07": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-02-08": {
-   "c": "libur_nasional",
-   "l": "Libur Awal Ramadan 1448 H (Perkiraan)",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-02-09": {
-   "c": "libur_nasional",
-   "l": "Libur Awal Ramadan 1448 H (Perkiraan)",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-02-10": {
-   "c": "libur_nasional",
-   "l": "Libur Awal Ramadan 1448 H (Perkiraan)",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-02-11": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Ramadan – Syahrun Ma'al Qur'an",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-02-12": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Ramadan – Syahrun Ma'al Qur'an",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-02-13": {
-   "c": "libur_mingguan",
-   "l": "Syahrun Ma'al Qur'an & Daurah Al-Qur'an",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-02-14": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-02-15": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Ramadan – Sanlat",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-02-16": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Ramadan – Sanlat",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-02-17": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Ramadan – Sanlat",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-02-18": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Ramadan – Sanlat",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-02-19": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Ramadan – Sanlat",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-02-20": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-02-21": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-02-22": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Ramadan – Sanlat",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-02-23": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Ramadan – Sanlat",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-02-24": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Ramadan – Nuzulul Qur'an",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-02-25": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Ramadan – Sanlat",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-02-26": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Ramadan – Sanlat",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-02-27": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-02-28": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-03-01": {
-   "c": "sts",
-   "l": "Sumatif Tengah Semester (STS) Genap",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-03-02": {
-   "c": "sts",
-   "l": "Sumatif Tengah Semester (STS) Genap",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-03-03": {
-   "c": "sts",
-   "l": "Sumatif Tengah Semester (STS) Genap",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-03-04": {
-   "c": "sts",
-   "l": "Sumatif Tengah Semester (STS) Genap",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-03-05": {
-   "c": "sts",
-   "l": "Sumatif Tengah Semester (STS) Genap",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-03-06": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-03-07": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-03-08": {
-   "c": "libur_nasional",
-   "l": "Libur Menjelang Idul Fitri",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-03-09": {
-   "c": "cuti_bersama",
-   "l": "Cuti Bersama Menjelang Idul Fitri/ Hari Raya Nyepi",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-03-10": {
-   "c": "libur_nasional",
-   "l": "Hari Raya Idul Fitri 1 Syawal 1448 H (Perkiraan)",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-03-11": {
-   "c": "libur_nasional",
-   "l": "Hari Raya Idul Fitri 1 Syawal 1448 H (Perkiraan)",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-03-12": {
-   "c": "cuti_bersama",
-   "l": "Cuti Bersama Idul Fitri",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-03-13": {
-   "c": "cuti_bersama",
-   "l": "Cuti Bersama Idul Fitri",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-03-14": {
-   "c": "cuti_bersama",
-   "l": "Cuti Bersama Idul Fitri",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-03-15": {
-   "c": "libur_nasional",
-   "l": "Libur Nasional / Cuti Bersama",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-03-16": {
-   "c": "libur_nasional",
-   "l": "Libur Nasional / Cuti Bersama",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-03-17": {
-   "c": "libur_nasional",
-   "l": "Libur Nasional / Cuti Bersama",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-03-18": {
-   "c": "libur_nasional",
-   "l": "Libur Nasional / Cuti Bersama",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-03-19": {
-   "c": "libur_nasional",
-   "l": "Libur Nasional / Cuti Bersama",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-03-20": {
-   "c": "boarding",
-   "l": "Kembali ke Asrama Pasca Idul Fitri",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-03-21": {
-   "c": "boarding",
-   "l": "Kembali ke Asrama Pasca Idul Fitri",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-03-22": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-03-23": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-03-24": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-03-25": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-03-26": {
-   "c": "libur_nasional",
-   "l": "Wafat Yesus Kristus & Muhadharah Kubra",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-03-27": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-03-28": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-03-29": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-03-30": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-03-31": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-04-01": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-04-02": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-04-03": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-04-04": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-04-05": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-04-06": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-04-07": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-04-08": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-04-09": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-04-10": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-04-11": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-04-12": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-04-13": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-04-14": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-04-15": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-04-16": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-04-17": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-04-18": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-04-19": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-04-20": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-04-21": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-04-22": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-04-23": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-04-24": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-04-25": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-04-26": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-04-27": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-04-28": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-04-29": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-04-30": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-05-01": {
-   "c": "libur_nasional",
-   "l": "Hari Buruh Internasional",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-05-02": {
-   "c": "libur_mingguan",
-   "l": "Hari Pendidikan Nasional",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-05-03": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-05-04": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-05-05": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-05-06": {
-   "c": "libur_nasional",
-   "l": "Kenaikan Yesus Kristus",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-05-07": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-05-08": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-05-09": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-05-10": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-05-11": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-05-12": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-05-13": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-05-14": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-05-15": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-05-16": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-05-17": {
-   "c": "libur_nasional",
-   "l": "Hari Raya Idul Adha 1448 H (Perkiraan)",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-05-18": {
-   "c": "cuti_bersama",
-   "l": "Cuti Bersama Idul Adha (Perkiraan)",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-05-19": {
-   "c": "cuti_bersama",
-   "l": "Cuti Bersama Idul Adha (Perkiraan)",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-05-20": {
-   "c": "libur_nasional",
-   "l": "Hari Raya Waisak & Hari Kebangkitan Nasional",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-05-21": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-05-22": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-05-23": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-05-24": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-05-25": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-05-26": {
-   "c": "pembelajaran",
-   "l": "Pembelajaran Efektif",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-05-27": {
-   "c": "sas",
-   "l": "Sumatif Akhir Semester (SAS) Genap",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-05-28": {
-   "c": "sas",
-   "l": "Sumatif Akhir Semester (SAS) Genap",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-05-29": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-05-30": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-05-31": {
-   "c": "sas",
-   "l": "Sumatif Akhir Semester (SAS) Genap",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-06-01": {
-   "c": "libur_nasional",
-   "l": "Hari Lahir Pancasila",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-06-02": {
-   "c": "sas",
-   "l": "Sumatif Akhir Semester (SAS) Genap",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-06-03": {
-   "c": "sas",
-   "l": "Sumatif Akhir Semester (SAS) Genap",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-06-04": {
-   "c": "sas",
-   "l": "Sumatif Akhir Semester (SAS) Genap",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-06-05": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-06-06": {
-   "c": "libur_mingguan",
-   "l": "1 Muharram 1449 H",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-06-07": {
-   "c": "madrasah",
-   "l": "Penyelesaian Penilaian & Pengolahan Rapor",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-06-08": {
-   "c": "remedial",
-   "l": "Pengayaan dan Remedial",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-06-09": {
-   "c": "remedial",
-   "l": "Pengayaan dan Remedial",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-06-10": {
-   "c": "remedial",
-   "l": "Pengayaan dan Remedial",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-06-11": {
-   "c": "remedial",
-   "l": "Pengayaan dan Remedial",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-06-12": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-06-13": {
-   "c": "libur_mingguan",
-   "l": "Libur Mingguan",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-06-14": {
-   "c": "kesiswaan",
-   "l": "Class Meeting & Pekan Olahraga Madrasah",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-06-15": {
-   "c": "kesiswaan",
-   "l": "Class Meeting & Pekan Olahraga Madrasah",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-06-16": {
-   "c": "kesiswaan",
-   "l": "Class Meeting & Pekan Olahraga Madrasah",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-06-17": {
-   "c": "kesiswaan",
-   "l": "Class Meeting & Panggung Gembira",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-06-18": {
-   "c": "rapor",
-   "l": "Pembagian Rapor Akhir Tahun Pelajaran",
-   "s": "GENAP",
-   "p": ""
-  },
-  "2027-06-19": {
-   "c": "libur_semester",
-   "l": "Libur Akhir Tahun Pelajaran",
-   "s": "",
-   "p": ""
-  },
-  "2027-06-20": {
-   "c": "libur_semester",
-   "l": "Libur Akhir Tahun Pelajaran",
-   "s": "",
-   "p": ""
-  }
- },
- "rekap_hari_efektif_bulan": [
-  {
-   "bulan": "Juli 2026",
-   "semester": "Ganjil",
-   "hari_efektif": 5,
-   "sumatif": 0,
-   "total_jp": 48
-  },
-  {
-   "bulan": "Agustus 2026",
-   "semester": "Ganjil",
-   "hari_efektif": 19,
-   "sumatif": 0,
-   "total_jp": 182
-  },
-  {
-   "bulan": "September 2026",
-   "semester": "Ganjil",
-   "hari_efektif": 17,
-   "sumatif": 5,
-   "total_jp": 164
-  },
-  {
-   "bulan": "Oktober 2026",
-   "semester": "Ganjil",
-   "hari_efektif": 21,
-   "sumatif": 0,
-   "total_jp": 191
-  },
-  {
-   "bulan": "November 2026",
-   "semester": "Ganjil",
-   "hari_efektif": 20,
-   "sumatif": 1,
-   "total_jp": 185
-  },
-  {
-   "bulan": "Desember 2026",
-   "semester": "Ganjil/Libur",
-   "hari_efektif": 0,
-   "sumatif": 4,
-   "total_jp": 0
-  },
-  {
-   "bulan": "Januari 2027",
-   "semester": "Genap",
-   "hari_efektif": 14,
-   "sumatif": 0,
-   "total_jp": 134
-  },
-  {
-   "bulan": "Februari 2027",
-   "semester": "Genap",
-   "hari_efektif": 17,
-   "sumatif": 0,
-   "total_jp": 162
-  },
-  {
-   "bulan": "Maret 2027",
-   "semester": "Genap",
-   "hari_efektif": 7,
-   "sumatif": 5,
-   "total_jp": 65
-  },
-  {
-   "bulan": "April 2027",
-   "semester": "Genap",
-   "hari_efektif": 22,
-   "sumatif": 0,
-   "total_jp": 210
-  },
-  {
-   "bulan": "Mei 2027",
-   "semester": "Genap",
-   "hari_efektif": 13,
-   "sumatif": 3,
-   "total_jp": 124
-  },
-  {
-   "bulan": "Juni 2027",
-   "semester": "Genap/Libur",
-   "hari_efektif": 0,
-   "sumatif": 3,
-   "total_jp": 0
-  }
- ],
- "rekap_minggu_efektif": [
-  {
-   "bulan": "Juli 2026",
-   "semester": "Ganjil",
-   "minggu_kalender": 3,
-   "minggu_efektif": 1,
-   "minggu_tidak_efektif": 2,
-   "keterangan": "W1 (6-10 Jul): MATSAMA. W2 (13-24 Jul): Matrikulasi Reguler. W3 (27-31 Jul): efektif."
-  },
-  {
-   "bulan": "Agustus 2026",
-   "semester": "Ganjil",
-   "minggu_kalender": 5,
-   "minggu_efektif": 5,
-   "minggu_tidak_efektif": 0,
-   "keterangan": "W4-W8 efektif. HUT RI & Maulid Nabi tidak menghapus pekan efektif."
-  },
-  {
-   "bulan": "September 2026",
-   "semester": "Ganjil",
-   "minggu_kalender": 4,
-   "minggu_efektif": 4,
-   "minggu_tidak_efektif": 0,
-   "keterangan": "W9, W10, W12 efektif. W11 (21-25 Sep): STS Ganjil, masuk efektif."
-  },
-  {
-   "bulan": "Oktober 2026",
-   "semester": "Ganjil",
-   "minggu_kalender": 4,
-   "minggu_efektif": 4,
-   "minggu_tidak_efektif": 0,
-   "keterangan": "W13-W16 efektif. Hari Santri & Sumpah Pemuda dalam pekan efektif."
-  },
-  {
-   "bulan": "November 2026",
-   "semester": "Ganjil",
-   "minggu_kalender": 5,
-   "minggu_efektif": 4,
-   "minggu_tidak_efektif": 1,
-   "keterangan": "W17-W20 efektif. W21 (mulai 30 Nov): SAS Ganjil, tidak efektif."
-  },
-  {
-   "bulan": "Desember 2026",
-   "semester": "Ganjil/Libur",
-   "minggu_kalender": 2,
-   "minggu_efektif": 0,
-   "minggu_tidak_efektif": 2,
-   "keterangan": "Remedial, Class Meeting & Rapor. Tidak ada KBM. Libur sem mulai 21 Des."
-  },
-  {
-   "bulan": "Januari 2027",
-   "semester": "Genap",
-   "minggu_kalender": 4,
-   "minggu_efektif": 3,
-   "minggu_tidak_efektif": 1,
-   "keterangan": "W1-W3 efektif. W4 (25-29 Jan): Program Unggulan ICN, tanpa KBM reguler."
-  },
-  {
-   "bulan": "Februari 2027",
-   "semester": "Genap",
-   "minggu_kalender": 4,
-   "minggu_efektif": 4,
-   "minggu_tidak_efektif": 0,
-   "keterangan": "W5-W8 efektif. Imlek & awal Ramadan: KBM tetap berlangsung."
-  },
-  {
-   "bulan": "Maret 2027",
-   "semester": "Genap",
-   "minggu_kalender": 5,
-   "minggu_efektif": 3,
-   "minggu_tidak_efektif": 2,
-   "keterangan": "W9 (1-5 Mar): STS Genap masuk efektif. W10-W11: Libur Idul Fitri. W12-W13 efektif."
-  },
-  {
-   "bulan": "April 2027",
-   "semester": "Genap",
-   "minggu_kalender": 4,
-   "minggu_efektif": 4,
-   "minggu_tidak_efektif": 0,
-   "keterangan": "W14-W17 efektif."
-  },
-  {
-   "bulan": "Mei 2027",
-   "semester": "Genap",
-   "minggu_kalender": 5,
-   "minggu_efektif": 4,
-   "minggu_tidak_efektif": 1,
-   "keterangan": "W18-W21 efektif. W22 (mulai 31 Mei): SAS Genap, tidak efektif."
-  },
-  {
-   "bulan": "Juni 2027",
-   "semester": "Genap/Libur",
-   "minggu_kalender": 2,
-   "minggu_efektif": 0,
-   "minggu_tidak_efektif": 2,
-   "keterangan": "Remedial, Class Meeting & Rapor. Libur TA mulai 21 Jun."
-  }
- ],
- "distribusi_jp": [
-  {
-   "no": 1,
-   "mapel": "Al-Qur'an Hadis",
-   "guru": "Muhammad Syahrul Bakhtiar, Lc.",
-   "jp_minggu_kelas": 2,
-   "total_jp_minggu_4kelas": 8,
-   "kelompok": "PAI"
-  },
-  {
-   "no": 2,
-   "mapel": "Akidah Akhlak",
-   "guru": "Adi Supihadi, S.Pd., M.Pd.",
-   "jp_minggu_kelas": 2,
-   "total_jp_minggu_4kelas": 8,
-   "kelompok": "PAI"
-  },
-  {
-   "no": 3,
-   "mapel": "Fikih",
-   "guru": "Muhammad Afsal, S.Ag.",
-   "jp_minggu_kelas": 2,
-   "total_jp_minggu_4kelas": 8,
-   "kelompok": "PAI"
-  },
-  {
-   "no": 4,
-   "mapel": "SKI (Sejarah Keb. Islam)",
-   "guru": "Ani Nuryani, S.Pd.",
-   "jp_minggu_kelas": 2,
-   "total_jp_minggu_4kelas": 8,
-   "kelompok": "PAI"
-  },
-  {
-   "no": 5,
-   "mapel": "Bahasa Arab",
-   "guru": "Azka Muhammad Naufal, BA.",
-   "jp_minggu_kelas": 4,
-   "total_jp_minggu_4kelas": 16,
-   "kelompok": "PAI"
-  },
-  {
-   "no": 6,
-   "mapel": "Pendidikan Pancasila",
-   "guru": "Yudistira Abdi Rizki, S.H.",
-   "jp_minggu_kelas": 2,
-   "total_jp_minggu_4kelas": 8,
-   "kelompok": "Umum"
-  },
-  {
-   "no": 7,
-   "mapel": "Bahasa Indonesia",
-   "guru": "Iqbal Ifada, S.Pd., M.Pd.",
-   "jp_minggu_kelas": 3,
-   "total_jp_minggu_4kelas": 12,
-   "kelompok": "Umum"
-  },
-  {
-   "no": 8,
-   "mapel": "Bahasa Inggris",
-   "guru": "Ardianti Safitri, S.S.",
-   "jp_minggu_kelas": 3,
-   "total_jp_minggu_4kelas": 12,
-   "kelompok": "Umum"
-  },
-  {
-   "no": 9,
-   "mapel": "Matematika",
-   "guru": "Kholilatun Nahdhiyyah, S.Pd., Gr.",
-   "jp_minggu_kelas": 3,
-   "total_jp_minggu_4kelas": 12,
-   "kelompok": "Umum"
-  },
-  {
-   "no": 10,
-   "mapel": "Biologi",
-   "guru": "An Nabilla Nurjannah, S.Pd.",
-   "jp_minggu_kelas": 2,
-   "total_jp_minggu_4kelas": 8,
-   "kelompok": "MIPA"
-  },
-  {
-   "no": 11,
-   "mapel": "Fisika",
-   "guru": "Firda Tazkia Salsabila, S.Pd., Gr.",
-   "jp_minggu_kelas": 2,
-   "total_jp_minggu_4kelas": 8,
-   "kelompok": "MIPA"
-  },
-  {
-   "no": 12,
-   "mapel": "Kimia",
-   "guru": "Indah Ayudia, S.Pd.",
-   "jp_minggu_kelas": 2,
-   "total_jp_minggu_4kelas": 8,
-   "kelompok": "MIPA"
-  },
-  {
-   "no": 13,
-   "mapel": "Sejarah",
-   "guru": "Asep Jafar Setiadi, S.Pd., Gr.",
-   "jp_minggu_kelas": 2,
-   "total_jp_minggu_4kelas": 8,
-   "kelompok": "IPS"
-  },
-  {
-   "no": 14,
-   "mapel": "Geografi",
-   "guru": "Tiara Nanda Sucitra, S.Pd.",
-   "jp_minggu_kelas": 2,
-   "total_jp_minggu_4kelas": 8,
-   "kelompok": "IPS"
-  },
-  {
-   "no": 15,
-   "mapel": "Ekonomi",
-   "guru": "(Dalam Proses Rekrutmen)",
-   "jp_minggu_kelas": 2,
-   "total_jp_minggu_4kelas": 8,
-   "kelompok": "IPS"
-  },
-  {
-   "no": 16,
-   "mapel": "Sosiologi",
-   "guru": "Muhammad Irsyad Sirojul Khoeir, S.Sos., M.Sos.",
-   "jp_minggu_kelas": 2,
-   "total_jp_minggu_4kelas": 8,
-   "kelompok": "IPS"
-  },
-  {
-   "no": 17,
-   "mapel": "Informatika",
-   "guru": "Ahmad Abrar, S.Kom., S.Psi.",
-   "jp_minggu_kelas": 2,
-   "total_jp_minggu_4kelas": 8,
-   "kelompok": "TIK"
-  },
-  {
-   "no": 18,
-   "mapel": "Koding",
-   "guru": "Ahmad Abrar, S.Kom., S.Psi.",
-   "jp_minggu_kelas": 2,
-   "total_jp_minggu_4kelas": 8,
-   "kelompok": "TIK (Mulok)"
-  },
-  {
-   "no": 19,
-   "mapel": "Bahasa Mandarin",
-   "guru": "Afifah Chairani, S.Li.",
-   "jp_minggu_kelas": 2,
-   "total_jp_minggu_4kelas": 8,
-   "kelompok": "Bahasa"
-  },
-  {
-   "no": 20,
-   "mapel": "PJOK",
-   "guru": "Dede Sukma Sudrajat, S.Pd., Gr.",
-   "jp_minggu_kelas": 2,
-   "total_jp_minggu_4kelas": 8,
-   "kelompok": "PJOK"
-  },
-  {
-   "no": 21,
-   "mapel": "Seni Budaya",
-   "guru": "Rizki Ananda, S.Pd., Gr.",
-   "jp_minggu_kelas": 2,
-   "total_jp_minggu_4kelas": 8,
-   "kelompok": "Seni"
-  },
-  {
-   "no": 22,
-   "mapel": "Bimbingan Konseling",
-   "guru": "Leni Noviani, S.Sos.",
-   "jp_minggu_kelas": 1,
-   "total_jp_minggu_4kelas": 4,
-   "kelompok": "BK"
-  }
- ],
- "program_tahunan": [
-  {
-   "no": 1,
-   "bulan": "Juni 2026",
-   "program": "Kedatangan & Penyambutan Peserta Didik Baru (Indo. Timur & Reguler)",
-   "pj": "Waka Kesiswaan + TU",
-   "waktu": "20–21 Jun; 4–5 Jul 2026",
-   "status": "Terlaksana",
-   "keterangan": "Koordinasi dengan Boarding"
-  },
-  {
-   "no": 2,
-   "bulan": "Juni–Juli 2026",
-   "program": "Matrikulasi Tahap I – Pra-Tes, KBM Matrikulasi, Pasca-Tes",
-   "pj": "Waka Kurikulum + Tim Guru",
-   "waktu": "22 Jun – 3 Jul 2026",
-   "status": "Terlaksana",
-   "keterangan": "Berbasis Buku Kerja 2"
-  },
-  {
-   "no": 3,
-   "bulan": "Juli 2026",
-   "program": "MATSAMA (Masa Ta'aruf Murid Madrasah)",
-   "pj": "Waka Kesiswaan + OSIM",
-   "waktu": "6–8 Jul 2026",
-   "status": "Terlaksana",
-   "keterangan": "3 hari penuh"
-  },
-  {
-   "no": 4,
-   "bulan": "Juli 2026",
-   "program": "Matrikulasi Tahap II – Pra-Tes, KBM Matrikulasi, Pasca-Tes",
-   "pj": "Waka Kurikulum + Tim Guru",
-   "waktu": "9–17 Jul 2026",
-   "status": "Terlaksana",
-   "keterangan": "Setelah MATSAMA"
-  },
-  {
-   "no": 5,
-   "bulan": "Juli 2026",
-   "program": "Evaluasi dan Penutupan Program Matrikulasi",
-   "pj": "Waka Kurikulum",
-   "waktu": "18 Jul 2026",
-   "status": "Terlaksana",
-   "keterangan": "Dokumen wajib"
-  },
-  {
-   "no": 6,
-   "bulan": "Juli–November 2026",
-   "program": "Pembelajaran Efektif Semester Ganjil",
-   "pj": "Seluruh Guru + Waka Kurikulum",
-   "waktu": "20 Jul – 27 Nov 2026",
-   "status": "Berlangsung",
-   "keterangan": "Kurikulum Merdeka Fase E"
-  },
-  {
-   "no": 7,
-   "bulan": "Agustus 2026",
-   "program": "Pembentukan dan Pelaksanaan Ekstrakurikuler & KBS",
-   "pj": "Waka Kesiswaan + Pembina Ekskul",
-   "waktu": "Mulai 27 Jul 2026",
-   "status": "Berlangsung",
-   "keterangan": "Jadwal Sabtu & jam 16.00"
-  },
-  {
-   "no": 8,
-   "bulan": "September 2026",
-   "program": "Sumatif Tengah Semester (STS) Ganjil",
-   "pj": "Waka Kurikulum + Tim Guru",
-   "waktu": "21–25 Sep 2026",
-   "status": "Terjadwal",
-   "keterangan": "5 hari kerja"
-  },
-  {
-   "no": 9,
-   "bulan": "Oktober 2026",
-   "program": "Bulan Bahasa – Puncak Lomba Trilingual",
-   "pj": "Waka Kurikulum + Guru Bahasa",
-   "waktu": "5–31 Okt 2026",
-   "status": "Terjadwal",
-   "keterangan": "Puncak 31 Okt"
-  },
-  {
-   "no": 10,
-   "bulan": "Oktober 2026",
-   "program": "Hari Santri Nasional – Acara Keasramaan",
-   "pj": "Waka Kesiswaan + Boarding",
-   "waktu": "22 Okt 2026",
-   "status": "Terjadwal",
-   "keterangan": "Panitia Khusus"
-  },
-  {
-   "no": 11,
-   "bulan": "November 2026",
-   "program": "Pekan Muraja'ah Al-Qur'an",
-   "pj": "Guru Tahfidz + Waka Kesiswaan",
-   "waktu": "16–20 Nov 2026",
-   "status": "Terjadwal",
-   "keterangan": ""
-  },
-  {
-   "no": 12,
-   "bulan": "November 2026",
-   "program": "Ujian Tahfidz Al-Qur'an Semester Ganjil",
-   "pj": "Guru Tahfidz",
-   "waktu": "23–27 Nov 2026",
-   "status": "Terjadwal",
-   "keterangan": "Hasil masuk e-Rapor"
-  },
-  {
-   "no": 13,
-   "bulan": "November–Desember 2026",
-   "program": "Sumatif Akhir Semester (SAS) Ganjil",
-   "pj": "Waka Kurikulum + Tim Guru",
-   "waktu": "30 Nov – 4 Des 2026",
-   "status": "Terjadwal",
-   "keterangan": "5 hari kerja"
-  },
-  {
-   "no": 14,
-   "bulan": "Desember 2026",
-   "program": "Remedial dan Pengayaan Semester Ganjil",
-   "pj": "Tim Guru",
-   "waktu": "7–11 Des 2026",
-   "status": "Terjadwal",
-   "keterangan": ""
-  },
-  {
-   "no": 15,
-   "bulan": "Desember 2026",
-   "program": "Class Meeting & Haflah Taqrim Semester Ganjil",
-   "pj": "Waka Kesiswaan + Panitia",
-   "waktu": "14–17 Des 2026",
-   "status": "Terjadwal",
-   "keterangan": "ICN Haflah Taqrim"
-  },
-  {
-   "no": 16,
-   "bulan": "Desember 2026",
-   "program": "Pembagian Buku Laporan Hasil Belajar (Rapor) Semester Ganjil",
-   "pj": "Waka Kurikulum + Wali Kelas",
-   "waktu": "18 Des 2026",
-   "status": "Terjadwal",
-   "keterangan": "Dokumen akreditasi"
-  },
-  {
-   "no": 17,
-   "bulan": "Januari 2027",
-   "program": "Awal Masuk Semester Genap – Upacara Bendera",
-   "pj": "Kepala Madrasah + Waka",
-   "waktu": "4 Jan 2027",
-   "status": "Terjadwal",
-   "keterangan": ""
-  },
-  {
-   "no": 18,
-   "bulan": "Januari 2027",
-   "program": "Pembelajaran Efektif Semester Genap",
-   "pj": "Seluruh Guru + Waka Kurikulum",
-   "waktu": "4 Jan – 28 Mei 2027",
-   "status": "Terjadwal",
-   "keterangan": ""
-  },
-  {
-   "no": 19,
-   "bulan": "Januari 2027",
-   "program": "Pekan Lomba SARL – Sains, Art, Sport, Religion & Language",
-   "pj": "Waka Kesiswaan + Panitia",
-   "waktu": "25–29 Jan 2027",
-   "status": "Terjadwal",
-   "keterangan": "Program Unggulan MA ICN"
-  },
-  {
-   "no": 20,
-   "bulan": "Februari 2027",
-   "program": "Program Ramadan – Syahrun Ma'al Qur'an & Sanlat",
-   "pj": "Waka Kurikulum + Guru Agama",
-   "waktu": "11 Feb – 26 Feb 2027",
-   "status": "Terjadwal",
-   "keterangan": "Sesuai 1 Ramadan 1448 H"
-  },
-  {
-   "no": 21,
-   "bulan": "Maret 2027",
-   "program": "Sumatif Tengah Semester (STS) Genap",
-   "pj": "Waka Kurikulum + Tim Guru",
-   "waktu": "1–5 Mar 2027",
-   "status": "Terjadwal",
-   "keterangan": "5 hari kerja"
-  },
-  {
-   "no": 22,
-   "bulan": "April 2027",
-   "program": "Hari Kartini & Hari Bumi – Kegiatan Tematik",
-   "pj": "Waka Kesiswaan + Guru Mapel",
-   "waktu": "21–22 Apr 2027",
-   "status": "Terjadwal",
-   "keterangan": "Pilihan format kegiatan"
-  },
-  {
-   "no": 23,
-   "bulan": "Mei 2027",
-   "program": "Rihlah Ilmiah (Tentatif)",
-   "pj": "Waka Kesiswaan + Panitia",
-   "waktu": "4–7 Mei 2027",
-   "status": "Tentatif",
-   "keterangan": "Konsep dispensasi/sebagian"
-  },
-  {
-   "no": 24,
-   "bulan": "Mei 2027",
-   "program": "Sumatif Akhir Semester (SAS) Genap",
-   "pj": "Waka Kurikulum + Tim Guru",
-   "waktu": "31 Mei – 4 Jun 2027",
-   "status": "Terjadwal",
-   "keterangan": ""
-  },
-  {
-   "no": 25,
-   "bulan": "Juni 2027",
-   "program": "Remedial dan Pengayaan Semester Genap",
-   "pj": "Tim Guru",
-   "waktu": "8–11 Jun 2027",
-   "status": "Terjadwal",
-   "keterangan": ""
-  },
-  {
-   "no": 26,
-   "bulan": "Juni 2027",
-   "program": "Class Meeting & Panggung Gembira Akhir Tahun",
-   "pj": "Waka Kesiswaan + Panitia",
-   "waktu": "14–17 Jun 2027",
-   "status": "Terjadwal",
-   "keterangan": "Penutup TP 2026/2027"
-  },
-  {
-   "no": 27,
-   "bulan": "Juni 2027",
-   "program": "Pembagian Buku Laporan Hasil Belajar (Rapor) Akhir Tahun",
-   "pj": "Waka Kurikulum + Wali Kelas",
-   "waktu": "18 Jun 2027",
-   "status": "Terjadwal",
-   "keterangan": "Dokumen akreditasi"
-  },
-  {
-   "no": 28,
-   "bulan": "Juni–Juli 2027",
-   "program": "Libur Akhir Tahun Pelajaran 2026/2027",
-   "pj": "—",
-   "waktu": "19 Jun – 10 Jul 2027",
-   "status": "Terjadwal",
-   "keterangan": "Rihlah Guru 19–20 Jun"
-  }
- ],
- "program_semester": {
-  "ganjil": [
-   {
-    "minggu": "Pra (0)",
-    "periode": "20 Jun – 24 Jul 2026",
-    "hari_efektif": 0,
-    "program": "Matrikulasi (Tahap I & Reguler) + MATSAMA",
-    "asesmen": "Pra-Tes & Pasca-Tes Matrikulasi"
-   },
-   {
-    "minggu": "1–3",
-    "periode": "27 Jul – 14 Ags 2026",
-    "hari_efektif": 15,
-    "program": "Pembelajaran Efektif Tahap I",
-    "asesmen": "—"
-   },
-   {
-    "minggu": "5–8",
-    "periode": "17 Ags – 11 Sep 2026",
-    "hari_efektif": 18,
-    "program": "Pembelajaran Efektif Tahap II",
-    "asesmen": "—"
-   },
-   {
-    "minggu": "9–13",
-    "periode": "14–25 Sep 2026",
-    "hari_efektif": 18,
-    "program": "Pembelajaran Efektif Tahap III + STS",
-    "asesmen": "STS Ganjil (21–25 Sep)"
-   },
-   {
-    "minggu": "14–18",
-    "periode": "28 Sep – 30 Okt 2026",
-    "hari_efektif": 25,
-    "program": "Pembelajaran Efektif Tahap IV",
-    "asesmen": "—"
-   },
-   {
-    "minggu": "19–23",
-    "periode": "2–27 Nov 2026",
-    "hari_efektif": 20,
-    "program": "Pembelajaran Efektif Tahap V + Muraja'ah + Ujian Tahfidz",
-    "asesmen": "Ujian Tahfidz (23–27 Nov)"
-   },
-   {
-    "minggu": "24",
-    "periode": "30 Nov – 4 Des 2026",
-    "hari_efektif": 5,
-    "program": "Sumatif Akhir Semester (SAS) Ganjil",
-    "asesmen": "SAS Ganjil"
-   },
-   {
-    "minggu": "25",
-    "periode": "7–11 Des 2026",
-    "hari_efektif": 5,
-    "program": "Remedial dan Pengayaan",
-    "asesmen": "Remedi & Pengayaan"
-   },
-   {
-    "minggu": "26",
-    "periode": "14–18 Des 2026",
-    "hari_efektif": 0,
-    "program": "Class Meeting + Haflah Taqrim + Pembagian Rapor",
-    "asesmen": "—"
-   }
+  "rekap_minggu_efektif": [
+    {
+      "bulan": "Juli 2026",
+      "semester": "Ganjil",
+      "minggu_kalender": 3,
+      "minggu_efektif": 1,
+      "minggu_tidak_efektif": 2,
+      "keterangan": "W1 (6-10 Jul): MATSAMA. W2 (13-24 Jul): Matrikulasi Reguler. W3 (27-31 Jul): efektif."
+    },
+    {
+      "bulan": "Agustus 2026",
+      "semester": "Ganjil",
+      "minggu_kalender": 5,
+      "minggu_efektif": 5,
+      "minggu_tidak_efektif": 0,
+      "keterangan": "W4-W8 efektif. HUT RI & Maulid Nabi tidak menghapus pekan efektif."
+    },
+    {
+      "bulan": "September 2026",
+      "semester": "Ganjil",
+      "minggu_kalender": 4,
+      "minggu_efektif": 4,
+      "minggu_tidak_efektif": 0,
+      "keterangan": "W9, W10, W12 efektif. W11 (21-25 Sep): STS Ganjil, masuk efektif."
+    },
+    {
+      "bulan": "Oktober 2026",
+      "semester": "Ganjil",
+      "minggu_kalender": 4,
+      "minggu_efektif": 4,
+      "minggu_tidak_efektif": 0,
+      "keterangan": "W13-W16 efektif. Hari Santri & Sumpah Pemuda dalam pekan efektif."
+    },
+    {
+      "bulan": "November 2026",
+      "semester": "Ganjil",
+      "minggu_kalender": 5,
+      "minggu_efektif": 4,
+      "minggu_tidak_efektif": 1,
+      "keterangan": "W17-W20 efektif. W21 (mulai 30 Nov): SAS Ganjil, tidak efektif."
+    },
+    {
+      "bulan": "Desember 2026",
+      "semester": "Ganjil/Libur",
+      "minggu_kalender": 2,
+      "minggu_efektif": 0,
+      "minggu_tidak_efektif": 2,
+      "keterangan": "Remedial, Class Meeting & Rapor. Tidak ada KBM. Libur sem mulai 21 Des."
+    },
+    {
+      "bulan": "Januari 2027",
+      "semester": "Genap",
+      "minggu_kalender": 4,
+      "minggu_efektif": 3,
+      "minggu_tidak_efektif": 1,
+      "keterangan": "W1-W3 efektif. W4 (25-29 Jan): Program Unggulan ICN, tanpa KBM reguler."
+    },
+    {
+      "bulan": "Februari 2027",
+      "semester": "Genap",
+      "minggu_kalender": 4,
+      "minggu_efektif": 4,
+      "minggu_tidak_efektif": 0,
+      "keterangan": "W5-W8 efektif. Imlek & awal Ramadan: KBM tetap berlangsung."
+    },
+    {
+      "bulan": "Maret 2027",
+      "semester": "Genap",
+      "minggu_kalender": 5,
+      "minggu_efektif": 3,
+      "minggu_tidak_efektif": 2,
+      "keterangan": "W9 (1-5 Mar): STS Genap masuk efektif. W10-W11: Libur Idul Fitri. W12-W13 efektif."
+    },
+    {
+      "bulan": "April 2027",
+      "semester": "Genap",
+      "minggu_kalender": 4,
+      "minggu_efektif": 4,
+      "minggu_tidak_efektif": 0,
+      "keterangan": "W14-W17 efektif."
+    },
+    {
+      "bulan": "Mei 2027",
+      "semester": "Genap",
+      "minggu_kalender": 5,
+      "minggu_efektif": 4,
+      "minggu_tidak_efektif": 1,
+      "keterangan": "W18-W21 efektif. W22 (mulai 31 Mei): SAS Genap, tidak efektif."
+    },
+    {
+      "bulan": "Juni 2027",
+      "semester": "Genap/Libur",
+      "minggu_kalender": 2,
+      "minggu_efektif": 0,
+      "minggu_tidak_efektif": 2,
+      "keterangan": "Remedial, Class Meeting & Rapor. Libur TA mulai 21 Jun."
+    }
   ],
-  "genap": [
-   {
-    "minggu": "29–30",
-    "periode": "4–15 Jan 2027",
-    "hari_efektif": 9,
-    "program": "Awal Semester Genap + Pembelajaran Efektif",
-    "asesmen": "—"
-   },
-   {
-    "minggu": "31–32",
-    "periode": "18–29 Jan 2027",
-    "hari_efektif": 9,
-    "program": "Pembelajaran Efektif + Pekan Lomba SARL",
-    "asesmen": "—"
-   },
-   {
-    "minggu": "33–34",
-    "periode": "1–12 Feb 2027",
-    "hari_efektif": 8,
-    "program": "Pembelajaran Efektif + Awal Ramadan",
-    "asesmen": "—"
-   },
-   {
-    "minggu": "35–36",
-    "periode": "15–26 Feb 2027",
-    "hari_efektif": 10,
-    "program": "Syahrun Ma'al Qur'an & Sanlat Ramadan",
-    "asesmen": "—"
-   },
-   {
-    "minggu": "37",
-    "periode": "1–5 Mar 2027",
-    "hari_efektif": 5,
-    "program": "Sumatif Tengah Semester (STS) Genap",
-    "asesmen": "STS Genap"
-   },
-   {
-    "minggu": "38–39",
-    "periode": "8–21 Mar 2027",
-    "hari_efektif": 0,
-    "program": "Libur Idul Fitri 1448 H + Kedatangan Murid",
-    "asesmen": "—"
-   },
-   {
-    "minggu": "40–41",
-    "periode": "22 Mar – 2 Apr 2027",
-    "hari_efektif": 9,
-    "program": "Pembelajaran Efektif Pasca Idul Fitri",
-    "asesmen": "—"
-   },
-   {
-    "minggu": "42–45",
-    "periode": "5 Apr – 30 Apr 2027",
-    "hari_efektif": 20,
-    "program": "Pembelajaran Efektif Tahap Akhir",
-    "asesmen": "—"
-   },
-   {
-    "minggu": "46–47",
-    "periode": "3–14 Mei 2027",
-    "hari_efektif": 8,
-    "program": "Pembelajaran Efektif + Rihlah Ilmiah",
-    "asesmen": "—"
-   },
-   {
-    "minggu": "48–49",
-    "periode": "17–28 Mei 2027",
-    "hari_efektif": 8,
-    "program": "Pembelajaran Efektif Akhir + Idul Adha",
-    "asesmen": "—"
-   },
-   {
-    "minggu": "50",
-    "periode": "31 Mei – 4 Jun 2027",
-    "hari_efektif": 4,
-    "program": "Sumatif Akhir Semester (SAS) Genap",
-    "asesmen": "SAS Genap"
-   },
-   {
-    "minggu": "51",
-    "periode": "7–11 Jun 2027",
-    "hari_efektif": 4,
-    "program": "Remedial dan Pengayaan Akhir Tahun",
-    "asesmen": "Remedi & Pengayaan"
-   },
-   {
-    "minggu": "52",
-    "periode": "14–18 Jun 2027",
-    "hari_efektif": 0,
-    "program": "Class Meeting + Panggung Gembira + Pembagian Rapor",
-    "asesmen": "—"
-   }
-  ]
- },
- "jadwal_harian": {
-  "senin_kamis": [
-   {
-    "no": 1,
-    "waktu": "03.40 – 05.30",
-    "durasi": "110 menit",
-    "kegiatan": "Bangun Tidur, MCK, Qiyamullail, Tadarus Al-Qur'an, Shalat Subuh Berjamaah, Tahfidz Al-Qur'an",
-    "catatan": "Kegiatan wajib seluruh peserta didik",
-    "status": "Ibadah & Tahfidz"
-   },
-   {
-    "no": 2,
-    "waktu": "05.30 – 06.40",
-    "durasi": "70 menit",
-    "kegiatan": "Makan Pagi dan Persiapan Apel Pagi",
-    "catatan": "Makan sesuai jadwal dapur asrama",
-    "status": "Makan & Persiapan"
-   },
-   {
-    "no": 3,
-    "waktu": "06.40 – 07.00",
-    "durasi": "20 menit",
-    "kegiatan": "Apel Pagi",
-    "catatan": "Pemeriksaan kerapian dan absensi harian",
-    "status": "Kesiswaan"
-   },
-   {
-    "no": 4,
-    "waktu": "07.00 – 07.45",
-    "durasi": "45 menit",
-    "kegiatan": "Jam Pelajaran 1 (JP 1)",
-    "catatan": "KBM reguler",
-    "status": "KBM"
-   },
-   {
-    "no": 5,
-    "waktu": "07.45 – 08.30",
-    "durasi": "45 menit",
-    "kegiatan": "Jam Pelajaran 2 (JP 2)",
-    "catatan": "KBM reguler",
-    "status": "KBM"
-   },
-   {
-    "no": 6,
-    "waktu": "08.30 – 09.15",
-    "durasi": "45 menit",
-    "kegiatan": "Jam Pelajaran 3 (JP 3)",
-    "catatan": "KBM reguler",
-    "status": "KBM"
-   },
-   {
-    "no": 7,
-    "waktu": "09.15 – 10.00",
-    "durasi": "45 menit",
-    "kegiatan": "Jam Pelajaran 4 (JP 4)",
-    "catatan": "KBM reguler",
-    "status": "KBM"
-   },
-   {
-    "no": 8,
-    "waktu": "10.00 – 10.15",
-    "durasi": "15 menit",
-    "kegiatan": "Istirahat I (Shalat Dhuha Berjamaah)",
-    "catatan": "Shalat Dhuha berjamaah di masjid madrasah",
-    "status": "Ibadah & Istirahat"
-   },
-   {
-    "no": 9,
-    "waktu": "10.15 – 11.00",
-    "durasi": "45 menit",
-    "kegiatan": "Jam Pelajaran 5 (JP 5)",
-    "catatan": "KBM reguler",
-    "status": "KBM"
-   },
-   {
-    "no": 10,
-    "waktu": "11.00 – 11.45",
-    "durasi": "45 menit",
-    "kegiatan": "Jam Pelajaran 6 (JP 6)",
-    "catatan": "KBM reguler",
-    "status": "KBM"
-   },
-   {
-    "no": 11,
-    "waktu": "11.45 – 12.00",
-    "durasi": "15 menit",
-    "kegiatan": "Jam Pelajaran 7 — Bagian 1 (JP 7)",
-    "catatan": "KBM reguler; JP 7 dilanjutkan setelah istirahat",
-    "status": "KBM"
-   },
-   {
-    "no": 12,
-    "waktu": "12.00 – 13.00",
-    "durasi": "60 menit",
-    "kegiatan": "Istirahat II, Shalat Dzuhur Berjamaah, dan Makan Siang",
-    "catatan": "Shalat berjamaah di masjid madrasah",
-    "status": "Ibadah & Makan"
-   },
-   {
-    "no": 13,
-    "waktu": "13.00 – 13.30",
-    "durasi": "30 menit",
-    "kegiatan": "Jam Pelajaran 7 — Bagian 2 (JP 7)",
-    "catatan": "Lanjutan JP 7",
-    "status": "KBM"
-   },
-   {
-    "no": 14,
-    "waktu": "13.30 – 14.15",
-    "durasi": "45 menit",
-    "kegiatan": "Jam Pelajaran 8 (JP 8)",
-    "catatan": "KBM reguler",
-    "status": "KBM"
-   },
-   {
-    "no": 15,
-    "waktu": "14.15 – 15.00",
-    "durasi": "45 menit",
-    "kegiatan": "Jam Pelajaran 9 (JP 9)",
-    "catatan": "KBM reguler",
-    "status": "KBM"
-   },
-   {
-    "no": 16,
-    "waktu": "15.00 – 15.45",
-    "durasi": "45 menit",
-    "kegiatan": "Jam Pelajaran 10 (JP 10)",
-    "catatan": "KBM reguler",
-    "status": "KBM"
-   },
-   {
-    "no": 17,
-    "waktu": "15.45 – 16.00",
-    "durasi": "15 menit",
-    "kegiatan": "Shalat Ashar Berjamaah",
-    "catatan": "Berjamaah di masjid madrasah",
-    "status": "Ibadah"
-   },
-   {
-    "no": 18,
-    "waktu": "16.00 – 17.45",
-    "durasi": "105 menit",
-    "kegiatan": "Ekstrakurikuler / Olahraga / Istirahat / MCK / Makan Malam",
-    "catatan": "Sesuai jadwal ekskul masing-masing",
-    "status": "Ekskul & Mandiri"
-   },
-   {
-    "no": 19,
-    "waktu": "17.45 – 18.30",
-    "durasi": "45 menit",
-    "kegiatan": "Persiapan Shalat Maghrib, Tadarus Al-Qur'an, Shalat Maghrib Berjamaah",
-    "catatan": "Berjamaah di masjid madrasah",
-    "status": "Ibadah & Tahfidz"
-   },
-   {
-    "no": 20,
-    "waktu": "18.30 – 19.00",
-    "durasi": "30 menit",
-    "kegiatan": "Kegiatan Belajar Terbimbing I (Bimbingan Pembina)",
-    "catatan": "Dipandu oleh Guru Pembina Asrama",
-    "status": "Belajar Terbimbing"
-   },
-   {
-    "no": 21,
-    "waktu": "19.00 – 20.00",
-    "durasi": "60 menit",
-    "kegiatan": "Shalat Isya Berjamaah & Kegiatan Belajar Terbimbing II",
-    "catatan": "Berjamaah + belajar terbimbing lanjutan",
-    "status": "Ibadah & Belajar"
-   },
-   {
-    "no": 22,
-    "waktu": "20.00 – 22.00",
-    "durasi": "120 menit",
-    "kegiatan": "Belajar Mandiri dan Pembinaan Peserta Didik",
-    "catatan": "Belajar mandiri di kamar / aula belajar",
-    "status": "Belajar Mandiri"
-   },
-   {
-    "no": 23,
-    "waktu": "22.00 – 03.40",
-    "durasi": "340 menit",
-    "kegiatan": "Istirahat Malam",
-    "catatan": "Seluruh lampu kamar dimatikan pukul 22.00",
-    "status": "Istirahat"
-   }
+  "distribusi_jp": [
+    {
+      "no": 1,
+      "mapel": "Al-Qur'an Hadis",
+      "guru": "Muhammad Syahrul Bakhtiar, Lc.",
+      "jp_minggu_kelas": 2,
+      "total_jp_minggu_4kelas": 8,
+      "kelompok": "PAI"
+    },
+    {
+      "no": 2,
+      "mapel": "Akidah Akhlak",
+      "guru": "Adi Supihadi, S.Pd., M.Pd.",
+      "jp_minggu_kelas": 2,
+      "total_jp_minggu_4kelas": 8,
+      "kelompok": "PAI"
+    },
+    {
+      "no": 3,
+      "mapel": "Fikih",
+      "guru": "Muhammad Afsal, S.Ag.",
+      "jp_minggu_kelas": 2,
+      "total_jp_minggu_4kelas": 8,
+      "kelompok": "PAI"
+    },
+    {
+      "no": 4,
+      "mapel": "SKI (Sejarah Keb. Islam)",
+      "guru": "Ani Nuryani, S.Pd.",
+      "jp_minggu_kelas": 2,
+      "total_jp_minggu_4kelas": 8,
+      "kelompok": "PAI"
+    },
+    {
+      "no": 5,
+      "mapel": "Bahasa Arab",
+      "guru": "Azka Muhammad Naufal, BA.",
+      "jp_minggu_kelas": 4,
+      "total_jp_minggu_4kelas": 16,
+      "kelompok": "PAI"
+    },
+    {
+      "no": 6,
+      "mapel": "Pendidikan Pancasila",
+      "guru": "Yudistira Abdi Rizki, S.H.",
+      "jp_minggu_kelas": 2,
+      "total_jp_minggu_4kelas": 8,
+      "kelompok": "Umum"
+    },
+    {
+      "no": 7,
+      "mapel": "Bahasa Indonesia",
+      "guru": "Iqbal Ifada, S.Pd., M.Pd.",
+      "jp_minggu_kelas": 3,
+      "total_jp_minggu_4kelas": 12,
+      "kelompok": "Umum"
+    },
+    {
+      "no": 8,
+      "mapel": "Bahasa Inggris",
+      "guru": "Ardianti Safitri, S.S.",
+      "jp_minggu_kelas": 3,
+      "total_jp_minggu_4kelas": 12,
+      "kelompok": "Umum"
+    },
+    {
+      "no": 9,
+      "mapel": "Matematika",
+      "guru": "Kholilatun Nahdhiyyah, S.Pd., Gr.",
+      "jp_minggu_kelas": 3,
+      "total_jp_minggu_4kelas": 12,
+      "kelompok": "Umum"
+    },
+    {
+      "no": 10,
+      "mapel": "Biologi",
+      "guru": "An Nabilla Nurjannah, S.Pd.",
+      "jp_minggu_kelas": 2,
+      "total_jp_minggu_4kelas": 8,
+      "kelompok": "MIPA"
+    },
+    {
+      "no": 11,
+      "mapel": "Fisika",
+      "guru": "Firda Tazkia Salsabila, S.Pd., Gr.",
+      "jp_minggu_kelas": 2,
+      "total_jp_minggu_4kelas": 8,
+      "kelompok": "MIPA"
+    },
+    {
+      "no": 12,
+      "mapel": "Kimia",
+      "guru": "Indah Ayudia, S.Pd.",
+      "jp_minggu_kelas": 2,
+      "total_jp_minggu_4kelas": 8,
+      "kelompok": "MIPA"
+    },
+    {
+      "no": 13,
+      "mapel": "Sejarah",
+      "guru": "Asep Jafar Setiadi, S.Pd., Gr.",
+      "jp_minggu_kelas": 2,
+      "total_jp_minggu_4kelas": 8,
+      "kelompok": "IPS"
+    },
+    {
+      "no": 14,
+      "mapel": "Geografi",
+      "guru": "Tiara Nanda Sucitra, S.Pd.",
+      "jp_minggu_kelas": 2,
+      "total_jp_minggu_4kelas": 8,
+      "kelompok": "IPS"
+    },
+    {
+      "no": 15,
+      "mapel": "Ekonomi",
+      "guru": "(Dalam Proses Rekrutmen)",
+      "jp_minggu_kelas": 2,
+      "total_jp_minggu_4kelas": 8,
+      "kelompok": "IPS"
+    },
+    {
+      "no": 16,
+      "mapel": "Sosiologi",
+      "guru": "Muhammad Irsyad Sirojul Khoeir, S.Sos., M.Sos.",
+      "jp_minggu_kelas": 2,
+      "total_jp_minggu_4kelas": 8,
+      "kelompok": "IPS"
+    },
+    {
+      "no": 17,
+      "mapel": "Informatika",
+      "guru": "Ahmad Abrar, S.Kom., S.Psi.",
+      "jp_minggu_kelas": 2,
+      "total_jp_minggu_4kelas": 8,
+      "kelompok": "TIK"
+    },
+    {
+      "no": 18,
+      "mapel": "Koding",
+      "guru": "Ahmad Abrar, S.Kom., S.Psi.",
+      "jp_minggu_kelas": 2,
+      "total_jp_minggu_4kelas": 8,
+      "kelompok": "TIK (Mulok)"
+    },
+    {
+      "no": 19,
+      "mapel": "Bahasa Mandarin",
+      "guru": "Afifah Chairani, S.Li.",
+      "jp_minggu_kelas": 2,
+      "total_jp_minggu_4kelas": 8,
+      "kelompok": "Bahasa"
+    },
+    {
+      "no": 20,
+      "mapel": "PJOK",
+      "guru": "Dede Sukma Sudrajat, S.Pd., Gr.",
+      "jp_minggu_kelas": 2,
+      "total_jp_minggu_4kelas": 8,
+      "kelompok": "PJOK"
+    },
+    {
+      "no": 21,
+      "mapel": "Seni Budaya",
+      "guru": "Rizki Ananda, S.Pd., Gr.",
+      "jp_minggu_kelas": 2,
+      "total_jp_minggu_4kelas": 8,
+      "kelompok": "Seni"
+    },
+    {
+      "no": 22,
+      "mapel": "Bimbingan Konseling",
+      "guru": "Leni Noviani, S.Sos.",
+      "jp_minggu_kelas": 1,
+      "total_jp_minggu_4kelas": 4,
+      "kelompok": "BK"
+    }
   ],
-  "jumat": [
-   {
-    "no": 1,
-    "waktu": "03.40 – 05.30",
-    "durasi": "110 menit",
-    "kegiatan": "Bangun Tidur, MCK, Qiyamullail, Tadarus Al-Qur'an, Shalat Subuh Berjamaah, Tahfidz Al-Qur'an",
-    "catatan": "Kegiatan wajib seluruh peserta didik",
-    "status": "Ibadah & Tahfidz"
-   },
-   {
-    "no": 2,
-    "waktu": "05.30 – 06.25",
-    "durasi": "55 menit",
-    "kegiatan": "Makan Pagi dan Persiapan Apel Pagi",
-    "catatan": "Makan sesuai jadwal dapur asrama",
-    "status": "Makan & Persiapan"
-   },
-   {
-    "no": 3,
-    "waktu": "06.40 – 07.00",
-    "durasi": "20 menit",
-    "kegiatan": "Apel Pagi",
-    "catatan": "Pemeriksaan kerapian dan absensi harian",
-    "status": "Kesiswaan"
-   },
-   {
-    "no": 4,
-    "waktu": "07.00 – 07.30",
-    "durasi": "30 menit",
-    "kegiatan": "Kultum Pagi dan Shalat Dhuha Berjamaah",
-    "catatan": "Kultum singkat oleh guru piket, dilanjutkan Shalat Dhuha berjamaah",
-    "status": "Ibadah"
-   },
-   {
-    "no": 5,
-    "waktu": "07.30 – 08.15",
-    "durasi": "45 menit",
-    "kegiatan": "Jam Pelajaran 1 (JP 1)",
-    "catatan": "KBM reguler",
-    "status": "KBM"
-   },
-   {
-    "no": 6,
-    "waktu": "08.15 – 09.00",
-    "durasi": "45 menit",
-    "kegiatan": "Jam Pelajaran 2 (JP 2)",
-    "catatan": "KBM reguler",
-    "status": "KBM"
-   },
-   {
-    "no": 7,
-    "waktu": "09.00 – 09.45",
-    "durasi": "45 menit",
-    "kegiatan": "Jam Pelajaran 3 (JP 3)",
-    "catatan": "KBM reguler",
-    "status": "KBM"
-   },
-   {
-    "no": 8,
-    "waktu": "09.45 – 10.00",
-    "durasi": "15 menit",
-    "kegiatan": "Istirahat I",
-    "catatan": "Snack/jajan kantin",
-    "status": "Istirahat"
-   },
-   {
-    "no": 9,
-    "waktu": "10.00 – 10.45",
-    "durasi": "45 menit",
-    "kegiatan": "Jam Pelajaran 4 (JP 4)",
-    "catatan": "KBM reguler",
-    "status": "KBM"
-   },
-   {
-    "no": 10,
-    "waktu": "10.45 – 11.30",
-    "durasi": "45 menit",
-    "kegiatan": "Jam Pelajaran 5 (JP 5)",
-    "catatan": "KBM reguler",
-    "status": "KBM"
-   },
-   {
-    "no": 11,
-    "waktu": "11.30 – 13.30",
-    "durasi": "120 menit",
-    "kegiatan": "Istirahat II, Shalat Jum'at Berjamaah (Putra) & Kegiatan Keputrian (Putri), dan Makan Siang",
-    "catatan": "Shalat Jum'at di masjid madrasah; keputrian dipimpin oleh ustadzah",
-    "status": "Ibadah & Makan"
-   },
-   {
-    "no": 12,
-    "waktu": "13.30 – 14.15",
-    "durasi": "45 menit",
-    "kegiatan": "Jam Pelajaran 6 (JP 6)",
-    "catatan": "KBM reguler",
-    "status": "KBM"
-   },
-   {
-    "no": 13,
-    "waktu": "14.15 – 15.00",
-    "durasi": "45 menit",
-    "kegiatan": "Jam Pelajaran 7 (JP 7)",
-    "catatan": "KBM reguler",
-    "status": "KBM"
-   },
-   {
-    "no": 14,
-    "waktu": "15.00 – 15.45",
-    "durasi": "45 menit",
-    "kegiatan": "Jam Pelajaran 8 (JP 8)",
-    "catatan": "KBM reguler",
-    "status": "KBM"
-   },
-   {
-    "no": 15,
-    "waktu": "15.45 – 16.00",
-    "durasi": "15 menit",
-    "kegiatan": "Shalat Ashar Berjamaah",
-    "catatan": "Berjamaah di masjid madrasah",
-    "status": "Ibadah"
-   },
-   {
-    "no": 16,
-    "waktu": "16.00 – 17.45",
-    "durasi": "105 menit",
-    "kegiatan": "Ekstrakurikuler / Olahraga / Istirahat / MCK / Makan Malam",
-    "catatan": "Sesuai jadwal ekskul masing-masing",
-    "status": "Ekskul & Mandiri"
-   },
-   {
-    "no": 17,
-    "waktu": "17.45 – 18.30",
-    "durasi": "45 menit",
-    "kegiatan": "Persiapan Shalat Maghrib, Tadarus Al-Qur'an, Shalat Maghrib Berjamaah",
-    "catatan": "Berjamaah di masjid madrasah",
-    "status": "Ibadah & Tahfidz"
-   },
-   {
-    "no": 18,
-    "waktu": "18.30 – 19.00",
-    "durasi": "30 menit",
-    "kegiatan": "Kegiatan Belajar Terbimbing I (Bimbingan Pembina)",
-    "catatan": "Dipandu oleh Guru Pembina Asrama",
-    "status": "Belajar Terbimbing"
-   },
-   {
-    "no": 19,
-    "waktu": "19.00 – 20.00",
-    "durasi": "60 menit",
-    "kegiatan": "Shalat Isya Berjamaah & Kegiatan Belajar Terbimbing II",
-    "catatan": "Berjamaah + belajar terbimbing lanjutan",
-    "status": "Ibadah & Belajar"
-   },
-   {
-    "no": 20,
-    "waktu": "20.00 – 22.00",
-    "durasi": "120 menit",
-    "kegiatan": "Belajar Mandiri dan Pembinaan Peserta Didik",
-    "catatan": "Belajar mandiri di kamar / aula belajar",
-    "status": "Belajar Mandiri"
-   },
-   {
-    "no": 21,
-    "waktu": "22.00 – 03.40",
-    "durasi": "340 menit",
-    "kegiatan": "Istirahat Malam",
-    "catatan": "Seluruh lampu kamar dimatikan pukul 22.00",
-    "status": "Istirahat"
-   }
+  "program_tahunan": [
+    {
+      "no": 1,
+      "bulan": "Juni 2026",
+      "program": "Kedatangan & Penyambutan Peserta Didik Baru (Indo. Timur & Reguler)",
+      "pj": "Waka Kesiswaan + TU",
+      "waktu": "20–21 Jun; 4–5 Jul 2026",
+      "status": "Terlaksana",
+      "keterangan": "Koordinasi dengan Boarding"
+    },
+    {
+      "no": 2,
+      "bulan": "Juni–Juli 2026",
+      "program": "Matrikulasi Tahap I – Pra-Tes, KBM Matrikulasi, Pasca-Tes",
+      "pj": "Waka Kurikulum + Tim Guru",
+      "waktu": "22 Jun – 3 Jul 2026",
+      "status": "Terlaksana",
+      "keterangan": "Berbasis Buku Kerja 2"
+    },
+    {
+      "no": 3,
+      "bulan": "Juli 2026",
+      "program": "MATSAMA (Masa Ta'aruf Murid Madrasah)",
+      "pj": "Waka Kesiswaan + OSIM",
+      "waktu": "6–8 Jul 2026",
+      "status": "Terlaksana",
+      "keterangan": "3 hari penuh"
+    },
+    {
+      "no": 4,
+      "bulan": "Juli 2026",
+      "program": "Matrikulasi Tahap II – Pra-Tes, KBM Matrikulasi, Pasca-Tes",
+      "pj": "Waka Kurikulum + Tim Guru",
+      "waktu": "9–17 Jul 2026",
+      "status": "Terlaksana",
+      "keterangan": "Setelah MATSAMA"
+    },
+    {
+      "no": 5,
+      "bulan": "Juli 2026",
+      "program": "Evaluasi dan Penutupan Program Matrikulasi",
+      "pj": "Waka Kurikulum",
+      "waktu": "18 Jul 2026",
+      "status": "Terlaksana",
+      "keterangan": "Dokumen wajib"
+    },
+    {
+      "no": 6,
+      "bulan": "Juli–November 2026",
+      "program": "Pembelajaran Efektif Semester Ganjil",
+      "pj": "Seluruh Guru + Waka Kurikulum",
+      "waktu": "20 Jul – 27 Nov 2026",
+      "status": "Berlangsung",
+      "keterangan": "Kurikulum Merdeka Fase E"
+    },
+    {
+      "no": 7,
+      "bulan": "Agustus 2026",
+      "program": "Pembentukan dan Pelaksanaan Ekstrakurikuler & KBS",
+      "pj": "Waka Kesiswaan + Pembina Ekskul",
+      "waktu": "Mulai 27 Jul 2026",
+      "status": "Berlangsung",
+      "keterangan": "Jadwal Sabtu & jam 16.00"
+    },
+    {
+      "no": 8,
+      "bulan": "September 2026",
+      "program": "Sumatif Tengah Semester (STS) Ganjil",
+      "pj": "Waka Kurikulum + Tim Guru",
+      "waktu": "21–25 Sep 2026",
+      "status": "Terjadwal",
+      "keterangan": "5 hari kerja"
+    },
+    {
+      "no": 9,
+      "bulan": "Oktober 2026",
+      "program": "Bulan Bahasa – Puncak Lomba Trilingual",
+      "pj": "Waka Kurikulum + Guru Bahasa",
+      "waktu": "5–31 Okt 2026",
+      "status": "Terjadwal",
+      "keterangan": "Puncak 31 Okt"
+    },
+    {
+      "no": 10,
+      "bulan": "Oktober 2026",
+      "program": "Hari Santri Nasional – Acara Keasramaan",
+      "pj": "Waka Kesiswaan + Boarding",
+      "waktu": "22 Okt 2026",
+      "status": "Terjadwal",
+      "keterangan": "Panitia Khusus"
+    },
+    {
+      "no": 11,
+      "bulan": "November 2026",
+      "program": "Pekan Muraja'ah Al-Qur'an",
+      "pj": "Guru Tahfidz + Waka Kesiswaan",
+      "waktu": "16–20 Nov 2026",
+      "status": "Terjadwal",
+      "keterangan": ""
+    },
+    {
+      "no": 12,
+      "bulan": "November 2026",
+      "program": "Ujian Tahfidz Al-Qur'an Semester Ganjil",
+      "pj": "Guru Tahfidz",
+      "waktu": "23–27 Nov 2026",
+      "status": "Terjadwal",
+      "keterangan": "Hasil masuk e-Rapor"
+    },
+    {
+      "no": 13,
+      "bulan": "November–Desember 2026",
+      "program": "Sumatif Akhir Semester (SAS) Ganjil",
+      "pj": "Waka Kurikulum + Tim Guru",
+      "waktu": "30 Nov – 4 Des 2026",
+      "status": "Terjadwal",
+      "keterangan": "5 hari kerja"
+    },
+    {
+      "no": 14,
+      "bulan": "Desember 2026",
+      "program": "Remedial dan Pengayaan Semester Ganjil",
+      "pj": "Tim Guru",
+      "waktu": "7–11 Des 2026",
+      "status": "Terjadwal",
+      "keterangan": ""
+    },
+    {
+      "no": 15,
+      "bulan": "Desember 2026",
+      "program": "Class Meeting & Haflah Taqrim Semester Ganjil",
+      "pj": "Waka Kesiswaan + Panitia",
+      "waktu": "14–17 Des 2026",
+      "status": "Terjadwal",
+      "keterangan": "ICN Haflah Taqrim"
+    },
+    {
+      "no": 16,
+      "bulan": "Desember 2026",
+      "program": "Pembagian Buku Laporan Hasil Belajar (Rapor) Semester Ganjil",
+      "pj": "Waka Kurikulum + Wali Kelas",
+      "waktu": "18 Des 2026",
+      "status": "Terjadwal",
+      "keterangan": "Dokumen akreditasi"
+    },
+    {
+      "no": 17,
+      "bulan": "Januari 2027",
+      "program": "Awal Masuk Semester Genap – Upacara Bendera",
+      "pj": "Kepala Madrasah + Waka",
+      "waktu": "4 Jan 2027",
+      "status": "Terjadwal",
+      "keterangan": ""
+    },
+    {
+      "no": 18,
+      "bulan": "Januari 2027",
+      "program": "Pembelajaran Efektif Semester Genap",
+      "pj": "Seluruh Guru + Waka Kurikulum",
+      "waktu": "4 Jan – 28 Mei 2027",
+      "status": "Terjadwal",
+      "keterangan": ""
+    },
+    {
+      "no": 19,
+      "bulan": "Januari 2027",
+      "program": "Pekan Lomba SARL – Sains, Art, Sport, Religion & Language",
+      "pj": "Waka Kesiswaan + Panitia",
+      "waktu": "25–29 Jan 2027",
+      "status": "Terjadwal",
+      "keterangan": "Program Unggulan MA ICN"
+    },
+    {
+      "no": 20,
+      "bulan": "Februari 2027",
+      "program": "Program Ramadan – Syahrun Ma'al Qur'an & Sanlat",
+      "pj": "Waka Kurikulum + Guru Agama",
+      "waktu": "11 Feb – 26 Feb 2027",
+      "status": "Terjadwal",
+      "keterangan": "Sesuai 1 Ramadan 1448 H"
+    },
+    {
+      "no": 21,
+      "bulan": "Maret 2027",
+      "program": "Sumatif Tengah Semester (STS) Genap",
+      "pj": "Waka Kurikulum + Tim Guru",
+      "waktu": "1–5 Mar 2027",
+      "status": "Terjadwal",
+      "keterangan": "5 hari kerja"
+    },
+    {
+      "no": 22,
+      "bulan": "April 2027",
+      "program": "Hari Kartini & Hari Bumi – Kegiatan Tematik",
+      "pj": "Waka Kesiswaan + Guru Mapel",
+      "waktu": "21–22 Apr 2027",
+      "status": "Terjadwal",
+      "keterangan": "Pilihan format kegiatan"
+    },
+    {
+      "no": 23,
+      "bulan": "Mei 2027",
+      "program": "Rihlah Ilmiah (Tentatif)",
+      "pj": "Waka Kesiswaan + Panitia",
+      "waktu": "4–7 Mei 2027",
+      "status": "Tentatif",
+      "keterangan": "Konsep dispensasi/sebagian"
+    },
+    {
+      "no": 24,
+      "bulan": "Mei 2027",
+      "program": "Sumatif Akhir Semester (SAS) Genap",
+      "pj": "Waka Kurikulum + Tim Guru",
+      "waktu": "31 Mei – 4 Jun 2027",
+      "status": "Terjadwal",
+      "keterangan": ""
+    },
+    {
+      "no": 25,
+      "bulan": "Juni 2027",
+      "program": "Remedial dan Pengayaan Semester Genap",
+      "pj": "Tim Guru",
+      "waktu": "8–11 Jun 2027",
+      "status": "Terjadwal",
+      "keterangan": ""
+    },
+    {
+      "no": 26,
+      "bulan": "Juni 2027",
+      "program": "Class Meeting & Panggung Gembira Akhir Tahun",
+      "pj": "Waka Kesiswaan + Panitia",
+      "waktu": "14–17 Jun 2027",
+      "status": "Terjadwal",
+      "keterangan": "Penutup TP 2026/2027"
+    },
+    {
+      "no": 27,
+      "bulan": "Juni 2027",
+      "program": "Pembagian Buku Laporan Hasil Belajar (Rapor) Akhir Tahun",
+      "pj": "Waka Kurikulum + Wali Kelas",
+      "waktu": "18 Jun 2027",
+      "status": "Terjadwal",
+      "keterangan": "Dokumen akreditasi"
+    },
+    {
+      "no": 28,
+      "bulan": "Juni–Juli 2027",
+      "program": "Libur Akhir Tahun Pelajaran 2026/2027",
+      "pj": "—",
+      "waktu": "19 Jun – 10 Jul 2027",
+      "status": "Terjadwal",
+      "keterangan": "Rihlah Guru 19–20 Jun"
+    }
   ],
-  "sabtu": [
-   {
-    "no": 1,
-    "waktu": "04.00 – 05.30",
-    "durasi": "90 menit",
-    "kegiatan": "Bangun Tidur, MCK, Qiyamullail, Tadarus Al-Qur'an, Shalat Subuh Berjamaah, Tahfidz Al-Qur'an",
-    "catatan": "Kegiatan wajib pagi",
-    "status": "Ibadah & Tahfidz"
-   },
-   {
-    "no": 2,
-    "waktu": "05.30 – 07.00",
-    "durasi": "90 menit",
-    "kegiatan": "Makan Pagi dan Persiapan Kegiatan Pagi",
-    "catatan": "Persiapan kegiatan Sabtu",
-    "status": "Makan & Persiapan"
-   },
-   {
-    "no": 3,
-    "waktu": "07.00 – 07.30",
-    "durasi": "30 menit",
-    "kegiatan": "Olahraga dan Senam Pagi Bersama",
-    "catatan": "Seluruh warga madrasah",
-    "status": "Olahraga"
-   },
-   {
-    "no": 4,
-    "waktu": "07.30 – 09.00",
-    "durasi": "90 menit",
-    "kegiatan": "Klub Bidang Studi (KBS) – Pendalaman Mapel",
-    "catatan": "Dibimbing guru mata pelajaran",
-    "status": "KBS"
-   },
-   {
-    "no": 5,
-    "waktu": "09.00 – 10.30",
-    "durasi": "90 menit",
-    "kegiatan": "Pembinaan Karya Tulis Ilmiah (KTI)",
-    "catatan": "Dibimbing guru pembimbing KTI",
-    "status": "KTI"
-   },
-   {
-    "no": 6,
-    "waktu": "10.30 – 12.00",
-    "durasi": "90 menit",
-    "kegiatan": "Kegiatan Proyek / Kewirausahaan Madrasah",
-    "catatan": "Proyek berbasis P5-PPRA",
-    "status": "Proyek & Wirausaha"
-   },
-   {
-    "no": 7,
-    "waktu": "12.00 – 17.20",
-    "durasi": "320 menit",
-    "kegiatan": "Istirahat, Shalat Dzuhur Berjamaah, Makan Siang, Waktu Mandiri / Kegiatan Ekskul",
-    "catatan": "Pesiar / istirahat / mandiri",
-    "status": "Ibadah & Mandiri"
-   },
-   {
-    "no": 8,
-    "waktu": "17.20 – 18.00",
-    "durasi": "40 menit",
-    "kegiatan": "Persiapan Shalat Maghrib Berjamaah",
-    "catatan": "Berjamaah di masjid",
-    "status": "Ibadah"
-   },
-   {
-    "no": 9,
-    "waktu": "18.00 – 19.00",
-    "durasi": "60 menit",
-    "kegiatan": "Shalat Isya Berjamaah",
-    "catatan": "Berjamaah di masjid",
-    "status": "Ibadah"
-   },
-   {
-    "no": 10,
-    "waktu": "19.00 – 20.00",
-    "durasi": "60 menit",
-    "kegiatan": "Kegiatan Mandiri (OSIM / Angkatan / Istirahat)",
-    "catatan": "Kegiatan organisasi atau mandiri",
-    "status": "Mandiri & Organisasi"
-   },
-   {
-    "no": 11,
-    "waktu": "20.00 – 22.00",
-    "durasi": "120 menit",
-    "kegiatan": "Belajar Mandiri dan Pembinaan",
-    "catatan": "Belajar mandiri di kamar",
-    "status": "Belajar Mandiri"
-   },
-   {
-    "no": 12,
-    "waktu": "22.00 – 04.00",
-    "durasi": "360 menit",
-    "kegiatan": "Istirahat Malam",
-    "catatan": "Seluruh lampu kamar dimatikan pukul 22.00",
-    "status": "Istirahat"
-   }
-  ]
- },
- "jadwal_kbm": {
-  "keterangan": "Jadwal KBM Kelas X (Fase E) – Tahun Pelajaran 2026/2027, pemutakhiran 2 Juli 2026. Senin–Kamis: 10 JP (07.00–15.45; JP 7 terbagi dua: 11.45–12.00 & 13.00–13.30). Jumat: 8 JP (07.30–15.45, format 3+2+3). JP 1–2 hari Senin: Senin Pagi (Apel/Upacara) & Bimbingan Penulisan KTI — sistem blok. Rombel: X-A, X-B (X-2), X-C (X-3).",
-  "waktu_jp": {
-   "senin_kamis": {
-    "1": "07.00 – 07.45",
-    "2": "07.45 – 08.30",
-    "3": "08.30 – 09.15",
-    "4": "09.15 – 10.00",
-    "5": "10.15 – 11.00",
-    "6": "11.00 – 11.45",
-    "7": "11.45–12.00 · 13.00–13.30",
-    "8": "13.30 – 14.15",
-    "9": "14.15 – 15.00",
-    "10": "15.00 – 15.45"
-   },
-   "jumat": {
-    "1": "07.30 – 08.15",
-    "2": "08.15 – 09.00",
-    "3": "09.00 – 09.45",
-    "4": "10.00 – 10.45",
-    "5": "10.45 – 11.30",
-    "6": "13.30 – 14.15",
-    "7": "14.15 – 15.00",
-    "8": "15.00 – 15.45"
-   }
+  "program_semester": {
+    "ganjil": [
+      {
+        "minggu": "Pra (0)",
+        "periode": "20 Jun – 24 Jul 2026",
+        "hari_efektif": 0,
+        "program": "Matrikulasi (Tahap I & Reguler) + MATSAMA",
+        "asesmen": "Pra-Tes & Pasca-Tes Matrikulasi"
+      },
+      {
+        "minggu": "1–3",
+        "periode": "27 Jul – 14 Ags 2026",
+        "hari_efektif": 15,
+        "program": "Pembelajaran Efektif Tahap I",
+        "asesmen": "—"
+      },
+      {
+        "minggu": "5–8",
+        "periode": "17 Ags – 11 Sep 2026",
+        "hari_efektif": 18,
+        "program": "Pembelajaran Efektif Tahap II",
+        "asesmen": "—"
+      },
+      {
+        "minggu": "9–13",
+        "periode": "14–25 Sep 2026",
+        "hari_efektif": 18,
+        "program": "Pembelajaran Efektif Tahap III + STS",
+        "asesmen": "STS Ganjil (21–25 Sep)"
+      },
+      {
+        "minggu": "14–18",
+        "periode": "28 Sep – 30 Okt 2026",
+        "hari_efektif": 25,
+        "program": "Pembelajaran Efektif Tahap IV",
+        "asesmen": "—"
+      },
+      {
+        "minggu": "19–23",
+        "periode": "2–27 Nov 2026",
+        "hari_efektif": 20,
+        "program": "Pembelajaran Efektif Tahap V + Muraja'ah + Ujian Tahfidz",
+        "asesmen": "Ujian Tahfidz (23–27 Nov)"
+      },
+      {
+        "minggu": "24",
+        "periode": "30 Nov – 4 Des 2026",
+        "hari_efektif": 5,
+        "program": "Sumatif Akhir Semester (SAS) Ganjil",
+        "asesmen": "SAS Ganjil"
+      },
+      {
+        "minggu": "25",
+        "periode": "7–11 Des 2026",
+        "hari_efektif": 5,
+        "program": "Remedial dan Pengayaan",
+        "asesmen": "Remedi & Pengayaan"
+      },
+      {
+        "minggu": "26",
+        "periode": "14–18 Des 2026",
+        "hari_efektif": 0,
+        "program": "Class Meeting + Haflah Taqrim + Pembagian Rapor",
+        "asesmen": "—"
+      }
+    ],
+    "genap": [
+      {
+        "minggu": "29–30",
+        "periode": "4–15 Jan 2027",
+        "hari_efektif": 9,
+        "program": "Awal Semester Genap + Pembelajaran Efektif",
+        "asesmen": "—"
+      },
+      {
+        "minggu": "31–32",
+        "periode": "18–29 Jan 2027",
+        "hari_efektif": 9,
+        "program": "Pembelajaran Efektif + Pekan Lomba SARL",
+        "asesmen": "—"
+      },
+      {
+        "minggu": "33–34",
+        "periode": "1–12 Feb 2027",
+        "hari_efektif": 8,
+        "program": "Pembelajaran Efektif + Awal Ramadan",
+        "asesmen": "—"
+      },
+      {
+        "minggu": "35–36",
+        "periode": "15–26 Feb 2027",
+        "hari_efektif": 10,
+        "program": "Syahrun Ma'al Qur'an & Sanlat Ramadan",
+        "asesmen": "—"
+      },
+      {
+        "minggu": "37",
+        "periode": "1–5 Mar 2027",
+        "hari_efektif": 5,
+        "program": "Sumatif Tengah Semester (STS) Genap",
+        "asesmen": "STS Genap"
+      },
+      {
+        "minggu": "38–39",
+        "periode": "8–21 Mar 2027",
+        "hari_efektif": 0,
+        "program": "Libur Idul Fitri 1448 H + Kedatangan Murid",
+        "asesmen": "—"
+      },
+      {
+        "minggu": "40–41",
+        "periode": "22 Mar – 2 Apr 2027",
+        "hari_efektif": 9,
+        "program": "Pembelajaran Efektif Pasca Idul Fitri",
+        "asesmen": "—"
+      },
+      {
+        "minggu": "42–45",
+        "periode": "5 Apr – 30 Apr 2027",
+        "hari_efektif": 20,
+        "program": "Pembelajaran Efektif Tahap Akhir",
+        "asesmen": "—"
+      },
+      {
+        "minggu": "46–47",
+        "periode": "3–14 Mei 2027",
+        "hari_efektif": 8,
+        "program": "Pembelajaran Efektif + Rihlah Ilmiah",
+        "asesmen": "—"
+      },
+      {
+        "minggu": "48–49",
+        "periode": "17–28 Mei 2027",
+        "hari_efektif": 8,
+        "program": "Pembelajaran Efektif Akhir + Idul Adha",
+        "asesmen": "—"
+      },
+      {
+        "minggu": "50",
+        "periode": "31 Mei – 4 Jun 2027",
+        "hari_efektif": 4,
+        "program": "Sumatif Akhir Semester (SAS) Genap",
+        "asesmen": "SAS Genap"
+      },
+      {
+        "minggu": "51",
+        "periode": "7–11 Jun 2027",
+        "hari_efektif": 4,
+        "program": "Remedial dan Pengayaan Akhir Tahun",
+        "asesmen": "Remedi & Pengayaan"
+      },
+      {
+        "minggu": "52",
+        "periode": "14–18 Jun 2027",
+        "hari_efektif": 0,
+        "program": "Class Meeting + Panggung Gembira + Pembagian Rapor",
+        "asesmen": "—"
+      }
+    ]
   },
-  "kelas_xa": {
-   "senin":  ["Senin Pagi & BPKI (Blok)", "Senin Pagi & BPKI (Blok)", "Sosiologi", "Sosiologi", "Geografi", "Geografi", "Kimia", "Kimia", "SKI", "SKI"],
-   "selasa": ["Matematika", "Matematika", "Matematika", "Bahasa Arab", "Bahasa Arab", "Bahasa Arab", "Seni", "Seni", "Ekonomi", "Ekonomi"],
-   "rabu":   ["Pendidikan Pancasila", "Pendidikan Pancasila", "Fikih", "Fikih", "Akidah Akhlak", "Akidah Akhlak", "Sejarah", "Sejarah", "Koding dan AI", "BK"],
-   "kamis":  ["Bahasa Inggris", "Bahasa Inggris", "Bahasa Inggris", "Bahasa Indonesia", "Bahasa Indonesia", "Bahasa Indonesia", "PJOK", "PJOK", "Bahasa Mandarin", "Bahasa Mandarin"],
-   "jumat":  ["Informatika", "Informatika", "Al-Qur'an Hadis", "Al-Qur'an Hadis", "Biologi", "Biologi", "Fisika", "Fisika"]
+  "jadwal_harian": {
+    "senin_kamis": [
+      {
+        "no": 1,
+        "waktu": "03.40 – 05.30",
+        "durasi": "110 menit",
+        "kegiatan": "Bangun Tidur, MCK, Qiyamullail, Tadarus Al-Qur'an, Shalat Subuh Berjamaah, Tahfidz Al-Qur'an",
+        "catatan": "Kegiatan wajib seluruh peserta didik",
+        "status": "Ibadah & Tahfidz"
+      },
+      {
+        "no": 2,
+        "waktu": "05.30 – 06.40",
+        "durasi": "70 menit",
+        "kegiatan": "Makan Pagi dan Persiapan Apel Pagi",
+        "catatan": "Makan sesuai jadwal dapur asrama",
+        "status": "Makan & Persiapan"
+      },
+      {
+        "no": 3,
+        "waktu": "06.40 – 07.00",
+        "durasi": "20 menit",
+        "kegiatan": "Apel Pagi",
+        "catatan": "Pemeriksaan kerapian dan absensi harian",
+        "status": "Kesiswaan"
+      },
+      {
+        "no": 4,
+        "waktu": "07.00 – 07.45",
+        "durasi": "45 menit",
+        "kegiatan": "Jam Pelajaran 1 (JP 1)",
+        "catatan": "KBM reguler",
+        "status": "KBM"
+      },
+      {
+        "no": 5,
+        "waktu": "07.45 – 08.30",
+        "durasi": "45 menit",
+        "kegiatan": "Jam Pelajaran 2 (JP 2)",
+        "catatan": "KBM reguler",
+        "status": "KBM"
+      },
+      {
+        "no": 6,
+        "waktu": "08.30 – 09.15",
+        "durasi": "45 menit",
+        "kegiatan": "Jam Pelajaran 3 (JP 3)",
+        "catatan": "KBM reguler",
+        "status": "KBM"
+      },
+      {
+        "no": 7,
+        "waktu": "09.15 – 10.00",
+        "durasi": "45 menit",
+        "kegiatan": "Jam Pelajaran 4 (JP 4)",
+        "catatan": "KBM reguler",
+        "status": "KBM"
+      },
+      {
+        "no": 8,
+        "waktu": "10.00 – 10.15",
+        "durasi": "15 menit",
+        "kegiatan": "Istirahat I (Shalat Dhuha Berjamaah)",
+        "catatan": "Shalat Dhuha berjamaah di masjid madrasah",
+        "status": "Ibadah & Istirahat"
+      },
+      {
+        "no": 9,
+        "waktu": "10.15 – 11.00",
+        "durasi": "45 menit",
+        "kegiatan": "Jam Pelajaran 5 (JP 5)",
+        "catatan": "KBM reguler",
+        "status": "KBM"
+      },
+      {
+        "no": 10,
+        "waktu": "11.00 – 11.45",
+        "durasi": "45 menit",
+        "kegiatan": "Jam Pelajaran 6 (JP 6)",
+        "catatan": "KBM reguler",
+        "status": "KBM"
+      },
+      {
+        "no": 11,
+        "waktu": "11.45 – 12.00",
+        "durasi": "15 menit",
+        "kegiatan": "Jam Pelajaran 7 — Bagian 1 (JP 7)",
+        "catatan": "KBM reguler; JP 7 dilanjutkan setelah istirahat",
+        "status": "KBM"
+      },
+      {
+        "no": 12,
+        "waktu": "12.00 – 13.00",
+        "durasi": "60 menit",
+        "kegiatan": "Istirahat II, Shalat Dzuhur Berjamaah, dan Makan Siang",
+        "catatan": "Shalat berjamaah di masjid madrasah",
+        "status": "Ibadah & Makan"
+      },
+      {
+        "no": 13,
+        "waktu": "13.00 – 13.30",
+        "durasi": "30 menit",
+        "kegiatan": "Jam Pelajaran 7 — Bagian 2 (JP 7)",
+        "catatan": "Lanjutan JP 7",
+        "status": "KBM"
+      },
+      {
+        "no": 14,
+        "waktu": "13.30 – 14.15",
+        "durasi": "45 menit",
+        "kegiatan": "Jam Pelajaran 8 (JP 8)",
+        "catatan": "KBM reguler",
+        "status": "KBM"
+      },
+      {
+        "no": 15,
+        "waktu": "14.15 – 15.00",
+        "durasi": "45 menit",
+        "kegiatan": "Jam Pelajaran 9 (JP 9)",
+        "catatan": "KBM reguler",
+        "status": "KBM"
+      },
+      {
+        "no": 16,
+        "waktu": "15.00 – 15.45",
+        "durasi": "45 menit",
+        "kegiatan": "Jam Pelajaran 10 (JP 10)",
+        "catatan": "KBM reguler",
+        "status": "KBM"
+      },
+      {
+        "no": 17,
+        "waktu": "15.45 – 16.00",
+        "durasi": "15 menit",
+        "kegiatan": "Shalat Ashar Berjamaah",
+        "catatan": "Berjamaah di masjid madrasah",
+        "status": "Ibadah"
+      },
+      {
+        "no": 18,
+        "waktu": "16.00 – 17.45",
+        "durasi": "105 menit",
+        "kegiatan": "Ekstrakurikuler / Olahraga / Istirahat / MCK / Makan Malam",
+        "catatan": "Sesuai jadwal ekskul masing-masing",
+        "status": "Ekskul & Mandiri"
+      },
+      {
+        "no": 19,
+        "waktu": "17.45 – 18.30",
+        "durasi": "45 menit",
+        "kegiatan": "Persiapan Shalat Maghrib, Tadarus Al-Qur'an, Shalat Maghrib Berjamaah",
+        "catatan": "Berjamaah di masjid madrasah",
+        "status": "Ibadah & Tahfidz"
+      },
+      {
+        "no": 20,
+        "waktu": "18.30 – 19.00",
+        "durasi": "30 menit",
+        "kegiatan": "Kegiatan Belajar Terbimbing I (Bimbingan Pembina)",
+        "catatan": "Dipandu oleh Guru Pembina Asrama",
+        "status": "Belajar Terbimbing"
+      },
+      {
+        "no": 21,
+        "waktu": "19.00 – 20.00",
+        "durasi": "60 menit",
+        "kegiatan": "Shalat Isya Berjamaah & Kegiatan Belajar Terbimbing II",
+        "catatan": "Berjamaah + belajar terbimbing lanjutan",
+        "status": "Ibadah & Belajar"
+      },
+      {
+        "no": 22,
+        "waktu": "20.00 – 22.00",
+        "durasi": "120 menit",
+        "kegiatan": "Belajar Mandiri dan Pembinaan Peserta Didik",
+        "catatan": "Belajar mandiri di kamar / aula belajar",
+        "status": "Belajar Mandiri"
+      },
+      {
+        "no": 23,
+        "waktu": "22.00 – 03.40",
+        "durasi": "340 menit",
+        "kegiatan": "Istirahat Malam",
+        "catatan": "Seluruh lampu kamar dimatikan pukul 22.00",
+        "status": "Istirahat"
+      }
+    ],
+    "jumat": [
+      {
+        "no": 1,
+        "waktu": "03.40 – 05.30",
+        "durasi": "110 menit",
+        "kegiatan": "Bangun Tidur, MCK, Qiyamullail, Tadarus Al-Qur'an, Shalat Subuh Berjamaah, Tahfidz Al-Qur'an",
+        "catatan": "Kegiatan wajib seluruh peserta didik",
+        "status": "Ibadah & Tahfidz"
+      },
+      {
+        "no": 2,
+        "waktu": "05.30 – 06.25",
+        "durasi": "55 menit",
+        "kegiatan": "Makan Pagi dan Persiapan Apel Pagi",
+        "catatan": "Makan sesuai jadwal dapur asrama",
+        "status": "Makan & Persiapan"
+      },
+      {
+        "no": 3,
+        "waktu": "06.40 – 07.00",
+        "durasi": "20 menit",
+        "kegiatan": "Apel Pagi",
+        "catatan": "Pemeriksaan kerapian dan absensi harian",
+        "status": "Kesiswaan"
+      },
+      {
+        "no": 4,
+        "waktu": "07.00 – 07.30",
+        "durasi": "30 menit",
+        "kegiatan": "Kultum Pagi dan Shalat Dhuha Berjamaah",
+        "catatan": "Kultum singkat oleh guru piket, dilanjutkan Shalat Dhuha berjamaah",
+        "status": "Ibadah"
+      },
+      {
+        "no": 5,
+        "waktu": "07.30 – 08.15",
+        "durasi": "45 menit",
+        "kegiatan": "Jam Pelajaran 1 (JP 1)",
+        "catatan": "KBM reguler",
+        "status": "KBM"
+      },
+      {
+        "no": 6,
+        "waktu": "08.15 – 09.00",
+        "durasi": "45 menit",
+        "kegiatan": "Jam Pelajaran 2 (JP 2)",
+        "catatan": "KBM reguler",
+        "status": "KBM"
+      },
+      {
+        "no": 7,
+        "waktu": "09.00 – 09.45",
+        "durasi": "45 menit",
+        "kegiatan": "Jam Pelajaran 3 (JP 3)",
+        "catatan": "KBM reguler",
+        "status": "KBM"
+      },
+      {
+        "no": 8,
+        "waktu": "09.45 – 10.00",
+        "durasi": "15 menit",
+        "kegiatan": "Istirahat I",
+        "catatan": "Snack/jajan kantin",
+        "status": "Istirahat"
+      },
+      {
+        "no": 9,
+        "waktu": "10.00 – 10.45",
+        "durasi": "45 menit",
+        "kegiatan": "Jam Pelajaran 4 (JP 4)",
+        "catatan": "KBM reguler",
+        "status": "KBM"
+      },
+      {
+        "no": 10,
+        "waktu": "10.45 – 11.30",
+        "durasi": "45 menit",
+        "kegiatan": "Jam Pelajaran 5 (JP 5)",
+        "catatan": "KBM reguler",
+        "status": "KBM"
+      },
+      {
+        "no": 11,
+        "waktu": "11.30 – 13.30",
+        "durasi": "120 menit",
+        "kegiatan": "Istirahat II, Shalat Jum'at Berjamaah (Putra) & Kegiatan Keputrian (Putri), dan Makan Siang",
+        "catatan": "Shalat Jum'at di masjid madrasah; keputrian dipimpin oleh ustadzah",
+        "status": "Ibadah & Makan"
+      },
+      {
+        "no": 12,
+        "waktu": "13.30 – 14.15",
+        "durasi": "45 menit",
+        "kegiatan": "Jam Pelajaran 6 (JP 6)",
+        "catatan": "KBM reguler",
+        "status": "KBM"
+      },
+      {
+        "no": 13,
+        "waktu": "14.15 – 15.00",
+        "durasi": "45 menit",
+        "kegiatan": "Jam Pelajaran 7 (JP 7)",
+        "catatan": "KBM reguler",
+        "status": "KBM"
+      },
+      {
+        "no": 14,
+        "waktu": "15.00 – 15.45",
+        "durasi": "45 menit",
+        "kegiatan": "Jam Pelajaran 8 (JP 8)",
+        "catatan": "KBM reguler",
+        "status": "KBM"
+      },
+      {
+        "no": 15,
+        "waktu": "15.45 – 16.00",
+        "durasi": "15 menit",
+        "kegiatan": "Shalat Ashar Berjamaah",
+        "catatan": "Berjamaah di masjid madrasah",
+        "status": "Ibadah"
+      },
+      {
+        "no": 16,
+        "waktu": "16.00 – 17.45",
+        "durasi": "105 menit",
+        "kegiatan": "Ekstrakurikuler / Olahraga / Istirahat / MCK / Makan Malam",
+        "catatan": "Sesuai jadwal ekskul masing-masing",
+        "status": "Ekskul & Mandiri"
+      },
+      {
+        "no": 17,
+        "waktu": "17.45 – 18.30",
+        "durasi": "45 menit",
+        "kegiatan": "Persiapan Shalat Maghrib, Tadarus Al-Qur'an, Shalat Maghrib Berjamaah",
+        "catatan": "Berjamaah di masjid madrasah",
+        "status": "Ibadah & Tahfidz"
+      },
+      {
+        "no": 18,
+        "waktu": "18.30 – 19.00",
+        "durasi": "30 menit",
+        "kegiatan": "Kegiatan Belajar Terbimbing I (Bimbingan Pembina)",
+        "catatan": "Dipandu oleh Guru Pembina Asrama",
+        "status": "Belajar Terbimbing"
+      },
+      {
+        "no": 19,
+        "waktu": "19.00 – 20.00",
+        "durasi": "60 menit",
+        "kegiatan": "Shalat Isya Berjamaah & Kegiatan Belajar Terbimbing II",
+        "catatan": "Berjamaah + belajar terbimbing lanjutan",
+        "status": "Ibadah & Belajar"
+      },
+      {
+        "no": 20,
+        "waktu": "20.00 – 22.00",
+        "durasi": "120 menit",
+        "kegiatan": "Belajar Mandiri dan Pembinaan Peserta Didik",
+        "catatan": "Belajar mandiri di kamar / aula belajar",
+        "status": "Belajar Mandiri"
+      },
+      {
+        "no": 21,
+        "waktu": "22.00 – 03.40",
+        "durasi": "340 menit",
+        "kegiatan": "Istirahat Malam",
+        "catatan": "Seluruh lampu kamar dimatikan pukul 22.00",
+        "status": "Istirahat"
+      }
+    ],
+    "sabtu": [
+      {
+        "no": 1,
+        "waktu": "04.00 – 05.30",
+        "durasi": "90 menit",
+        "kegiatan": "Bangun Tidur, MCK, Qiyamullail, Tadarus Al-Qur'an, Shalat Subuh Berjamaah, Tahfidz Al-Qur'an",
+        "catatan": "Kegiatan wajib pagi",
+        "status": "Ibadah & Tahfidz"
+      },
+      {
+        "no": 2,
+        "waktu": "05.30 – 07.00",
+        "durasi": "90 menit",
+        "kegiatan": "Makan Pagi dan Persiapan Kegiatan Pagi",
+        "catatan": "Persiapan kegiatan Sabtu",
+        "status": "Makan & Persiapan"
+      },
+      {
+        "no": 3,
+        "waktu": "07.00 – 07.30",
+        "durasi": "30 menit",
+        "kegiatan": "Olahraga dan Senam Pagi Bersama",
+        "catatan": "Seluruh warga madrasah",
+        "status": "Olahraga"
+      },
+      {
+        "no": 4,
+        "waktu": "07.30 – 09.00",
+        "durasi": "90 menit",
+        "kegiatan": "Klub Bidang Studi (KBS) – Pendalaman Mapel",
+        "catatan": "Dibimbing guru mata pelajaran",
+        "status": "KBS"
+      },
+      {
+        "no": 5,
+        "waktu": "09.00 – 10.30",
+        "durasi": "90 menit",
+        "kegiatan": "Pembinaan Karya Tulis Ilmiah (KTI)",
+        "catatan": "Dibimbing guru pembimbing KTI",
+        "status": "KTI"
+      },
+      {
+        "no": 6,
+        "waktu": "10.30 – 12.00",
+        "durasi": "90 menit",
+        "kegiatan": "Kegiatan Proyek / Kewirausahaan Madrasah",
+        "catatan": "Proyek berbasis P5-PPRA",
+        "status": "Proyek & Wirausaha"
+      },
+      {
+        "no": 7,
+        "waktu": "12.00 – 17.20",
+        "durasi": "320 menit",
+        "kegiatan": "Istirahat, Shalat Dzuhur Berjamaah, Makan Siang, Waktu Mandiri / Kegiatan Ekskul",
+        "catatan": "Pesiar / istirahat / mandiri",
+        "status": "Ibadah & Mandiri"
+      },
+      {
+        "no": 8,
+        "waktu": "17.20 – 18.00",
+        "durasi": "40 menit",
+        "kegiatan": "Persiapan Shalat Maghrib Berjamaah",
+        "catatan": "Berjamaah di masjid",
+        "status": "Ibadah"
+      },
+      {
+        "no": 9,
+        "waktu": "18.00 – 19.00",
+        "durasi": "60 menit",
+        "kegiatan": "Shalat Isya Berjamaah",
+        "catatan": "Berjamaah di masjid",
+        "status": "Ibadah"
+      },
+      {
+        "no": 10,
+        "waktu": "19.00 – 20.00",
+        "durasi": "60 menit",
+        "kegiatan": "Kegiatan Mandiri (OSIM / Angkatan / Istirahat)",
+        "catatan": "Kegiatan organisasi atau mandiri",
+        "status": "Mandiri & Organisasi"
+      },
+      {
+        "no": 11,
+        "waktu": "20.00 – 22.00",
+        "durasi": "120 menit",
+        "kegiatan": "Belajar Mandiri dan Pembinaan",
+        "catatan": "Belajar mandiri di kamar",
+        "status": "Belajar Mandiri"
+      },
+      {
+        "no": 12,
+        "waktu": "22.00 – 04.00",
+        "durasi": "360 menit",
+        "kegiatan": "Istirahat Malam",
+        "catatan": "Seluruh lampu kamar dimatikan pukul 22.00",
+        "status": "Istirahat"
+      }
+    ]
   },
-  "kelas_xb": {
-   "senin":  ["Senin Pagi & BPKI (Blok)", "Senin Pagi & BPKI (Blok)", "Geografi", "Geografi", "Kimia", "Kimia", "SKI", "SKI", "Sosiologi", "Sosiologi"],
-   "selasa": ["Bahasa Arab", "Bahasa Arab", "Bahasa Arab", "Seni", "Seni", "Ekonomi", "Ekonomi", "Matematika", "Matematika", "Matematika"],
-   "rabu":   ["Fikih", "Fikih", "Akidah Akhlak", "Akidah Akhlak", "Sejarah", "Sejarah", "Koding dan AI", "BK", "Pendidikan Pancasila", "Pendidikan Pancasila"],
-   "kamis":  ["Bahasa Indonesia", "Bahasa Indonesia", "Bahasa Indonesia", "PJOK", "PJOK", "Bahasa Mandarin", "Bahasa Mandarin", "Bahasa Inggris", "Bahasa Inggris", "Bahasa Inggris"],
-   "jumat":  ["Al-Qur'an Hadis", "Al-Qur'an Hadis", "Biologi", "Biologi", "Fisika", "Fisika", "Informatika", "Informatika"]
+  "jadwal_kbm": {
+    "keterangan": "Jadwal KBM Reguler MA Insan Cendekia Nusantara (Kelas X) Tahun Pelajaran 2026/2027. Durasi 40 menit per JP, 5 hari kerja (Senin–Jumat). Sumber resmi: JADWAL KBM KELAS X 2026_2027.xlsx.",
+    "waktu_jp": {
+      "senin_kamis": {
+        "1": "07.00 – 07.45",
+        "2": "07.45 – 08.30",
+        "3": "08.30 – 09.15",
+        "4": "09.15 – 10.00",
+        "5": "10.15 – 11.00",
+        "6": "11.00 – 11.45",
+        "7": "11.45–12.00 · 13.00–13.30",
+        "8": "13.30 – 14.15",
+        "9": "14.15 – 15.00",
+        "10": "15.00 – 15.45"
+      },
+      "jumat": {
+        "1": "07.30 – 08.15",
+        "2": "08.15 – 09.00",
+        "3": "09.00 – 09.45",
+        "4": "10.00 – 10.45",
+        "5": "10.45 – 11.30",
+        "6": "13.30 – 14.15",
+        "7": "14.15 – 15.00",
+        "8": "15.00 – 15.45"
+      }
+    },
+    "kelas_xa": {
+      "senin": [
+        "Senin Pagi & BPKI (Blok)",
+        "Senin Pagi & BPKI (Blok)",
+        "Sosiologi",
+        "Sosiologi",
+        "Geografi",
+        "Geografi",
+        "Kimia",
+        "Kimia",
+        "SKI",
+        "SKI"
+      ],
+      "selasa": [
+        "Matematika",
+        "Matematika",
+        "Matematika",
+        "Bahasa Arab",
+        "Bahasa Arab",
+        "Bahasa Arab",
+        "Seni",
+        "Seni",
+        "Ekonomi",
+        "Ekonomi"
+      ],
+      "rabu": [
+        "Pendidikan Pancasila",
+        "Pendidikan Pancasila",
+        "Fikih",
+        "Fikih",
+        "Akidah Akhlak",
+        "Akidah Akhlak",
+        "Sejarah",
+        "Sejarah",
+        "Koding dan AI",
+        "BK"
+      ],
+      "kamis": [
+        "Bahasa Inggris",
+        "Bahasa Inggris",
+        "Bahasa Inggris",
+        "Bahasa Indonesia",
+        "Bahasa Indonesia",
+        "Bahasa Indonesia",
+        "PJOK",
+        "PJOK",
+        "Bahasa Mandarin",
+        "Bahasa Mandarin"
+      ],
+      "jumat": [
+        "Informatika",
+        "Informatika",
+        "Al-Qur'an Hadis",
+        "Al-Qur'an Hadis",
+        "Biologi",
+        "Biologi",
+        "Fisika",
+        "Fisika"
+      ]
+    },
+    "kelas_xb": {
+      "senin": [
+        "Senin Pagi & BPKI (Blok)",
+        "Senin Pagi & BPKI (Blok)",
+        "Geografi",
+        "Geografi",
+        "Kimia",
+        "Kimia",
+        "SKI",
+        "SKI",
+        "Sosiologi",
+        "Sosiologi"
+      ],
+      "selasa": [
+        "Bahasa Arab",
+        "Bahasa Arab",
+        "Bahasa Arab",
+        "Seni",
+        "Seni",
+        "Ekonomi",
+        "Ekonomi",
+        "Matematika",
+        "Matematika",
+        "Matematika"
+      ],
+      "rabu": [
+        "Fikih",
+        "Fikih",
+        "Akidah Akhlak",
+        "Akidah Akhlak",
+        "Sejarah",
+        "Sejarah",
+        "Koding dan AI",
+        "BK",
+        "Pendidikan Pancasila",
+        "Pendidikan Pancasila"
+      ],
+      "kamis": [
+        "Bahasa Indonesia",
+        "Bahasa Indonesia",
+        "Bahasa Indonesia",
+        "PJOK",
+        "PJOK",
+        "Bahasa Mandarin",
+        "Bahasa Mandarin",
+        "Bahasa Inggris",
+        "Bahasa Inggris",
+        "Bahasa Inggris"
+      ],
+      "jumat": [
+        "Al-Qur'an Hadis",
+        "Al-Qur'an Hadis",
+        "Biologi",
+        "Biologi",
+        "Fisika",
+        "Fisika",
+        "Informatika",
+        "Informatika"
+      ]
+    },
+    "kelas_xc": {
+      "senin": [
+        "Senin Pagi & BPKI (Blok)",
+        "Senin Pagi & BPKI (Blok)",
+        "Kimia",
+        "Kimia",
+        "SKI",
+        "SKI",
+        "Sosiologi",
+        "Sosiologi",
+        "Geografi",
+        "Geografi"
+      ],
+      "selasa": [
+        "Seni",
+        "Seni",
+        "Ekonomi",
+        "Ekonomi",
+        "Matematika",
+        "Matematika",
+        "Matematika",
+        "Bahasa Arab",
+        "Bahasa Arab",
+        "Bahasa Arab"
+      ],
+      "rabu": [
+        "Akidah Akhlak",
+        "Akidah Akhlak",
+        "Sejarah",
+        "Sejarah",
+        "Koding dan AI",
+        "BK",
+        "Pendidikan Pancasila",
+        "Pendidikan Pancasila",
+        "Fikih",
+        "Fikih"
+      ],
+      "kamis": [
+        "PJOK",
+        "PJOK",
+        "Bahasa Mandarin",
+        "Bahasa Mandarin",
+        "Bahasa Inggris",
+        "Bahasa Inggris",
+        "Bahasa Inggris",
+        "Bahasa Indonesia",
+        "Bahasa Indonesia",
+        "Bahasa Indonesia"
+      ],
+      "jumat": [
+        "Biologi",
+        "Biologi",
+        "Fisika",
+        "Fisika",
+        "Informatika",
+        "Informatika",
+        "Al-Qur'an Hadis",
+        "Al-Qur'an Hadis"
+      ]
+    }
   },
-  "kelas_xc": {
-   "senin":  ["Senin Pagi & BPKI (Blok)", "Senin Pagi & BPKI (Blok)", "Kimia", "Kimia", "SKI", "SKI", "Sosiologi", "Sosiologi", "Geografi", "Geografi"],
-   "selasa": ["Seni", "Seni", "Ekonomi", "Ekonomi", "Matematika", "Matematika", "Matematika", "Bahasa Arab", "Bahasa Arab", "Bahasa Arab"],
-   "rabu":   ["Akidah Akhlak", "Akidah Akhlak", "Sejarah", "Sejarah", "Koding dan AI", "BK", "Pendidikan Pancasila", "Pendidikan Pancasila", "Fikih", "Fikih"],
-   "kamis":  ["PJOK", "PJOK", "Bahasa Mandarin", "Bahasa Mandarin", "Bahasa Inggris", "Bahasa Inggris", "Bahasa Inggris", "Bahasa Indonesia", "Bahasa Indonesia", "Bahasa Indonesia"],
-   "jumat":  ["Biologi", "Biologi", "Fisika", "Fisika", "Informatika", "Informatika", "Al-Qur'an Hadis", "Al-Qur'an Hadis"]
-  }
- },
- "struktur_beban": {
-  "beban_per_minggu": {
-   "Kelas X": 52,
-   "Kelas XI": 53,
-   "Kelas XII": 53
+  "struktur_beban": {
+    "beban_per_minggu": {
+      "Kelas X": 52,
+      "Kelas XI": 53,
+      "Kelas XII": 53
+    },
+    "formula_rapor": "Nilai Rapor = (65% × Sumatif Harian) + (35% × Asesmen Akhir Semester)",
+    "kktp": {
+      "Kelas X": 82,
+      "Kelas XI": 85,
+      "Kelas XII": 88
+    },
+    "asesmen": {
+      "formatif": "Umpan balik, tidak masuk rapor",
+      "sumatif": "Sumatif Harian & Sumatif Akhir Semester"
+    }
   },
-  "formula_rapor": "Nilai Rapor = (65% × Sumatif Harian) + (35% × Asesmen Akhir Semester)",
-  "kktp": {
-   "Kelas X": 82,
-   "Kelas XI": 85,
-   "Kelas XII": 88
+  "profil": {
+    "visi": "Menjadi madrasah yang membentuk generasi berakhlakul karimah, berwawasan keislaman, mandiri, unggul dalam sains dan teknologi, serta berdaya saing global.",
+    "misi": [
+      "Menanamkan akhlakul karimah dan wawasan keislaman melalui pembiasaan nilai-nilai Islam yang moderat dan kontekstual.",
+      "Menumbuhkan kepedulian terhadap lingkungan hidup dan tanggung jawab ekologis dalam kehidupan sehari-hari.",
+      "Membangun kemandirian dan kreativitas murid dalam berpikir dan bertindak.",
+      "Mengembangkan semangat kewirausahaan melalui pembelajaran kontekstual, agrowisata, ekonomi kreatif, dan kegiatan sosial produktif.",
+      "Merancang mutu pembelajaran sains dan teknologi berbasis riset dan inovasi.",
+      "Mengasah kemampuan murid dalam berbahasa internasional.",
+      "Mewujudkan ekosistem madrasah yang kolaboratif dan berorientasi pada keunggulan global."
+    ],
+    "delapan_dimensi": [
+      "Keimanan dan ketakwaan terhadap Tuhan YME",
+      "Kewargaan",
+      "Penalaran kritis",
+      "Kreativitas",
+      "Kolaborasi",
+      "Kemandirian",
+      "Kesehatan",
+      "Komunikasi pembelajaran"
+    ],
+    "panca_cinta": [
+      [
+        "Cinta Allah dan Rasul-Nya",
+        "Keimanan, Asmaul Husna, ibadah, syukur, Sirah Nabawiyah, akhlak."
+      ],
+      [
+        "Cinta Lingkungan",
+        "Rahmatan lil 'alamin, adab pada alam, larangan merusak, thaharah, hemat energi."
+      ],
+      [
+        "Cinta Tanah Air",
+        "Ukhuwah wathaniyah, Hubbul Wathan minal Iman, menghormati perbedaan, menjaga kedaulatan."
+      ],
+      [
+        "Cinta Ilmu",
+        "Niat, tekun, tawakal, wara', yakin, syukur, literasi, adab kepada guru, teknologi, penalaran kritis, ilmu qauliyah & kauniyah."
+      ],
+      [
+        "Cinta Diri dan Sesama Manusia",
+        "Akhlak terpuji, ukhuwah Islamiyah & insaniyah, adab kepada orang tua, saudara, tetangga, teman, sesama umat."
+      ]
+    ],
+    "landasan_hukum": [
+      [
+        "KMA No. 1503/2025",
+        "Pedoman penyelenggaraan kurikulum madrasah"
+      ],
+      [
+        "KMA No. 450/2024",
+        "Pedoman penyelenggaraan kurikulum madrasah"
+      ],
+      [
+        "Permendikbudristek No. 12/2024",
+        "Kurikulum PAUD, dasar, dan menengah"
+      ],
+      [
+        "SK Dirjen Pendidikan Islam No. 4860/2026",
+        "Rujukan kalender akademik madrasah TP 2026/2027"
+      ]
+    ]
   },
-  "asesmen": {
-   "formatif": "Umpan balik, tidak masuk rapor",
-   "sumatif": "Sumatif Harian & Sumatif Akhir Semester"
-  }
- },
- "profil": {
-  "visi": "Menjadi madrasah yang membentuk generasi berakhlakul karimah, berwawasan keislaman, mandiri, unggul dalam sains dan teknologi, serta berdaya saing global.",
-  "misi": [
-   "Menanamkan akhlakul karimah dan wawasan keislaman melalui pembiasaan nilai-nilai Islam yang moderat dan kontekstual.",
-   "Menumbuhkan kepedulian terhadap lingkungan hidup dan tanggung jawab ekologis dalam kehidupan sehari-hari.",
-   "Membangun kemandirian dan kreativitas murid dalam berpikir dan bertindak.",
-   "Mengembangkan semangat kewirausahaan melalui pembelajaran kontekstual, agrowisata, ekonomi kreatif, dan kegiatan sosial produktif.",
-   "Merancang mutu pembelajaran sains dan teknologi berbasis riset dan inovasi.",
-   "Mengasah kemampuan murid dalam berbahasa internasional.",
-   "Mewujudkan ekosistem madrasah yang kolaboratif dan berorientasi pada keunggulan global."
+  "warna_kategori": {
+    "kedatangan_timur": {
+      "bg": "#1565C0",
+      "teks": "#fff",
+      "label": "Kedatangan Peserta Didik – Indonesia Timur"
+    },
+    "kedatangan_reguler": {
+      "bg": "#64B5F6",
+      "teks": "#0D3B66",
+      "label": "Kedatangan Peserta Didik – Reguler"
+    },
+    "matsama": {
+      "bg": "#00897B",
+      "teks": "#fff",
+      "label": "MATSAMA (Masa Ta'aruf Murid Madrasah)"
+    },
+    "mat_pre": {
+      "bg": "#FB8C00",
+      "teks": "#fff",
+      "label": "Pra-Tes Matrikulasi"
+    },
+    "mat_kbm": {
+      "bg": "#FFB300",
+      "teks": "#4A2E00",
+      "label": "Matrikulasi (KBM)"
+    },
+    "mat_post": {
+      "bg": "#AD1457",
+      "teks": "#fff",
+      "label": "Pasca-Tes Matrikulasi"
+    },
+    "mat_eval": {
+      "bg": "#6D4C41",
+      "teks": "#fff",
+      "label": "Evaluasi & Penutupan Matrikulasi"
+    },
+    "mat_orientasi": {
+      "bg": "#26A69A",
+      "teks": "#fff",
+      "label": "Orientasi"
+    },
+    "pembelajaran": {
+      "bg": "#548235",
+      "teks": "#fff",
+      "label": "Pembelajaran Efektif"
+    },
+    "sts": {
+      "bg": "#7030A0",
+      "teks": "#fff",
+      "label": "Asesmen Sumatif Tengah Semester (STS)"
+    },
+    "sas": {
+      "bg": "#3E006F",
+      "teks": "#fff",
+      "label": "Asesmen Sumatif Akhir Semester (SAS)"
+    },
+    "remedial": {
+      "bg": "#9CCC65",
+      "teks": "#2E3D17",
+      "label": "Remedial & Pengayaan"
+    },
+    "kesiswaan": {
+      "bg": "#ED7D31",
+      "teks": "#3A1D00",
+      "label": "Kegiatan Kesiswaan / Class Meeting"
+    },
+    "rapor": {
+      "bg": "#002060",
+      "teks": "#fff",
+      "label": "Pembagian Rapor"
+    },
+    "unggulan": {
+      "bg": "#C9A227",
+      "teks": "#3A2E00",
+      "label": "Program Unggulan ICN"
+    },
+    "madrasah": {
+      "bg": "#9B59B6",
+      "teks": "#fff",
+      "label": "Kegiatan Madrasah"
+    },
+    "boarding": {
+      "bg": "#4472C4",
+      "teks": "#fff",
+      "label": "Kegiatan Keasramaan"
+    },
+    "hari_santri": {
+      "bg": "#2E7D32",
+      "teks": "#fff",
+      "label": "Hari Santri Nasional"
+    },
+    "libur_nasional": {
+      "bg": "#C00000",
+      "teks": "#fff",
+      "label": "Libur Nasional"
+    },
+    "cuti_bersama": {
+      "bg": "#FF8A80",
+      "teks": "#5A0000",
+      "label": "Cuti Bersama"
+    },
+    "libur_semester": {
+      "bg": "#7F7F7F",
+      "teks": "#fff",
+      "label": "Libur Semester / Akhir Tahun Pelajaran"
+    },
+    "libur_mingguan": {
+      "bg": "#F0F0F0",
+      "teks": "#9aa",
+      "label": "Libur Mingguan (Sabtu–Minggu)"
+    },
+    "default": {
+      "bg": "#E8EDE9",
+      "teks": "#555",
+      "label": "Lainnya"
+    }
+  },
+  "legenda_kelompok": [
+    {
+      "judul": "Pra-Tahun Ajaran",
+      "kategori": [
+        "kedatangan_timur",
+        "kedatangan_reguler",
+        "matsama",
+        "mat_pre",
+        "mat_kbm",
+        "mat_post",
+        "mat_eval"
+      ]
+    },
+    {
+      "judul": "Pembelajaran & Asesmen",
+      "kategori": [
+        "pembelajaran",
+        "sts",
+        "sas",
+        "remedial"
+      ]
+    },
+    {
+      "judul": "Program & Kesiswaan",
+      "kategori": [
+        "kesiswaan",
+        "rapor",
+        "unggulan",
+        "madrasah",
+        "boarding",
+        "hari_santri"
+      ]
+    },
+    {
+      "judul": "Libur",
+      "kategori": [
+        "libur_nasional",
+        "cuti_bersama",
+        "libur_semester",
+        "libur_mingguan"
+      ]
+    }
   ],
-  "delapan_dimensi": [
-   "Keimanan dan ketakwaan terhadap Tuhan YME",
-   "Kewargaan",
-   "Penalaran kritis",
-   "Kreativitas",
-   "Kolaborasi",
-   "Kemandirian",
-   "Kesehatan",
-   "Komunikasi pembelajaran"
-  ],
-  "panca_cinta": [
-   [
-    "Cinta Allah dan Rasul-Nya",
-    "Keimanan, Asmaul Husna, ibadah, syukur, Sirah Nabawiyah, akhlak."
-   ],
-   [
-    "Cinta Lingkungan",
-    "Rahmatan lil 'alamin, adab pada alam, larangan merusak, thaharah, hemat energi."
-   ],
-   [
-    "Cinta Tanah Air",
-    "Ukhuwah wathaniyah, Hubbul Wathan minal Iman, menghormati perbedaan, menjaga kedaulatan."
-   ],
-   [
-    "Cinta Ilmu",
-    "Niat, tekun, tawakal, wara', yakin, syukur, literasi, adab kepada guru, teknologi, penalaran kritis, ilmu qauliyah & kauniyah."
-   ],
-   [
-    "Cinta Diri dan Sesama Manusia",
-    "Akhlak terpuji, ukhuwah Islamiyah & insaniyah, adab kepada orang tua, saudara, tetangga, teman, sesama umat."
-   ]
-  ],
-  "landasan_hukum": [
-   [
-    "KMA No. 1503/2025",
-    "Pedoman penyelenggaraan kurikulum madrasah"
-   ],
-   [
-    "KMA No. 450/2024",
-    "Pedoman penyelenggaraan kurikulum madrasah"
-   ],
-   [
-    "Permendikbudristek No. 12/2024",
-    "Kurikulum PAUD, dasar, dan menengah"
-   ],
-   [
-    "SK Dirjen Pendidikan Islam No. 4860/2026",
-    "Rujukan kalender akademik madrasah TP 2026/2027"
-   ]
-  ]
- },
- "warna_kategori": {
-  "boarding": {
-   "bg": "#4472C4",
-   "teks": "#fff",
-   "label": "Program Boarding School"
+  "jadwal_kbm_v2": {
+    "keterangan": "Jadwal KBM Reguler MA Insan Cendekia Nusantara (Kelas X) Tahun Pelajaran 2026/2027. Durasi 40 menit per JP, 5 hari kerja (Senin–Jumat). Sumber resmi: JADWAL KBM KELAS X 2026_2027.xlsx.",
+    "durasi_jp": 40,
+    "rombongan_belajar": [
+      "X-1",
+      "X-2",
+      "X-3"
+    ],
+    "jadwal_mingguan": {
+      "senin": [
+        {
+          "jam_ke": "1",
+          "mulai": "07.00",
+          "selesai": "07.40",
+          "waktu": "07.00 – 07.40",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Upacara / Bimbingan KTI",
+              "guru_kode": "IA",
+              "guru_nama": "Indah Ayudia, S.Pd."
+            },
+            "X-2": {
+              "mapel": "Upacara / Bimbingan KTI",
+              "guru_kode": "RA",
+              "guru_nama": "Rizki Ananda, S.Pd., Gr."
+            },
+            "X-3": {
+              "mapel": "Upacara / Bimbingan KTI",
+              "guru_kode": "IQ",
+              "guru_nama": "Iqbal Ifada, S.Pd., M.Pd."
+            }
+          }
+        },
+        {
+          "jam_ke": "2",
+          "mulai": "07.40",
+          "selesai": "08.20",
+          "waktu": "07.40 – 08.20",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Fisika",
+              "guru_kode": "FT",
+              "guru_nama": "Firda Tazkia Salsabila, S.Pd., Gr."
+            },
+            "X-2": {
+              "mapel": "Matematika",
+              "guru_kode": "KN",
+              "guru_nama": "Kholilatun Nahdhiyyah, S.Pd., Gr."
+            },
+            "X-3": {
+              "mapel": "Kimia",
+              "guru_kode": "IA",
+              "guru_nama": "Indah Ayudia, S.Pd."
+            }
+          }
+        },
+        {
+          "jam_ke": "3",
+          "mulai": "08.20",
+          "selesai": "09.00",
+          "waktu": "08.20 – 09.00",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Fisika",
+              "guru_kode": "FT",
+              "guru_nama": "Firda Tazkia Salsabila, S.Pd., Gr."
+            },
+            "X-2": {
+              "mapel": "Matematika",
+              "guru_kode": "KN",
+              "guru_nama": "Kholilatun Nahdhiyyah, S.Pd., Gr."
+            },
+            "X-3": {
+              "mapel": "Kimia",
+              "guru_kode": "IA",
+              "guru_nama": "Indah Ayudia, S.Pd."
+            }
+          }
+        },
+        {
+          "jam_ke": "4",
+          "mulai": "09.00",
+          "selesai": "09.40",
+          "waktu": "09.00 – 09.40",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Akidah Akhlak",
+              "guru_kode": "AS",
+              "guru_nama": "Adi Supihadi, S.Pd., M.Pd."
+            },
+            "X-2": {
+              "mapel": "Matematika",
+              "guru_kode": "KN",
+              "guru_nama": "Kholilatun Nahdhiyyah, S.Pd., Gr."
+            },
+            "X-3": {
+              "mapel": "Al-Quran Hadis",
+              "guru_kode": "MS",
+              "guru_nama": "Muhammad Syahrul Bakhtiar, Lc."
+            }
+          }
+        },
+        {
+          "jam_ke": "-",
+          "mulai": "09.40",
+          "selesai": "10.00",
+          "waktu": "09.40 – 10.00",
+          "durasi": "20 menit",
+          "is_break": true,
+          "break_label": "ISTIRAHAT",
+          "kelas": {
+            "X-1": {
+              "mapel": "ISTIRAHAT",
+              "guru_kode": "",
+              "guru_nama": ""
+            },
+            "X-2": {
+              "mapel": "",
+              "guru_kode": "",
+              "guru_nama": ""
+            },
+            "X-3": {
+              "mapel": "",
+              "guru_kode": "",
+              "guru_nama": ""
+            }
+          }
+        },
+        {
+          "jam_ke": "5",
+          "mulai": "10.00",
+          "selesai": "10.40",
+          "waktu": "10.00 – 10.40",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Bahasa Mandarin",
+              "guru_kode": "AC",
+              "guru_nama": "Afifah Chairani, S.Li."
+            },
+            "X-2": {
+              "mapel": "Geografi",
+              "guru_kode": "TN",
+              "guru_nama": "Tiara Nanda Sucitra, S.Pd."
+            },
+            "X-3": {
+              "mapel": "Bahasa Indonesia",
+              "guru_kode": "IQ",
+              "guru_nama": "Iqbal Ifada, S.Pd., M.Pd."
+            }
+          }
+        },
+        {
+          "jam_ke": "6",
+          "mulai": "10.40",
+          "selesai": "11.20",
+          "waktu": "10.40 – 11.20",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Bahasa Mandarin",
+              "guru_kode": "AC",
+              "guru_nama": "Afifah Chairani, S.Li."
+            },
+            "X-2": {
+              "mapel": "Geografi",
+              "guru_kode": "TN",
+              "guru_nama": "Tiara Nanda Sucitra, S.Pd."
+            },
+            "X-3": {
+              "mapel": "Bahasa Indonesia",
+              "guru_kode": "IQ",
+              "guru_nama": "Iqbal Ifada, S.Pd., M.Pd."
+            }
+          }
+        },
+        {
+          "jam_ke": "7",
+          "mulai": "11.20",
+          "selesai": "12.00",
+          "waktu": "11.20 – 12.00",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Fikih",
+              "guru_kode": "MA",
+              "guru_nama": "Muhammad Afsal, S.Ag."
+            },
+            "X-2": {
+              "mapel": "Geografi",
+              "guru_kode": "TN",
+              "guru_nama": "Tiara Nanda Sucitra, S.Pd."
+            },
+            "X-3": {
+              "mapel": "Bahasa Indonesia",
+              "guru_kode": "IQ",
+              "guru_nama": "Iqbal Ifada, S.Pd., M.Pd."
+            }
+          }
+        },
+        {
+          "jam_ke": "-",
+          "mulai": "12.00",
+          "selesai": "13.00",
+          "waktu": "12.00 – 13.00",
+          "durasi": "60 menit",
+          "is_break": true,
+          "break_label": "ISHOMA",
+          "kelas": {
+            "X-1": {
+              "mapel": "ISHOMA",
+              "guru_kode": "",
+              "guru_nama": ""
+            },
+            "X-2": {
+              "mapel": "",
+              "guru_kode": "",
+              "guru_nama": ""
+            },
+            "X-3": {
+              "mapel": "",
+              "guru_kode": "",
+              "guru_nama": ""
+            }
+          }
+        },
+        {
+          "jam_ke": "8",
+          "mulai": "13.00",
+          "selesai": "13.40",
+          "waktu": "13.00 – 13.40",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Ekonomi",
+              "guru_kode": "DN",
+              "guru_nama": "Dhera Novia Nirmaya, S.Pd."
+            },
+            "X-2": {
+              "mapel": "Bahasa Inggris",
+              "guru_kode": "AR",
+              "guru_nama": "Ardianti Safitri, S.S."
+            },
+            "X-3": {
+              "mapel": "Informatika",
+              "guru_kode": "AA",
+              "guru_nama": "Ahmad Abrar, S.Kom., S.Psi."
+            }
+          }
+        },
+        {
+          "jam_ke": "9",
+          "mulai": "13.40",
+          "selesai": "14.20",
+          "waktu": "13.40 – 14.20",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Ekonomi",
+              "guru_kode": "DN",
+              "guru_nama": "Dhera Novia Nirmaya, S.Pd."
+            },
+            "X-2": {
+              "mapel": "Bahasa Inggris",
+              "guru_kode": "AR",
+              "guru_nama": "Ardianti Safitri, S.S."
+            },
+            "X-3": {
+              "mapel": "Informatika",
+              "guru_kode": "AA",
+              "guru_nama": "Ahmad Abrar, S.Kom., S.Psi."
+            }
+          }
+        },
+        {
+          "jam_ke": "10",
+          "mulai": "14.20",
+          "selesai": "15.00",
+          "waktu": "14.20 – 15.00",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Ekonomi",
+              "guru_kode": "DN",
+              "guru_nama": "Dhera Novia Nirmaya, S.Pd."
+            },
+            "X-2": {
+              "mapel": "Bimbingan Konseling",
+              "guru_kode": "LN",
+              "guru_nama": "Leni Noviani, S.Sos."
+            },
+            "X-3": {
+              "mapel": "Koding",
+              "guru_kode": "AA",
+              "guru_nama": "Ahmad Abrar, S.Kom., S.Psi."
+            }
+          }
+        },
+        {
+          "jam_ke": "-",
+          "mulai": "15.00",
+          "selesai": "15.20",
+          "waktu": "15.00 – 15.20",
+          "durasi": "20 menit",
+          "is_break": true,
+          "break_label": "ISTIRAHAT",
+          "kelas": {
+            "X-1": {
+              "mapel": "ISTIRAHAT",
+              "guru_kode": "",
+              "guru_nama": ""
+            },
+            "X-2": {
+              "mapel": "",
+              "guru_kode": "",
+              "guru_nama": ""
+            },
+            "X-3": {
+              "mapel": "",
+              "guru_kode": "",
+              "guru_nama": ""
+            }
+          }
+        },
+        {
+          "jam_ke": "-",
+          "mulai": "15.20",
+          "selesai": "20.00",
+          "waktu": "15.20 – 20.00",
+          "durasi": "280 menit",
+          "is_break": true,
+          "break_label": "KEGIATAN SORE (Ashar / Ekskul / Makan / MCK)",
+          "kelas": {
+            "X-1": {
+              "mapel": "KEGIATAN SORE (Ashar / Ekskul / Makan / MCK)",
+              "guru_kode": "",
+              "guru_nama": ""
+            },
+            "X-2": {
+              "mapel": "",
+              "guru_kode": "",
+              "guru_nama": ""
+            },
+            "X-3": {
+              "mapel": "",
+              "guru_kode": "",
+              "guru_nama": ""
+            }
+          }
+        },
+        {
+          "jam_ke": "-",
+          "mulai": "20.00",
+          "selesai": "21.30",
+          "waktu": "20.00 – 21.30",
+          "durasi": "90 menit",
+          "is_break": true,
+          "break_label": "Klinik Pembelajaran",
+          "kelas": {
+            "X-1": {
+              "mapel": "Klinik Pembelajaran",
+              "guru_kode": "",
+              "guru_nama": ""
+            },
+            "X-2": {
+              "mapel": "",
+              "guru_kode": "",
+              "guru_nama": ""
+            },
+            "X-3": {
+              "mapel": "",
+              "guru_kode": "",
+              "guru_nama": ""
+            }
+          }
+        }
+      ],
+      "selasa": [
+        {
+          "jam_ke": "1",
+          "mulai": "07.00",
+          "selesai": "07.40",
+          "waktu": "07.00 – 07.40",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Matematika",
+              "guru_kode": "KN",
+              "guru_nama": "Kholilatun Nahdhiyyah, S.Pd., Gr."
+            },
+            "X-2": {
+              "mapel": "Biologi",
+              "guru_kode": "NN",
+              "guru_nama": "An Nabilla Nurjannah, S.Pd."
+            },
+            "X-3": {
+              "mapel": "PJOK",
+              "guru_kode": "DS",
+              "guru_nama": "Dede Sukma Sudrajat, S.Pd., Gr."
+            }
+          }
+        },
+        {
+          "jam_ke": "2",
+          "mulai": "07.40",
+          "selesai": "08.20",
+          "waktu": "07.40 – 08.20",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Matematika",
+              "guru_kode": "KN",
+              "guru_nama": "Kholilatun Nahdhiyyah, S.Pd., Gr."
+            },
+            "X-2": {
+              "mapel": "Biologi",
+              "guru_kode": "NN",
+              "guru_nama": "An Nabilla Nurjannah, S.Pd."
+            },
+            "X-3": {
+              "mapel": "PJOK",
+              "guru_kode": "DS",
+              "guru_nama": "Dede Sukma Sudrajat, S.Pd., Gr."
+            }
+          }
+        },
+        {
+          "jam_ke": "3",
+          "mulai": "08.20",
+          "selesai": "09.00",
+          "waktu": "08.20 – 09.00",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Sejarah",
+              "guru_kode": "AJ",
+              "guru_nama": "Asep Jafar Setiadi, S.Pd., Gr."
+            },
+            "X-2": {
+              "mapel": "Sosiologi",
+              "guru_kode": "MK",
+              "guru_nama": "Muhammad Irsyad Sirojul Khoeir, S.Sos., M.Sos."
+            },
+            "X-3": {
+              "mapel": "Kimia",
+              "guru_kode": "IA",
+              "guru_nama": "Indah Ayudia, S.Pd."
+            }
+          }
+        },
+        {
+          "jam_ke": "4",
+          "mulai": "09.00",
+          "selesai": "09.40",
+          "waktu": "09.00 – 09.40",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Sejarah",
+              "guru_kode": "AJ",
+              "guru_nama": "Asep Jafar Setiadi, S.Pd., Gr."
+            },
+            "X-2": {
+              "mapel": "Sosiologi",
+              "guru_kode": "MK",
+              "guru_nama": "Muhammad Irsyad Sirojul Khoeir, S.Sos., M.Sos."
+            },
+            "X-3": {
+              "mapel": "Kimia",
+              "guru_kode": "IA",
+              "guru_nama": "Indah Ayudia, S.Pd."
+            }
+          }
+        },
+        {
+          "jam_ke": "-",
+          "mulai": "09.40",
+          "selesai": "10.00",
+          "waktu": "09.40 – 10.00",
+          "durasi": "20 menit",
+          "is_break": true,
+          "break_label": "ISTIRAHAT",
+          "kelas": {
+            "X-1": {
+              "mapel": "ISTIRAHAT",
+              "guru_kode": "",
+              "guru_nama": ""
+            },
+            "X-2": {
+              "mapel": "",
+              "guru_kode": "",
+              "guru_nama": ""
+            },
+            "X-3": {
+              "mapel": "",
+              "guru_kode": "",
+              "guru_nama": ""
+            }
+          }
+        },
+        {
+          "jam_ke": "5",
+          "mulai": "10.00",
+          "selesai": "10.40",
+          "waktu": "10.00 – 10.40",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "PJOK",
+              "guru_kode": "DS",
+              "guru_nama": "Dede Sukma Sudrajat, S.Pd., Gr."
+            },
+            "X-2": {
+              "mapel": "Matematika",
+              "guru_kode": "KN",
+              "guru_nama": "Kholilatun Nahdhiyyah, S.Pd., Gr."
+            },
+            "X-3": {
+              "mapel": "Fisika",
+              "guru_kode": "FT",
+              "guru_nama": "Firda Tazkia Salsabila, S.Pd., Gr."
+            }
+          }
+        },
+        {
+          "jam_ke": "6",
+          "mulai": "10.40",
+          "selesai": "11.20",
+          "waktu": "10.40 – 11.20",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "PJOK",
+              "guru_kode": "DS",
+              "guru_nama": "Dede Sukma Sudrajat, S.Pd., Gr."
+            },
+            "X-2": {
+              "mapel": "Matematika",
+              "guru_kode": "KN",
+              "guru_nama": "Kholilatun Nahdhiyyah, S.Pd., Gr."
+            },
+            "X-3": {
+              "mapel": "Fisika",
+              "guru_kode": "FT",
+              "guru_nama": "Firda Tazkia Salsabila, S.Pd., Gr."
+            }
+          }
+        },
+        {
+          "jam_ke": "7",
+          "mulai": "11.20",
+          "selesai": "12.00",
+          "waktu": "11.20 – 12.00",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Al-Quran Hadis",
+              "guru_kode": "MS",
+              "guru_nama": "Muhammad Syahrul Bakhtiar, Lc."
+            },
+            "X-2": {
+              "mapel": "Akidah Akhlak",
+              "guru_kode": "AS",
+              "guru_nama": "Adi Supihadi, S.Pd., M.Pd."
+            },
+            "X-3": {
+              "mapel": "Fikih",
+              "guru_kode": "MA",
+              "guru_nama": "Muhammad Afsal, S.Ag."
+            }
+          }
+        },
+        {
+          "jam_ke": "-",
+          "mulai": "12.00",
+          "selesai": "13.00",
+          "waktu": "12.00 – 13.00",
+          "durasi": "60 menit",
+          "is_break": true,
+          "break_label": "ISHOMA",
+          "kelas": {
+            "X-1": {
+              "mapel": "ISHOMA",
+              "guru_kode": "",
+              "guru_nama": ""
+            },
+            "X-2": {
+              "mapel": "",
+              "guru_kode": "",
+              "guru_nama": ""
+            },
+            "X-3": {
+              "mapel": "",
+              "guru_kode": "",
+              "guru_nama": ""
+            }
+          }
+        },
+        {
+          "jam_ke": "8",
+          "mulai": "13.00",
+          "selesai": "13.40",
+          "waktu": "13.00 – 13.40",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Bahasa Inggris",
+              "guru_kode": "AR",
+              "guru_nama": "Ardianti Safitri, S.S."
+            },
+            "X-2": {
+              "mapel": "Bahasa Mandarin",
+              "guru_kode": "AC",
+              "guru_nama": "Afifah Chairani, S.Li."
+            },
+            "X-3": {
+              "mapel": "Ekonomi",
+              "guru_kode": "DN",
+              "guru_nama": "Dhera Novia Nirmaya, S.Pd."
+            }
+          }
+        },
+        {
+          "jam_ke": "9",
+          "mulai": "13.40",
+          "selesai": "14.20",
+          "waktu": "13.40 – 14.20",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Bahasa Inggris",
+              "guru_kode": "AR",
+              "guru_nama": "Ardianti Safitri, S.S."
+            },
+            "X-2": {
+              "mapel": "Bahasa Mandarin",
+              "guru_kode": "AC",
+              "guru_nama": "Afifah Chairani, S.Li."
+            },
+            "X-3": {
+              "mapel": "Ekonomi",
+              "guru_kode": "DN",
+              "guru_nama": "Dhera Novia Nirmaya, S.Pd."
+            }
+          }
+        },
+        {
+          "jam_ke": "10",
+          "mulai": "14.20",
+          "selesai": "15.00",
+          "waktu": "14.20 – 15.00",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Bahasa Arab",
+              "guru_kode": "AM",
+              "guru_nama": "Azka Muhammad Naufal, B.A."
+            },
+            "X-2": {
+              "mapel": "Bahasa Inggris",
+              "guru_kode": "AR",
+              "guru_nama": "Ardianti Safitri, S.S."
+            },
+            "X-3": {
+              "mapel": "Ekonomi",
+              "guru_kode": "DN",
+              "guru_nama": "Dhera Novia Nirmaya, S.Pd."
+            }
+          }
+        },
+        {
+          "jam_ke": "11",
+          "mulai": "15.00",
+          "selesai": "15.40",
+          "waktu": "15.00 – 15.40",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Bahasa Arab",
+              "guru_kode": "AM",
+              "guru_nama": "Azka Muhammad Naufal, B.A."
+            },
+            "X-2": {
+              "mapel": "Bahasa Inggris",
+              "guru_kode": "AR",
+              "guru_nama": "Ardianti Safitri, S.S."
+            },
+            "X-3": {
+              "mapel": "Pendidikan Pancasila",
+              "guru_kode": "YA",
+              "guru_nama": "Yudistira Abdi Rizki, S.H."
+            }
+          }
+        },
+        {
+          "jam_ke": "-",
+          "mulai": "15.40",
+          "selesai": "16.00",
+          "waktu": "15.40 – 16.00",
+          "durasi": "20 menit",
+          "is_break": true,
+          "break_label": "ISTIRAHAT",
+          "kelas": {
+            "X-1": {
+              "mapel": "ISTIRAHAT",
+              "guru_kode": "",
+              "guru_nama": ""
+            },
+            "X-2": {
+              "mapel": "",
+              "guru_kode": "",
+              "guru_nama": ""
+            },
+            "X-3": {
+              "mapel": "",
+              "guru_kode": "",
+              "guru_nama": ""
+            }
+          }
+        },
+        {
+          "jam_ke": "-",
+          "mulai": "16.00",
+          "selesai": "21.30",
+          "waktu": "16.00 – 21.30",
+          "durasi": "330 menit",
+          "is_break": true,
+          "break_label": "KEGIATAN SORE (Ashar / Ekskul / Makan / MCK)",
+          "kelas": {
+            "X-1": {
+              "mapel": "KEGIATAN SORE (Ashar / Ekskul / Makan / MCK)",
+              "guru_kode": "",
+              "guru_nama": ""
+            },
+            "X-2": {
+              "mapel": "",
+              "guru_kode": "",
+              "guru_nama": ""
+            },
+            "X-3": {
+              "mapel": "",
+              "guru_kode": "",
+              "guru_nama": ""
+            }
+          }
+        }
+      ],
+      "rabu": [
+        {
+          "jam_ke": "1",
+          "mulai": "07.00",
+          "selesai": "07.40",
+          "waktu": "07.00 – 07.40",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Fisika",
+              "guru_kode": "FT",
+              "guru_nama": "Firda Tazkia Salsabila, S.Pd., Gr."
+            },
+            "X-2": {
+              "mapel": "Kimia",
+              "guru_kode": "IA",
+              "guru_nama": "Indah Ayudia, S.Pd."
+            },
+            "X-3": {
+              "mapel": "Matematika",
+              "guru_kode": "KN",
+              "guru_nama": "Kholilatun Nahdhiyyah, S.Pd., Gr."
+            }
+          }
+        },
+        {
+          "jam_ke": "2",
+          "mulai": "07.40",
+          "selesai": "08.20",
+          "waktu": "07.40 – 08.20",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Fisika",
+              "guru_kode": "FT",
+              "guru_nama": "Firda Tazkia Salsabila, S.Pd., Gr."
+            },
+            "X-2": {
+              "mapel": "Kimia",
+              "guru_kode": "IA",
+              "guru_nama": "Indah Ayudia, S.Pd."
+            },
+            "X-3": {
+              "mapel": "Matematika",
+              "guru_kode": "KN",
+              "guru_nama": "Kholilatun Nahdhiyyah, S.Pd., Gr."
+            }
+          }
+        },
+        {
+          "jam_ke": "3",
+          "mulai": "08.20",
+          "selesai": "09.00",
+          "waktu": "08.20 – 09.00",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Sosiologi",
+              "guru_kode": "MK",
+              "guru_nama": "Muhammad Irsyad Sirojul Khoeir, S.Sos., M.Sos."
+            },
+            "X-2": {
+              "mapel": "Biologi",
+              "guru_kode": "NN",
+              "guru_nama": "An Nabilla Nurjannah, S.Pd."
+            },
+            "X-3": {
+              "mapel": "Bahasa Mandarin",
+              "guru_kode": "AC",
+              "guru_nama": "Afifah Chairani, S.Li."
+            }
+          }
+        },
+        {
+          "jam_ke": "4",
+          "mulai": "09.00",
+          "selesai": "09.40",
+          "waktu": "09.00 – 09.40",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Sosiologi",
+              "guru_kode": "MK",
+              "guru_nama": "Muhammad Irsyad Sirojul Khoeir, S.Sos., M.Sos."
+            },
+            "X-2": {
+              "mapel": "Biologi",
+              "guru_kode": "NN",
+              "guru_nama": "An Nabilla Nurjannah, S.Pd."
+            },
+            "X-3": {
+              "mapel": "Bahasa Mandarin",
+              "guru_kode": "AC",
+              "guru_nama": "Afifah Chairani, S.Li."
+            }
+          }
+        },
+        {
+          "jam_ke": "-",
+          "mulai": "09.40",
+          "selesai": "10.00",
+          "waktu": "09.40 – 10.00",
+          "durasi": "20 menit",
+          "is_break": true,
+          "break_label": "ISTIRAHAT",
+          "kelas": {
+            "X-1": {
+              "mapel": "ISTIRAHAT",
+              "guru_kode": "",
+              "guru_nama": ""
+            },
+            "X-2": {
+              "mapel": "",
+              "guru_kode": "",
+              "guru_nama": ""
+            },
+            "X-3": {
+              "mapel": "",
+              "guru_kode": "",
+              "guru_nama": ""
+            }
+          }
+        },
+        {
+          "jam_ke": "5",
+          "mulai": "10.00",
+          "selesai": "10.40",
+          "waktu": "10.00 – 10.40",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Matematika",
+              "guru_kode": "KN",
+              "guru_nama": "Kholilatun Nahdhiyyah, S.Pd., Gr."
+            },
+            "X-2": {
+              "mapel": "Sejarah",
+              "guru_kode": "AJ",
+              "guru_nama": "Asep Jafar Setiadi, S.Pd., Gr."
+            },
+            "X-3": {
+              "mapel": "Sosiologi",
+              "guru_kode": "MK",
+              "guru_nama": "Muhammad Irsyad Sirojul Khoeir, S.Sos., M.Sos."
+            }
+          }
+        },
+        {
+          "jam_ke": "6",
+          "mulai": "10.40",
+          "selesai": "11.20",
+          "waktu": "10.40 – 11.20",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Matematika",
+              "guru_kode": "KN",
+              "guru_nama": "Kholilatun Nahdhiyyah, S.Pd., Gr."
+            },
+            "X-2": {
+              "mapel": "Sejarah",
+              "guru_kode": "AJ",
+              "guru_nama": "Asep Jafar Setiadi, S.Pd., Gr."
+            },
+            "X-3": {
+              "mapel": "Sosiologi",
+              "guru_kode": "MK",
+              "guru_nama": "Muhammad Irsyad Sirojul Khoeir, S.Sos., M.Sos."
+            }
+          }
+        },
+        {
+          "jam_ke": "7",
+          "mulai": "11.20",
+          "selesai": "12.00",
+          "waktu": "11.20 – 12.00",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Matematika",
+              "guru_kode": "KN",
+              "guru_nama": "Kholilatun Nahdhiyyah, S.Pd., Gr."
+            },
+            "X-2": {
+              "mapel": "Sejarah Kebudayaan Islam",
+              "guru_kode": "AN",
+              "guru_nama": "Ani Nuryani, S.Pd."
+            },
+            "X-3": {
+              "mapel": "Akidah Akhlak",
+              "guru_kode": "AS",
+              "guru_nama": "Adi Supihadi, S.Pd., M.Pd."
+            }
+          }
+        },
+        {
+          "jam_ke": "-",
+          "mulai": "12.00",
+          "selesai": "13.00",
+          "waktu": "12.00 – 13.00",
+          "durasi": "60 menit",
+          "is_break": true,
+          "break_label": "ISHOMA",
+          "kelas": {
+            "X-1": {
+              "mapel": "ISHOMA",
+              "guru_kode": "",
+              "guru_nama": ""
+            },
+            "X-2": {
+              "mapel": "",
+              "guru_kode": "",
+              "guru_nama": ""
+            },
+            "X-3": {
+              "mapel": "",
+              "guru_kode": "",
+              "guru_nama": ""
+            }
+          }
+        },
+        {
+          "jam_ke": "8",
+          "mulai": "13.00",
+          "selesai": "13.40",
+          "waktu": "13.00 – 13.40",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Informatika",
+              "guru_kode": "AA",
+              "guru_nama": "Ahmad Abrar, S.Kom., S.Psi."
+            },
+            "X-2": {
+              "mapel": "Ekonomi",
+              "guru_kode": "DN",
+              "guru_nama": "Dhera Novia Nirmaya, S.Pd."
+            },
+            "X-3": {
+              "mapel": "Geografi",
+              "guru_kode": "TN",
+              "guru_nama": "Tiara Nanda Sucitra, S.Pd."
+            }
+          }
+        },
+        {
+          "jam_ke": "9",
+          "mulai": "13.40",
+          "selesai": "14.20",
+          "waktu": "13.40 – 14.20",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Informatika",
+              "guru_kode": "AA",
+              "guru_nama": "Ahmad Abrar, S.Kom., S.Psi."
+            },
+            "X-2": {
+              "mapel": "Ekonomi",
+              "guru_kode": "DN",
+              "guru_nama": "Dhera Novia Nirmaya, S.Pd."
+            },
+            "X-3": {
+              "mapel": "Geografi",
+              "guru_kode": "TN",
+              "guru_nama": "Tiara Nanda Sucitra, S.Pd."
+            }
+          }
+        },
+        {
+          "jam_ke": "10",
+          "mulai": "14.20",
+          "selesai": "15.00",
+          "waktu": "14.20 – 15.00",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Koding",
+              "guru_kode": "AA",
+              "guru_nama": "Ahmad Abrar, S.Kom., S.Psi."
+            },
+            "X-2": {
+              "mapel": "Ekonomi",
+              "guru_kode": "DN",
+              "guru_nama": "Dhera Novia Nirmaya, S.Pd."
+            },
+            "X-3": {
+              "mapel": "Geografi",
+              "guru_kode": "TN",
+              "guru_nama": "Tiara Nanda Sucitra, S.Pd."
+            }
+          }
+        },
+        {
+          "jam_ke": "-",
+          "mulai": "15.00",
+          "selesai": "15.20",
+          "waktu": "15.00 – 15.20",
+          "durasi": "20 menit",
+          "is_break": true,
+          "break_label": "ISTIRAHAT",
+          "kelas": {
+            "X-1": {
+              "mapel": "ISTIRAHAT",
+              "guru_kode": "",
+              "guru_nama": ""
+            },
+            "X-2": {
+              "mapel": "",
+              "guru_kode": "",
+              "guru_nama": ""
+            },
+            "X-3": {
+              "mapel": "",
+              "guru_kode": "",
+              "guru_nama": ""
+            }
+          }
+        },
+        {
+          "jam_ke": "-",
+          "mulai": "15.20",
+          "selesai": "19.20",
+          "waktu": "15.20 – 19.20",
+          "durasi": "240 menit",
+          "is_break": true,
+          "break_label": "KEGIATAN SORE (Ashar / Ekskul / Makan / MCK)",
+          "kelas": {
+            "X-1": {
+              "mapel": "KEGIATAN SORE (Ashar / Ekskul / Makan / MCK)",
+              "guru_kode": "",
+              "guru_nama": ""
+            },
+            "X-2": {
+              "mapel": "",
+              "guru_kode": "",
+              "guru_nama": ""
+            },
+            "X-3": {
+              "mapel": "",
+              "guru_kode": "",
+              "guru_nama": ""
+            }
+          }
+        }
+      ],
+      "kamis": [
+        {
+          "jam_ke": "1",
+          "mulai": "07.00",
+          "selesai": "07.40",
+          "waktu": "07.00 – 07.40",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Bahasa Inggris",
+              "guru_kode": "AR",
+              "guru_nama": "Ardianti Safitri, S.S."
+            },
+            "X-2": {
+              "mapel": "Kimia",
+              "guru_kode": "IA",
+              "guru_nama": "Indah Ayudia, S.Pd."
+            },
+            "X-3": {
+              "mapel": "Biologi",
+              "guru_kode": "NN",
+              "guru_nama": "An Nabilla Nurjannah, S.Pd."
+            }
+          }
+        },
+        {
+          "jam_ke": "2",
+          "mulai": "07.40",
+          "selesai": "08.20",
+          "waktu": "07.40 – 08.20",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Bahasa Inggris",
+              "guru_kode": "AR",
+              "guru_nama": "Ardianti Safitri, S.S."
+            },
+            "X-2": {
+              "mapel": "Kimia",
+              "guru_kode": "IA",
+              "guru_nama": "Indah Ayudia, S.Pd."
+            },
+            "X-3": {
+              "mapel": "Biologi",
+              "guru_kode": "NN",
+              "guru_nama": "An Nabilla Nurjannah, S.Pd."
+            }
+          }
+        },
+        {
+          "jam_ke": "3",
+          "mulai": "08.20",
+          "selesai": "09.00",
+          "waktu": "08.20 – 09.00",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Kimia",
+              "guru_kode": "IA",
+              "guru_nama": "Indah Ayudia, S.Pd."
+            },
+            "X-2": {
+              "mapel": "Fisika",
+              "guru_kode": "FT",
+              "guru_nama": "Firda Tazkia Salsabila, S.Pd., Gr."
+            },
+            "X-3": {
+              "mapel": "Bahasa Arab",
+              "guru_kode": "AM",
+              "guru_nama": "Azka Muhammad Naufal, B.A."
+            }
+          }
+        },
+        {
+          "jam_ke": "4",
+          "mulai": "09.00",
+          "selesai": "09.40",
+          "waktu": "09.00 – 09.40",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Kimia",
+              "guru_kode": "IA",
+              "guru_nama": "Indah Ayudia, S.Pd."
+            },
+            "X-2": {
+              "mapel": "Fisika",
+              "guru_kode": "FT",
+              "guru_nama": "Firda Tazkia Salsabila, S.Pd., Gr."
+            },
+            "X-3": {
+              "mapel": "Bahasa Arab",
+              "guru_kode": "AM",
+              "guru_nama": "Azka Muhammad Naufal, B.A."
+            }
+          }
+        },
+        {
+          "jam_ke": "-",
+          "mulai": "09.40",
+          "selesai": "10.00",
+          "waktu": "09.40 – 10.00",
+          "durasi": "20 menit",
+          "is_break": true,
+          "break_label": "ISTIRAHAT",
+          "kelas": {
+            "X-1": {
+              "mapel": "ISTIRAHAT",
+              "guru_kode": "",
+              "guru_nama": ""
+            },
+            "X-2": {
+              "mapel": "",
+              "guru_kode": "",
+              "guru_nama": ""
+            },
+            "X-3": {
+              "mapel": "",
+              "guru_kode": "",
+              "guru_nama": ""
+            }
+          }
+        },
+        {
+          "jam_ke": "5",
+          "mulai": "10.00",
+          "selesai": "10.40",
+          "waktu": "10.00 – 10.40",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Biologi",
+              "guru_kode": "NN",
+              "guru_nama": "An Nabilla Nurjannah, S.Pd."
+            },
+            "X-2": {
+              "mapel": "Bahasa Indonesia",
+              "guru_kode": "IQ",
+              "guru_nama": "Iqbal Ifada, S.Pd., M.Pd."
+            },
+            "X-3": {
+              "mapel": "Matematika",
+              "guru_kode": "KN",
+              "guru_nama": "Kholilatun Nahdhiyyah, S.Pd., Gr."
+            }
+          }
+        },
+        {
+          "jam_ke": "6",
+          "mulai": "10.40",
+          "selesai": "11.20",
+          "waktu": "10.40 – 11.20",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Biologi",
+              "guru_kode": "NN",
+              "guru_nama": "An Nabilla Nurjannah, S.Pd."
+            },
+            "X-2": {
+              "mapel": "Bahasa Indonesia",
+              "guru_kode": "IQ",
+              "guru_nama": "Iqbal Ifada, S.Pd., M.Pd."
+            },
+            "X-3": {
+              "mapel": "Matematika",
+              "guru_kode": "KN",
+              "guru_nama": "Kholilatun Nahdhiyyah, S.Pd., Gr."
+            }
+          }
+        },
+        {
+          "jam_ke": "7",
+          "mulai": "11.20",
+          "selesai": "12.00",
+          "waktu": "11.20 – 12.00",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Seni Budaya",
+              "guru_kode": "RA",
+              "guru_nama": "Rizki Ananda, S.Pd., Gr."
+            },
+            "X-2": {
+              "mapel": "Bahasa Indonesia",
+              "guru_kode": "IQ",
+              "guru_nama": "Iqbal Ifada, S.Pd., M.Pd."
+            },
+            "X-3": {
+              "mapel": "Matematika",
+              "guru_kode": "KN",
+              "guru_nama": "Kholilatun Nahdhiyyah, S.Pd., Gr."
+            }
+          }
+        },
+        {
+          "jam_ke": "-",
+          "mulai": "12.00",
+          "selesai": "13.00",
+          "waktu": "12.00 – 13.00",
+          "durasi": "60 menit",
+          "is_break": true,
+          "break_label": "ISHOMA",
+          "kelas": {
+            "X-1": {
+              "mapel": "ISHOMA",
+              "guru_kode": "",
+              "guru_nama": ""
+            },
+            "X-2": {
+              "mapel": "",
+              "guru_kode": "",
+              "guru_nama": ""
+            },
+            "X-3": {
+              "mapel": "",
+              "guru_kode": "",
+              "guru_nama": ""
+            }
+          }
+        },
+        {
+          "jam_ke": "8",
+          "mulai": "13.00",
+          "selesai": "13.40",
+          "waktu": "13.00 – 13.40",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Bahasa Indonesia",
+              "guru_kode": "IQ",
+              "guru_nama": "Iqbal Ifada, S.Pd., M.Pd."
+            },
+            "X-2": {
+              "mapel": "Informatika",
+              "guru_kode": "AA",
+              "guru_nama": "Ahmad Abrar, S.Kom., S.Psi."
+            },
+            "X-3": {
+              "mapel": "Sejarah",
+              "guru_kode": "AJ",
+              "guru_nama": "Asep Jafar Setiadi, S.Pd., Gr."
+            }
+          }
+        },
+        {
+          "jam_ke": "9",
+          "mulai": "13.40",
+          "selesai": "14.20",
+          "waktu": "13.40 – 14.20",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Bahasa Indonesia",
+              "guru_kode": "IQ",
+              "guru_nama": "Iqbal Ifada, S.Pd., M.Pd."
+            },
+            "X-2": {
+              "mapel": "Informatika",
+              "guru_kode": "AA",
+              "guru_nama": "Ahmad Abrar, S.Kom., S.Psi."
+            },
+            "X-3": {
+              "mapel": "Sejarah",
+              "guru_kode": "AJ",
+              "guru_nama": "Asep Jafar Setiadi, S.Pd., Gr."
+            }
+          }
+        },
+        {
+          "jam_ke": "10",
+          "mulai": "14.20",
+          "selesai": "15.00",
+          "waktu": "14.20 – 15.00",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Bahasa Indonesia",
+              "guru_kode": "IQ",
+              "guru_nama": "Iqbal Ifada, S.Pd., M.Pd."
+            },
+            "X-2": {
+              "mapel": "Koding",
+              "guru_kode": "AA",
+              "guru_nama": "Ahmad Abrar, S.Kom., S.Psi."
+            },
+            "X-3": {
+              "mapel": "Bahasa Inggris",
+              "guru_kode": "AR",
+              "guru_nama": "Ardianti Safitri, S.S."
+            }
+          }
+        },
+        {
+          "jam_ke": "11",
+          "mulai": "15.00",
+          "selesai": "15.40",
+          "waktu": "15.00 – 15.40",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Bimbingan Konseling",
+              "guru_kode": "LN",
+              "guru_nama": "Leni Noviani, S.Sos."
+            },
+            "X-2": {
+              "mapel": "Fikih",
+              "guru_kode": "MA",
+              "guru_nama": "Muhammad Afsal, S.Ag."
+            },
+            "X-3": {
+              "mapel": "Bahasa Inggris",
+              "guru_kode": "AR",
+              "guru_nama": "Ardianti Safitri, S.S."
+            }
+          }
+        },
+        {
+          "jam_ke": "-",
+          "mulai": "15.40",
+          "selesai": "16.00",
+          "waktu": "15.40 – 16.00",
+          "durasi": "20 menit",
+          "is_break": true,
+          "break_label": "ISTIRAHAT",
+          "kelas": {
+            "X-1": {
+              "mapel": "ISTIRAHAT",
+              "guru_kode": "",
+              "guru_nama": ""
+            },
+            "X-2": {
+              "mapel": "",
+              "guru_kode": "",
+              "guru_nama": ""
+            },
+            "X-3": {
+              "mapel": "",
+              "guru_kode": "",
+              "guru_nama": ""
+            }
+          }
+        },
+        {
+          "jam_ke": "-",
+          "mulai": "16.00",
+          "selesai": "20.00",
+          "waktu": "16.00 – 20.00",
+          "durasi": "240 menit",
+          "is_break": true,
+          "break_label": "KEGIATAN SORE (Ashar / Ekskul / Makan / MCK)",
+          "kelas": {
+            "X-1": {
+              "mapel": "KEGIATAN SORE (Ashar / Ekskul / Makan / MCK)",
+              "guru_kode": "",
+              "guru_nama": ""
+            },
+            "X-2": {
+              "mapel": "",
+              "guru_kode": "",
+              "guru_nama": ""
+            },
+            "X-3": {
+              "mapel": "",
+              "guru_kode": "",
+              "guru_nama": ""
+            }
+          }
+        }
+      ],
+      "jumat": [
+        {
+          "jam_ke": "-",
+          "mulai": "07.00",
+          "selesai": "07.20",
+          "waktu": "07.00 – 07.20",
+          "durasi": "20 menit",
+          "is_break": true,
+          "break_label": "KULTUM PAGI & SHOLAT DHUHA",
+          "kelas": {
+            "X-1": {
+              "mapel": "KULTUM PAGI & SHOLAT DHUHA",
+              "guru_kode": "",
+              "guru_nama": ""
+            },
+            "X-2": {
+              "mapel": "",
+              "guru_kode": "",
+              "guru_nama": ""
+            },
+            "X-3": {
+              "mapel": "",
+              "guru_kode": "",
+              "guru_nama": ""
+            }
+          }
+        },
+        {
+          "jam_ke": "1",
+          "mulai": "07.20",
+          "selesai": "08.00",
+          "waktu": "07.20 – 08.00",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Kimia",
+              "guru_kode": "IA",
+              "guru_nama": "Indah Ayudia, S.Pd."
+            },
+            "X-2": {
+              "mapel": "PJOK",
+              "guru_kode": "DS",
+              "guru_nama": "Dede Sukma Sudrajat, S.Pd., Gr."
+            },
+            "X-3": {
+              "mapel": "Biologi",
+              "guru_kode": "NN",
+              "guru_nama": "An Nabilla Nurjannah, S.Pd."
+            }
+          }
+        },
+        {
+          "jam_ke": "2",
+          "mulai": "08.00",
+          "selesai": "08.40",
+          "waktu": "08.00 – 08.40",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Kimia",
+              "guru_kode": "IA",
+              "guru_nama": "Indah Ayudia, S.Pd."
+            },
+            "X-2": {
+              "mapel": "PJOK",
+              "guru_kode": "DS",
+              "guru_nama": "Dede Sukma Sudrajat, S.Pd., Gr."
+            },
+            "X-3": {
+              "mapel": "Biologi",
+              "guru_kode": "NN",
+              "guru_nama": "An Nabilla Nurjannah, S.Pd."
+            }
+          }
+        },
+        {
+          "jam_ke": "3",
+          "mulai": "08.40",
+          "selesai": "09.20",
+          "waktu": "08.40 – 09.20",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Biologi",
+              "guru_kode": "NN",
+              "guru_nama": "An Nabilla Nurjannah, S.Pd."
+            },
+            "X-2": {
+              "mapel": "Fisika",
+              "guru_kode": "FT",
+              "guru_nama": "Firda Tazkia Salsabila, S.Pd., Gr."
+            },
+            "X-3": {
+              "mapel": "Bahasa Inggris",
+              "guru_kode": "AR",
+              "guru_nama": "Ardianti Safitri, S.S."
+            }
+          }
+        },
+        {
+          "jam_ke": "4",
+          "mulai": "09.20",
+          "selesai": "10.00",
+          "waktu": "09.20 – 10.00",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Biologi",
+              "guru_kode": "NN",
+              "guru_nama": "An Nabilla Nurjannah, S.Pd."
+            },
+            "X-2": {
+              "mapel": "Fisika",
+              "guru_kode": "FT",
+              "guru_nama": "Firda Tazkia Salsabila, S.Pd., Gr."
+            },
+            "X-3": {
+              "mapel": "Bahasa Inggris",
+              "guru_kode": "AR",
+              "guru_nama": "Ardianti Safitri, S.S."
+            }
+          }
+        },
+        {
+          "jam_ke": "-",
+          "mulai": "10.00",
+          "selesai": "10.10",
+          "waktu": "10.00 – 10.10",
+          "durasi": "10 menit",
+          "is_break": true,
+          "break_label": "ISTIRAHAT",
+          "kelas": {
+            "X-1": {
+              "mapel": "ISTIRAHAT",
+              "guru_kode": "",
+              "guru_nama": ""
+            },
+            "X-2": {
+              "mapel": "",
+              "guru_kode": "",
+              "guru_nama": ""
+            },
+            "X-3": {
+              "mapel": "",
+              "guru_kode": "",
+              "guru_nama": ""
+            }
+          }
+        },
+        {
+          "jam_ke": "5",
+          "mulai": "10.10",
+          "selesai": "10.50",
+          "waktu": "10.10 – 10.50",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Pendidikan Pancasila",
+              "guru_kode": "YA",
+              "guru_nama": "Yudistira Abdi Rizki, S.H."
+            },
+            "X-2": {
+              "mapel": "Bahasa Arab",
+              "guru_kode": "AM",
+              "guru_nama": "Azka Muhammad Naufal, B.A."
+            },
+            "X-3": {
+              "mapel": "Fisika",
+              "guru_kode": "FT",
+              "guru_nama": "Firda Tazkia Salsabila, S.Pd., Gr."
+            }
+          }
+        },
+        {
+          "jam_ke": "6",
+          "mulai": "10.50",
+          "selesai": "11.30",
+          "waktu": "10.50 – 11.30",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Sejarah Kebudayaan Islam",
+              "guru_kode": "AN",
+              "guru_nama": "Ani Nuryani, S.Pd."
+            },
+            "X-2": {
+              "mapel": "Bahasa Arab",
+              "guru_kode": "AM",
+              "guru_nama": "Azka Muhammad Naufal, B.A."
+            },
+            "X-3": {
+              "mapel": "Fisika",
+              "guru_kode": "FT",
+              "guru_nama": "Firda Tazkia Salsabila, S.Pd., Gr."
+            }
+          }
+        },
+        {
+          "jam_ke": "-",
+          "mulai": "11.30",
+          "selesai": "13.30",
+          "waktu": "11.30 – 13.30",
+          "durasi": "120 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "SHOLAT JUMAT",
+              "guru_kode": "",
+              "guru_nama": ""
+            },
+            "X-2": {
+              "mapel": "",
+              "guru_kode": "",
+              "guru_nama": ""
+            },
+            "X-3": {
+              "mapel": "",
+              "guru_kode": "",
+              "guru_nama": ""
+            }
+          }
+        },
+        {
+          "jam_ke": "7",
+          "mulai": "13.30",
+          "selesai": "14.10",
+          "waktu": "13.30 – 14.10",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Geografi",
+              "guru_kode": "TN",
+              "guru_nama": "Tiara Nanda Sucitra, S.Pd."
+            },
+            "X-2": {
+              "mapel": "Al-Quran Hadis",
+              "guru_kode": "MS",
+              "guru_nama": "Muhammad Syahrul Bakhtiar, Lc."
+            },
+            "X-3": {
+              "mapel": "Seni Budaya",
+              "guru_kode": "RA",
+              "guru_nama": "Rizki Ananda, S.Pd., Gr."
+            }
+          }
+        },
+        {
+          "jam_ke": "8",
+          "mulai": "14.10",
+          "selesai": "14.50",
+          "waktu": "14.10 – 14.50",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Geografi",
+              "guru_kode": "TN",
+              "guru_nama": "Tiara Nanda Sucitra, S.Pd."
+            },
+            "X-2": {
+              "mapel": "Pendidikan Pancasila",
+              "guru_kode": "YA",
+              "guru_nama": "Yudistira Abdi Rizki, S.H."
+            },
+            "X-3": {
+              "mapel": "Sejarah Kebudayaan Islam",
+              "guru_kode": "AN",
+              "guru_nama": "Ani Nuryani, S.Pd."
+            }
+          }
+        },
+        {
+          "jam_ke": "9",
+          "mulai": "14.50",
+          "selesai": "15.30",
+          "waktu": "14.50 – 15.30",
+          "durasi": "40 menit",
+          "is_break": false,
+          "break_label": "",
+          "kelas": {
+            "X-1": {
+              "mapel": "Geografi",
+              "guru_kode": "TN",
+              "guru_nama": "Tiara Nanda Sucitra, S.Pd."
+            },
+            "X-2": {
+              "mapel": "Seni Budaya",
+              "guru_kode": "RA",
+              "guru_nama": "Rizki Ananda, S.Pd., Gr."
+            },
+            "X-3": {
+              "mapel": "Bimbingan Konseling",
+              "guru_kode": "LN",
+              "guru_nama": "Leni Noviani, S.Sos."
+            }
+          }
+        },
+        {
+          "jam_ke": "-",
+          "mulai": "15.30",
+          "selesai": "15.50",
+          "waktu": "15.30 – 15.50",
+          "durasi": "20 menit",
+          "is_break": true,
+          "break_label": "ISTIRAHAT",
+          "kelas": {
+            "X-1": {
+              "mapel": "ISTIRAHAT",
+              "guru_kode": "",
+              "guru_nama": ""
+            },
+            "X-2": {
+              "mapel": "",
+              "guru_kode": "",
+              "guru_nama": ""
+            },
+            "X-3": {
+              "mapel": "",
+              "guru_kode": "",
+              "guru_nama": ""
+            }
+          }
+        },
+        {
+          "jam_ke": "-",
+          "mulai": "15.50",
+          "selesai": "19.50",
+          "waktu": "15.50 – 19.50",
+          "durasi": "240 menit",
+          "is_break": true,
+          "break_label": "KEGIATAN SORE (Ashar / Ekskul / Makan / MCK)",
+          "kelas": {
+            "X-1": {
+              "mapel": "KEGIATAN SORE (Ashar / Ekskul / Makan / MCK)",
+              "guru_kode": "",
+              "guru_nama": ""
+            },
+            "X-2": {
+              "mapel": "",
+              "guru_kode": "",
+              "guru_nama": ""
+            },
+            "X-3": {
+              "mapel": "",
+              "guru_kode": "",
+              "guru_nama": ""
+            }
+          }
+        }
+      ]
+    },
+    "matriks_guru": [
+      {
+        "no": 1,
+        "kode": "MS",
+        "nama": "Muhammad Syahrul Bakhtiar, Lc.",
+        "mapel": "Al-Qur'an Hadis",
+        "jadwal": {
+          "senin": "X-3: jam 4",
+          "selasa": "X-1: jam 7",
+          "rabu": "—",
+          "kamis": "GURU PIKET",
+          "jumat": "X-2: jam 7"
+        },
+        "jp_pekan": 3,
+        "hari_kosong": "Rabu, Kamis",
+        "tugas_tambahan": ""
+      },
+      {
+        "no": 2,
+        "kode": "AS",
+        "nama": "Adi Supihadi, S.Pd., M.Pd.",
+        "mapel": "Akidah Akhlak",
+        "jadwal": {
+          "senin": "X-1: jam 4",
+          "selasa": "X-2: jam 7",
+          "rabu": "X-3: jam 7",
+          "kamis": "—",
+          "jumat": "GURU PIKET"
+        },
+        "jp_pekan": 3,
+        "hari_kosong": "Kamis, Jumat",
+        "tugas_tambahan": ""
+      },
+      {
+        "no": 3,
+        "kode": "MS",
+        "nama": "Muhammad Afsal, S.Ag. *",
+        "mapel": "Fikih",
+        "jadwal": {
+          "senin": "X-1: jam 7",
+          "selasa": "X-3: jam 7",
+          "rabu": "—",
+          "kamis": "X-2: jam 11",
+          "jumat": "—"
+        },
+        "jp_pekan": 3,
+        "hari_kosong": "Rabu, Jumat",
+        "tugas_tambahan": "Wakamad Humas — piket tiap hari"
+      },
+      {
+        "no": 4,
+        "kode": "AN",
+        "nama": "Ani Nuryani, S.Pd.",
+        "mapel": "SKI",
+        "jadwal": {
+          "senin": "GURU PIKET",
+          "selasa": "—",
+          "rabu": "X-2: jam 7",
+          "kamis": "—",
+          "jumat": "X-1: jam 6, X-3: jam 8"
+        },
+        "jp_pekan": 3,
+        "hari_kosong": "Senin, Selasa, Kamis",
+        "tugas_tambahan": ""
+      },
+      {
+        "no": 5,
+        "kode": "AM",
+        "nama": "Azka Muhammad Naufal, B.A.",
+        "mapel": "Bahasa Arab",
+        "jadwal": {
+          "senin": "—",
+          "selasa": "X-1: jam 10–11",
+          "rabu": "GURU PIKET",
+          "kamis": "X-3: jam 3–4",
+          "jumat": "X-2: jam 5–6"
+        },
+        "jp_pekan": 6,
+        "hari_kosong": "Senin, Rabu",
+        "tugas_tambahan": ""
+      },
+      {
+        "no": 6,
+        "kode": "YA",
+        "nama": "Yudistira Abdi Rizki, S.H. *",
+        "mapel": "Pend. Pancasila",
+        "jadwal": {
+          "senin": "—",
+          "selasa": "X-3: jam 11",
+          "rabu": "—",
+          "kamis": "—",
+          "jumat": "X-1: jam 5, X-2: jam 8"
+        },
+        "jp_pekan": 3,
+        "hari_kosong": "Senin, Rabu, Kamis",
+        "tugas_tambahan": "Wakamad Kesiswaan — piket tiap hari"
+      },
+      {
+        "no": 7,
+        "kode": "IQ",
+        "nama": "Iqbal Ifada, S.Pd., M.Pd.",
+        "mapel": "Bahasa Indonesia",
+        "jadwal": {
+          "senin": "X-3: jam 5–7",
+          "selasa": "—",
+          "rabu": "—",
+          "kamis": "X-1: jam 8–10, X-2: jam 5–7",
+          "jumat": "—"
+        },
+        "jp_pekan": 9,
+        "hari_kosong": "Selasa, Rabu, Jumat",
+        "tugas_tambahan": ""
+      },
+      {
+        "no": 8,
+        "kode": "AR",
+        "nama": "Ardianti Safitri, S.S.",
+        "mapel": "Bahasa Inggris",
+        "jadwal": {
+          "senin": "X-2: jam 8–9",
+          "selasa": "X-1: jam 8–9, X-2: jam 10–11",
+          "rabu": "—",
+          "kamis": "X-1: jam 1–2, X-3: jam 10–11",
+          "jumat": "X-3: jam 3–4"
+        },
+        "jp_pekan": 12,
+        "hari_kosong": "Rabu",
+        "tugas_tambahan": ""
+      },
+      {
+        "no": 9,
+        "kode": "KN",
+        "nama": "Kholilatun Nahdhiyyah, S.Pd., Gr.",
+        "mapel": "Matematika",
+        "jadwal": {
+          "senin": "X-2: jam 2–4",
+          "selasa": "X-1: jam 1–2, X-2: jam 5–6",
+          "rabu": "X-1: jam 5–7, X-3: jam 1–2",
+          "kamis": "X-3: jam 5–7",
+          "jumat": "—"
+        },
+        "jp_pekan": 15,
+        "hari_kosong": "Jumat",
+        "tugas_tambahan": ""
+      },
+      {
+        "no": 10,
+        "kode": "NN",
+        "nama": "An Nabilla Nurjannah, S.Pd.",
+        "mapel": "Biologi",
+        "jadwal": {
+          "senin": "—",
+          "selasa": "X-2: jam 1–2",
+          "rabu": "X-2: jam 3–4",
+          "kamis": "X-1: jam 5–6, X-3: jam 1–2",
+          "jumat": "X-1: jam 3–4, X-3: jam 1–2"
+        },
+        "jp_pekan": 12,
+        "hari_kosong": "Senin",
+        "tugas_tambahan": ""
+      },
+      {
+        "no": 11,
+        "kode": "FT",
+        "nama": "Firda Tazkia Salsabila, S.Pd., Gr.",
+        "mapel": "Fisika",
+        "jadwal": {
+          "senin": "X-1: jam 2–3",
+          "selasa": "X-3: jam 5–6",
+          "rabu": "X-1: jam 1–2",
+          "kamis": "X-2: jam 3–4",
+          "jumat": "X-2: jam 3–4, X-3: jam 5–6"
+        },
+        "jp_pekan": 12,
+        "hari_kosong": "(mengajar tiap hari)",
+        "tugas_tambahan": ""
+      },
+      {
+        "no": 12,
+        "kode": "IA",
+        "nama": "Indah Ayudia, S.Pd.",
+        "mapel": "Kimia",
+        "jadwal": {
+          "senin": "X-3: jam 2–3",
+          "selasa": "X-3: jam 3–4",
+          "rabu": "X-2: jam 1–2",
+          "kamis": "X-1: jam 3–4, X-2: jam 1–2",
+          "jumat": "X-1: jam 1–2"
+        },
+        "jp_pekan": 12,
+        "hari_kosong": "(mengajar tiap hari)",
+        "tugas_tambahan": ""
+      },
+      {
+        "no": 13,
+        "kode": "AJ",
+        "nama": "Asep Jafar Setiadi, S.Pd., Gr.",
+        "mapel": "Sejarah",
+        "jadwal": {
+          "senin": "GURU PIKET",
+          "selasa": "X-1: jam 3–4",
+          "rabu": "X-2: jam 5–6",
+          "kamis": "X-3: jam 8–9",
+          "jumat": "—"
+        },
+        "jp_pekan": 6,
+        "hari_kosong": "Senin, Jumat",
+        "tugas_tambahan": ""
+      },
+      {
+        "no": 14,
+        "kode": "TN",
+        "nama": "Tiara Nanda Sucitra, S.Pd.",
+        "mapel": "Geografi",
+        "jadwal": {
+          "senin": "X-2: jam 5–7",
+          "selasa": "GURU PIKET",
+          "rabu": "X-3: jam 8–10",
+          "kamis": "—",
+          "jumat": "X-1: jam 7–9"
+        },
+        "jp_pekan": 9,
+        "hari_kosong": "Selasa, Kamis",
+        "tugas_tambahan": ""
+      },
+      {
+        "no": 15,
+        "kode": "DN",
+        "nama": "Dhera Novia Nirmaya, S.Pd.",
+        "mapel": "Ekonomi",
+        "jadwal": {
+          "senin": "X-1: jam 8–10",
+          "selasa": "X-3: jam 8–10",
+          "rabu": "X-2: jam 8–10",
+          "kamis": "—",
+          "jumat": "GURU PIKET"
+        },
+        "jp_pekan": 9,
+        "hari_kosong": "Kamis, Jumat",
+        "tugas_tambahan": ""
+      },
+      {
+        "no": 16,
+        "kode": "MS",
+        "nama": "Muhammad Irsyad Sirojul Khoeir, S.Sos., M.Sos. *",
+        "mapel": "Sosiologi",
+        "jadwal": {
+          "senin": "—",
+          "selasa": "X-2: jam 3–4",
+          "rabu": "X-1: jam 3–4, X-3: jam 5–6",
+          "kamis": "—",
+          "jumat": "—"
+        },
+        "jp_pekan": 6,
+        "hari_kosong": "Senin, Kamis, Jumat",
+        "tugas_tambahan": "Wakamad Kurikulum — piket tiap hari"
+      },
+      {
+        "no": 17,
+        "kode": "AA",
+        "nama": "Ahmad Abrar, S.Kom., S.Psi.",
+        "mapel": "Informatika & Koding",
+        "jadwal": {
+          "senin": "X-3: jam 8–10",
+          "selasa": "—",
+          "rabu": "X-1: jam 8–10",
+          "kamis": "X-2: jam 8–10",
+          "jumat": "—"
+        },
+        "jp_pekan": 9,
+        "hari_kosong": "Selasa, Jumat",
+        "tugas_tambahan": ""
+      },
+      {
+        "no": 18,
+        "kode": "AC",
+        "nama": "Afifah Chairani, S.Li.",
+        "mapel": "Bahasa Mandarin",
+        "jadwal": {
+          "senin": "X-1: jam 5–6",
+          "selasa": "X-2: jam 8–9",
+          "rabu": "X-3: jam 3–4",
+          "kamis": "GURU PIKET",
+          "jumat": "—"
+        },
+        "jp_pekan": 6,
+        "hari_kosong": "Kamis, Jumat",
+        "tugas_tambahan": ""
+      },
+      {
+        "no": 19,
+        "kode": "DS",
+        "nama": "Dede Sukma Sudrajat, S.Pd., Gr. *",
+        "mapel": "PJOK",
+        "jadwal": {
+          "senin": "—",
+          "selasa": "X-1: jam 5–6, X-3: jam 1–2",
+          "rabu": "—",
+          "kamis": "—",
+          "jumat": "X-2: jam 1–2"
+        },
+        "jp_pekan": 6,
+        "hari_kosong": "Senin, Rabu, Kamis",
+        "tugas_tambahan": "Wakamad Sarana Prasarana — piket tiap hari"
+      },
+      {
+        "no": 20,
+        "kode": "RA",
+        "nama": "Rizki Ananda, S.Pd., Gr.",
+        "mapel": "Seni Budaya",
+        "jadwal": {
+          "senin": "—",
+          "selasa": "GURU PIKET",
+          "rabu": "—",
+          "kamis": "X-1: jam 7",
+          "jumat": "X-2: jam 9, X-3: jam 7"
+        },
+        "jp_pekan": 3,
+        "hari_kosong": "Senin, Selasa, Rabu",
+        "tugas_tambahan": ""
+      },
+      {
+        "no": 21,
+        "kode": "LN",
+        "nama": "Leni Noviani, S.Sos.",
+        "mapel": "Bimbingan Konseling",
+        "jadwal": {
+          "senin": "X-2: jam 10",
+          "selasa": "—",
+          "rabu": "GURU PIKET",
+          "kamis": "X-1: jam 11",
+          "jumat": "X-3: jam 9"
+        },
+        "jp_pekan": 3,
+        "hari_kosong": "Selasa, Rabu",
+        "tugas_tambahan": ""
+      }
+    ],
+    "guru_piket": [
+      {
+        "no": 1,
+        "tim": "Laki-laki (Ganjil)",
+        "hari": "Rabu",
+        "nama": "Azka Muhammad Naufal, B.A.",
+        "gender": "L",
+        "mapel": "Bahasa Arab",
+        "jp_mengajar": 6,
+        "total_jp_piket": "6+1 = 7 JP"
+      },
+      {
+        "no": 2,
+        "tim": "Laki-laki (Ganjil)",
+        "hari": "Selasa",
+        "nama": "Rizki Ananda, S.Pd., Gr.",
+        "gender": "L",
+        "mapel": "Seni",
+        "jp_mengajar": 4,
+        "total_jp_piket": "4+1 = 5 JP"
+      },
+      {
+        "no": 3,
+        "tim": "Laki-laki (Ganjil)",
+        "hari": "Jumat",
+        "nama": "Adi Supihadi, S.Pd., M.Pd.",
+        "gender": "L",
+        "mapel": "Akidah Akhlak",
+        "jp_mengajar": 3,
+        "total_jp_piket": "3+1 = 4 JP"
+      },
+      {
+        "no": 4,
+        "tim": "Laki-laki (Ganjil)",
+        "hari": "Senin",
+        "nama": "Asep Jafar Setiadi, S.Pd., Gr.",
+        "gender": "L",
+        "mapel": "Sejarah",
+        "jp_mengajar": 6,
+        "total_jp_piket": "6+1 = 7 JP"
+      },
+      {
+        "no": 5,
+        "tim": "Laki-laki (Ganjil)",
+        "hari": "Kamis",
+        "nama": "Muhammad Syahrul Bakhtiar , Lc.",
+        "gender": "L",
+        "mapel": "Al-Quran Hadis",
+        "jp_mengajar": 10,
+        "total_jp_piket": "3+6=1 = 10 JP"
+      },
+      {
+        "no": 6,
+        "tim": "Perempuan (Genap)",
+        "hari": "Kamis",
+        "nama": "Afifah Chairani, S.Li",
+        "gender": "P",
+        "mapel": "Bahasa Mandarin",
+        "jp_mengajar": 13,
+        "total_jp_piket": "6+6+1 = 13 JP"
+      },
+      {
+        "no": 7,
+        "tim": "Perempuan (Genap)",
+        "hari": "Rabu",
+        "nama": "Leni Noviani, S.Sos.",
+        "gender": "P",
+        "mapel": "Bimbingan Konseling",
+        "jp_mengajar": 4,
+        "total_jp_piket": "3+1 = 4 JP"
+      },
+      {
+        "no": 8,
+        "tim": "Perempuan (Genap)",
+        "hari": "Senin",
+        "nama": "Ani Nuryani, S.Pd.",
+        "gender": "P",
+        "mapel": "Sejarah Kebudayaan Islam",
+        "jp_mengajar": 10,
+        "total_jp_piket": "3+6+1 = 10 JP"
+      },
+      {
+        "no": 9,
+        "tim": "Perempuan (Genap)",
+        "hari": "Jumat",
+        "nama": "Dhera Novia Nirmaya, S.Pd.",
+        "gender": "P",
+        "mapel": "Ekonomi",
+        "jp_mengajar": 10,
+        "total_jp_piket": "9+1 = 10 JP"
+      },
+      {
+        "no": 10,
+        "tim": "Perempuan (Genap)",
+        "hari": "Selasa",
+        "nama": "Tiara Nanda Sucitra, S.Pd.",
+        "gender": "P",
+        "mapel": "Geografi",
+        "jp_mengajar": 10,
+        "total_jp_piket": "9+1 = 10 JP"
+      }
+    ],
+    "staff_ekuivalensi": [
+      {
+        "no": 1,
+        "nama": "Ahmad Ambari, S.Pd.I., M.Pd.",
+        "jabatan_mapel": "Kepala Madrasah",
+        "jp_kelas_x": [
+          0,
+          0,
+          0
+        ],
+        "total_jp_intra": 0,
+        "tugas_tambahan": "Kepala Madrasah",
+        "ekuivalensi_jp": 24
+      },
+      {
+        "no": 2,
+        "nama": "Layusa Siti Mariam, S.Pd.",
+        "jabatan_mapel": "Kepala Tata Usaha",
+        "jp_kelas_x": [
+          0,
+          0,
+          0
+        ],
+        "total_jp_intra": 0,
+        "tugas_tambahan": "",
+        "ekuivalensi_jp": 0
+      },
+      {
+        "no": 3,
+        "nama": "Muhammad Syahrul Bakhtiar, Lc.",
+        "jabatan_mapel": "Al-Qur'an Hadis",
+        "jp_kelas_x": [
+          1,
+          1,
+          1
+        ],
+        "total_jp_intra": 3,
+        "tugas_tambahan": "Wali Kelas X-1",
+        "ekuivalensi_jp": 7
+      },
+      {
+        "no": 4,
+        "nama": "Adi Supihadi, S.Pd., M.Pd.",
+        "jabatan_mapel": "Akidah Akhlak",
+        "jp_kelas_x": [
+          1,
+          1,
+          1
+        ],
+        "total_jp_intra": 3,
+        "tugas_tambahan": "Guru Piket",
+        "ekuivalensi_jp": 1
+      },
+      {
+        "no": 5,
+        "nama": "Muhammad Afsal, S.Ag.",
+        "jabatan_mapel": "Fikih",
+        "jp_kelas_x": [
+          1,
+          1,
+          1
+        ],
+        "total_jp_intra": 3,
+        "tugas_tambahan": "Wakil Kepala Madrasan Bidang Hubungan Masyarakat",
+        "ekuivalensi_jp": 12
+      },
+      {
+        "no": 6,
+        "nama": "Ani Nuryani, S.Pd.",
+        "jabatan_mapel": "Sejarah Kebudayaan Islam (SKI)",
+        "jp_kelas_x": [
+          1,
+          1,
+          1
+        ],
+        "total_jp_intra": 3,
+        "tugas_tambahan": "Wali Kelas X-2",
+        "ekuivalensi_jp": 7
+      },
+      {
+        "no": 7,
+        "nama": "Azka Muhammad Naufal, B.A.",
+        "jabatan_mapel": "Bahasa Arab",
+        "jp_kelas_x": [
+          2,
+          2,
+          2
+        ],
+        "total_jp_intra": 6,
+        "tugas_tambahan": "Guru Piket",
+        "ekuivalensi_jp": 1
+      },
+      {
+        "no": 8,
+        "nama": "Yudistira Abdi Rizki, S.H.",
+        "jabatan_mapel": "Pendidikan Pancasila",
+        "jp_kelas_x": [
+          1,
+          1,
+          1
+        ],
+        "total_jp_intra": 3,
+        "tugas_tambahan": "Wakil Kepala Madrasan Bidang Kesiswaan",
+        "ekuivalensi_jp": 12
+      },
+      {
+        "no": 9,
+        "nama": "Iqbal Ifada, S.Pd., M.Pd.",
+        "jabatan_mapel": "Bahasa Indonesia",
+        "jp_kelas_x": [
+          3,
+          3,
+          3
+        ],
+        "total_jp_intra": 10,
+        "tugas_tambahan": "",
+        "ekuivalensi_jp": 0
+      },
+      {
+        "no": 10,
+        "nama": "Ardianti Safitri, S.S.",
+        "jabatan_mapel": "Bahasa Inggris",
+        "jp_kelas_x": [
+          4,
+          4,
+          4
+        ],
+        "total_jp_intra": 12,
+        "tugas_tambahan": "",
+        "ekuivalensi_jp": 0
+      },
+      {
+        "no": 11,
+        "nama": "Kholilatun Nahdhiyyah, S.Pd., Gr.",
+        "jabatan_mapel": "Matematika",
+        "jp_kelas_x": [
+          5,
+          5,
+          5
+        ],
+        "total_jp_intra": 15,
+        "tugas_tambahan": "",
+        "ekuivalensi_jp": 0
+      },
+      {
+        "no": 12,
+        "nama": "An Nabilla Nurjannah, S.Pd.",
+        "jabatan_mapel": "Biologi",
+        "jp_kelas_x": [
+          4,
+          4,
+          4
+        ],
+        "total_jp_intra": 12,
+        "tugas_tambahan": "",
+        "ekuivalensi_jp": 0
+      },
+      {
+        "no": 13,
+        "nama": "Firda Tazkia Salsabila, S.Pd., Gr.",
+        "jabatan_mapel": "Fisika",
+        "jp_kelas_x": [
+          4,
+          4,
+          4
+        ],
+        "total_jp_intra": 12,
+        "tugas_tambahan": "",
+        "ekuivalensi_jp": 0
+      },
+      {
+        "no": 14,
+        "nama": "Indah Ayudia, S.Pd.",
+        "jabatan_mapel": "Kimia",
+        "jp_kelas_x": [
+          4,
+          4,
+          4
+        ],
+        "total_jp_intra": 13,
+        "tugas_tambahan": "",
+        "ekuivalensi_jp": 0
+      },
+      {
+        "no": 15,
+        "nama": "Asep Jafar Setiadi, S.Pd., Gr.",
+        "jabatan_mapel": "Sejarah",
+        "jp_kelas_x": [
+          2,
+          2,
+          2
+        ],
+        "total_jp_intra": 6,
+        "tugas_tambahan": "Guru Piket",
+        "ekuivalensi_jp": 1
+      },
+      {
+        "no": 16,
+        "nama": "Tiara Nanda Sucitra, S.Pd.",
+        "jabatan_mapel": "Geografi",
+        "jp_kelas_x": [
+          3,
+          3,
+          3
+        ],
+        "total_jp_intra": 9,
+        "tugas_tambahan": "Guru Piket",
+        "ekuivalensi_jp": 1
+      },
+      {
+        "no": 17,
+        "nama": "Dhera Novia Nirmaya, S.Pd",
+        "jabatan_mapel": "Ekonomi",
+        "jp_kelas_x": [
+          3,
+          3,
+          3
+        ],
+        "total_jp_intra": 9,
+        "tugas_tambahan": "Guru Piket",
+        "ekuivalensi_jp": 1
+      },
+      {
+        "no": 18,
+        "nama": "Muhammad Irsyad Sirojul Khoeir, S.Sos., M.Sos.",
+        "jabatan_mapel": "Sosiologi",
+        "jp_kelas_x": [
+          2,
+          2,
+          2
+        ],
+        "total_jp_intra": 6,
+        "tugas_tambahan": "Wakil Kepala Madrasan Bidang Kurikulum",
+        "ekuivalensi_jp": 12
+      },
+      {
+        "no": 19,
+        "nama": "Ahmad Abrar, S.Kom., S.Psi.",
+        "jabatan_mapel": "Informatika",
+        "jp_kelas_x": [
+          2,
+          2,
+          2
+        ],
+        "total_jp_intra": 9,
+        "tugas_tambahan": "",
+        "ekuivalensi_jp": 0
+      },
+      {
+        "no": 20,
+        "nama": "Afifah Chairani, S.Li.",
+        "jabatan_mapel": "Bahasa Mandarin",
+        "jp_kelas_x": [
+          2,
+          2,
+          2
+        ],
+        "total_jp_intra": 6,
+        "tugas_tambahan": "Wali Kelas X-3",
+        "ekuivalensi_jp": 7
+      },
+      {
+        "no": 21,
+        "nama": "Dede Sukma Sudrajat, S.Pd., Gr.",
+        "jabatan_mapel": "PJOK (Pendidikan Jasmani, Olahraga, dan Kesehatan)",
+        "jp_kelas_x": [
+          2,
+          2,
+          2
+        ],
+        "total_jp_intra": 6,
+        "tugas_tambahan": "Wakil Kepala Madrasan Bidang Sarana Prasarana",
+        "ekuivalensi_jp": 12
+      },
+      {
+        "no": 22,
+        "nama": "Rizki Ananda, S.Pd., Gr.",
+        "jabatan_mapel": "Seni",
+        "jp_kelas_x": [
+          1,
+          1,
+          1
+        ],
+        "total_jp_intra": 4,
+        "tugas_tambahan": "Guru Piket",
+        "ekuivalensi_jp": 1
+      },
+      {
+        "no": 23,
+        "nama": "Leni Noviani, S.Sos.",
+        "jabatan_mapel": "Bimbingan dan Konseling (BK)",
+        "jp_kelas_x": [
+          1,
+          1,
+          1
+        ],
+        "total_jp_intra": 3,
+        "tugas_tambahan": "Guru Piket",
+        "ekuivalensi_jp": 1
+      }
+    ],
+    "roadmap_program": [
+      {
+        "kelas": "X",
+        "semester": "Ganjil",
+        "fokus": "Adaptasi madrasah & pemetaan kemampuan",
+        "target": "Siswa memahami kultur MA ICN, disiplin belajar, dan baseline nilai akademik terbaca.",
+        "program_utama": "MPLS akademik; asesmen diagnostik mapel utama; pembiasaan literasi; pendampingan akhlak/adab; pengenalan jalur PTN sejak awal.",
+        "output": "Rapor diagnostik awal; profil minat-bakat; daftar siswa perlu pendampingan akademik.",
+        "waktu": "Jul–Des",
+        "pic": "Kurikulum, BK, Wali Kelas"
+      },
+      {
+        "kelas": "X",
+        "semester": "Genap",
+        "fokus": "Fondasi akademik & pemilihan arah jurusan",
+        "target": "Siswa mulai menentukan kecenderungan rumpun studi berdasarkan nilai, minat, dan konsultasi orang tua.",
+        "program_utama": "Konseling pemilihan jurusan; kelas penguatan Matematika, Bahasa, dan literasi; seminar profesi/kampus; try out internal dasar.",
+        "output": "Rekomendasi jurusan awal; rencana belajar personal; hasil TO baseline semester genap.",
+        "waktu": "Jan–Jun",
+        "pic": "BK, Wali Kelas, Guru Mapel"
+      },
+      {
+        "kelas": "XI",
+        "semester": "Ganjil",
+        "fokus": "Penguatan mapel pilihan & rekam prestasi",
+        "target": "Nilai rapor stabil naik dan siswa mulai membangun portofolio akademik/nonakademik untuk SNBP.",
+        "program_utama": "Kelas pendalaman mapel sesuai rumpun; klinik tugas/proyek; pembinaan lomba; monitoring nilai rapor; bimbel terarah per kebutuhan.",
+        "output": "Grafik progres nilai; daftar prestasi/sertifikat; catatan remedial dan enrichment.",
+        "waktu": "Jul–Des",
+        "pic": "Kurikulum, Pembina Prestasi, BK"
+      },
+      {
+        "kelas": "XI",
+        "semester": "Genap",
+        "fokus": "Finalisasi jurusan & simulasi PTN",
+        "target": "Pilihan jurusan-kampus semakin realistis berdasarkan nilai rapor, minat, peluang, dan hasil try out.",
+        "program_utama": "Workshop strategi SNBP/SNBT; simulasi pemilihan prodi; try out UTBK tahap 1; kelas intensif literasi, penalaran matematika, dan bahasa Inggris.",
+        "output": "Shortlist PTN/prodi 1–5; rapor analisis peluang; hasil TO UTBK tahap 1.",
+        "waktu": "Jan–Jun",
+        "pic": "BK, Kurikulum, Tim PTN"
+      },
+      {
+        "kelas": "XII",
+        "semester": "Ganjil",
+        "fokus": "Eksekusi SNBP & intensif UTBK",
+        "target": "Data siswa siap untuk seleksi rapor, sedangkan siswa jalur tes meningkat skor try out secara bertahap.",
+        "program_utama": "Validasi nilai rapor dan prestasi; pendampingan akun SNPMB; try out bulanan; kelas intensif UTBK/SNBT.",
+        "output": "Daftar eligible SNBP; portofolio final; tren skor TO; rekomendasi strategi jalur masuk.",
+        "waktu": "Jul–Des",
+        "pic": "BK, Operator, Tim PTN"
+      },
+      {
+        "kelas": "XII",
+        "semester": "Genap",
+        "fokus": "Finalisasi SNBT/UTBK & pendampingan hasil",
+        "target": "Siswa siap mengikuti UTBK/SNBT, punya pilihan cadangan, dan mendapat pendampingan pasca pengumuman.",
+        "program_utama": "Bootcamp UTBK; TO mingguan; review soal; finalisasi pendaftaran SNBT/mandiri; pendampingan daftar ulang/beasiswa.",
+        "output": "Skor TO akhir; bukti pendaftaran; rekap kelulusan PTN/PTS/kedinasan; evaluasi program tahunan.",
+        "waktu": "Jan–Jun",
+        "pic": "Tim PTN, BK, Wali Kelas"
+      }
+    ],
+    "rutinitas_asrama": {
+      "senin": [
+        {
+          "no": 1,
+          "waktu": "04.00 – 05.00",
+          "durasi": "60 menit",
+          "kegiatan": "Bangun Tahajjud Shubuh",
+          "catatan": "Keasramaan",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 2,
+          "waktu": "05.00 – 05.45",
+          "durasi": "45 menit",
+          "kegiatan": "Halaqah",
+          "catatan": "Keasramaan & Guru PAI",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 3,
+          "waktu": "05.45 – 06.40",
+          "durasi": "55 menit",
+          "kegiatan": "Makan & Persiapan Masuk Kelas",
+          "catatan": "Keasramaan",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 4,
+          "waktu": "06.40 – 07.00",
+          "durasi": "20 menit",
+          "kegiatan": "Apel Pagi",
+          "catatan": "Pemeriksaan Kerapian dan Absensi Harian",
+          "status": "Guru Piket Senin"
+        },
+        {
+          "no": 5,
+          "waktu": "07.00 – 07.40",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-1",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Senin"
+        },
+        {
+          "no": 6,
+          "waktu": "07.40 – 08.20",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-2",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Senin"
+        },
+        {
+          "no": 7,
+          "waktu": "08.20 – 09.00",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-3",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Senin"
+        },
+        {
+          "no": 8,
+          "waktu": "09.00 – 09.40",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-4",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Senin"
+        },
+        {
+          "no": 9,
+          "waktu": "09.40 – 10.00",
+          "durasi": "20 menit",
+          "kegiatan": "Istirahat",
+          "catatan": "Istirahat",
+          "status": "Guru Piket Senin"
+        },
+        {
+          "no": 10,
+          "waktu": "10.00 – 10.40",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-5",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Senin"
+        },
+        {
+          "no": 11,
+          "waktu": "10.40 – 11.20",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-6",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Senin"
+        },
+        {
+          "no": 12,
+          "waktu": "11.20 – 12.00",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-7",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Senin"
+        },
+        {
+          "no": 13,
+          "waktu": "12.00 – 13.00",
+          "durasi": "60 menit",
+          "kegiatan": "Istirahat",
+          "catatan": "Shalat berjamaah di masjid madrasah",
+          "status": "Guru Piket Senin"
+        },
+        {
+          "no": 14,
+          "waktu": "13.00 – 13.40",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-8",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Senin"
+        },
+        {
+          "no": 15,
+          "waktu": "13.40 – 14.20",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-9",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Senin"
+        },
+        {
+          "no": 16,
+          "waktu": "14.20 – 15.00",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-10",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Senin"
+        },
+        {
+          "no": 17,
+          "waktu": "15.00 – 15.20",
+          "durasi": "20 menit",
+          "kegiatan": "Sholat Ashar",
+          "catatan": "Keasramaan & Guru PAI",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 18,
+          "waktu": "15.20 – 16.10",
+          "durasi": "50 menit",
+          "kegiatan": "Extrakurikuler Menwa (Taruna)",
+          "catatan": "Kesiswaan",
+          "status": "Pembina Ekstrakurikuler"
+        },
+        {
+          "no": 19,
+          "waktu": "16.10 – 17.00",
+          "durasi": "50 menit",
+          "kegiatan": "Extrakurikuler Menwa (Taruna)",
+          "catatan": "Kesiswaan",
+          "status": "Pembina Ekstrakurikuler"
+        },
+        {
+          "no": 20,
+          "waktu": "17.00 – 17.45",
+          "durasi": "45 menit",
+          "kegiatan": "Makan & MCK",
+          "catatan": "Keasramaan",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 21,
+          "waktu": "17.45 – 18.00",
+          "durasi": "15 menit",
+          "kegiatan": "Menuju Masjid",
+          "catatan": "Keasramaan & Guru PAI",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 22,
+          "waktu": "18.00 – 18.20",
+          "durasi": "20 menit",
+          "kegiatan": "Sholat Maghrib",
+          "catatan": "Keasramaan & Guru PAI",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 23,
+          "waktu": "18.20 – 19.00",
+          "durasi": "40 menit",
+          "kegiatan": "Kitab Kuning",
+          "catatan": "Keasramaan & Guru PAI",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 24,
+          "waktu": "19.00 – 19.20",
+          "durasi": "20 menit",
+          "kegiatan": "Sholat Isya",
+          "catatan": "Keasramaan & Guru PAI",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 25,
+          "waktu": "19.20 – 20.00",
+          "durasi": "40 menit",
+          "kegiatan": "Mufradat",
+          "catatan": "Keasramaan & Guru PAI",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 26,
+          "waktu": "20.00 – 21.30",
+          "durasi": "90 menit",
+          "kegiatan": "Klinik Pembelajaran",
+          "catatan": "Kurikulum",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 27,
+          "waktu": "21.30 – 22.00",
+          "durasi": "30 menit",
+          "kegiatan": "Persiapan Tidur",
+          "catatan": "Keasramaan",
+          "status": "Guru Asrama"
+        }
+      ],
+      "selasa": [
+        {
+          "no": 1,
+          "waktu": "04.00 – 05.00",
+          "durasi": "60 menit",
+          "kegiatan": "Bangun Tahajjud Shubuh",
+          "catatan": "Keasramaan",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 2,
+          "waktu": "05.00 – 05.45",
+          "durasi": "45 menit",
+          "kegiatan": "Halaqah",
+          "catatan": "Keasramaan & Guru PAI",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 3,
+          "waktu": "05.45 – 06.40",
+          "durasi": "55 menit",
+          "kegiatan": "Makan & Persiapan Masuk Kelas",
+          "catatan": "Keasramaan",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 4,
+          "waktu": "06.40 – 07.00",
+          "durasi": "20 menit",
+          "kegiatan": "Apel Pagi",
+          "catatan": "Pemeriksaan Kerapian dan Absensi Harian",
+          "status": "Guru Piket Selasa"
+        },
+        {
+          "no": 5,
+          "waktu": "07.00 – 07.40",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-1",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Selasa"
+        },
+        {
+          "no": 6,
+          "waktu": "07.40 – 08.20",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-2",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Selasa"
+        },
+        {
+          "no": 7,
+          "waktu": "08.20 – 09.00",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-3",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Selasa"
+        },
+        {
+          "no": 8,
+          "waktu": "09.00 – 09.40",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-4",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Selasa"
+        },
+        {
+          "no": 9,
+          "waktu": "09.40 – 10.00",
+          "durasi": "20 menit",
+          "kegiatan": "Istirahat",
+          "catatan": "Istirahat",
+          "status": "Guru Piket Selasa"
+        },
+        {
+          "no": 10,
+          "waktu": "10.00 – 10.40",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-5",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Selasa"
+        },
+        {
+          "no": 11,
+          "waktu": "10.40 – 11.20",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-6",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Selasa"
+        },
+        {
+          "no": 12,
+          "waktu": "11.20 – 12.00",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-7",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Selasa"
+        },
+        {
+          "no": 13,
+          "waktu": "12.00 – 13.00",
+          "durasi": "60 menit",
+          "kegiatan": "Istirahat",
+          "catatan": "Shalat berjamaah di masjid madrasah",
+          "status": "Guru Piket Selasa"
+        },
+        {
+          "no": 14,
+          "waktu": "13.00 – 13.40",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-8",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Selasa"
+        },
+        {
+          "no": 15,
+          "waktu": "13.40 – 14.20",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-9",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Selasa"
+        },
+        {
+          "no": 16,
+          "waktu": "14.20 – 15.00",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-10",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Selasa"
+        },
+        {
+          "no": 17,
+          "waktu": "15.00 – 15.40",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-11",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Selasa"
+        },
+        {
+          "no": 18,
+          "waktu": "15.40 – 16.00",
+          "durasi": "20 menit",
+          "kegiatan": "Sholat Ashar",
+          "catatan": "Keasramaan & Guru PAI",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 19,
+          "waktu": "16.00 – 17.00",
+          "durasi": "60 menit",
+          "kegiatan": "Kegiatan Mandiri",
+          "catatan": "Kesiswaan",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 20,
+          "waktu": "17.00 – 18.00",
+          "durasi": "60 menit",
+          "kegiatan": "Makan & MCK",
+          "catatan": "Keasramaan",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 21,
+          "waktu": "18.00 – 18.20",
+          "durasi": "20 menit",
+          "kegiatan": "Sholat Maghrib",
+          "catatan": "Keasramaan & Guru PAI",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 22,
+          "waktu": "18.20 – 19.00",
+          "durasi": "40 menit",
+          "kegiatan": "Mufradat",
+          "catatan": "Keasramaan & Guru PAI",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 23,
+          "waktu": "19.00 – 19.20",
+          "durasi": "20 menit",
+          "kegiatan": "Sholat Isya",
+          "catatan": "Keasramaan & Guru PAI",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 24,
+          "waktu": "19.20 – 20.00",
+          "durasi": "40 menit",
+          "kegiatan": "Kitab Kuning",
+          "catatan": "Keasramaan & Guru PAI",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 25,
+          "waktu": "20.00 – 21.30",
+          "durasi": "90 menit",
+          "kegiatan": "KBS",
+          "catatan": "Kesiswaan",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 26,
+          "waktu": "21.30 – 22.00",
+          "durasi": "30 menit",
+          "kegiatan": "Persiapan Tidur",
+          "catatan": "Keasramaan",
+          "status": "Guru Asrama"
+        }
+      ],
+      "rabu": [
+        {
+          "no": 1,
+          "waktu": "04.00 – 05.00",
+          "durasi": "60 menit",
+          "kegiatan": "Bangun Tahajjud Shubuh",
+          "catatan": "Keasramaan",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 2,
+          "waktu": "05.00 – 05.45",
+          "durasi": "45 menit",
+          "kegiatan": "Halaqah",
+          "catatan": "Keasramaan & Guru PAI",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 3,
+          "waktu": "05.45 – 06.40",
+          "durasi": "55 menit",
+          "kegiatan": "Makan & Persiapan Masuk Kelas",
+          "catatan": "Keasramaan",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 4,
+          "waktu": "06.40 – 07.00",
+          "durasi": "20 menit",
+          "kegiatan": "Apel Pagi",
+          "catatan": "Pemeriksaan Kerapian dan Absensi Harian",
+          "status": "Guru Piket Rabu"
+        },
+        {
+          "no": 5,
+          "waktu": "07.00 – 07.40",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-1",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Rabu"
+        },
+        {
+          "no": 6,
+          "waktu": "07.40 – 08.20",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-2",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Rabu"
+        },
+        {
+          "no": 7,
+          "waktu": "08.20 – 09.00",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-3",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Rabu"
+        },
+        {
+          "no": 8,
+          "waktu": "09.00 – 09.40",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-4",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Rabu"
+        },
+        {
+          "no": 9,
+          "waktu": "09.40 – 10.00",
+          "durasi": "20 menit",
+          "kegiatan": "Istirahat",
+          "catatan": "Istirahat",
+          "status": "Guru Piket Rabu"
+        },
+        {
+          "no": 10,
+          "waktu": "10.00 – 10.40",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-5",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Rabu"
+        },
+        {
+          "no": 11,
+          "waktu": "10.40 – 11.20",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-6",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Rabu"
+        },
+        {
+          "no": 12,
+          "waktu": "11.20 – 12.00",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-7",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Rabu"
+        },
+        {
+          "no": 13,
+          "waktu": "12.00 – 13.00",
+          "durasi": "60 menit",
+          "kegiatan": "Istirahat",
+          "catatan": "Shalat berjamaah di masjid madrasah",
+          "status": "Guru Piket Rabu"
+        },
+        {
+          "no": 14,
+          "waktu": "13.00 – 13.40",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-8",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Rabu"
+        },
+        {
+          "no": 15,
+          "waktu": "13.40 – 14.20",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-9",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Rabu"
+        },
+        {
+          "no": 16,
+          "waktu": "14.20 – 15.00",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-10",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Rabu"
+        },
+        {
+          "no": 17,
+          "waktu": "15.00 – 15.20",
+          "durasi": "20 menit",
+          "kegiatan": "Sholat Ashar",
+          "catatan": "Keasramaan & Guru PAI",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 18,
+          "waktu": "15.20 – 16.10",
+          "durasi": "50 menit",
+          "kegiatan": "Extrakurikuler",
+          "catatan": "Kesiswaan",
+          "status": "Pembina Ekstrakurikuler"
+        },
+        {
+          "no": 19,
+          "waktu": "16.10 – 17.00",
+          "durasi": "50 menit",
+          "kegiatan": "Extrakurikuler",
+          "catatan": "Kesiswaan",
+          "status": "Pembina Ekstrakurikuler"
+        },
+        {
+          "no": 20,
+          "waktu": "17.00 – 18.00",
+          "durasi": "60 menit",
+          "kegiatan": "Makan & MCK",
+          "catatan": "Keasramaan",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 21,
+          "waktu": "18.00 – 18.20",
+          "durasi": "20 menit",
+          "kegiatan": "Sholat Maghrib",
+          "catatan": "Keasramaan & Guru PAI",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 22,
+          "waktu": "18.20 – 19.00",
+          "durasi": "40 menit",
+          "kegiatan": "Mufradat",
+          "catatan": "Keasramaan & Guru PAI",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 23,
+          "waktu": "19.00 – 19.20",
+          "durasi": "20 menit",
+          "kegiatan": "Sholat Isya",
+          "catatan": "Keasramaan & Guru PAI",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 24,
+          "waktu": "19.20 – 20.00",
+          "durasi": "40 menit",
+          "kegiatan": "Kitab Kuning",
+          "catatan": "Keasramaan & Guru PAI",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 25,
+          "waktu": "20.00 – 21.30",
+          "durasi": "90 menit",
+          "kegiatan": "Muhadharah",
+          "catatan": "Keasramaan",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 26,
+          "waktu": "21.30 – 22.00",
+          "durasi": "30 menit",
+          "kegiatan": "Istirahat",
+          "catatan": "Kesiswaan",
+          "status": "Guru Asrama"
+        }
+      ],
+      "kamis": [
+        {
+          "no": 1,
+          "waktu": "04.00 – 05.00",
+          "durasi": "60 menit",
+          "kegiatan": "Bangun Tahajjud Shubuh",
+          "catatan": "Keasramaan",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 2,
+          "waktu": "05.00 – 05.45",
+          "durasi": "45 menit",
+          "kegiatan": "Halaqah",
+          "catatan": "Keasramaan & Guru PAI",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 3,
+          "waktu": "05.45 – 06.40",
+          "durasi": "55 menit",
+          "kegiatan": "Makan & Persiapan Masuk Kelas",
+          "catatan": "Keasramaan",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 4,
+          "waktu": "06.40 – 07.00",
+          "durasi": "20 menit",
+          "kegiatan": "Apel Pagi",
+          "catatan": "Pemeriksaan Kerapian dan Absensi Harian",
+          "status": "Guru Piket Kamis"
+        },
+        {
+          "no": 5,
+          "waktu": "07.00 – 07.40",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-1",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Kamis"
+        },
+        {
+          "no": 6,
+          "waktu": "07.40 – 08.20",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-2",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Kamis"
+        },
+        {
+          "no": 7,
+          "waktu": "08.20 – 09.00",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-3",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Kamis"
+        },
+        {
+          "no": 8,
+          "waktu": "09.00 – 09.40",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-4",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Kamis"
+        },
+        {
+          "no": 9,
+          "waktu": "09.40 – 10.00",
+          "durasi": "20 menit",
+          "kegiatan": "Istirahat",
+          "catatan": "Istirahat",
+          "status": "Guru Piket Kamis"
+        },
+        {
+          "no": 10,
+          "waktu": "10.00 – 10.40",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-5",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Kamis"
+        },
+        {
+          "no": 11,
+          "waktu": "10.40 – 11.20",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-6",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Kamis"
+        },
+        {
+          "no": 12,
+          "waktu": "11.20 – 12.00",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-7",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Kamis"
+        },
+        {
+          "no": 13,
+          "waktu": "12.00 – 13.00",
+          "durasi": "60 menit",
+          "kegiatan": "Istirahat",
+          "catatan": "Shalat berjamaah di masjid madrasah",
+          "status": "Guru Piket Kamis"
+        },
+        {
+          "no": 14,
+          "waktu": "13.00 – 13.40",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-8",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Kamis"
+        },
+        {
+          "no": 15,
+          "waktu": "13.40 – 14.20",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-9",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Kamis"
+        },
+        {
+          "no": 16,
+          "waktu": "14.20 – 15.00",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-10",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Kamis"
+        },
+        {
+          "no": 17,
+          "waktu": "15.00 – 15.40",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-11",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Kamis"
+        },
+        {
+          "no": 18,
+          "waktu": "15.40 – 16.00",
+          "durasi": "20 menit",
+          "kegiatan": "Sholat Ashar",
+          "catatan": "Keasramaan & Guru PAI",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 19,
+          "waktu": "16.00 – 17.15",
+          "durasi": "75 menit",
+          "kegiatan": "Kegiatan Mandiri",
+          "catatan": "Kesiswaan",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 20,
+          "waktu": "17.15 – 18.00",
+          "durasi": "45 menit",
+          "kegiatan": "Persiapan Maghrib",
+          "catatan": "Keasramaan",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 21,
+          "waktu": "18.00 – 18.20",
+          "durasi": "20 menit",
+          "kegiatan": "Sholat Maghrib",
+          "catatan": "Keasramaan & Guru PAI",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 22,
+          "waktu": "18.20 – 19.00",
+          "durasi": "40 menit",
+          "kegiatan": "Buka Bersama",
+          "catatan": "Keasramaan",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 23,
+          "waktu": "19.00 – 19.20",
+          "durasi": "20 menit",
+          "kegiatan": "Sholat Isya",
+          "catatan": "Keasramaan & Guru PAI",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 24,
+          "waktu": "19.20 – 20.00",
+          "durasi": "40 menit",
+          "kegiatan": "Yasinan",
+          "catatan": "Keasramaan & Guru PAI",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 25,
+          "waktu": "20.00 – 21.30",
+          "durasi": "90 menit",
+          "kegiatan": "Extrakurikuler Riset",
+          "catatan": "Kesiswaan",
+          "status": "Pembina Ekstrakurikuler"
+        },
+        {
+          "no": 26,
+          "waktu": "21.30 – 22.00",
+          "durasi": "30 menit",
+          "kegiatan": "Istirahat",
+          "catatan": "Kesiswaan",
+          "status": "Guru Asrama"
+        }
+      ],
+      "jumat": [
+        {
+          "no": 1,
+          "waktu": "03.40 – 05.30",
+          "durasi": "110 menit",
+          "kegiatan": "Bangun Tahajjud Shubuh",
+          "catatan": "Keasramaan",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 2,
+          "waktu": "05.30 – 06.25",
+          "durasi": "55 menit",
+          "kegiatan": "Halaqah",
+          "catatan": "Keasramaan & Guru PAI",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 3,
+          "waktu": "06.25 – 06.45",
+          "durasi": "20 menit",
+          "kegiatan": "Makan & Persiapan Masuk Kelas",
+          "catatan": "Keasramaan",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 4,
+          "waktu": "06.45 – 07.00",
+          "durasi": "15 menit",
+          "kegiatan": "Apel Pagi",
+          "catatan": "Pemeriksaan Kerapian dan Absensi Harian",
+          "status": "Guru Piket Jum'at"
+        },
+        {
+          "no": 5,
+          "waktu": "07.00 – 07.20",
+          "durasi": "20 menit",
+          "kegiatan": "Kultum",
+          "catatan": "Keasramaan & Guru PAI",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 6,
+          "waktu": "07.20 – 08.00",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-1",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Jum'at"
+        },
+        {
+          "no": 7,
+          "waktu": "08.00 – 08.40",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-2",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Jum'at"
+        },
+        {
+          "no": 8,
+          "waktu": "08.40 – 09.20",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-3",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Jum'at"
+        },
+        {
+          "no": 9,
+          "waktu": "09.20 – 10.00",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-4",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Jum'at"
+        },
+        {
+          "no": 10,
+          "waktu": "10.00 – 10.10",
+          "durasi": "10 menit",
+          "kegiatan": "Istirahat",
+          "catatan": "Istirahat",
+          "status": "Guru Piket Jum'at"
+        },
+        {
+          "no": 11,
+          "waktu": "10.10 – 10.50",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-5",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Jum'at"
+        },
+        {
+          "no": 12,
+          "waktu": "10.50 – 11.30",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-6",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Jum'at"
+        },
+        {
+          "no": 13,
+          "waktu": "11.30 – 13.30",
+          "durasi": "120 menit",
+          "kegiatan": "Sholat Jumat & Istirahat",
+          "catatan": "Shalat Jum'at (Putri Keputrian)",
+          "status": "Guru Piket Jum'at"
+        },
+        {
+          "no": 14,
+          "waktu": "13.30 – 14.10",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-7",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Jum'at"
+        },
+        {
+          "no": 15,
+          "waktu": "14.10 – 14.50",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-8",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Jum'at"
+        },
+        {
+          "no": 16,
+          "waktu": "14.50 – 15.30",
+          "durasi": "40 menit",
+          "kegiatan": "Jam Ke-9",
+          "catatan": "KBM Reguler",
+          "status": "Guru Piket Jum'at"
+        },
+        {
+          "no": 17,
+          "waktu": "15.30 – 16.00",
+          "durasi": "30 menit",
+          "kegiatan": "Sholat Ashar",
+          "catatan": "Keasramaan & Guru PAI",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 18,
+          "waktu": "16.00 – 17.15",
+          "durasi": "75 menit",
+          "kegiatan": "Extrakurikuler Beladiri",
+          "catatan": "Kesiswaan",
+          "status": "Pembina Ekstrakurikuler"
+        },
+        {
+          "no": 19,
+          "waktu": "17.15 – 18.00",
+          "durasi": "45 menit",
+          "kegiatan": "MCK",
+          "catatan": "Keasramaan",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 20,
+          "waktu": "18.00 – 18.20",
+          "durasi": "20 menit",
+          "kegiatan": "Sholat Maghrib",
+          "catatan": "Keasramaan & Guru PAI",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 21,
+          "waktu": "18.20 – 19.00",
+          "durasi": "40 menit",
+          "kegiatan": "Tahqiqul Qur'an",
+          "catatan": "Keasramaan & Guru PAI",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 22,
+          "waktu": "19.00 – 19.20",
+          "durasi": "20 menit",
+          "kegiatan": "Sholat Isya",
+          "catatan": "Keasramaan & Guru PAI",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 23,
+          "waktu": "19.20 – 20.00",
+          "durasi": "40 menit",
+          "kegiatan": "Mufradat",
+          "catatan": "Keasramaan & Guru PAI",
+          "status": "Guru Asrama"
+        },
+        {
+          "no": 24,
+          "waktu": "20.00 – 21.30",
+          "durasi": "90 menit",
+          "kegiatan": "Extrakurikuler Pilihan",
+          "catatan": "Kesiswaan",
+          "status": "Pembina Ekstrakurikuler"
+        },
+        {
+          "no": 25,
+          "waktu": "21.30 – 22.00",
+          "durasi": "30 menit",
+          "kegiatan": "Istirahat",
+          "catatan": "Kesiswaan",
+          "status": "Guru Asrama"
+        }
+      ]
+    }
   },
-  "matrikulasi": {
-   "bg": "#FFB300",
-   "teks": "#4A2E00",
-   "label": "Matrikulasi"
-  },
-  "matsama": {
-   "bg": "#00897B",
-   "teks": "#fff",
-   "label": "MATSAMA (Masa Ta'aruf Murid Madrasah)"
-  },
-  "pembelajaran": {
-   "bg": "#548235",
-   "teks": "#fff",
-   "label": "Pembelajaran Efektif"
-  },
-  "asesmen": {
-   "bg": "#7030A0",
-   "teks": "#fff",
-   "label": "Asesmen dan Sumatif (STS/SAS)"
-  },
-  "kegiatan_kurikulum": {
-   "bg": "#9CCC65",
-   "teks": "#2E3D17",
-   "label": "Kegiatan Kurikulum (Remedial/Pengayaan)"
-  },
-  "kesiswaan": {
-   "bg": "#ED7D31",
-   "teks": "#3A1D00",
-   "label": "Kegiatan Kesiswaan / Class Meeting"
-  },
-  "rapor": {
-   "bg": "#002060",
-   "teks": "#fff",
-   "label": "Pembagian Rapor"
-  },
-  "unggulan": {
-   "bg": "#C9A227",
-   "teks": "#3A2E00",
-   "label": "Program Unggulan ICN"
-  },
-  "madrasah": {
-   "bg": "#9B59B6",
-   "teks": "#fff",
-   "label": "Kegiatan Madrasah"
-  },
-  "libur_nasional": {
-   "bg": "#C00000",
-   "teks": "#fff",
-   "label": "Libur Nasional"
-  },
-  "cuti_bersama_nasional": {
-   "bg": "#E64A19",
-   "teks": "#fff",
-   "label": "Libur Nasional / Cuti Bersama"
-  },
-  "cuti_bersama": {
-   "bg": "#FF8A80",
-   "teks": "#5A0000",
-   "label": "Cuti Bersama"
-  },
-  "libur_semester": {
-   "bg": "#7F7F7F",
-   "teks": "#fff",
-   "label": "Libur Semester / Akhir Tahun Pelajaran"
-  },
-  "libur_mingguan": {
-   "bg": "#F0F0F0",
-   "teks": "#9aa",
-   "label": "Libur Mingguan (Sabtu–Minggu)"
-  },
-  "default": {
-   "bg": "#E8EDE9",
-   "teks": "#555",
-   "label": "Lainnya"
+  "klinik_pembelajaran": {
+    "aturan": [
+      "1 mapel hanya 1x per minggu per kelas (X-1, X-2, X-3 dihitung mandiri).",
+      "Slot waktu mingguan tetap: Senin malam (20.30 – 21.30) dan Selasa sore (16.15 – 17.00).",
+      "Satu waktu boleh dipakai beberapa kelas, asal gurunya berbeda.",
+      "Guru/kelas dapat mengajukan beberapa preferensi mapel, namun hanya 1 mapel yang disetujui (Approved) oleh Admin Kurikulum per slot kelas.",
+      "Slot yang telah disetujui terkunci dan wajib disertai tindak lanjut / bukti hasil asesmen klinik."
+    ],
+    "slots_mingguan": [
+      {
+        "hari": "Senin",
+        "waktu": "20.30 – 21.30 WIB",
+        "sesi": "Malam"
+      },
+      {
+        "hari": "Selasa",
+        "waktu": "16.15 – 17.00 WIB",
+        "sesi": "Sore"
+      }
+    ],
+    "daftar_guru": [
+      {
+        "nama": "Adi Supihadi, S.Pd., M.Pd.",
+        "mapel": "Akidah Akhlak"
+      },
+      {
+        "nama": "Afifah Chairani, S.Li",
+        "mapel": "Bahasa Mandarin"
+      },
+      {
+        "nama": "Ahmad Abrar, S.Kom., S.Psi.",
+        "mapel": "Informatika & Koding"
+      },
+      {
+        "nama": "An Nabilla Nurjannah, S.Pd.",
+        "mapel": "Biologi"
+      },
+      {
+        "nama": "Ani Nuryani, S.Pd.",
+        "mapel": "Sejarah Kebudayaan Islam"
+      },
+      {
+        "nama": "Ardianti Safitri, S.S.",
+        "mapel": "Bahasa Inggris"
+      },
+      {
+        "nama": "Asep Jafar Setiadi, S.Pd., Gr",
+        "mapel": "Sejarah"
+      },
+      {
+        "nama": "Azka Muhammad Naufal, BA.",
+        "mapel": "Bahasa Arab"
+      },
+      {
+        "nama": "Dede Sukma Sudrajat, S.Pd., Gr.",
+        "mapel": "PJOK"
+      },
+      {
+        "nama": "Firda Tazkia Salsabila, S.Pd., Gr.",
+        "mapel": "Fisika"
+      },
+      {
+        "nama": "Indah Ayudia, S.Pd.",
+        "mapel": "Kimia"
+      },
+      {
+        "nama": "Iqbal Ifada, S.Pd., M.Pd.",
+        "mapel": "Bahasa Indonesia"
+      },
+      {
+        "nama": "Kholilatun Nahdhiyyah, S.Pd, Gr.",
+        "mapel": "Matematika"
+      },
+      {
+        "nama": "Leni Noviani, S.Sos.",
+        "mapel": "Bimbingan Konseling"
+      },
+      {
+        "nama": "Muhammad Afsal, S.Ag.",
+        "mapel": "Fikih"
+      },
+      {
+        "nama": "Muhammad Irsyad Sirojul Khoeir, S.Sos., M.Sos.",
+        "mapel": "Sosiologi"
+      },
+      {
+        "nama": "Muhammad Syahrul Bakhtiar, Lc.",
+        "mapel": "Al-Quran Hadis"
+      },
+      {
+        "nama": "Rizki Ananda, S.Pd., Gr.",
+        "mapel": "Seni Budaya"
+      },
+      {
+        "nama": "Tiara Nanda Sucitra, S.Pd.",
+        "mapel": "Geografi"
+      },
+      {
+        "nama": "Yudistira Abdi Rizki, S.H.",
+        "mapel": "Pendidikan Pancasila"
+      }
+    ],
+    "jadwal_booking": [
+      {
+        "id": "klinik-w1-senin",
+        "minggu": 1,
+        "hari": "Senin",
+        "tanggal": "2026-10-12",
+        "jam": "20.30 – 21.30",
+        "slot_kelas": {
+          "X-1": {
+            "guru": "Adi Supihadi, S.Pd., M.Pd.",
+            "mapel": "Akidah Akhlak",
+            "usulan_mapel": [
+              "Akidah Akhlak"
+            ],
+            "status": "Approved",
+            "bukti_asesmen": "KLIK SAJA JIKA ANDA KEPO"
+          },
+          "X-2": {
+            "guru": "Muhammad Afsal, S.Ag.",
+            "mapel": "Fikih",
+            "usulan_mapel": [
+              "Fikih"
+            ],
+            "status": "Approved",
+            "bukti_asesmen": ""
+          },
+          "X-3": {
+            "guru": "Muhammad Syahrul Bakhtiar, Lc.",
+            "mapel": "Al-Quran Hadis",
+            "usulan_mapel": [
+              "Al-Quran Hadis"
+            ],
+            "status": "Approved",
+            "bukti_asesmen": ""
+          }
+        },
+        "status_cek": "Terisi (3 kelas)"
+      },
+      {
+        "id": "klinik-w1-selasa",
+        "minggu": 1,
+        "hari": "Selasa",
+        "tanggal": "2026-10-13",
+        "jam": "16.15 – 17.00",
+        "slot_kelas": {
+          "X-1": {
+            "guru": "Indah Ayudia, S.Pd.",
+            "mapel": "Kimia",
+            "usulan_mapel": [
+              "Kimia"
+            ],
+            "status": "Approved",
+            "bukti_asesmen": ""
+          },
+          "X-2": {
+            "guru": "An Nabilla Nurjannah, S.Pd.",
+            "mapel": "Biologi",
+            "usulan_mapel": [
+              "Biologi"
+            ],
+            "status": "Approved",
+            "bukti_asesmen": ""
+          },
+          "X-3": {
+            "guru": "Dhera Novia Nirmaya, S.Pd.",
+            "mapel": "Ekonomi",
+            "usulan_mapel": [
+              "Ekonomi"
+            ],
+            "status": "Approved",
+            "bukti_asesmen": ""
+          }
+        },
+        "status_cek": "Terisi (3 kelas)"
+      },
+      {
+        "id": "klinik-w2-senin",
+        "minggu": 2,
+        "hari": "Senin",
+        "tanggal": "2026-10-19",
+        "jam": "20.30 – 21.30",
+        "slot_kelas": {
+          "X-1": {
+            "guru": "Indah Ayudia, S.Pd.",
+            "mapel": "Kimia",
+            "usulan_mapel": [
+              "Kimia"
+            ],
+            "status": "Approved",
+            "bukti_asesmen": ""
+          },
+          "X-2": {
+            "guru": "",
+            "mapel": "",
+            "usulan_mapel": [],
+            "status": "Open",
+            "bukti_asesmen": ""
+          },
+          "X-3": {
+            "guru": "Kholilatun Nahdhiyyah, S.Pd, Gr.",
+            "mapel": "Matematika",
+            "usulan_mapel": [
+              "Matematika"
+            ],
+            "status": "Approved",
+            "bukti_asesmen": "KLIK UNTUK LIHAT HASIL"
+          }
+        },
+        "status_cek": "Terisi (2 kelas)"
+      },
+      {
+        "id": "klinik-w2-selasa",
+        "minggu": 2,
+        "hari": "Selasa",
+        "tanggal": "2026-10-20",
+        "jam": "16.15 – 17.00",
+        "slot_kelas": {
+          "X-1": {
+            "guru": "",
+            "mapel": "",
+            "usulan_mapel": [],
+            "status": "Open",
+            "bukti_asesmen": ""
+          },
+          "X-2": {
+            "guru": "",
+            "mapel": "",
+            "usulan_mapel": [],
+            "status": "Open",
+            "bukti_asesmen": ""
+          },
+          "X-3": {
+            "guru": "",
+            "mapel": "",
+            "usulan_mapel": [],
+            "status": "Open",
+            "bukti_asesmen": ""
+          }
+        },
+        "status_cek": "Kosong"
+      },
+      {
+        "id": "klinik-w3-senin",
+        "minggu": 3,
+        "hari": "Senin",
+        "tanggal": "2026-10-26",
+        "jam": "20.30 – 21.30",
+        "slot_kelas": {
+          "X-1": {
+            "guru": "Muhammad Afsal, S.Ag.",
+            "mapel": "Fikih",
+            "usulan_mapel": [
+              "Fikih"
+            ],
+            "status": "Approved",
+            "bukti_asesmen": "Sumatif Harian Susulan"
+          },
+          "X-2": {
+            "guru": "Kholilatun Nahdhiyyah, S.Pd, Gr.",
+            "mapel": "Matematika",
+            "usulan_mapel": [
+              "Matematika"
+            ],
+            "status": "Approved",
+            "bukti_asesmen": ""
+          },
+          "X-3": {
+            "guru": "Indah Ayudia, S.Pd.",
+            "mapel": "Kimia",
+            "usulan_mapel": [
+              "Kimia"
+            ],
+            "status": "Approved",
+            "bukti_asesmen": ""
+          }
+        },
+        "status_cek": "Terisi (3 kelas)"
+      },
+      {
+        "id": "klinik-w3-selasa",
+        "minggu": 3,
+        "hari": "Selasa",
+        "tanggal": "2026-10-27",
+        "jam": "16.15 – 17.00",
+        "slot_kelas": {
+          "X-1": {
+            "guru": "",
+            "mapel": "",
+            "usulan_mapel": [],
+            "status": "Open",
+            "bukti_asesmen": ""
+          },
+          "X-2": {
+            "guru": "",
+            "mapel": "",
+            "usulan_mapel": [],
+            "status": "Open",
+            "bukti_asesmen": ""
+          },
+          "X-3": {
+            "guru": "Afifah Chairani, S.Li",
+            "mapel": "Bahasa Mandarin",
+            "usulan_mapel": [
+              "Bahasa Mandarin"
+            ],
+            "status": "Approved",
+            "bukti_asesmen": ""
+          }
+        },
+        "status_cek": "Terisi (1 kelas)"
+      },
+      {
+        "id": "klinik-w4-senin",
+        "minggu": 4,
+        "hari": "Senin",
+        "tanggal": "2026-11-02",
+        "jam": "20.30 – 21.30",
+        "slot_kelas": {
+          "X-1": {
+            "guru": "Kholilatun Nahdhiyyah, S.Pd, Gr.",
+            "mapel": "Matematika",
+            "usulan_mapel": [
+              "Matematika"
+            ],
+            "status": "Approved",
+            "bukti_asesmen": ""
+          },
+          "X-2": {
+            "guru": "Indah Ayudia, S.Pd.",
+            "mapel": "Kimia",
+            "usulan_mapel": [
+              "Kimia"
+            ],
+            "status": "Approved",
+            "bukti_asesmen": ""
+          },
+          "X-3": {
+            "guru": "",
+            "mapel": "",
+            "usulan_mapel": [],
+            "status": "Open",
+            "bukti_asesmen": ""
+          }
+        },
+        "status_cek": "Terisi (2 kelas)"
+      },
+      {
+        "id": "klinik-w4-selasa",
+        "minggu": 4,
+        "hari": "Selasa",
+        "tanggal": "2026-11-03",
+        "jam": "16.15 – 17.00",
+        "slot_kelas": {
+          "X-1": {
+            "guru": "",
+            "mapel": "",
+            "usulan_mapel": [],
+            "status": "Open",
+            "bukti_asesmen": ""
+          },
+          "X-2": {
+            "guru": "",
+            "mapel": "",
+            "usulan_mapel": [],
+            "status": "Open",
+            "bukti_asesmen": ""
+          },
+          "X-3": {
+            "guru": "",
+            "mapel": "",
+            "usulan_mapel": [],
+            "status": "Open",
+            "bukti_asesmen": ""
+          }
+        },
+        "status_cek": "Kosong"
+      },
+      {
+        "id": "klinik-w5-senin",
+        "minggu": 5,
+        "hari": "Senin",
+        "tanggal": "2026-11-09",
+        "jam": "20.30 – 21.30",
+        "slot_kelas": {
+          "X-1": {
+            "guru": "",
+            "mapel": "",
+            "usulan_mapel": [],
+            "status": "Open",
+            "bukti_asesmen": ""
+          },
+          "X-2": {
+            "guru": "Kholilatun Nahdhiyyah, S.Pd, Gr.",
+            "mapel": "Matematika",
+            "usulan_mapel": [
+              "Matematika"
+            ],
+            "status": "Approved",
+            "bukti_asesmen": ""
+          },
+          "X-3": {
+            "guru": "Indah Ayudia, S.Pd.",
+            "mapel": "Kimia",
+            "usulan_mapel": [
+              "Kimia"
+            ],
+            "status": "Approved",
+            "bukti_asesmen": ""
+          }
+        },
+        "status_cek": "Terisi (2 kelas)"
+      },
+      {
+        "id": "klinik-w5-selasa",
+        "minggu": 5,
+        "hari": "Selasa",
+        "tanggal": "2026-11-10",
+        "jam": "16.15 – 17.00",
+        "slot_kelas": {
+          "X-1": {
+            "guru": "",
+            "mapel": "",
+            "usulan_mapel": [],
+            "status": "Open",
+            "bukti_asesmen": ""
+          },
+          "X-2": {
+            "guru": "",
+            "mapel": "",
+            "usulan_mapel": [],
+            "status": "Open",
+            "bukti_asesmen": ""
+          },
+          "X-3": {
+            "guru": "",
+            "mapel": "",
+            "usulan_mapel": [],
+            "status": "Open",
+            "bukti_asesmen": ""
+          }
+        },
+        "status_cek": "Kosong"
+      },
+      {
+        "id": "klinik-w6-senin",
+        "minggu": 6,
+        "hari": "Senin",
+        "tanggal": "2026-11-16",
+        "jam": "20.30 – 21.30",
+        "slot_kelas": {
+          "X-1": {
+            "guru": "",
+            "mapel": "",
+            "usulan_mapel": [],
+            "status": "Open",
+            "bukti_asesmen": ""
+          },
+          "X-2": {
+            "guru": "Indah Ayudia, S.Pd.",
+            "mapel": "Kimia",
+            "usulan_mapel": [
+              "Kimia"
+            ],
+            "status": "Approved",
+            "bukti_asesmen": ""
+          },
+          "X-3": {
+            "guru": "Kholilatun Nahdhiyyah, S.Pd, Gr.",
+            "mapel": "Matematika",
+            "usulan_mapel": [
+              "Matematika"
+            ],
+            "status": "Approved",
+            "bukti_asesmen": ""
+          }
+        },
+        "status_cek": "Terisi (2 kelas)"
+      },
+      {
+        "id": "klinik-w6-selasa",
+        "minggu": 6,
+        "hari": "Selasa",
+        "tanggal": "2026-11-17",
+        "jam": "16.15 – 17.00",
+        "slot_kelas": {
+          "X-1": {
+            "guru": "",
+            "mapel": "",
+            "usulan_mapel": [],
+            "status": "Open",
+            "bukti_asesmen": ""
+          },
+          "X-2": {
+            "guru": "",
+            "mapel": "",
+            "usulan_mapel": [],
+            "status": "Open",
+            "bukti_asesmen": ""
+          },
+          "X-3": {
+            "guru": "",
+            "mapel": "",
+            "usulan_mapel": [],
+            "status": "Open",
+            "bukti_asesmen": ""
+          }
+        },
+        "status_cek": "Kosong"
+      }
+    ]
   }
- },
- "legenda_kelompok": [
-  {
-   "judul": "Pra-Tahun Ajaran",
-   "kategori": [
-    "boarding",
-    "matsama",
-    "matrikulasi"
-   ]
-  },
-  {
-   "judul": "Pembelajaran & Asesmen",
-   "kategori": [
-    "pembelajaran",
-    "asesmen",
-    "kegiatan_kurikulum"
-   ]
-  },
-  {
-   "judul": "Program & Kesiswaan",
-   "kategori": [
-    "kesiswaan",
-    "rapor",
-    "unggulan",
-    "madrasah"
-   ]
-  },
-  {
-   "judul": "Libur",
-   "kategori": [
-    "libur_nasional",
-    "cuti_bersama_nasional",
-    "cuti_bersama",
-    "libur_semester",
-    "libur_mingguan"
-   ]
-  }
- ],
- "kelas_pretes": [
-  {
-   "kelas": "KELAS PRETES 1",
-   "siswa": [
-    {"no":1,"nama":"Ahmad Naufal Zabarqi"},
-    {"no":2,"nama":"Farisa Raya Amalia"},
-    {"no":3,"nama":"Fahrull Baihaqi Nainggolan"},
-    {"no":4,"nama":"Syifa Khansa Hukama"},
-    {"no":5,"nama":"Damar Akas"},
-    {"no":6,"nama":"Natalia Kristiana Sembiring"},
-    {"no":7,"nama":"Muh. Zaqi Al-Mubaraq"},
-    {"no":8,"nama":"Silfia Naura Azalia"},
-    {"no":9,"nama":"Ibnu Syafik Sasole"}
-   ]
-  },
-  {
-   "kelas": "KELAS PRETES 2",
-   "siswa": [
-    {"no":1,"nama":"Lalu Indar Jaya Sakti"},
-    {"no":2,"nama":"Affani Fatimah Azzahra"},
-    {"no":3,"nama":"Muhammad Nur Chaesar Rhamadan"},
-    {"no":4,"nama":"Jaena Tafasha Abubakar"},
-    {"no":5,"nama":"Rifaldi Syahbana Ares"},
-    {"no":6,"nama":"Faika Izzihni"},
-    {"no":7,"nama":"Muflih Al-Jumanatul Ali"},
-    {"no":8,"nama":"Kaina Ma'Rifalah Ajis"}
-   ]
-  }
- ],
- "prota": [
-  {"no":1,"bulan":"Juni 2026","program":"Kedatangan & Penyambutan Peserta Didik Baru (Indo. Timur & Reguler)","pj":"Waka Kesiswaan + TU","target":"100% peserta didik hadir sesuai jadwal gelombang","waktu":"20–21 Jun; 4–5 Jul 2026","status":"Terlaksana","ket":"Koordinasi dengan Boarding"},
-  {"no":2,"bulan":"Juni–Juli 2026","program":"Matrikulasi Tahap I – Pra-Tes, KBM Matrikulasi, Pasca-Tes","pj":"Waka Kurikulum + Tim Guru","target":"Seluruh peserta didik memahami materi esensial 15 mapel","waktu":"22 Jun – 3 Jul 2026","status":"Terlaksana","ket":"Berbasis Buku Kerja 2"},
-  {"no":3,"bulan":"Juli 2026","program":"MATSAMA (Masa Ta'aruf Murid Madrasah)","pj":"Waka Kesiswaan + OSIM","target":"Peserta didik mengenal lingkungan, tata tertib, budaya madrasah","waktu":"6–8 Jul 2026","status":"Terlaksana","ket":"3 hari penuh"},
-  {"no":4,"bulan":"Juli 2026","program":"Matrikulasi Tahap II – Pra-Tes, KBM Matrikulasi, Pasca-Tes","pj":"Waka Kurikulum + Tim Guru","target":"Peserta didik reguler memahami materi esensial 15 mapel","waktu":"9–17 Jul 2026","status":"Terlaksana","ket":"Setelah MATSAMA"},
-  {"no":5,"bulan":"Juli 2026","program":"Evaluasi dan Penutupan Program Matrikulasi","pj":"Waka Kurikulum","target":"Laporan evaluasi matrikulasi tersusun","waktu":"18 Jul 2026","status":"Terlaksana","ket":"Dokumen wajib"},
-  {"no":6,"bulan":"Juli–November 2026","program":"Pembelajaran Efektif Semester Ganjil","pj":"Seluruh Guru + Waka Kurikulum","target":"Ketercapaian CP sesuai ATP; modul ajar tersampaikan","waktu":"20 Jul – 27 Nov 2026","status":"Berlangsung","ket":"Kurikulum Merdeka Fase E"},
-  {"no":7,"bulan":"Agustus 2026","program":"Pembentukan dan Pelaksanaan Ekstrakurikuler & KBS","pj":"Waka Kesiswaan + Pembina Ekskul","target":"Seluruh peserta didik terdaftar minimal 1 ekskul","waktu":"Mulai 27 Jul 2026","status":"Berlangsung","ket":"Jadwal Sabtu & jam 16.00"},
-  {"no":8,"bulan":"September 2026","program":"Sumatif Tengah Semester (STS) Ganjil","pj":"Waka Kurikulum + Tim Guru","target":"100% mapel terlaksana STS; nilai tercatat di e-Rapor","waktu":"21–25 Sep 2026","status":"Terjadwal","ket":"5 hari kerja"},
-  {"no":9,"bulan":"Oktober 2026","program":"Bulan Bahasa – Puncak Lomba Trilingual","pj":"Waka Kurikulum + Guru Bahasa","target":"Lomba bahasa terlaksana; pemenang tersertifikasi","waktu":"5–31 Okt 2026","status":"Terjadwal","ket":"Puncak 31 Okt"},
-  {"no":10,"bulan":"Oktober 2026","program":"Hari Santri Nasional – Acara Keasramaan","pj":"Waka Kesiswaan + Boarding","target":"Kegiatan keasramaan terlaksana","waktu":"22 Okt 2026","status":"Terjadwal","ket":"Panitia Khusus"},
-  {"no":11,"bulan":"November 2026","program":"Pekan Muraja'ah Al-Qur'an","pj":"Guru Tahfidz + Waka Kesiswaan","target":"Seluruh peserta didik mengikuti muraja'ah","waktu":"16–20 Nov 2026","status":"Terjadwal","ket":""},
-  {"no":12,"bulan":"November 2026","program":"Ujian Tahfidz Al-Qur'an Semester Ganjil","pj":"Guru Tahfidz","target":"Target capaian hafalan per kelas","waktu":"23–27 Nov 2026","status":"Terjadwal","ket":"Hasil masuk e-Rapor"},
-  {"no":13,"bulan":"November–Desember 2026","program":"Sumatif Akhir Semester (SAS) Ganjil","pj":"Waka Kurikulum + Tim Guru","target":"100% mapel terlaksana SAS; nilai final tercatat","waktu":"30 Nov – 4 Des 2026","status":"Terjadwal","ket":"5 hari kerja"},
-  {"no":14,"bulan":"Desember 2026","program":"Remedial dan Pengayaan Semester Ganjil","pj":"Tim Guru","target":"Peserta didik yang belum tuntas mendapat remedi","waktu":"7–11 Des 2026","status":"Terjadwal","ket":""},
-  {"no":15,"bulan":"Desember 2026","program":"Class Meeting & Haflah Taqrim Semester Ganjil","pj":"Waka Kesiswaan + Panitia","target":"Kegiatan kesiswaan terlaksana meriah","waktu":"14–17 Des 2026","status":"Terjadwal","ket":"ICN Haflah Taqrim"},
-  {"no":16,"bulan":"Desember 2026","program":"Pembagian Buku Laporan Hasil Belajar (Rapor) Semester Ganjil","pj":"Waka Kurikulum + Wali Kelas","target":"100% rapor tersampaikan kepada orang tua","waktu":"18 Des 2026","status":"Terjadwal","ket":"Dokumen akreditasi"},
-  {"no":17,"bulan":"Januari 2027","program":"Awal Masuk Semester Genap – Upacara Bendera","pj":"Kepala Madrasah + Waka","target":"Seluruh peserta didik hadir","waktu":"4 Jan 2027","status":"Terjadwal","ket":""},
-  {"no":18,"bulan":"Januari 2027","program":"Pembelajaran Efektif Semester Genap","pj":"Seluruh Guru + Waka Kurikulum","target":"Ketercapaian CP sesuai ATP semester genap","waktu":"4 Jan – 28 Mei 2027","status":"Terjadwal","ket":""},
-  {"no":19,"bulan":"Januari 2027","program":"Pekan Lomba SARL – Sains, Art, Sport, Religion & Language","pj":"Waka Kesiswaan + Panitia","target":"Lomba antar SMP/MTs terlaksana","waktu":"25–29 Jan 2027","status":"Terjadwal","ket":"Program Unggulan MA ICN"},
-  {"no":20,"bulan":"Februari 2027","program":"Program Ramadan – Syahrun Ma'al Qur'an & Sanlat","pj":"Waka Kurikulum + Guru Agama","target":"Seluruh program Ramadan terlaksana","waktu":"11 Feb – 26 Feb 2027","status":"Terjadwal","ket":"Sesuai 1 Ramadan 1448 H"},
-  {"no":21,"bulan":"Maret 2027","program":"Sumatif Tengah Semester (STS) Genap","pj":"Waka Kurikulum + Tim Guru","target":"100% mapel terlaksana; nilai tercatat","waktu":"1–5 Mar 2027","status":"Terjadwal","ket":"5 hari kerja"},
-  {"no":22,"bulan":"April 2027","program":"Hari Kartini & Hari Bumi – Kegiatan Tematik","pj":"Waka Kesiswaan + Guru Mapel","target":"Kegiatan terlaksana; laporan tersusun","waktu":"21–22 Apr 2027","status":"Terjadwal","ket":"Pilihan format kegiatan"},
-  {"no":23,"bulan":"Mei 2027","program":"Rihlah Ilmiah (Tentatif)","pj":"Waka Kesiswaan + Panitia","target":"Peserta didik mengikuti pembelajaran di luar madrasah","waktu":"4–7 Mei 2027","status":"Tentatif","ket":"Konsep dispensasi/sebagian"},
-  {"no":24,"bulan":"Mei 2027","program":"Sumatif Akhir Semester (SAS) Genap","pj":"Waka Kurikulum + Tim Guru","target":"100% mapel terlaksana SAS; nilai final tercatat","waktu":"31 Mei – 4 Jun 2027","status":"Terjadwal","ket":""},
-  {"no":25,"bulan":"Juni 2027","program":"Remedial dan Pengayaan Semester Genap","pj":"Tim Guru","target":"Peserta didik yang belum tuntas mendapat remedi","waktu":"8–11 Jun 2027","status":"Terjadwal","ket":""},
-  {"no":26,"bulan":"Juni 2027","program":"Class Meeting & Panggung Gembira Akhir Tahun","pj":"Waka Kesiswaan + Panitia","target":"Kegiatan akhir tahun terlaksana","waktu":"14–17 Jun 2027","status":"Terjadwal","ket":"Penutup TP 2026/2027"},
-  {"no":27,"bulan":"Juni 2027","program":"Pembagian Buku Laporan Hasil Belajar (Rapor) Akhir Tahun","pj":"Waka Kurikulum + Wali Kelas","target":"100% rapor tersampaikan kepada orang tua","waktu":"18 Jun 2027","status":"Terjadwal","ket":"Dokumen akreditasi"},
-  {"no":28,"bulan":"Juni–Juli 2027","program":"Libur Akhir Tahun Pelajaran 2026/2027","pj":"—","target":"Peserta didik beristirahat & persiapan kelas XI","waktu":"19 Jun – 10 Jul 2027","status":"Terjadwal","ket":"Rihlah Guru 19–20 Jun"}
- ],
- "prosem": [
-  {"minggu":"Pra (0)","periode":"20–19 Jul 2026","hari_efektif":0,"program":"Matrikulasi Tahap I & II + MATSAMA","asesmen":"Pra-Tes & Pasca-Tes Matrikulasi","kegiatan_khusus":"Kedatangan, Matsama, Ekskul Awal","pelaporan":"—","keterangan":"Materi esensial 15 mapel","status":"Terlaksana","semester":"Pra"},
-  {"minggu":"1–4","periode":"20 Jul – 14 Ags 2026","hari_efektif":20,"program":"Pembelajaran Efektif Tahap I","asesmen":"—","kegiatan_khusus":"Administrasi Ekskul; Mulai Ekskul 27 Jul","pelaporan":"—","keterangan":"Jam efektif: 5 hari × 10 JP","status":"Berlangsung","semester":"Ganjil"},
-  {"minggu":"5–8","periode":"17 Ags – 11 Sep 2026","hari_efektif":18,"program":"Pembelajaran Efektif Tahap II","asesmen":"—","kegiatan_khusus":"HUT RI; LDKS; Muhadharah Kubra; Open Rekrut OSIM","pelaporan":"—","keterangan":"17 Ags: Libur Nasional","status":"Berlangsung","semester":"Ganjil"},
-  {"minggu":"9–13","periode":"14–25 Sep 2026","hari_efektif":18,"program":"Pembelajaran Efektif Tahap III + STS","asesmen":"STS Ganjil (21–25 Sep)","kegiatan_khusus":"Pemilihan Ketua OSIM & MPS","pelaporan":"—","keterangan":"5 hari STS","status":"Terjadwal","semester":"Ganjil"},
-  {"minggu":"14–18","periode":"28 Sep – 30 Okt 2026","hari_efektif":25,"program":"Pembelajaran Efektif Tahap IV","asesmen":"—","kegiatan_khusus":"Malam Syahdu; Bulan Bahasa; Hari Santri; Sumpah Pemuda","pelaporan":"—","keterangan":"22 Okt: Hari Santri","status":"Terjadwal","semester":"Ganjil"},
-  {"minggu":"19–23","periode":"2–27 Nov 2026","hari_efektif":20,"program":"Pembelajaran Efektif Tahap V + Muraja'ah + Ujian Tahfidz","asesmen":"Ujian Tahfidz (23–27 Nov)","kegiatan_khusus":"Outing Class; Hari Pahlawan; Hari Guru; Pekan Muraja'ah","pelaporan":"—","keterangan":"5 hari ujian tahfidz","status":"Terjadwal","semester":"Ganjil"},
-  {"minggu":"24","periode":"30 Nov – 4 Des 2026","hari_efektif":5,"program":"Sumatif Akhir Semester (SAS) Ganjil","asesmen":"SAS Ganjil","kegiatan_khusus":"—","pelaporan":"—","keterangan":"5 hari SAS","status":"Terjadwal","semester":"Ganjil"},
-  {"minggu":"25","periode":"7–11 Des 2026","hari_efektif":5,"program":"Remedial dan Pengayaan","asesmen":"Remedi & Pengayaan","kegiatan_khusus":"—","pelaporan":"—","keterangan":"Seluruh mapel","status":"Terjadwal","semester":"Ganjil"},
-  {"minggu":"26","periode":"14–18 Des 2026","hari_efektif":0,"program":"Class Meeting + Haflah Taqrim + Pembagian Rapor","asesmen":"—","kegiatan_khusus":"Class Meeting; Malam Syahdu; ICN Haflah Taqrim","pelaporan":"Pembagian Rapor 18 Des","keterangan":"Penutup Sem. Ganjil","status":"Terjadwal","semester":"Ganjil"},
-  {"minggu":"29–30","periode":"4–15 Jan 2027","hari_efektif":9,"program":"Awal Semester Genap + Pembelajaran Efektif","asesmen":"—","kegiatan_khusus":"Upacara; Isra Mi'raj (6 Jan: libur)","pelaporan":"—","keterangan":"Masuk perdana 4 Jan","status":"Terjadwal","semester":"Genap"},
-  {"minggu":"31–32","periode":"18–29 Jan 2027","hari_efektif":9,"program":"Pembelajaran Efektif + Pekan Lomba SARL","asesmen":"—","kegiatan_khusus":"Pekan Lomba SARL (25–29 Jan)","pelaporan":"—","keterangan":"Program Unggulan ICN","status":"Terjadwal","semester":"Genap"},
-  {"minggu":"33–34","periode":"1–12 Feb 2027","hari_efektif":8,"program":"Pembelajaran Efektif + Awal Ramadan","asesmen":"—","kegiatan_khusus":"Muhadharah Kubra; Imlek; Awal Ramadan 1448 H","pelaporan":"—","keterangan":"Libur Ramadan: 8–10 Feb","status":"Terjadwal","semester":"Genap"},
-  {"minggu":"35–36","periode":"15–26 Feb 2027","hari_efektif":10,"program":"Syahrun Ma'al Qur'an & Sanlat Ramadan","asesmen":"—","kegiatan_khusus":"Syahrun Ma'al Qur'an; Sanlat; Nuzulul Qur'an","pelaporan":"—","keterangan":"KBM mengambil 2 JP","status":"Terjadwal","semester":"Genap"},
-  {"minggu":"37","periode":"1–5 Mar 2027","hari_efektif":5,"program":"Sumatif Tengah Semester (STS) Genap","asesmen":"STS Genap","kegiatan_khusus":"Buka Bersama & Kajian","pelaporan":"—","keterangan":"5 hari STS","status":"Terjadwal","semester":"Genap"},
-  {"minggu":"38–39","periode":"8–21 Mar 2027","hari_efektif":0,"program":"Libur Idul Fitri 1448 H + Kedatangan Murid","asesmen":"—","kegiatan_khusus":"Idul Fitri; Cuti Bersama; Nyepi","pelaporan":"—","keterangan":"Perkiraan Idul Fitri 10 Mar","status":"Terjadwal","semester":"Genap"},
-  {"minggu":"40–41","periode":"22 Mar – 2 Apr 2027","hari_efektif":9,"program":"Pembelajaran Efektif Pasca Idul Fitri","asesmen":"—","kegiatan_khusus":"Halal Bihalal; Wafat Yesus","pelaporan":"—","keterangan":"Penyesuaian jadwal","status":"Terjadwal","semester":"Genap"},
-  {"minggu":"42–45","periode":"5 Apr – 30 Apr 2027","hari_efektif":20,"program":"Pembelajaran Efektif Tahap Akhir","asesmen":"—","kegiatan_khusus":"Hari Kartini; Hari Bumi; Muhadharah Kubra","pelaporan":"—","keterangan":"","status":"Terjadwal","semester":"Genap"},
-  {"minggu":"46–47","periode":"3–14 Mei 2027","hari_efektif":8,"program":"Pembelajaran Efektif + Rihlah Ilmiah","asesmen":"—","kegiatan_khusus":"Hardiknas; Rihlah Ilmiah; Kenaikan Yesus","pelaporan":"—","keterangan":"Idul Adha: 17 Mei","status":"Terjadwal","semester":"Genap"},
-  {"minggu":"48–49","periode":"17–28 Mei 2027","hari_efektif":8,"program":"Pembelajaran Efektif Akhir + Idul Adha","asesmen":"—","kegiatan_khusus":"Idul Adha; Waisak/Kebangkitan","pelaporan":"—","keterangan":"","status":"Terjadwal","semester":"Genap"},
-  {"minggu":"50","periode":"31 Mei – 4 Jun 2027","hari_efektif":4,"program":"Sumatif Akhir Semester (SAS) Genap","asesmen":"SAS Genap","kegiatan_khusus":"Hari Lahir Pancasila","pelaporan":"—","keterangan":"SAS 31 Mei; 2–4 Jun","status":"Terjadwal","semester":"Genap"},
-  {"minggu":"51","periode":"7–11 Jun 2027","hari_efektif":4,"program":"Remedial dan Pengayaan Akhir Tahun","asesmen":"Remedi & Pengayaan","kegiatan_khusus":"Pengolahan nilai & persiapan rapor","pelaporan":"—","keterangan":"Seluruh mapel","status":"Terjadwal","semester":"Genap"},
-  {"minggu":"52","periode":"14–18 Jun 2027","hari_efektif":0,"program":"Class Meeting + Panggung Gembira + Pembagian Rapor","asesmen":"—","kegiatan_khusus":"Class Meeting; Panggung Gembira","pelaporan":"Pembagian Rapor 18 Jun","keterangan":"Penutup TP 2026/2027","status":"Terjadwal","semester":"Genap"}
- ]
 };
