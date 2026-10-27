@@ -1,5 +1,7 @@
 # Ekspor kalender satu halaman A4
 
+**Pembaruan online:** pemilik menyetujui “Ya, tayangkan”. Curriculum Worker `f0515bfe-dbd0-43cb-b948-57896a63cf9b` sudah aktif dengan sumber `def0db6`; empat hash kalender/JS/CSS cocok online. SSO, Klinik, layanan akademik, secret dan pemicu antrean tetap dipertahankan. Tidak ada perubahan database atau rilis Studio pada pembaruan ini.
+
 27 Oktober 2026. Pemilik meminta ekspor yang lebih hemat kertas dan lazim, dengan contoh workbook revisi dan dua PDF pada folder Kalender Akademik. Berkas sumber hanya dibaca; isi kalender situs tidak diganti dengan data/angka yang berbeda pada referensi.
 
 ## Hasil
@@ -17,4 +19,4 @@ Pratinjau menahan cetak ringkasan jika konten melampaui tinggi area A4; pengguna
 - Build situs: 97 aset terkurasi. Tidak ada backend, database, SSO, jadwal atau antrean email berubah.
 - Contoh hasil dan receipt pemeriksaan disimpan di luar repo, `C:/Users/T6N0CV02S35823C/.codex/artifacts/2026-10-27/kalender-akademik-a4.pdf` dan folder review kalender pada `.codex/releases/`.
 
-Perubahan ini lokal dan belum mengganti ekspor pada situs online. Rilis kalender ini memerlukan konfirmasi pemilik sesuai README; izin rilis layanan akademik sebelumnya bukan izin otomatis untuk pembaruan berikutnya. Setelah disetujui, bangun aset terkurasi, unggah hanya Curriculum dengan konfigurasi layanan aktif yang dipertahankan, lalu cocokkan hash modul kalender/HTML. Studio dan database tidak perlu dirilis ulang.
+Tahap lokal di atas telah diterbitkan setelah persetujuan tersendiri pemilik. Aset terkurasi dibangun dan hanya Curriculum diunggah, dengan konfigurasi layanan aktif dipertahankan. Bukti produksi kali ini berupa HTTP/hash; uji dialog cetak dan printer fisik pada perangkat pemilik tetap berbeda dari hasil PDF statis satu halaman. Versi sebelum rilis: `f2786d95-d4ac-4f4a-b403-b3d1e3403448`. Receipt di luar repo: `.codex/releases/calendar-a4-20261027/live-check.json`.
