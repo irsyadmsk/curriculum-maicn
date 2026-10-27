@@ -1,3 +1,4 @@
+import {calendarYearDocument} from './calendar-year.mjs';
 import {termText} from './terminology.mjs';
 const escape=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const months=['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
@@ -9,11 +10,11 @@ export function calendarMonths(data){
  return prefixes.map(prefix=>{
   const [year,month]=prefix.split('-').map(Number),count=new Date(Date.UTC(year,month,0)).getUTCDate();
   const events=[];let previous='';
-  for(let d=1;d<=count;d++){const date=prefix+'-'+String(d).padStart(2,'0'),info=days[date];if(!info){previous='';continue}const label=termText(info.l||''),signature=JSON.stringify([info.c,label,info.s,info.p]);if(!label){previous='';continue}const last=events.at(-1);if(signature===previous&&last?.to===d-1)last.to=d;else events.push({from:d,to:d,label,category:info.c,semester:info.s||info.p||''});previous=signature;}
+  for(let d=1;d<=count;d++){const date=prefix+'-'+String(d).padStart(2,'0'),info=days[date];if(!info){previous='';continue}const label=info.c==='hari_santri'?String(info.l||''):termText(info.l||''),signature=JSON.stringify([info.c,label,info.s,info.p]);if(!label){previous='';continue}const last=events.at(-1);if(signature===previous&&last?.to===d-1)last.to=d;else events.push({from:d,to:d,label,category:info.c,semester:info.s||info.p||''});previous=signature;}
   return {prefix,year,month,count,offset:new Date(Date.UTC(year,month-1,1)).getUTCDay(),events,title:months[month-1]+' '+year};
  });
 }
-export function calendarDocument(data){
+export function calendarDetailDocument(data){
  const model=calendarMonths(data),sheets=[];
  for(const m of model){const chunks=[];for(let i=0;i<m.events.length;i+=18)chunks.push(m.events.slice(i,i+18));if(!chunks.length)chunks.push([]);
   chunks.forEach((events,part)=>{
@@ -27,8 +28,14 @@ export function calendarDocument(data){
 if(typeof window!=='undefined')window.exportKalenderPDF=()=>{
  try{const data=window.CurriculumCalendarSnapshot;if(!data)throw Error('Kalender masih dimuat. Coba lagi sesaat.');
   let dialog=document.getElementById('calendar-export-dialog');if(!dialog){dialog=document.createElement('dialog');dialog.id='calendar-export-dialog';dialog.className='calendar-export-dialog';dialog.setAttribute('aria-label','Pratinjau kalender A4');document.body.append(dialog)}
-  dialog.replaceChildren();const heading=document.createElement('h2');heading.textContent='Kalender A4 · Lanskap';const note=document.createElement('p');note.textContent='Pratinjau seluruh bulan beserta rincian agenda. Saat mencetak, pilih A4, lanskap, skala 100%, serta nonaktifkan header dan footer browser.';
-  const frame=document.createElement('iframe');frame.title='Pratinjau halaman A4 kalender akademik';frame.srcdoc=calendarDocument(data);
-  const actions=document.createElement('div');actions.className='calendar-export-actions';const close=document.createElement('button');close.textContent='Kembali';close.onclick=()=>dialog.close();const print=document.createElement('button');print.textContent='Cetak / simpan PDF';print.disabled=true;print.onclick=()=>{frame.contentWindow.focus();frame.contentWindow.print()};frame.onload=()=>{print.disabled=false};actions.append(close,print);dialog.append(heading,note,actions,frame);dialog.showModal();
+  dialog.replaceChildren();const heading=document.createElement('h2');heading.textContent='Ekspor kalender akademik';const note=document.createElement('p');note.id='calendar-export-note';
+  const label=document.createElement('label');label.className='calendar-export-format';label.textContent='Format cetak';const format=document.createElement('select');format.id='calendar-export-format';for(const [value,text] of [['annual','Ringkasan setahun · 1 halaman A4 tegak'],['monthly','Rincian bulanan · A4 mendatar']]){const option=document.createElement('option');option.value=value;option.textContent=text;format.append(option)}label.append(format);
+  const frame=document.createElement('iframe');frame.title='Pratinjau halaman A4 kalender akademik';
+  const actions=document.createElement('div');actions.className='calendar-export-actions';const close=document.createElement('button');close.textContent='Kembali';close.onclick=()=>dialog.close();const print=document.createElement('button');print.textContent='Cetak / simpan PDF';print.disabled=true;print.onclick=()=>{frame.contentWindow.focus();frame.contentWindow.print()};
+  const render=()=>{print.disabled=true;note.textContent=format.value==='annual'?'Seluruh bulan pada sumber dalam satu halaman A4 tegak. Pilih A4, skala 100%, dan nonaktifkan header/footer browser. Rincian kegiatan tetap tersedia pada format bulanan.':'Kalender per bulan beserta seluruh rincian agenda. Pilih A4 mendatar, skala 100%, dan nonaktifkan header/footer browser.';try{frame.srcdoc=calendarDocument(data,{layout:format.value})}catch(error){note.textContent=error.message;frame.removeAttribute('srcdoc')}};
+  frame.onload=()=>{const sheet=frame.contentDocument?.querySelector('[data-layout="annual"]');if(format.value==='annual'&&(!sheet||sheet.getBoundingClientRect().height>281*96/25.4+1)){note.textContent='Isi kalender melebihi satu halaman A4. Pilih rincian bulanan agar semua informasi tercetak utuh.';print.disabled=true;return}print.disabled=!frame.contentDocument?.querySelector('.sheet')};format.onchange=render;
+  actions.append(close,print);dialog.append(heading,label,note,actions,frame);render();dialog.showModal();
  }catch(error){window.showClayToast?.(error.message,'error')||alert(error.message)}
 };
+
+export function calendarDocument(data,{layout='annual'}={}){return layout==='monthly'?calendarDetailDocument(data):calendarYearDocument(data,calendarMonths(data))}
