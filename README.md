@@ -36,11 +36,11 @@ Deploy (`wrangler deploy`, build otomatis menjalankan `build-site.mjs`) hanya de
 
 ## Konfigurasi Worker
 
-`wrangler.jsonc`: aset dari `.site`, `run_worker_first: true`, `html_handling: none`. Variabel: `ACCESS_ENABLED` dan `CLINIC_ENABLED` (keduanya `"false"` di produksi saat ini), `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY`, `TURNSTILE_SITE_KEY`, `PREVIEW_MODE`. Rahasia (`REQUEST_HASH_SECRET`, `CLINIC_SERVICE_KEY`, `TURNSTILE_SECRET`) hanya di Cloudflare/`.dev.vars`, tidak di repo. `_headers` mengatur CSP (`frame-ancestors` hanya irsyads.com) dan `noindex` untuk `*.workers.dev`.
+`wrangler.jsonc`: aset dari `.site`, `run_worker_first: true`, `html_handling: none`. Variabel: `ACCESS_ENABLED` dan `CLINIC_ENABLED` (keduanya `"true"` sejak klinik terverifikasi diaktifkan), `SUPABASE_URL`, `TURNSTILE_SITE_KEY`, serta `SUPABASE_PUBLISHABLE_KEY` dan `PREVIEW_MODE` yang dibaca worker. Rahasia (`REQUEST_HASH_SECRET`, `CLINIC_SERVICE_KEY`, `TURNSTILE_SECRET`) hanya di Cloudflare/`.dev.vars`, tidak di repo. `_headers` mengatur CSP (`frame-ancestors` hanya irsyads.com) dan `noindex` untuk `*.workers.dev`.
 
 ## Keadaan backend (campuran)
 
-- Halaman modul/buku kerja: Firebase Auth + koleksi lama (`assets/app.js`). Pemeriksaan ulang 9 Okt 2026: profil yang hilang **tidak** otomatis diberi peran guru; pertahankan.
+- Halaman modul/buku kerja: Firebase Auth (sebagian halaman sudah memakai SSO irsyads, lihat `assets/account-sso.mjs`) + koleksi lama (`assets/app.js`). Pemeriksaan ulang 9 Okt 2026: profil yang hilang **tidak** otomatis diberi peran guru; pertahankan.
 - Admin, jadwal, kalender: Supabase proyek irsyads.
 - Jangan memigrasikan backend, skema, atau login sebagai efek samping perubahan tampilan.
 

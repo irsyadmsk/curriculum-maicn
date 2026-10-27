@@ -12,6 +12,7 @@ private-inputs/
 scratch/
 *.xlsx
 docs/archive/
+*.log
 
 # Screenshots can show real pupil names; keep them local only.
 docs/**/*.png

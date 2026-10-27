@@ -5,7 +5,7 @@ let readRevision=0,readController=null;
 let lastVerifiedId=null;
 let nativeSessionStarted=false;
 async function keepNativeSession(){
- if(nativeSessionStarted||!state.enabled||!state.user_id||window.CurriculumDB)return;nativeSessionStarted=true;
+ if(nativeSessionStarted||!state.enabled||window.CurriculumDB)return;nativeSessionStarted=true;
  try{const response=await fetch('/api/config',{cache:'no-store'}),config=await response.json();if(!config.login_enabled||config.supabase_url!=='https://mqesvxweuygplrdxchkv.supabase.co')return;const runtime=await import('./curriculum-runtime.mjs');await runtime.curriculumDB()}catch{/* The gateway remains authoritative if background refresh is unavailable. */}
 }
 const subscribers=new Set();
@@ -43,3 +43,4 @@ observer.observe(document.body,{childList:true,subtree:true});
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshAccess()});
 window.addEventListener('pagehide',()=>{document.body.classList.remove('access-ready')});
 window.addEventListener('pageshow',event=>{if(event.persisted)refreshAccess()});
+accessReady.then(()=>import('./clinic-notifications.mjs')).catch(()=>{});

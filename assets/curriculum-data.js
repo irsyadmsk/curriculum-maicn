@@ -12,13 +12,8 @@
   const sessionRuntime = window.IrsyadsCurriculumSession;
   if (!sessionRuntime) throw new Error('Penyimpanan sesi Curriculum belum siap. Muat ulang halaman.');
   const storageKey = 'sb-' + new URL(SUPABASE_URL).hostname.split('.')[0] + '-auth-token';
-  const isolated = sessionRuntime.buatSesiTerpisah({
-    getItem: key => window.localStorage.getItem(key),
-    setItem: (key, value) => window.localStorage.setItem(key, value),
-    removeItem: key => window.localStorage.removeItem(key),
-  }, storageKey);
   const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-    auth: { storage: isolated.storage, storageKey, persistSession: true, autoRefreshToken: true },
+    auth: { storage: sessionRuntime.penyimpananSesi, storageKey, persistSession: true, autoRefreshToken: true, detectSessionInUrl: false },
   });
 
   const HARI_LIST = ['senin', 'selasa', 'rabu', 'kamis', 'jumat'];
@@ -143,7 +138,6 @@
   async function signOut(expectedSession) {
     if (!expectedSession?.user?.id || !expectedSession.access_token) throw new sessionRuntime.KeluarTertahan('sesi-berubah');
     await sessionRuntime.keluarTerikat({ url: SUPABASE_URL, publicKey: SUPABASE_ANON_KEY, storageKey,
-      storage: isolated.storage, invalidateSession: isolated.invalidateSession,
       expectedOwner: expectedSession.user.id, expectedToken: expectedSession.access_token });
   }
   async function getSession() {
@@ -198,10 +192,10 @@
   };
   // Bridge refreshed native sessions to the HttpOnly site gateway after activation.
   client.auth.onAuthStateChange((event, session) => {
-    if (!window.CurriculumAccess?.context.enabled || !['TOKEN_REFRESHED','SIGNED_OUT'].includes(event)) return;
+    if (!window.CurriculumAccess?.context.enabled || !['INITIAL_SESSION','SIGNED_IN','TOKEN_REFRESHED','SIGNED_OUT'].includes(event)) return;
     setTimeout(async () => {
       try {
-        const response = await fetch('/api/session', event === 'SIGNED_OUT'
+        const response = await fetch('/api/session', !session?.access_token
           ? { method: 'DELETE', credentials: 'same-origin' }
           : { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ token: session?.access_token }) });
         if (response.ok) window.CurriculumAccess?.refresh();

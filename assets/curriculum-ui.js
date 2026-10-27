@@ -369,7 +369,7 @@
     window.addEventListener('hashchange', resolveScheduleHash); resolveScheduleHash();
     if(main&&!$('.ui-irsyads-credit',main)){
       const credit=document.createElement('footer');credit.className='ui-irsyads-credit';
-      credit.innerHTML='<span>MA Insan Cendekia Nusantara</span><span>Dikembangkan oleh <a href="https://irsyads.com/" target="_blank" rel="noopener noreferrer">Irsyads · irsyads.com ↗</a></span>';
+      credit.innerHTML='<span>Curriculum</span><span>Dikembangkan oleh <a href="https://irsyads.com/" target="_blank" rel="noopener noreferrer">Irsyads · irsyads.com ↗</a></span>';
       main.append(credit);
     }
     initializeDrawer(); initializeSearch(); initializeHome(); initializeScheduleCards(); initializeLegacyDialogs();

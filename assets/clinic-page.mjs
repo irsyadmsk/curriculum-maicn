@@ -1,13 +1,14 @@
 import {CLINIC_REMOTE_ENABLED,YEAR,CLASSES,SLOTS,todayWIB,addDays,monday,slotFor,dateLabel,archived,legacyRecords,validateProposal,validateRequest,safeURL,inSchoolYear} from './clinic-core.mjs';
 import {clinicClient} from './clinic-client.mjs';
 import {accessReady,access} from './curriculum-access.mjs';
+import {assignedSubjects,accountTeacher,proposalSubjects} from './teacher-subjects.mjs';
 await accessReady;
 const initialRole=access.context.role;
 let config={clinic_enabled:false,turnstile_site_key:''};try{const r=await fetch('/api/config',{cache:'no-store'});config=await r.json()}catch{}
 let challenge='',challengeWidget=null;
 const $ = s => document.querySelector(s), esc = s => String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const KEY='maicn_clinic_drafts_v2_2026-2027_'+(access.context.user_id||'guest');
-const state={week:monday(todayWIB()),tab:'schedule',drafts:[],legacy:[],remote:[],feed:[],teachers:window.MASTER_DATA?.jadwal_kbm_v2?.matriks_guru||[],raw:null,storageOK:true,owner:access.context.user_id,editing:null,expected:null,busy:false,notice:'',filters:{from:'',to:'',classroom:'',status:''}};
+const state={week:monday(todayWIB()),tab:new URLSearchParams(location.search).get('view')==='requests'?'requests':'schedule',drafts:[],legacy:[],remote:[],feed:[],teachers:CLINIC_REMOTE_ENABLED?[]:window.MASTER_DATA?.jadwal_kbm_v2?.matriks_guru||[],raw:null,storageOK:true,owner:access.context.user_id,editing:null,expected:null,busy:false,notice:'',filters:{from:'',to:'',classroom:'',status:''}};
 const api=clinicClient(window.CurriculumClinicProxy);
 const labels={draft:'Draf perangkat',pending:'Menunggu konfirmasi',approved:'Disetujui',rejected:'Ditolak',cancelled:'Dibatalkan',legacy:'Catatan lama'};
 const root=$('#clinic-root');
@@ -40,7 +41,7 @@ function render(){
  <p id="clinic-notice" class="clinic-feedback" role="status" ${state.notice?'':'hidden'}>${esc(state.notice)}</p>
  <div class="clinic-tabs" role="group" aria-label="Tampilan klinik"><button data-tab="schedule" aria-pressed="${state.tab==='schedule'}">Jadwal</button><button data-tab="requests" aria-pressed="${state.tab==='requests'}">${access.has('teacher')?'Usulan & laporan':'Permintaan saya'} <span>${state.drafts.filter(r=>!r.sentReceipt).length+state.remote.length}</span></button>${access.has('teacher')?`<button data-tab="archive" aria-pressed="${state.tab==='archive'}">Arsip & laporan <span>${ended.length}</span></button>`:''}</div>
  <section id="clinic-view" aria-label="${state.tab==='archive'?'Arsip klinik':'Daftar klinik'}"></section>
- <details class="clinic-help"><summary>Cara pengisian & penyimpanan data</summary><ol><li>Pilih tanggal Senin/Selasa, kelas, dan pengampu.</li><li>Tulis 1–3 pilihan mapel apa saja dan kebutuhan belajarnya.</li><li>Simpan draf, lalu kirim ketika integrasi aktif. Hanya admin atau pengelola kurikulum yang ditunjuk dapat menyetujui satu mapel.</li><li>Begitu sesi berakhir dalam WIB, catatan otomatis tampil di arsip. Filter dan cetak kapan saja.</li></ol><p>Draf perangkat belum terkirim. Catatan lama tetap dipertahankan beserta status asalnya; tidak dianggap sebagai persetujuan server baru.</p><button type="button" data-needs="teacher" id="clinic-backup">Unduh cadangan perangkat</button></details>`;
+ <details class="clinic-help"><summary>Cara pengisian & penyimpanan data</summary><ol><li>Pilih tanggal Senin/Selasa, kelas, dan pengampu.</li><li>${access.has('teacher')?'Mapel terisi sesuai pengampu: satu guru, satu mapel. Tuliskan kebutuhan belajarnya.':'Tulis 1–3 pilihan mapel dan kebutuhan belajarnya.'}</li><li>Simpan draf, lalu kirim ketika integrasi aktif. Hanya admin atau pengelola kurikulum yang ditunjuk dapat menyetujui satu mapel.</li><li>Begitu sesi berakhir dalam WIB, catatan otomatis tampil di arsip. Filter dan cetak kapan saja.</li></ol><p>Draf perangkat belum terkirim. Catatan lama tetap dipertahankan beserta status asalnya; tidak dianggap sebagai persetujuan server baru.</p><button type="button" data-needs="teacher" id="clinic-backup">Unduh cadangan perangkat</button></details>`;
  $('#clinic-new').onclick=()=>openForm();
  root.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{state.tab=b.dataset.tab;render()});
  $('#clinic-backup').onclick=backup;
@@ -78,20 +79,39 @@ function archiveRows(){const f=state.filters;return records().filter(r=>archived
 function renderArchive(){const rows=archiveRows(),bad=state.filters.from&&state.filters.to&&state.filters.from>state.filters.to;$('#clinic-archive-list').innerHTML=bad?'<p class="clinic-feedback">Tanggal akhir harus sesudah tanggal awal.</p>':`<p class="clinic-muted">${rows.length} catatan sesuai filter</p>${rows.length?`<div class="clinic-record-grid">${rows.map(recordCard).join('')}</div>`:'<p class="clinic-empty">Tidak ada arsip sesuai filter.</p>'}`;$('#clinic-print').disabled=!!bad||!rows.length;bindRecordActions($('#clinic-archive-list'));}
 function defaultDate(){let d=todayWIB();for(let n=0;n<8;n++,d=addDays(d,1)){const s=slotFor(d);if(s&&!archived({date:d,end:s.end}))return d}return d}
 function openForm(row=null,date=defaultDate(),report=false){
+ if(access.has('teacher')&&CLINIC_REMOTE_ENABLED&&!state.teachers.length){notify('Daftar pengampu sedang dimuat. Coba lagi sesaat atau muat ulang agenda.');return;}
  state.editing=row;state.expected=state.raw;state.formId=row?.id||crypto.randomUUID();state.pendingToken=null;
  const dialog=$('#clinic-dialog'),form=$('#clinic-form');form.reset();form.dataset.report=report?'true':'false';
  $('#clinic-form-title').textContent=report?'Catatan laporan':row?'Lanjutkan permintaan':access.has('teacher')?'Usulan Klinik guru':'Ajukan kebutuhan belajar';
  $('#clinic-teacher').innerHTML='<option value="">Pilih pengampu</option>'+state.teachers.map(t=>`<option value="${esc(t.nama)}">${esc(t.nama)}</option>`).join('');
- $('#clinic-date').value=row?.date||date;$('#clinic-class').value=row?.classroom||'X-1';$('#clinic-teacher').value=row?.teacher||'';
+ const current=accountTeacher(access.context,state.teachers);
+ $('#clinic-date').value=row?.date||date;$('#clinic-class').value=row?.classroom||'X-1';$('#clinic-teacher').value=row?.teacher||current?.nama||'';
  [0,1,2].forEach(i=>$('#clinic-subject-'+i).value=row?.subjects[i]||'');$('#clinic-topic').value=row?.topic||'';$('#clinic-evidence').value=row?.evidence||'';
+ const teacherMode=access.has('teacher');
+ $('#clinic-subject-1').closest('.clinic-pair').hidden=teacherMode;
+ [1,2].forEach(i=>{$('#clinic-subject-'+i).disabled=teacherMode;if(teacherMode)$('#clinic-subject-'+i).value=''});
+ document.querySelector('label[for="clinic-subject-0"]').firstChild.textContent=teacherMode?'Mapel pengampu':'Pilihan mapel utama';
+ $('#clinic-subject-0').readOnly=false;
  const ended=row&&archived(row);
- $('#clinic-schedule-fields').disabled=report||ended;$('#clinic-report-fields').disabled=!!(ended&&!report);$('#clinic-form-note').textContent=report?'Catatan dan bukti masuk riwayat revisi. Tanggal dan keputusan tetap.':row?.origin==='Server'?'Perubahan usulan harus dikonfirmasi ulang oleh kurikulum.':access.has('teacher')?'Semua mapel boleh diajukan. Pilih 1–3; kurikulum menyetujui satu.':'Boleh diajukan tanpa akun. Pilih 1–3 mapel dan tuliskan kebutuhanmu; pengampu dan jadwal resmi ditetapkan kurikulum.';
+ $('#clinic-schedule-fields').disabled=report||ended;$('#clinic-report-fields').disabled=!!(ended&&!report);$('#clinic-form-note').textContent=report?'Catatan dan bukti masuk riwayat revisi. Tanggal dan keputusan tetap.':row?.origin==='Server'?'Perubahan usulan harus dikonfirmasi ulang oleh kurikulum.':access.has('teacher')?'Satu guru mengajukan satu mapel sesuai pengampunya.':'Boleh diajukan tanpa akun. Pilih 1–3 mapel dan tuliskan kebutuhanmu; pengampu dan jadwal resmi ditetapkan kurikulum.';
  $('#clinic-save-draft').hidden=report||row?.origin==='Server'||!!ended;$('#clinic-teacher').required=access.has('teacher');$('#clinic-teacher').closest('label').hidden=!access.has('teacher');if(!access.has('teacher'))$('#clinic-teacher').value='';document.querySelector('label[for="clinic-teacher"]').firstChild.textContent=access.has('teacher')?'Guru pengampu':'Usulan pengampu (opsional)';$('#clinic-evidence').closest('label').hidden=!access.has('teacher');$('#clinic-requester').closest('label').hidden=access.has('teacher');$('#clinic-requester').value=row?.requester_label||'';
  $('#clinic-send').hidden=!!(ended&&!report);$('#clinic-send').textContent=report?'Simpan catatan laporan':row?.origin==='Server'?'Kirim perubahan':access.has('teacher')?'Kirim usulan guru':'Kirim permintaan';$('#clinic-send').disabled=!CLINIC_REMOTE_ENABLED;
  $('#clinic-form-error').textContent=ended&&!report?'Draf terdahulu dipertahankan sebagai arsip. Buat usulan baru untuk sesi mendatang.':'';
  $('#clinic-auth-entry').hidden=access.has('teacher');
+ $('#clinic-teacher').disabled=access.context.role==='teacher';
+ if(!row||teacherMode&&!report&&!ended)fillTeacherSubjects();
  updateSlot();dialog.showModal();setupChallenge().catch(()=>{$('#clinic-form-error').textContent='Verifikasi permintaan belum dapat dimuat. Simpan draf dan coba lagi saat koneksi tersedia.';});
 }
+function fillTeacherSubjects(){
+ if(!access.has('teacher'))return;
+ const teacher=state.teachers.find(t=>t.nama===$('#clinic-teacher').value);
+ const subjects=assignedSubjects(teacher,window.MASTER_DATA?.jadwal_kbm_v2?.matriks_guru||[]);
+ $('#clinic-subject-0').value=subjects[0]||'';
+ $('#clinic-subject-0').readOnly=subjects.length>0;
+ [1,2].forEach(i=>$('#clinic-subject-'+i).value='');
+ $('#clinic-form-note').textContent=subjects.length?'Satu guru mengajukan satu mapel sesuai pengampunya. Mapel terisi otomatis; usulan menunggu persetujuan kurikulum.':'Mapel pengampu belum tercatat. Isi satu mapel atau minta pengelola melengkapi data guru.';
+}
+$('#clinic-teacher').onchange=fillTeacherSubjects;
 function updateSlot(){const s=slotFor($('#clinic-date').value);$('#clinic-slot-info').textContent=s?`${s.name} · ${s.start}–${s.end} WIB`:'Pilih hari Senin atau Selasa.';}
 $('#clinic-date').onchange=updateSlot;
 $('#clinic-dialog-close').onclick=()=>$('#clinic-dialog').close();
@@ -110,7 +130,7 @@ $('#clinic-form').onsubmit=async e=>{
  const buttons=[...e.currentTarget.querySelectorAll('button')];buttons.forEach(b=>b.disabled=true);
  try{
   const date=$('#clinic-date').value,s=slotFor(date),teacher=state.teachers.find(t=>t.nama===$('#clinic-teacher').value);
-  const proposal=report?{topic:$('#clinic-topic').value.trim(),evidence:$('#clinic-evidence').value.trim()}:(access.has('teacher')?validateProposal:validateRequest)({date,start:s?.start,end:s?.end,classroom:$('#clinic-class').value,teacher_code:teacher?.kode,teacher:teacher?.nama,subjects:[0,1,2].map(i=>$('#clinic-subject-'+i).value.trim()).filter(Boolean),topic:$('#clinic-topic').value,evidence:$('#clinic-evidence').value,requester_label:$('#clinic-requester').value});
+  const proposal=report?{topic:$('#clinic-topic').value.trim(),evidence:$('#clinic-evidence').value.trim()}:(access.has('teacher')?validateProposal:validateRequest)({date,start:s?.start,end:s?.end,classroom:$('#clinic-class').value,teacher_code:teacher?.kode,teacher:teacher?.nama,subjects:proposalSubjects(access.has('teacher'),[0,1,2].map(i=>$('#clinic-subject-'+i).value)),topic:$('#clinic-topic').value,evidence:$('#clinic-evidence').value,requester_label:$('#clinic-requester').value});
   if(report&&proposal.evidence&&!safeURL(proposal.evidence))throw Error('Gunakan tautan http atau https untuk bukti.');
   if(send){
    if(access.has('teacher')&&!state.owner)throw Error('Sesi guru berakhir. Masuk kembali sebelum mengirim.');
@@ -145,7 +165,7 @@ function backup(){try{const content=JSON.stringify({exported_at:new Date().toISO
 function printReport(){
  const rows=archiveRows();if(!rows.length)return;
  const report=$('#clinic-print-report'),f=state.filters;
- report.innerHTML=`<h1>Laporan Arsip Klinik Pembelajaran</h1><p>MA Insan Cendekia Nusantara · ${YEAR}</p><p>Periode: ${esc(f.from||'Semua tanggal')} s.d. ${esc(f.to||todayWIB())} · ${esc(f.classroom||'Semua kelas')} · ${esc(labels[f.status]||'Semua status')}</p><p>Dicetak ${esc(new Date().toLocaleString('id-ID',{timeZone:'Asia/Jakarta'}))} WIB · ${rows.length} catatan</p><table><thead><tr><th>Tanggal / sesi</th><th>Kelas / pengampu</th><th>Mapel & status</th><th>Catatan / bukti</th></tr></thead><tbody>${rows.map(r=>`<tr><td>${esc(dateLabel(r.date))}<br>${r.start}–${r.end} WIB</td><td>${esc(r.classroom)}<br>${esc(r.teacher)}</td><td>${esc(r.approved_subject||r.subjects.join(' / '))}<br>${esc(labels[r.status])}${r.status==='legacy'?` (${esc(r.legacyStatus)}, belum diverifikasi)`:''}<br>Asal: ${esc(r.origin)} · Revisi ${r.revision}</td><td>${esc(r.topic)}<br>${esc(r.evidence)}<br>${esc(r.decision_note||'')}</td></tr>`).join('')}</tbody></table><p>Catatan lama dan draf perangkat bukan persetujuan server. Laporan ini mencatat penjadwalan dan tindak lanjut, bukan bukti kelulusan peserta.</p>`;
+ report.innerHTML=`<h1>Laporan Arsip Klinik Pembelajaran</h1><p>Curriculum · ${YEAR}</p><p>Periode: ${esc(f.from||'Semua tanggal')} s.d. ${esc(f.to||todayWIB())} · ${esc(f.classroom||'Semua kelas')} · ${esc(labels[f.status]||'Semua status')}</p><p>Dicetak ${esc(new Date().toLocaleString('id-ID',{timeZone:'Asia/Jakarta'}))} WIB · ${rows.length} catatan</p><table><thead><tr><th>Tanggal / sesi</th><th>Kelas / pengampu</th><th>Mapel & status</th><th>Catatan / bukti</th></tr></thead><tbody>${rows.map(r=>`<tr><td>${esc(dateLabel(r.date))}<br>${r.start}–${r.end} WIB</td><td>${esc(r.classroom)}<br>${esc(r.teacher)}</td><td>${esc(r.approved_subject||r.subjects.join(' / '))}<br>${esc(labels[r.status])}${r.status==='legacy'?` (${esc(r.legacyStatus)}, belum diverifikasi)`:''}<br>Asal: ${esc(r.origin)} · Revisi ${r.revision}</td><td>${esc(r.topic)}<br>${esc(r.evidence)}<br>${esc(r.decision_note||'')}</td></tr>`).join('')}</tbody></table><p>Catatan lama dan draf perangkat bukan persetujuan server. Laporan ini mencatat penjadwalan dan tindak lanjut, bukan bukti kelulusan peserta.</p>`;
  let preview=$('#clinic-print-preview');if(!preview){preview=document.createElement('dialog');preview.id='clinic-print-preview';preview.className='monday-info-dialog';preview.setAttribute('aria-label','Pratinjau laporan klinik');document.body.append(preview)}
  preview.innerHTML=`<h2>Pratinjau laporan</h2><p>${rows.length} catatan · ${esc(f.from||'Semua tanggal')} s.d. ${esc(f.to||todayWIB())} · ${esc(f.classroom||'Semua kelas')}</p><p>Status dan asal data disertakan agar draf atau catatan lama tidak terbaca sebagai persetujuan baru.</p><div class="clinic-print-preview-list">${rows.map(r=>`<article><h3>${esc(r.approved_subject||r.subjects.join(' / '))}</h3><p>${esc(dateLabel(r.date))} · ${r.classroom} · ${esc(labels[r.status])}</p><p>${esc(r.teacher)} · ${esc(r.origin)}</p></article>`).join('')}</div><div class="clinic-row"><button type="button" id="clinic-print-preview-close" class="ui-button ui-button-secondary">Kembali</button><button type="button" id="clinic-print-confirm" class="ui-button ui-button-primary">Cetak / simpan PDF</button></div>`;
  $('#clinic-print-preview-close').onclick=()=>preview.close();$('#clinic-print-confirm').onclick=()=>{preview.close();document.body.classList.add('clinic-printing');window.print()};preview.showModal();

@@ -5,7 +5,7 @@
 <link href="/favicon.svg" rel="icon" type="image/svg+xml"/>
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
-<title>Kalender Akademik — Curriculum OS · MA ICN</title>
+<title>Kalender Akademik — Curriculum · MA ICN</title>
 <link href="assets/styles.css?v=3.4" rel="stylesheet"/>
 <link href="assets/dashboard-clay.css?v=1.1" rel="stylesheet"/>
 <style>
@@ -484,7 +484,7 @@
 <script src="assets/student-roster-summary.js"></script>
 <script src="assets/student-roster.js?v=20261026"></script>
 <link rel="stylesheet" href="assets/audience.css?v=20261026-audience1"><link rel="stylesheet" href="assets/clinic-page.css?v=20261026-audience1"><script type="module" src="assets/curriculum-access.mjs?v=20261026-audience1"></script>
-</head>
+<link rel="stylesheet" href="assets/calendar-print.css"><script type="module" src="assets/calendar-print.mjs"></script></head>
 <body class="clay-theme curriculum-ui">
 <div aria-hidden="true" class="bg-blobs">
 <div class="bg-blob"></div>
@@ -492,7 +492,7 @@
 <div class="bg-blob"></div>
 </div>
 <div id="loading-screen">
-<div class="loading-logo"><img alt="MA ICN" src="assets/iconmaicn.png"/></div>
+<div class="loading-logo"><img alt="MA ICN" src="assets/curriculum-mark.svg"/></div>
 <div class="loading-text">Memuat Kurikulum…</div>
 <div class="loading-bar-track"><div class="loading-bar-fill"></div></div>
 </div>
@@ -512,7 +512,7 @@
 <!-- ══════════════════════════════════════════════ -->
 <aside class="clay-sidebar" id="main-clay-sidebar" aria-label="Menu utama">
  <button type="button" class="clay-drawer-close-btn" onclick="toggleClayDrawer(false)" aria-label="Tutup menu"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg></button>
- <a class="ui-brand" href="index.html"><img src="assets/iconmaicn.png" width="36" height="44" alt="Lambang MA ICN"><span class="ui-brand-text"><strong>Curriculum<span style="color:var(--ui-accent)">.</span></strong><small>MA INSAN CENDEKIA NUSANTARA</small></span></a>
+ <a class="ui-brand" href="index.html" aria-label="Curriculum — Beranda"><img src="assets/curriculum-mark.svg" width="40" height="40" alt=""><span class="ui-brand-text"><strong>Curriculum<span style="color:var(--ui-accent)">.</span></strong></span></a>
  <p class="ui-school-label">Ruang akademik madrasah<br><strong>Tahun pelajaran 2026/2027</strong></p>
  <nav class="clay-nav-menu" aria-label="Halaman kurikulum"><div class="clay-nav-section-title">RUANG AKADEMIK</div>
 <a class="clay-nav-item" href="index.html" title="Beranda"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7v10H3z"/><path d="M9 20v-7h6v7"/></svg><span>Beranda</span></a>
@@ -758,7 +758,7 @@
 <div class="modal-overlay" id="modal-login">
 <div class="modal-box">
 <button class="modal-close" data-close-modal="modal-login">✕</button>
-<div class="modal-logo"><img alt="Logo" src="assets/iconmaicn.png"/></div>
+<div class="modal-logo"><img alt="Logo" src="assets/curriculum-mark.svg"/></div>
 <div class="modal-title">Masuk Admin</div>
 <div class="modal-sub">Akses panel pengelolaan kurikulum</div>
 <div class="login-error" id="login-error"></div>
@@ -784,7 +784,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (!MD) return;
 
   document.getElementById('tp-label').textContent = MD.meta.tahun_pelajaran;
-  document.getElementById('footer-madrasah').textContent = MD.meta.madrasah;
+  document.getElementById('footer-madrasah').textContent = 'MA ICN';
   document.getElementById('footer-tp').textContent = `TP ${MD.meta.tahun_pelajaran}`;
   document.getElementById('footer-year').textContent = `TP ${MD.meta.tahun_pelajaran}`;
 
@@ -798,6 +798,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.error('Gagal memuat kalender dari Supabase, memakai data cadangan.', err);
   }
 
+  window.CurriculumCalendarSnapshot = MD;
   buildStats();
   buildTimeline();
   buildCalendar();
@@ -1067,59 +1068,7 @@ function buildME(){
 }
 
 /* ─── Ekspor PDF (JS hide + window.print) ─── */
-window.exportKalenderPDF = function() {
-  // Selector elemen yang disembunyikan saat cetak
-  const HIDE_SELECTORS = [
-    '#navbar', '#floating-clock', '#theme-panel-btn', '#theme-panel',
-    '.bg-blobs', '#loading-screen', 'footer', '.modal-overlay', '#toast',
-    '.export-pdf-row', '.tab-wrap', '.filter-group', '.legend-toggle',
-    '.sec-sub', '.month-card:hover'
-  ];
-
-  // 1. Kumpulkan state elemen yang akan disembunyikan
-  const hidden = [];
-  HIDE_SELECTORS.forEach(sel => {
-    document.querySelectorAll(sel).forEach(el => {
-      hidden.push({ el, prev: el.style.display });
-      el.style.setProperty('display', 'none', 'important');
-    });
-  });
-
-  // 2. Paksa semua tab konten muncul
-  const tabs = document.querySelectorAll('.tab-content');
-  const tabWas = [];
-  tabs.forEach(t => { tabWas.push(t.classList.contains('active')); t.classList.add('active'); });
-
-  // 3. Buka legenda
-  const legBody  = document.getElementById('leg-body');
-  const legArrow = document.getElementById('leg-arrow');
-  const legWas   = legBody.classList.contains('open');
-  legBody.classList.add('open');
-  legArrow.classList.add('open');
-
-  // 4. Paksa lebar minimal agar tidak print di lebar mobile
-  const htmlEl = document.documentElement;
-  const prevMinW = htmlEl.style.minWidth;
-  htmlEl.style.minWidth = '900px';
-
-  // 5. Restore setelah print dialog ditutup
-  let restored = false;
-  const restore = () => {
-    if(restored) return; restored = true;
-    hidden.forEach(({ el, prev }) => { el.style.removeProperty('display'); if(prev) el.style.display = prev; });
-    tabs.forEach((t, i) => { if(!tabWas[i]) t.classList.remove('active'); });
-    if(!legWas) { legBody.classList.remove('open'); legArrow.classList.remove('open'); }
-    htmlEl.style.minWidth = prevMinW;
-    window.removeEventListener('afterprint', restore);
-  };
-  window.addEventListener('afterprint', restore);
-
-  // 6. Cetak
-  window.print();
-
-  // Fallback restore untuk browser yang tidak support afterprint
-  setTimeout(restore, 2000);
-};
+// Export is provided by the dedicated A4 calendar document module.
 
 /* ─── Observer ─── */
 function initObserver(){

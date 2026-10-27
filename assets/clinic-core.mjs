@@ -1,5 +1,5 @@
 /** Shared clinic dates and validation. Browser drafts never confer approval. */
-export const CLINIC_REMOTE_ENABLED = false;
+export const CLINIC_REMOTE_ENABLED = true;
 export const INSTITUTION = 'MA Insan Cendekia Nusantara';
 export const YEAR = '2026/2027';
 export const CLASSES = ['X-1', 'X-2', 'X-3'];

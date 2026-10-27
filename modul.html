@@ -2,17 +2,348 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="refresh" content="0; url=buku-kerja.html">
-<title>Mengalihkan ke Buku Kerja Guru — Curriculum OS — MA ICN</title>
-<link rel="canonical" href="buku-kerja.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Modul Ajar — Curriculum</title>
+<link rel="stylesheet" href="assets/styles.css?v=3.1">
+<style>
+.modul-filter { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:28px; }
+.filter-btn { padding:8px 18px; border-radius:var(--radius-pill); border:1.5px solid var(--border); background:var(--glass-card); color:var(--text-secondary); font-size:0.85rem; font-weight:600; cursor:pointer; transition:.2s; }
+.filter-btn:hover, .filter-btn.active { background:var(--primary); color:#fff; border-color:var(--primary); }
+
+.modul-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:20px; margin-bottom:60px; }
+.modul-card { background:var(--glass-white); border:1px solid var(--glass-border); border-radius:var(--radius-md); padding:22px; box-shadow:var(--shadow-sm); transition:.3s; display:flex; flex-direction:column; gap:10px; }
+.modul-card:hover { transform:translateY(-4px); box-shadow:var(--shadow-md); border-color:var(--aqua); }
+.modul-cat { font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--aqua-deep); background:var(--aqua-soft); padding:3px 10px; border-radius:var(--radius-pill); display:inline-block; }
+.modul-title { font-size:1rem; font-weight:700; color:var(--primary); line-height:1.4; }
+.modul-meta { font-size:0.78rem; color:var(--text-soft); }
+.modul-actions { display:flex; gap:8px; margin-top:6px; }
+.modul-empty { text-align:center; color:var(--text-soft); padding:60px 20px; font-size:0.95rem; grid-column:1/-1; }
+
+.upload-fab { position:fixed; bottom:28px; right:28px; z-index:900; background:var(--aqua); color:#fff; border-radius:var(--radius-pill); padding:14px 22px; font-size:0.9rem; font-weight:700; box-shadow:var(--shadow-aqua); display:none; align-items:center; gap:8px; cursor:pointer; border:none; transition:.2s; }
+.upload-fab:hover { background:var(--aqua-deep); transform:translateY(-2px); }
+.upload-fab.show { display:flex; }
+</style>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<!-- Existing module accounts use Firebase Auth + Firestore. -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script src="data.js"></script>
+<script src="assets/app.js?v=3.0"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+Arabic:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="assets/irsyads-v1/tokens.css">
+<link rel="stylesheet" href="assets/ecosystem.css">
 <script>
-window.location.replace("buku-kerja.html");
+ try { window.__curriculumHadAppearance = /irsyads-appearance-(theme|palette)=/.test(document.cookie) || !!localStorage.getItem('irsyads-palette'); if (!window.__curriculumHadAppearance) { var old=localStorage.getItem('curriculum_theme'); if(['forest','ocean','royal','earth'].includes(old)) localStorage.setItem('irsyads-palette',old); } } catch(e) {}
 </script>
-<link rel="stylesheet" href="assets/audience.css?v=20261026-audience1"><link rel="stylesheet" href="assets/clinic-page.css?v=20261026-audience1"><script type="module" src="assets/curriculum-access.mjs?v=20261026-audience1"></script>
+<script src="assets/irsyads-v1/appearance.js"></script>
+<script src="assets/irsyads-v1/language.js"></script><script src="assets/irsyads-v1/launcher.js"></script>
+<script src="assets/ecosystem.js" defer></script>
 </head>
-<body style="font-family:system-ui,sans-serif; text-align:center; padding:60px 20px; background:#F3EDE2; color:#0B1D35;">
-  <h2>Mengalihkan ke Tab Buku Kerja Guru…</h2>
-  <p>Halaman Modul Ajar telah diperbarui menjadi Buku Kerja Guru & Perangkat Ajar.</p>
-  <p><a data-needs="teacher" href="buku-kerja.html" style="color:#376A9B; font-weight:700;">Klik di sini jika tidak beralih otomatis</a></p>
+<body>
+
+<div class="bg-blobs" aria-hidden="true">
+  <div class="bg-blob"></div>
+  <div class="bg-blob"></div>
+  <div class="bg-blob"></div>
+</div>
+
+<div id="loading-screen">
+  <div class="loading-logo"><img src="assets/curriculum-mark.svg" alt="Curriculum"></div>
+  <div class="loading-text">Memuat Kurikulum…</div>
+  <div class="loading-bar-track"><div class="loading-bar-fill"></div></div>
+</div>
+
+<!-- Floating Portal Hub -->
+<a href="https://irsyads.com" target="_blank" rel="noopener noreferrer" class="floating-portal" id="floating-portal" title="Kunjungi Portal Utama irsyads.com">
+  <span class="portal-dot"></span>
+  <span>irsyads.com</span>
+  <span class="portal-arrow">↗</span>
+</a>
+
+<div id="floating-clock" aria-label="Jam dan tanggal saat ini">
+  <div class="clock-time"></div>
+  <div class="clock-date"></div>
+</div>
+
+
+  
+  
+
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-brand">
+    <img src="assets/curriculum-mark.svg" alt="Logo">
+    <span>Curriculum</span>
+  </a>
+  <div class="nav-links" id="nav-links">
+    <a href="index.html" data-page="index">Beranda</a>
+    <a href="kalender.html" data-page="kalender">Kalender</a>
+    <a href="jadwal.html" data-page="jadwal">Jadwal</a>
+    <a href="struktur.html" data-page="struktur">Struktur Kurikulum</a>
+  </div>
+  <div class="nav-right">
+    <a class="btn-admin-nav" href="admin.html" title="Admin Kurikulum" aria-label="Admin Kurikulum"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg></a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menu">☰</button>
+  </div>
+</nav>
+
+<div class="page-content">
+
+  <div class="container" style="padding-top:48px;">
+    <div class="section-header animate-up">
+      <div class="section-tag">Pustaka Digital</div>
+      <h2 class="section-title">Modul Ajar</h2>
+      <p class="section-sub">Seluruh perangkat ajar yang diunggah oleh guru Curriculum</p>
+      <button type="button" class="btn btn-ghost btn-sm" id="module-account">Masuk akun modul</button>
+      <p class="section-sub" id="module-account-status" role="status"></p>
+    </div>
+
+    <!-- Filter -->
+    <div class="modul-filter animate-up">
+      <button class="filter-btn active" data-filter="all">Semua</button>
+      <button class="filter-btn" data-filter="modul">Modul Ajar</button>
+      <button class="filter-btn" data-filter="prota">Program Tahunan</button>
+      <button class="filter-btn" data-filter="posem">Program Semester</button>
+      <button class="filter-btn" data-filter="dokumen">Dokumen Lain</button>
+    </div>
+
+    <!-- Grid Modul -->
+    <div class="modul-grid" id="modul-grid">
+      <div class="modul-empty">✦ Memuat modul…</div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="container footer-inner">
+    <div>
+      <div class="footer-brand"><strong id="footer-madrasah">Curriculum</strong></div>
+      <div class="footer-meta">Pusat Informasi Akademik &amp; Kurikulum<br>
+        Waka Kurikulum: <span id="footer-waka"></span> · Dok: <span id="footer-doc"></span>
+      </div>
+    </div>
+    <div class="footer-right"><div class="clock-badge" id="footer-year"></div></div>
+  </div>
+</footer>
+
+<div id="toast"></div>
+
+<!-- FAB upload untuk guru -->
+<button class="upload-fab" id="fab-upload" onclick="AppUtils.openModal('modal-guru')">
+  ✦ Upload Modul
+</button>
+
+<!-- ══ MODAL: GURU UPLOAD ══ -->
+<div class="modal-overlay" id="modal-guru">
+  <div class="modal-box wide">
+    <button class="modal-close" data-close-modal="modal-guru">✕</button>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px;">
+      <div>
+        <div class="admin-tag" style="background:var(--aqua);margin-bottom:6px;">Guru Mode</div>
+        <div class="modal-title" style="text-align:left;margin-bottom:0;">Upload Modul Ajar</div>
+      </div>
+      <button class="btn btn-ghost btn-sm" id="btn-logout-guru">Keluar ↗</button>
+    </div>
+    <form id="guru-embed-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Mata Pelajaran</label>
+          <input type="text" id="guru-embed-mapel" placeholder="Matematika, Fisika, dll." required maxlength="40">
+        </div>
+        <div class="form-group">
+          <label>Kategori</label>
+          <select id="guru-embed-category">
+            <option value="modul">Modul Ajar</option>
+            <option value="prota">Program Tahunan</option>
+            <option value="posem">Program Semester</option>
+            <option value="dokumen">Dokumen Lain</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Judul Modul</label>
+        <input type="text" id="guru-embed-title" placeholder="Modul Ajar Bab 1 — Persamaan Linear" required maxlength="100">
+      </div>
+      <div class="form-group">
+        <label>Link Google Drive</label>
+        <input type="url" id="guru-embed-url" placeholder="https://drive.google.com/file/d/..." required>
+      </div>
+      <button type="submit" class="btn btn-aqua">Upload Modul ✦</button>
+    </form>
+  </div>
+</div>
+
+<!-- ══ MODAL: LOGIN ══ -->
+<div class="modal-overlay" id="modal-login">
+  <div class="modal-box">
+    <button class="modal-close" data-close-modal="modal-login">✕</button>
+    <div class="modal-logo"><img src="assets/curriculum-mark.svg" alt="Logo"></div>
+    <div class="modal-title">Masuk</div>
+    <div class="modal-sub">Akun modul guru &amp; administrator Curriculum</div>
+    <div class="login-error" id="login-error"></div>
+    <form id="login-form">
+      <div class="form-group">
+        <label>Email / Username</label>
+        <input type="text" id="login-user" placeholder="nama@maicn.sch.id atau username" autocomplete="username" required>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="login-pass" placeholder="••••••••" autocomplete="current-password" required>
+      </div>
+      <button type="submit" class="btn btn-primary btn-full" style="margin-top:8px;">Masuk →</button>
+    </form>
+    <p style="text-align:center;font-size:0.8rem;color:var(--text-soft);margin-top:16px;">
+      Khusus Guru &amp; Waka Kurikulum
+    </p>
+  </div>
+</div>
+
+<!-- ══ MODAL: ADMIN PANEL ══ -->
+<div class="modal-overlay" id="modal-admin">
+  <div class="modal-box wide">
+    <button class="modal-close" data-close-modal="modal-admin">✕</button>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px;">
+      <div>
+        <div class="admin-tag" style="margin-bottom:6px;">Admin Panel</div>
+        <div class="modal-title" style="text-align:left;margin-bottom:0;">Kelola Modul</div>
+      </div>
+      <button class="btn btn-ghost btn-sm" id="btn-logout">Keluar ↗</button>
+    </div>
+    <div class="admin-tabs">
+      <button class="admin-tab active" data-tab="embed">📎 Tambah Modul</button>
+      <button class="admin-tab" data-tab="info">ℹ Info</button>
+    </div>
+    <div class="admin-panel-content active" id="panel-embed">
+      <form id="embed-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Judul Dokumen</label>
+            <input type="text" id="embed-title" placeholder="Modul Matematika X" required>
+          </div>
+          <div class="form-group">
+            <label>Kategori</label>
+            <select id="embed-category">
+              <option value="modul">Modul Ajar</option>
+              <option value="prota">Program Tahunan</option>
+              <option value="posem">Program Semester</option>
+              <option value="dokumen">Dokumen Lain</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Link Google Drive</label>
+          <input type="url" id="embed-url" placeholder="https://drive.google.com/file/d/..." required>
+        </div>
+        <button type="submit" class="btn btn-aqua btn-sm">Tambah Modul</button>
+      </form>
+      <div class="embed-list" id="embed-list-admin">
+        <div class="comment-empty">Belum ada modul.</div>
+      </div>
+    </div>
+    <div class="admin-panel-content" id="panel-info">
+      <p style="font-size:0.9rem;color:var(--text-soft);line-height:1.7;">
+        <strong>Curriculum v3.0</strong> — Firebase Edition<br>Curriculum
+      </p>
+      <div class="callout">📌 Akun guru dibuat oleh admin di Firebase Console → Authentication → Add user</div>
+      <div class="callout" style="margin-top:10px;">🔐 Hak akses akun modul dikelola admin di Firestore → users → [uid] → role: "guru" atau "admin"</div>
+    </div>
+  </div>
+</div>
+
+<script src="data.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const MD = window.MASTER_DATA;
+  if (MD) {
+    document.getElementById('footer-madrasah').textContent = 'Curriculum';
+    document.getElementById('footer-waka').textContent     = MD.meta.waka_kurikulum;
+    document.getElementById('footer-doc').textContent      = MD.meta.no_dokumen;
+    document.getElementById('footer-year').textContent     = `TP ${MD.meta.tahun_pelajaran}`;
+  }
+
+  // Filter state
+  let activeFilter = 'all';
+  let allModuls    = [];
+
+  function safeModuleUrl(value) {
+    try { const url = new URL(value); return ['https:', 'http:'].includes(url.protocol) ? url.href : '#'; }
+    catch { return '#'; }
+  }
+
+  // Render grid
+  function renderGrid(list) {
+    const grid = document.getElementById('modul-grid');
+    const filtered = activeFilter === 'all' ? list : list.filter(m => m.category === activeFilter);
+    if (!filtered.length) {
+      grid.innerHTML = '<div class="modul-empty">✦ Belum ada modul pada kategori ini.</div>';
+      return;
+    }
+    const catLabel = { modul:'Modul Ajar', kaldik:'Kalender Akademik', prota:'Program Tahunan', posem:'Program Semester', dokumen:'Dokumen Lain' };
+    grid.innerHTML = filtered.map(m => `
+      <div class="modul-card animate-up">
+        <span class="modul-cat">${escHtml(catLabel[m.category] || m.category)}</span>
+        <div class="modul-title">${escHtml(m.title)}</div>
+        <div class="modul-meta">Oleh: ${escHtml(m.uploadedBy || '-')}${m.ts?.toDate ? ' · ' + m.ts.toDate().toLocaleDateString('id-ID') : ''}</div>
+        <div class="modul-actions">
+          <a href="${escHtml(safeModuleUrl(m.url))}" target="_blank" rel="noopener" class="btn btn-aqua btn-sm">Buka ↗</a>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // Filter buttons
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeFilter = btn.dataset.filter;
+      renderGrid(allModuls);
+    });
+  });
+
+  // Listen to Firestore modules in real-time
+  function startModulListener() {
+    if (!window.db) {
+      document.getElementById('modul-grid').innerHTML = '<div class="modul-empty">⚠ Database belum terhubung. Cek konfigurasi Firebase.</div>';
+      return;
+    }
+    window.db.collection('modules').orderBy('ts','desc').onSnapshot(snap => {
+      allModuls = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      renderGrid(allModuls);
+      // Admin listener for embed list
+      if (Auth.isAdmin()) renderAdminEmbeds(allModuls);
+    }, err => {
+      console.error(err);
+      document.getElementById('modul-grid').innerHTML = '<div class="modul-empty">⚠ Gagal memuat modul. Cek koneksi internet.</div>';
+    });
+  }
+
+  if (window.db) {
+    startModulListener();
+  } else {
+    setTimeout(startModulListener, 1500);
+  }
+
+  document.getElementById('module-account').addEventListener('click', async () => {
+    if (Auth.isLoggedIn()) { await Auth.logout(); return; }
+    AppUtils.openModal('modal-login');
+  });
+
+  // Auth state: show FAB if guru/admin
+  Auth.onStateChange((user, profile) => {
+    const fab = document.getElementById('fab-upload');
+    document.getElementById('module-account').textContent = user ? 'Keluar akun modul' : 'Masuk akun modul';
+    document.getElementById('module-account-status').textContent = user && !profile ? 'Akun berhasil masuk, tetapi akses modul belum diberikan. Hubungi administrator.' : '';
+    if (user && profile && (profile.role === 'guru' || profile.role === 'admin')) {
+      fab?.classList.add('show');
+      if (profile.role === 'admin') renderAdminEmbeds(allModuls);
+    } else {
+      fab?.classList.remove('show');
+    }
+  });
+});
+</script>
 </body>
 </html>

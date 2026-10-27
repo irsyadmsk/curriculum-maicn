@@ -30,7 +30,7 @@ test('master-data.json contains complete KBM 2026/2027 schedule and teacher matr
   assert.ok(weekly.jumat && weekly.jumat.length > 8, 'Jumat must have regular slots');
 });
 
-test('klinik pembelajaran adheres to 2 weekly recurring slots and multi-mapel single-approval model', async () => {
+test('public clinic source preserves the two weekly slots without private historical bookings', async () => {
   const content = await readFile(new URL('../master-data.json', import.meta.url), 'utf8');
   const master = JSON.parse(content);
 
@@ -40,20 +40,7 @@ test('klinik pembelajaran adheres to 2 weekly recurring slots and multi-mapel si
   assert.equal(klinik.slots_mingguan[0].hari, 'Senin');
   assert.equal(klinik.slots_mingguan[1].hari, 'Selasa');
 
-  assert.ok(klinik.jadwal_booking.length >= 10, 'Must contain multi-week booking schedules');
-
-  // Test single-approval rule helper
-  function validateSingleApproval(slotData) {
-    let approvedCount = 0;
-    ['X-1', 'X-2', 'X-3'].forEach(k => {
-      const cls = slotData.slot_kelas[k];
-      if (cls && cls.status === 'Approved') approvedCount++;
-    });
-    return approvedCount <= 3; // at most 1 approved per class in a slot
-  }
-
-  const sampleSlot = klinik.jadwal_booking[0];
-  assert.equal(validateSingleApproval(sampleSlot), true);
+  assert.equal(klinik.jadwal_booking,undefined,'Historical bookings are a protected release input, not public source data');
 });
 
 test('switch schedule validator enforces strict JP equality', () => {

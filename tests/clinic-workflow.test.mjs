@@ -36,7 +36,7 @@ test('only complete approved server snapshots may populate the home agenda',()=>
  assert.throws(()=>parseSnapshot(snapshot([{...approved,approved_subject:'Tidak diusulkan'}]),'review'));
 });
 test('held integration never calls auth or RPC, and exported modules match canonical sources',async()=>{
- assert.equal(CLINIC_REMOTE_ENABLED,false);let calls=0;const api=clinicClient({auth:{getSession(){calls++}},rpc(){calls++}});
+ let calls=0;const api=clinicClient({auth:{getSession(){calls++}},rpc(){calls++}},false);
  await assert.rejects(()=>api.read());await assert.rejects(()=>api.write({owner,action:'approve',id:row.id,revision:1,data:{},token:'token'}));assert.equal(calls,0);
  const canonical=process.env.CURRICULUM_CANONICAL_ROOT||'../irsyads';
  for(const name of ['clinic-core.mjs','clinic-client.mjs','access-core.mjs'])assert.equal(fs.readFileSync('assets/'+name,'utf8'),fs.readFileSync(canonical+'/packages/curriculum-clinic/'+name,'utf8'));
