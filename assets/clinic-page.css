@@ -12,3 +12,8 @@
 .clinic-print-preview-list{max-height:45dvh;overflow:auto;border-block:1px solid var(--ui-border);margin-block:18px}.clinic-print-preview-list article{padding:14px 0;border-bottom:1px solid var(--ui-border)}.clinic-print-preview-list h3{font-size:15px;margin:0}.clinic-print-preview-list p{font-size:12px;margin:5px 0}
 
 .curriculum-ui :is(#clinic-dialog,#clinic-auth-dialog,.monday-info-dialog){position:fixed;inset:0;margin:auto}
+.clinic-participants {max-height:240px;overflow:auto;border:1px solid var(--ui-line,#D9CCB9);border-radius:12px;padding:12px}
+.clinic-student-choice {display:flex!important;align-items:center;gap:12px;min-height:44px;padding:6px}
+.clinic-student-choice[hidden] {display:none!important}
+.clinic-student-choice input {width:20px!important;min-height:20px!important;flex:none}
+#clinic-evidence-preview iframe {width:100%;height:300px;border:1px solid var(--ui-line,#D9CCB9);border-radius:12px}

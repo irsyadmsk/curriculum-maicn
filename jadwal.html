@@ -1203,99 +1203,23 @@ table.custom-table tr:hover td { background: rgba(243, 237, 226, 0.4); }
   };
 
   // Open & Close Modals
-  window.openIzinModal = function() {
-    document.getElementById('modal-izin').classList.add('active');
-  };
+  window.openIzinModal = function() { location.href='layanan.html?kind=absence'; };
   window.openIzinModalPreFill = function(guru, hari, kelas, jam) {
     openIzinModal();
     if (guru && guru !== '–') document.getElementById('izin-guru-select').value = guru;
     if (hari) document.getElementById('izin-hari').value = hari;
     if (kelas) document.getElementById('izin-kelas').value = kelas;
   };
-  window.openSwitchModal = function() {
-    document.getElementById('modal-switch').classList.add('active');
-    calculateJPMatch();
-  };
+  window.openSwitchModal = function() { location.href='layanan.html?kind=switch'; };
   window.closeModal = function(id) {
     document.getElementById(id).classList.remove('active');
   };
 
   // Submit Form Izin
-  window.submitFormIzin = function(e) {
-    e.preventDefault();
-    const guru = document.getElementById('izin-guru-select').value;
-    const tgl = document.getElementById('izin-tanggal').value;
-    const jenis = document.getElementById('izin-jenis').value;
-    const hari = document.getElementById('izin-hari').value;
-    const kelas = document.getElementById('izin-kelas').value;
-    const jp = parseInt(document.getElementById('izin-jp').value, 10) || 2;
-    const alasan = document.getElementById('izin-alasan').value;
-    const tugas = document.getElementById('izin-tugas').value;
-    const penanganan = document.getElementById('izin-inval-type').value === 'guru_piket' ? 
-      'Didampingi Guru Piket (Inval Terjadwal)' : 'Tukar Jadwal dengan Guru Lain';
-
-    const newLog = {
-      id: 'izin-' + Date.now(),
-      tanggal: tgl,
-      jenis: jenis,
-      guru: guru,
-      mapel: 'Mapel Pengampu',
-      kelas: kelas,
-      jp: jp,
-      keterangan: alasan,
-      tugas: tugas,
-      penanganan: penanganan,
-      status: 'Disetujui'
-    };
-
-    logsIzin.unshift(newLog);
-    teacherStorage.setItem('maicn_kbm_izin_logs', JSON.stringify(logsIzin));
-    closeModal('modal-izin');
-    window.AppUtils.toast('Permohonan izin berhasil dicatat & divalidasi!');
-    renderKBMTable();
-    renderIzinLogTable();
-  };
+  window.submitFormIzin = function(e) { e.preventDefault();location.href='layanan.html?kind=absence'; };
 
   // Submit Form Switch
-  window.submitFormSwitch = function(e) {
-    e.preventDefault();
-    const g1 = document.getElementById('sw-guru-1').value;
-    const h1 = document.getElementById('sw-hari-1').value;
-    const k1 = document.getElementById('sw-kelas-1').value;
-    const jp1 = parseInt(document.getElementById('sw-jp-1').value, 10);
-
-    const g2 = document.getElementById('sw-guru-2').value;
-    const h2 = document.getElementById('sw-hari-2').value;
-    const k2 = document.getElementById('sw-kelas-2').value;
-    const jp2 = parseInt(document.getElementById('sw-jp-2').value, 10);
-
-    if (jp1 !== jp2) {
-      alert('Peringatan: Jumlah JP harus sama persis untuk pertukaran jadwal!');
-      return;
-    }
-
-    const alasan = document.getElementById('sw-alasan').value;
-    const newLog = {
-      id: 'switch-' + Date.now(),
-      tanggal: new Date().toISOString().slice(0, 10),
-      jenis: 'Tukar Jadwal (Switch)',
-      guru: `${g1} ↔ ${g2}`,
-      mapel: `Pertukaran ${h1} (${k1}) ↔ ${h2} (${k2})`,
-      kelas: `${k1} & ${k2}`,
-      jp: jp1,
-      keterangan: alasan,
-      tugas: 'Kedua guru mengajar di slot jam pengganti masing-masing.',
-      penanganan: `Switch JP Setara (${jp1} JP)`,
-      status: 'Disetujui'
-    };
-
-    logsIzin.unshift(newLog);
-    teacherStorage.setItem('maicn_kbm_izin_logs', JSON.stringify(logsIzin));
-    closeModal('modal-switch');
-    window.AppUtils.toast('Pertukaran jadwal (Switch JP) berhasil disimpan!');
-    renderKBMTable();
-    renderIzinLogTable();
-  };
+  window.submitFormSwitch = function(e) { e.preventDefault();location.href='layanan.html?kind=switch'; };
 
 
   // ══════════════════════════════════════════════════════════
@@ -1392,35 +1316,7 @@ table.custom-table tr:hover td { background: rgba(243, 237, 226, 0.4); }
     renderCatatanPiketTable();
   };
 
-  window.openCatatanPiketModal = function(optDay = '', optGuru = '') {
-    const modal = document.getElementById('modal-catatan-piket');
-    if (!modal) return;
-
-    const tglEl = document.getElementById('cp-tanggal');
-    const hariEl = document.getElementById('cp-hari');
-    
-    // Set today
-    const now = new Date();
-    const isoDate = now.toISOString().split('T')[0];
-    if (tglEl) tglEl.value = isoDate;
-
-    // Detect day if not given
-    const daysName = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-    const currentDayName = daysName[now.getDay()] || 'Senin';
-    const dayToSet = optDay || (['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat'].includes(currentDayName) ? currentDayName : 'Senin');
-
-    if (hariEl) {
-      hariEl.value = dayToSet;
-      updatePiketGuruByDay(dayToSet);
-    }
-
-    if (optGuru) {
-      const guruEl = document.getElementById('cp-guru');
-      if (guruEl) guruEl.value = optGuru;
-    }
-
-    modal.classList.add('active');
-  };
+  window.openCatatanPiketModal = function(optDay = '', optGuru = '') { location.href='jurnal.html?kind=duty'; };
 
   window.updatePiketGuruByDay = function(hari) {
     const guruEl = document.getElementById('cp-guru');
@@ -1444,36 +1340,7 @@ table.custom-table tr:hover td { background: rgba(243, 237, 226, 0.4); }
     }
   };
 
-  window.submitCatatanPiket = function(e) {
-    e.preventDefault();
-    const tgl = document.getElementById('cp-tanggal').value;
-    const hari = document.getElementById('cp-hari').value;
-    const guru = document.getElementById('cp-guru').value;
-    const jam = document.getElementById('cp-jam').value;
-    const apel = document.getElementById('cp-apel').value;
-    const murid = document.getElementById('cp-santri').value;
-    const inval = document.getElementById('cp-inval').value;
-    const catatan = document.getElementById('cp-catatan').value;
-
-    const newLog = {
-      id: 'piket-' + Date.now(),
-      tanggal: tgl,
-      hari: hari,
-      guru: guru,
-      jam: jam,
-      apel: apel,
-      santri: murid || 'Nihil murid izin.',
-      inval: inval || 'Seluruh guru hadir lengkap.',
-      catatan: catatan || '–',
-      status: 'Terverifikasi'
-    };
-
-    logsCatatanPiket.unshift(newLog);
-    teacherStorage.setItem('maicn_catatan_piket_v1', JSON.stringify(logsCatatanPiket));
-    closeModal('modal-catatan-piket');
-    window.AppUtils.toast('Catatan guru piket harian berhasil didokumentasikan!');
-    renderCatatanPiketTable();
-  };
+  window.submitCatatanPiket = function(e) { e.preventDefault();location.href='jurnal.html?kind=duty'; };
 
   // ══════════════════════════════════════════════════════════
   // PRESENSI KBM DENGAN LOGIN GURU

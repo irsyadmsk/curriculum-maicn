@@ -78,11 +78,21 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('source', type=Path)
     parser.add_argument('--output', type=Path, default=Path(__file__).resolve().parents[1] / 'assets/student-roster-data.js')
+    parser.add_argument('--clinic-sql-output', type=Path, help='Optional PRIVATE local roster seed; never commit or run automatically')
     args = parser.parse_args()
     data = extract(args.source)
     args.output.write_text('// Local roster imported from the supplied workbook. No grades or private placement notes.\n'
                            'window.MAICN_STUDENT_ROSTER = ' + json.dumps(data, ensure_ascii=False, indent=2) + ';\n', encoding='utf-8')
     summary = {'assigned': sum(len(rows) for rows in data['classes'].values()), 'unassigned': len(data['unassigned']), 'classes': {key: len(rows) for key, rows in data['classes'].items()}}
     args.output.with_name('student-roster-summary.js').write_text('window.MAICN_ROSTER_SUMMARY = Object.freeze(' + json.dumps(summary) + ');\n', encoding='utf-8')
+    if args.clinic_sql_output:
+        quote = lambda value: 'null' if value is None else "'" + str(value).replace("'", "''") + "'"
+        rows = [student for group in data['classes'].values() for student in group] + data['unassigned']
+        values = ',\n'.join('(' + ','.join(quote(value) for value in ['MA Insan Cendekia Nusantara', data['tahunPelajaran'], student['id'], student['nama'], student['kelas'], data['source']['sha256']]) + ')' for student in rows)
+        sql = '-- PRIVATE roster seed. Local candidate; explicit release authorization required.\nbegin;\n'
+        sql += 'insert into private.curriculum_clinic_roster(institution,year,id,nama,classroom,source_hash) values\n' + values + '\non conflict do nothing;\n'
+        sql += "do $$ begin if (select count(*) from private.curriculum_clinic_roster where institution='MA Insan Cendekia Nusantara' and year='2026/2027')<>" + str(len(rows)) + " or exists(select 1 from private.curriculum_clinic_roster where institution='MA Insan Cendekia Nusantara' and year='2026/2027' and source_hash<>" + quote(data['source']['sha256']) + ") then raise exception 'roster_source_changed_review_required';end if;end $$;\ncommit;\n"
+        args.clinic_sql_output.parent.mkdir(parents=True, exist_ok=True)
+        args.clinic_sql_output.write_text(sql, encoding='utf-8')
     print(json.dumps({'classes': {key: len(value) for key, value in data['classes'].items()},
                       'unassigned': len(data['unassigned']), 'sourceSHA256': data['source']['sha256']}))

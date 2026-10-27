@@ -176,7 +176,8 @@
     daySelect.value = ['sabtu','minggu'].includes(weekday) ? 'senin' : weekday;
     let classroom = 'X-1';
     function renderSchedule() {
-      const slots = scheduleFor(source, daySelect.value, classroom);
+      const effectiveSource=window.CurriculumSchoolSchedule?.apply(source,daySelect.value)||source;
+      const slots = scheduleFor(effectiveSource, daySelect.value, classroom);
       $('#ui-schedule-list').innerHTML = slots.length ? slots.map(slot => `<div class="ui-schedule-row"><div class="ui-schedule-time"><strong>${escapeHTML(slot.start)}</strong>${escapeHTML(slot.end)}</div><div class="ui-schedule-subject"><strong>${escapeHTML(slot.subject)}</strong><span>${escapeHTML(slot.teacher || 'Pengampu belum tercantum')}</span></div><span class="ui-chip">JP ${escapeHTML(slot.jp.join('–'))}</span></div>`).join('') : '<p class="ui-empty">Jadwal untuk pilihan ini belum tersedia.</p>';
       $('#ui-schedule-summary').textContent = `${daySelect.selectedOptions[0].textContent} · ${classroom} · ${slots.length} kegiatan`;
     }
@@ -186,6 +187,7 @@
       renderSchedule();
     }));
     daySelect.addEventListener('change', renderSchedule);
+    window.addEventListener('curriculum-school-schedule',renderSchedule);
     renderSchedule();
 
     const teachers = source?.jadwal_kbm_v2?.matriks_guru || [];

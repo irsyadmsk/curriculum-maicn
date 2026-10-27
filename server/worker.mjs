@@ -1,4 +1,5 @@
 import {normalizePath,routeAccess,parseAccess,capabilities} from '../assets/access-core.mjs';
+import {sendDecisionEmail} from './clinic-email.mjs';
 const institution='MA Insan Cendekia Nusantara',cookieName='maicn_session_v1';
 const json=(body,status=200,extra={})=>new Response(JSON.stringify(body),{status,headers:{'Content-Type':'application/json;charset=utf-8','Cache-Control':'no-store','Vary':'Cookie, Authorization',...extra}});
 const guest=enabled=>({version:1,institution,role:'guest',user_id:null,enabled});
@@ -14,13 +15,13 @@ export function createWorker({fetcher=fetch,now=()=>Date.now()}={}){
   const key=service?env.CLINIC_SERVICE_KEY:env.SUPABASE_PUBLISHABLE_KEY;
   if(!env.SUPABASE_URL||!key||!service&&!publicKey(key))throw Error('Integration unavailable');
   const response=await fetcher(env.SUPABASE_URL+path,{method:body===undefined?'GET':'POST',headers:{apikey:key,Authorization:'Bearer '+(service?key:token||key),'Content-Type':'application/json'},...(body===undefined?{}:{body:JSON.stringify(body)}),signal:AbortSignal.timeout(12000)});
-  if(!response.ok)throw Error('Upstream unavailable');return response.json();
+  if(!response.ok){const detail=await response.json().catch(()=>({}));const code=String(detail.message||'');throw Error(/invalid_switch|switch_slot_used|teacher_conflict|schedule_conflict|student_link_required|login_required|assign_teacher|invalid_assignment|assignment_overlap|journal_incomplete|tp_required|invalid_project|active_collaborations|source_changed|forbidden|active_class_role|teacher_contact_required|clinic_participant_conflict|clinic_conflict|enrichment_finalized|invalid_participants|invalid_teacher_contact|invalid_subjects|stale_revision|request_limit/.exec(code)?.[0]||'Upstream unavailable')}return response.json();
  }
  async function context(env,token){
   if(env.ACCESS_ENABLED!=='true'||!token)return parseAccess(guest(env.ACCESS_ENABLED==='true'));
   const user=await upstream(env,'/auth/v1/user',token);
   if(!user?.id)throw Error('Session unavailable');
-  const value=await upstream(env,'/rest/v1/rpc/curriculum_access_context',token,{p_institution:institution});
+  const value=await upstream(env,'/rest/v1/rpc/'+(env.SCHOOL_ENABLED==='true'?'curriculum_school_context':'curriculum_access_context'),token,{p_institution:institution});
   const access=parseAccess({...value,enabled:true});if(access.user_id!==user.id)throw Error('Account changed');return access;
  }
  async function bodyJSON(request,max=24000){
@@ -40,7 +41,10 @@ export function createWorker({fetcher=fetch,now=()=>Date.now()}={}){
   const key=await crypto.subtle.importKey('raw',new TextEncoder().encode(env.REQUEST_HASH_SECRET),{name:'HMAC',hash:'SHA-256'},false,['sign']);
   const bytes=await crypto.subtle.sign('HMAC',key,new TextEncoder().encode(ip+'|'+new Date(now()+7*3600000).toISOString().slice(0,10)));
   const fingerprint=[...new Uint8Array(bytes)].map(v=>v.toString(16).padStart(2,'0')).join('');
-  const receipt=await upstream(env,'/rest/v1/rpc/curriculum_clinic_guest_request',null,{p_institution:institution,p_year:'2026/2027',p_id:payload.id,p_token:payload.token,p_fingerprint:fingerprint,p_data:payload.data},true);
+  if(env.CLINIC_V2_ENABLED!=='true')return json({error:'Formulir peserta baru menunggu aktivasi pengelola.'},503);
+  let receipt;
+  try {receipt=await upstream(env,'/rest/v1/rpc/curriculum_clinic_intake',null,{p_institution:institution,p_year:'2026/2027',p_id:payload.id,p_token:payload.token,p_fingerprint:fingerprint,p_data:payload.data},true)}
+  catch(error){const messages={clinic_participant_conflict:'Ada peserta yang sudah diterima di klinik pada waktu yang sama. Pilih sesi lain.',clinic_conflict:'Pengampu atau kelas sudah terjadwal pada sesi ini.',enrichment_finalized:'Pembagian klinik dan pengayaan sesi ini sudah ditetapkan.',invalid_participants:'Pilih peserta dari daftar resmi sesuai kelas.',invalid_teacher_contact:'Email dan bukti Google Drive guru wajib diisi.',invalid_subjects:'Pilih satu mapel resmi.',request_limit:'Batas pengajuan hari ini tercapai.'};return json({error:messages[error.message]||'Hasil belum dapat dipastikan. Simpan nomor ajuan dan periksa sebelum mencoba kembali.'},messages[error.message]?409:503)}
   if(receipt?.id!==payload.id||receipt.status!=='pending'||receipt.token!==payload.token)return json({error:'Hasil belum dapat dipastikan. Simpan nomor permintaan sebelum mencoba lagi.'},502);
   return json({id:receipt.id,status:receipt.status,revision:receipt.revision,token:receipt.token},201);
  }
@@ -49,7 +53,44 @@ export function createWorker({fetcher=fetch,now=()=>Date.now()}={}){
   try{
    if(url.pathname.startsWith('/api/')){
     if(request.method!=='GET'&&request.headers.get('Origin')!==url.origin)return json({error:'Asal permintaan tidak sesuai.'},403);
-    if(url.pathname==='/api/config'&&request.method==='GET')return json({enabled:env.ACCESS_ENABLED==='true',login_enabled:env.ACCESS_ENABLED==='true'&&env.PREVIEW_MODE!=='true'&&publicKey(env.SUPABASE_PUBLISHABLE_KEY),clinic_enabled:env.CLINIC_ENABLED==='true',turnstile_site_key:env.TURNSTILE_SITE_KEY||'',...(env.ACCESS_ENABLED==='true'&&env.PREVIEW_MODE!=='true'&&publicKey(env.SUPABASE_PUBLISHABLE_KEY)?{supabase_url:env.SUPABASE_URL,supabase_key:env.SUPABASE_PUBLISHABLE_KEY}:{})});
+    if(url.pathname==='/api/config'&&request.method==='GET')return json({enabled:env.ACCESS_ENABLED==='true',login_enabled:env.ACCESS_ENABLED==='true'&&env.PREVIEW_MODE!=='true'&&publicKey(env.SUPABASE_PUBLISHABLE_KEY),clinic_enabled:env.CLINIC_ENABLED==='true',clinic_v2_enabled:env.CLINIC_V2_ENABLED==='true',school_enabled:env.SCHOOL_ENABLED==='true',turnstile_site_key:env.TURNSTILE_SITE_KEY||'',...(env.ACCESS_ENABLED==='true'&&env.PREVIEW_MODE!=='true'&&publicKey(env.SUPABASE_PUBLISHABLE_KEY)?{supabase_url:env.SUPABASE_URL,supabase_key:env.SUPABASE_PUBLISHABLE_KEY}:{})});
+    if(url.pathname==='/api/clinic/catalog'&&request.method==='GET'){
+     if(env.CLINIC_V2_ENABLED!=='true')return json({error:'Daftar peserta menunggu aktivasi pengelola.'},503);
+     const catalog=await upstream(env,'/rest/v1/rpc/curriculum_clinic_catalog',null,{p_institution:institution,p_year:'2026/2027'},true);
+     return json(catalog);
+    }
+    if(url.pathname==='/api/school/catalog'&&request.method==='GET'){
+     if(env.SCHOOL_ENABLED!=='true')return json({error:'Layanan baru menunggu aktivasi pengelola.'},503);
+     return json(await upstream(env,'/rest/v1/rpc/curriculum_school_catalog',null,{},true));
+    }
+    if(url.pathname==='/api/school/receipt'&&request.method==='POST'){
+     if(env.SCHOOL_ENABLED!=='true')return json({error:'Integrasi belum diaktifkan.'},503);
+     const p=await bodyJSON(request,1000),uuid=/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;if(!uuid.test(p.id)||!uuid.test(p.token))return json({error:'Nomor bukti tidak valid.'},400);
+     return json(await upstream(env,'/rest/v1/rpc/curriculum_school_receipt',null,{p_id:p.id,p_token:p.token},true));
+    }
+    if(url.pathname==='/api/school/request'&&request.method==='POST'){
+     if(env.SCHOOL_ENABLED!=='true')return json({error:'Layanan baru menunggu aktivasi pengelola.'},503);
+     try{const payload=await bodyJSON(request,24000),access=await context(env,cookie(request));let receipt;
+     if(access.user_id){receipt=await upstream(env,'/rest/v1/rpc/curriculum_school_submit',cookie(request),{p_kind:payload.kind,p_id:payload.id,p_data:payload.data,p_token:payload.token})}
+     else{
+      if(payload.kind==='remedial')return json({error:'Remedial wajib login SSO guru atau murid.'},403);
+      if(!env.TURNSTILE_SECRET||!env.REQUEST_HASH_SECRET||!env.CLINIC_SERVICE_KEY||typeof payload.challenge!=='string'||!payload.challenge||payload.challenge.length>2048)return json({error:'Selesaikan verifikasi permintaan.'},400);
+      const check=await fetcher('https://challenges.cloudflare.com/turnstile/v0/siteverify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({secret:env.TURNSTILE_SECRET,response:payload.challenge}),signal:AbortSignal.timeout(10000)}),v=await check.json();
+      if(!check.ok||v.success!==true||v.hostname!==url.hostname||v.action!=='school_request')return json({error:'Verifikasi permintaan gagal.'},400);
+      const ip=request.headers.get('CF-Connecting-IP');if(!ip)return json({error:'Verifikasi jaringan belum tersedia.'},503);
+      const key=await crypto.subtle.importKey('raw',new TextEncoder().encode(env.REQUEST_HASH_SECRET),{name:'HMAC',hash:'SHA-256'},false,['sign']),bytes=await crypto.subtle.sign('HMAC',key,new TextEncoder().encode(ip+'|'+new Date(now()+7*3600000).toISOString().slice(0,10))),fingerprint=[...new Uint8Array(bytes)].map(x=>x.toString(16).padStart(2,'0')).join('');
+      receipt=await upstream(env,'/rest/v1/rpc/curriculum_school_guest',null,{p_kind:payload.kind,p_id:payload.id,p_data:payload.data,p_token:payload.token,p_fingerprint:fingerprint},true);
+     }
+     if(receipt?.id!==payload.id||receipt.token!==payload.token||receipt.status!=='pending')return json({error:'Hasil belum pasti. Simpan nomor ajuan dan periksa sebelum mencoba lagi.'},502);
+     return json(receipt,201);}catch(error){return json({error:error.message},409)}
+    }
+    if(url.pathname==='/api/school/rpc'&&request.method==='POST'){
+     if(env.SCHOOL_ENABLED!=='true')return json({data:null,error:{message:'Integrasi sekolah menunggu aktivasi.'}},503);
+     const payload=await bodyJSON(request),name=payload.name,args=payload.args||{},rules={curriculum_school_read:args.p_mode==='public'?'public':args.p_mode==='review'?'reviewer':'school',curriculum_school_decide:'reviewer',curriculum_school_journal_read:'school',curriculum_school_journal_write:'school',curriculum_school_settings:'reviewer',curriculum_school_assign:'reviewer'};
+     if(!Object.hasOwn(rules,name))return json({data:null,error:{message:'forbidden'}},403);
+     const required=rules[name],a=required==='public'?parseAccess(guest(true)):await context(env,cookie(request));if(required!=='public'&&!a.capabilities[required])return json({data:null,error:{message:'forbidden'}},403);
+     try{return json({data:await upstream(env,'/rest/v1/rpc/'+name,required==='public'?null:cookie(request),args),error:null})}catch(error){return json({data:null,error:{message:error.message}},409)}
+    }
     if(url.pathname==='/api/access'&&request.method==='GET'){try{return json(await context(env,cookie(request)))}catch{return json({error:'Sesi belum dapat diperiksa. Masuk kembali.'},401)}}
     if(url.pathname==='/api/session'&&request.method==='DELETE')return json({ok:true},200,{'Set-Cookie':sessionCookie('',url,0)});
     if(url.pathname==='/api/session'&&request.method==='POST'){
@@ -61,7 +102,7 @@ export function createWorker({fetcher=fetch,now=()=>Date.now()}={}){
     if(url.pathname==='/api/clinic/rpc'&&request.method==='POST'){
      if(env.CLINIC_ENABLED!=='true')return json({data:null,error:{message:'Integrasi belum diaktifkan.'}},503);
      const payload=await bodyJSON(request),args=payload.args||{},name=payload.name;
-     const rules={curriculum_clinic_read:args.p_mode==='public'?'public':args.p_mode==='review'?'reviewer':'teacher',curriculum_clinic_write:'teacher',curriculum_clinic_history:'teacher',curriculum_monday_read:'public',curriculum_monday_write:'reviewer'};
+     const rules={curriculum_clinic_read:args.p_mode==='public'?'public':args.p_mode==='review'?'reviewer':'teacher',curriculum_clinic_allocate:'reviewer',curriculum_clinic_review_v2:'reviewer',curriculum_clinic_write_v2:'reviewer',curriculum_clinic_enrichment:'reviewer',curriculum_clinic_write:'teacher',curriculum_clinic_history:'teacher',curriculum_monday_read:'public',curriculum_monday_write:'reviewer'};
      if(!Object.hasOwn(rules,name)||args.p_institution&&args.p_institution!==institution||args.p_year&&args.p_year!=='2026/2027')return json({data:null,error:{message:'forbidden'}},403);
      const required=rules[name],access=required==='public'?parseAccess(guest(true)):await context(env,cookie(request));if(required!=='public'&&!access.capabilities[required])return json({data:null,error:{message:'forbidden'}},403);
      const data=await upstream(env,'/rest/v1/rpc/'+name,required==='public'?null:cookie(request),args);return json({data,error:null});
@@ -86,6 +127,19 @@ export function createWorker({fetcher=fetch,now=()=>Date.now()}={}){
    if(required!=='public'){headers.set('Cache-Control','no-store');headers.set('Vary','Cookie, Authorization');headers.set('X-Robots-Tag','noindex, nofollow, noarchive')}
    return new Response(request.method==='HEAD'?null:response.body,{status:response.status,headers});
   }catch{return json({error:'Layanan belum dapat menyelesaikan permintaan. Draf tidak dihapus.'},503)}
+ },async scheduled(_event,env){
+  const sources=[];if(env.CLINIC_EMAIL_ENABLED==='true')sources.push('clinic');if(env.SCHOOL_EMAIL_ENABLED==='true')sources.push('school');
+  if(!sources.length)return;
+  if(env.CURRICULUM_EMAIL_EDGE_ENABLED==='true'){
+   try{await fetcher(env.SUPABASE_URL+'/functions/v1/curriculum-notifications',{method:'POST',headers:{Authorization:'Bearer '+env.CLINIC_SERVICE_KEY,'Content-Type':'application/json'},body:JSON.stringify({sources}),signal:AbortSignal.timeout(55000)})}catch{/* Durable leases permit safe retry without logging personal data. */}
+   return;
+  }
+  if(!env.RESEND_API_KEY)return;
+  for(const source of sources){
+   let jobs;try{jobs=await upstream(env,'/rest/v1/rpc/curriculum_'+source+'_email_claim',null,{},true)}catch{continue}
+   for(const job of jobs){try{const result=await sendDecisionEmail(job.snapshot,{apiKey:env.RESEND_API_KEY,fetcher});await upstream(env,'/rest/v1/rpc/curriculum_'+source+'_email_complete',null,{p_id:job.id,p_lease:job.lease,p_provider_id:result.provider_id},true)}catch{/* Retry leases retain provider idempotency keys; no personal data is logged. */}}
+  }
+
  }};
 }
 export default createWorker();

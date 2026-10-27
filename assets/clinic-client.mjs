@@ -30,7 +30,13 @@ export function clinicClient(client, enabled = CLINIC_REMOTE_ENABLED) {
       if (error) {
         const m = String(error.message || '');
         if (m.includes('stale_revision')) throw Error('Usulan sudah diubah di tempat lain. Muat ulang dan tinjau kembali.');
-        if (m.includes('clinic_conflict')) throw Error('Bentrok: kelas/guru sudah terjadwal, atau mapel sama pada pekan ini.');
+        if (m.includes('clinic_participant_conflict')) throw Error('Peserta sudah diterima di klinik pada waktu yang bertabrakan. Muat ulang daftar ajuan.');
+        if (m.includes('clinic_conflict')) throw Error('Bentrok: kelas atau guru sudah terjadwal pada waktu yang sama.');
+        if (m.includes('enrichment_finalized')) throw Error('Pembagian pengayaan sudah ditetapkan. Buka seleksi kembali sebelum mengubah klinik.');
+        if (m.includes('invalid_participants')) throw Error('Daftar peserta belum valid. Ajuan lama tanpa peserta perlu dibuat ulang dari daftar resmi.');
+        if (m.includes('allocation_choice_required')) throw Error('Tentukan klinik tujuan untuk setiap murid yang bertabrakan.');
+        if (m.includes('clinic_empty_selection')) throw Error('Setiap klinik yang diterima harus memiliki peserta. Tinjau pilihan penempatannya.');
+        if (m.includes('clinic_allocation_locked')) throw Error('Klinik ini masih menjadi tujuan pengecualian klinik lain. Tinjau keputusan terkait sebelum mengubah jadwal atau membatalkan.');
         if (m.includes('forbidden')) throw Error('Akun ini tidak memiliki izin untuk tindakan tersebut.');
         if (m.includes('archived_schedule_locked')) throw Error('Sesi sudah masuk arsip. Gunakan catatan laporan untuk tindak lanjut.');
         throw Error('Server belum dapat memastikan tindakan ini. Muat ulang untuk memeriksa hasil sebelum mencoba kembali.');
@@ -49,17 +55,22 @@ export function clinicClient(client, enabled = CLINIC_REMOTE_ENABLED) {
     },
     async read({mode='public',owner,year=YEAR,institution=INSTITUTION,signal}={}) {
       if (mode !== 'public' && !owner) throw Error('Masuk melalui akun Irsyads terlebih dahulu.');
-      return parseSnapshot(await rpc('curriculum_clinic_read',{p_institution:institution,p_year:year,p_mode:mode},mode==='public'?null:owner,signal),mode,year,institution);
+      return parseSnapshot(await rpc(mode==='review'?'curriculum_clinic_review_v2':'curriculum_clinic_read',{p_institution:institution,p_year:year,p_mode:mode},mode==='public'?null:owner,signal),mode,year,institution);
     },
     async write({owner,year=YEAR,institution=INSTITUTION,action,id,revision,data,token,signal}) {
-      const result = await rpc('curriculum_clinic_write',{p_institution:institution,p_year:year,p_action:action,p_id:id,p_expected:revision,p_data:data,p_token:token},owner,signal);
+      const result = await rpc(action==='approve'&&data?.assignments?'curriculum_clinic_allocate':'curriculum_clinic_write',{p_institution:institution,p_year:year,p_action:action,p_id:id,p_expected:revision,p_data:data,p_token:token},owner,signal);
       if (!result || result.id !== id || result.token !== token || result.revision !== revision + 1 || !['pending','approved','rejected','cancelled'].includes(result.status)) throw Error('Hasil simpan belum dapat dipastikan. Muat ulang sebelum mencoba lagi.');
       return result;
+    },
+    async enrichment({owner,year=YEAR,institution=INSTITUTION,id,revision,action,signal}) {
+      const data=await rpc('curriculum_clinic_enrichment',{p_institution:institution,p_year:year,p_id:id,p_expected:revision,p_action:action},owner,signal);
+      if(!data||data.id!==id||data.finalized!==(action==='finalize'))throw Error('Penetapan belum dapat dipastikan. Muat ulang untuk memeriksa hasil.');
+      return data;
     },
     async history(id,owner,signal) {
       const rows=await rpc('curriculum_clinic_history',{p_id:id},owner,signal);
       if(!Array.isArray(rows)||rows.length>5000)throw Error('Riwayat belum dibaca lengkap.');
-      return rows.map((r,index)=>{if(!r||r.request_id!==id||r.revision!==index+1||!['submit','edit','approve','reject','cancel','report'].includes(r.action)||!Number.isFinite(Date.parse(r.occurred_at)))throw Error('Riwayat revisi tidak lengkap.');const snapshot=parseRows([r.snapshot])[0];if(snapshot.id!==id||snapshot.revision!==r.revision)throw Error('Riwayat tidak cocok.');return {revision:r.revision,action:r.action,occurred_at:r.occurred_at,snapshot}});
+      return rows.map((r,index)=>{if(!r||r.request_id!==id||r.revision!==index+1||!['submit','edit','approve','reject','cancel','report','allocate'].includes(r.action)||!Number.isFinite(Date.parse(r.occurred_at)))throw Error('Riwayat revisi tidak lengkap.');const snapshot=parseRows([r.snapshot])[0];if(snapshot.id!==id||snapshot.revision!==r.revision)throw Error('Riwayat tidak cocok.');return {revision:r.revision,action:r.action,occurred_at:r.occurred_at,snapshot}});
     }
   };
 }

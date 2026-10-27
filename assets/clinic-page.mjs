@@ -1,7 +1,8 @@
-import {CLINIC_REMOTE_ENABLED,YEAR,CLASSES,SLOTS,todayWIB,addDays,monday,slotFor,dateLabel,archived,legacyRecords,validateProposal,validateRequest,safeURL,inSchoolYear} from './clinic-core.mjs';
+import {CLINIC_REMOTE_ENABLED,YEAR,CLASSES,SLOTS,todayWIB,addDays,monday,slotFor,dateLabel,archived,legacyRecords,validateProposal,validateRequest,safeURL,inSchoolYear,validSession,validAudience} from './clinic-core.mjs';
 import {clinicClient} from './clinic-client.mjs';
 import {accessReady,access} from './curriculum-access.mjs';
-import {assignedSubjects,accountTeacher,proposalSubjects} from './teacher-subjects.mjs';
+import {classroomLabel,effectiveParticipants} from './clinic-intake-core.mjs';
+import {intakeCatalog,mountIntake} from './clinic-intake-form.mjs';
 await accessReady;
 const initialRole=access.context.role;
 let config={clinic_enabled:false,turnstile_site_key:''};try{const r=await fetch('/api/config',{cache:'no-store'});config=await r.json()}catch{}
@@ -14,7 +15,7 @@ const labels={draft:'Draf perangkat',pending:'Menunggu konfirmasi',approved:'Dis
 const root=$('#clinic-root');
 function loadDrafts(){
   const raw=localStorage.getItem(KEY), parsed=raw===null?[]:JSON.parse(raw);
-  if(!Array.isArray(parsed)||parsed.length>5000||new Set(parsed.map(r=>r?.id)).size!==parsed.length||parsed.some(r=>!r||typeof r.id!=='string'||r.status!=='draft'||!slotFor(r.date)||r.start!==slotFor(r.date).start||r.end!==slotFor(r.date).end||!CLASSES.includes(r.classroom)||!Array.isArray(r.subjects)||r.subjects.length<1||r.subjects.length>3||r.subjects.some(s=>typeof s!=='string'||!s.trim()||s.length>120)||typeof r.teacher!=='string'||typeof r.topic!=='string'||typeof r.evidence!=='string'||!Number.isSafeInteger(r.revision)))throw Error('Draf perangkat tidak dapat dibaca. Data asli dipertahankan; unduh cadangan sebelum pemulihan.');
+  if(!Array.isArray(parsed)||parsed.length>5000||new Set(parsed.map(r=>r?.id)).size!==parsed.length||parsed.some(r=>!r||typeof r.id!=='string'||r.status!=='draft'||!slotFor(r.date)||!validSession(r)||!validAudience(r)||!Array.isArray(r.subjects)||r.subjects.length<1||r.subjects.length>3||r.subjects.some(s=>typeof s!=='string'||!s.trim()||s.length>120)||typeof r.teacher!=='string'||typeof r.topic!=='string'||typeof r.evidence!=='string'||!Number.isSafeInteger(r.revision)))throw Error('Draf perangkat tidak dapat dibaca. Data asli dipertahankan; unduh cadangan sebelum pemulihan.');
   state.raw=raw;state.drafts=parsed;
 }
 try{loadDrafts()}catch(e){state.storageOK=false;state.notice=e.message}
@@ -31,17 +32,17 @@ function records(){
 function notify(message){state.notice=message;const n=$('#clinic-notice');if(n){n.textContent=message;n.hidden=!message}}
 function recordCard(r){
  const url=safeURL(r.evidence), ended=archived(r);
- return `<article class="clinic-record" data-status="${esc(r.status)}"><div class="clinic-row"><span class="clinic-badge ${r.status==='approved'?'clinic-approved':''}">${esc(labels[r.status]||r.status)}</span><span class="clinic-muted">${esc(r.classroom)}</span></div><h3>${esc(r.approved_subject||r.subjects.join(' / ')||'Mapel belum tercatat')}</h3><p>${esc(r.teacher||'Pengampu belum tercatat')}</p>${state.tab==='schedule'?'':`<p class="clinic-muted">${esc(dateLabel(r.date))} · ${esc(r.start)}–${esc(r.end)} WIB</p>`}${r.topic?`<p class="clinic-note">${esc(r.topic)}</p>`:''}${r.localReceipt?'<small>Status saat dikirim: menunggu konfirmasi. Ikuti agenda untuk jadwal resmi.</small>':''}${r.status==='legacy'?`<small>Status tersimpan: ${esc(r.legacyStatus)} · ${esc(r.origin)}. Persetujuan server belum diverifikasi.</small>`:''}${r.decision_note?`<p class="clinic-note">Keputusan: ${esc(r.decision_note)}</p>`:''}${url?`<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">Buka bukti ↗</a>`:r.evidence?`<p class="clinic-muted">Bukti lama: ${esc(r.evidence)}</p>`:''}${r.status==='draft'?`<button type="button" data-edit="${esc(r.id)}">${ended?'Lihat draf terdahulu':'Lanjutkan draf'}</button>`:''}${r.origin==='Server'&&state.owner&&state.remote.some(v=>v.id===r.id)?`<div class="clinic-row">${!ended&&r.status==='pending'?`<button type="button" data-remote-edit="${esc(r.id)}">Edit usulan</button>`:''}<button type="button" data-report="${esc(r.id)}">Catatan laporan</button></div>`:''}</article>`;
+ return `<article class="clinic-record" data-status="${esc(r.status)}"><div class="clinic-row"><span class="clinic-badge ${r.status==='approved'?'clinic-approved':''}">${esc(labels[r.status]||r.status)}</span><span class="clinic-muted">${esc(classroomLabel(r))}</span></div><h3>${esc(r.approved_subject||r.subjects.join(' / ')||'Mapel belum tercatat')}</h3><p>${esc(r.teacher||'Pengampu belum tercatat')}</p>${state.tab==='schedule'?'':`<p class="clinic-muted">${esc(dateLabel(r.date))} · ${esc(r.start)}–${esc(r.end)} WIB</p>`}${r.participant_ids?.length?`<p class="clinic-muted">${effectiveParticipants(r).length} peserta · ${r.target_mode==='class'?'satu kelas':'per nama'}</p>`:''}${r.topic?`<p class="clinic-note">${esc(r.topic)}</p>`:''}${r.localReceipt?'<small>Status saat dikirim: menunggu konfirmasi. Ikuti agenda untuk jadwal resmi.</small>':''}${r.status==='legacy'?`<small>Status tersimpan: ${esc(r.legacyStatus)} · ${esc(r.origin)}. Persetujuan server belum diverifikasi.</small>`:''}${r.decision_note?`<p class="clinic-note">Keputusan: ${esc(r.decision_note)}</p>`:''}${url?`<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">Buka bukti ↗</a>`:r.evidence?`<p class="clinic-muted">Bukti lama: ${esc(r.evidence)}</p>`:''}${r.status==='draft'?`<button type="button" data-edit="${esc(r.id)}">${ended?'Lihat draf terdahulu':'Lanjutkan draf'}</button>`:''}${r.origin==='Server'&&state.owner&&state.remote.some(v=>v.id===r.id)?`<div class="clinic-row">${!ended&&r.status==='pending'?`<button type="button" data-remote-edit="${esc(r.id)}">Edit usulan</button>`:''}<button type="button" data-report="${esc(r.id)}">Catatan laporan</button></div>`:''}</article>`;
 }
 function render(){
  const all=records(), ended=all.filter(r=>archived(r));
- root.innerHTML=`<section class="clinic-intro"><div><p class="ui-eyebrow">KLINIK PEMBELAJARAN · ${YEAR}</p><h2>Ruang tumbuh,<br><em>di waktu yang tepat.</em></h2><p>Ajukan kebutuhan belajar. Kurikulum memilih satu mapel per sesi; jadwal yang disetujui tampil di beranda.</p></div><div class="clinic-intro-actions"><button type="button" class="ui-button ui-button-primary" id="clinic-new">+ Ajukan klinik</button><a class="ui-button ui-button-secondary" data-needs="reviewer" href="https://studio.irsyads.com/?clinic=review#kurikulum">Edit & konfirmasi di Studio ↗</a></div></section>
- <div class="clinic-summary"><div><strong>Senin malam</strong><span>20.30–21.30 WIB</span></div><div><strong>Selasa sore</strong><span>16.15–17.00 WIB</span></div><div><strong>1 mapel disetujui</strong><span>Per sesi, per kelas · pilihan mapel bebas</span></div></div>
+ root.innerHTML=`<section class="clinic-intro"><div><p class="ui-eyebrow">KLINIK PEMBELAJARAN · ${YEAR}</p><h2>Ruang tumbuh,<br><em>di waktu yang tepat.</em></h2><p>Ajukan kebutuhan belajar. Pilih satu kelas atau beberapa murid dari daftar resmi. Jadwal yang disetujui tampil di beranda.</p></div><div class="clinic-intro-actions"><button type="button" class="ui-button ui-button-primary" id="clinic-new">+ Ajukan klinik</button><a class="ui-button ui-button-secondary" data-needs="reviewer" href="https://studio.irsyads.com/?clinic=review#kurikulum">Edit & konfirmasi di Studio ↗</a></div></section>
+ <div class="clinic-summary"><div><strong>Senin malam</strong><span>20.30–21.30 WIB</span></div><div><strong>Selasa sore</strong><span>16.15–17.00 WIB</span></div><div><strong>1 mapel disetujui</strong><span>Per ajuan · mapel dari daftar resmi</span></div></div>
  <p class="clinic-connection">${CLINIC_REMOTE_ENABLED?'Persetujuan diperiksa melalui akun Irsyads.':'Draf bisa diisi sekarang. Pengiriman, persetujuan Studio, dan agenda lintas perangkat menunggu aktivasi integrasi.'}</p>
  <p id="clinic-notice" class="clinic-feedback" role="status" ${state.notice?'':'hidden'}>${esc(state.notice)}</p>
  <div class="clinic-tabs" role="group" aria-label="Tampilan klinik"><button data-tab="schedule" aria-pressed="${state.tab==='schedule'}">Jadwal</button><button data-tab="requests" aria-pressed="${state.tab==='requests'}">${access.has('teacher')?'Usulan & laporan':'Permintaan saya'} <span>${state.drafts.filter(r=>!r.sentReceipt).length+state.remote.length}</span></button>${access.has('teacher')?`<button data-tab="archive" aria-pressed="${state.tab==='archive'}">Arsip & laporan <span>${ended.length}</span></button>`:''}</div>
  <section id="clinic-view" aria-label="${state.tab==='archive'?'Arsip klinik':'Daftar klinik'}"></section>
- <details class="clinic-help"><summary>Cara pengisian & penyimpanan data</summary><ol><li>Pilih tanggal Senin/Selasa, kelas, dan pengampu.</li><li>${access.has('teacher')?'Mapel terisi sesuai pengampu: satu guru, satu mapel. Tuliskan kebutuhan belajarnya.':'Tulis 1–3 pilihan mapel dan kebutuhan belajarnya.'}</li><li>Simpan draf, lalu kirim ketika integrasi aktif. Hanya admin atau pengelola kurikulum yang ditunjuk dapat menyetujui satu mapel.</li><li>Begitu sesi berakhir dalam WIB, catatan otomatis tampil di arsip. Filter dan cetak kapan saja.</li></ol><p>Draf perangkat belum terkirim. Catatan lama tetap dipertahankan beserta status asalnya; tidak dianggap sebagai persetujuan server baru.</p><button type="button" data-needs="teacher" id="clinic-backup">Unduh cadangan perangkat</button></details>`;
+ <details class="clinic-help"><summary>Cara pengisian & penyimpanan data</summary><ol><li>Pilih tanggal Senin/Selasa, kelas, dan pengampu.</li><li>${access.has('teacher')?'Mapel terisi sesuai pengampu: satu guru, satu mapel. Tuliskan kebutuhan belajarnya.':'Pilih satu mapel dan murid yang memerlukan klinik.'}</li><li>Simpan draf, lalu kirim ketika integrasi aktif. Hanya admin atau pengelola kurikulum yang ditunjuk dapat menyetujui satu mapel.</li><li>Begitu sesi berakhir dalam WIB, catatan otomatis tampil di arsip. Filter dan cetak kapan saja.</li></ol><p>Draf perangkat belum terkirim. Catatan lama tetap dipertahankan beserta status asalnya; tidak dianggap sebagai persetujuan server baru.</p><button type="button" data-needs="teacher" id="clinic-backup">Unduh cadangan perangkat</button></details>`;
  $('#clinic-new').onclick=()=>openForm();
  root.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{state.tab=b.dataset.tab;render()});
  $('#clinic-backup').onclick=backup;
@@ -53,13 +54,13 @@ function renderView(){
  if(state.tab==='schedule'){
   target.innerHTML=`<div class="clinic-date-nav"><button type="button" id="clinic-prev" aria-label="Pekan sebelumnya">←</button><label>Pekan mulai<input id="clinic-week" type="date" value="${state.week}"></label><button type="button" id="clinic-next" aria-label="Pekan berikutnya">→</button><button type="button" id="clinic-today">Pekan ini</button></div><p class="clinic-muted">${esc(dateLabel(state.week))} – ${esc(dateLabel(addDays(state.week,6)))} · WIB</p><div id="clinic-sessions" class="clinic-sessions">${SLOTS.map((s,i)=>{
    const date=addDays(state.week,i),end=archived({date,end:s.end}),within=inSchoolYear(date);
-   return `<section class="clinic-session"><header><div><p class="ui-eyebrow">${esc(s.name)} · ${!within?'Di luar tahun pelajaran':end?'Sesi berakhir':'Sesi mendatang'}</p><h3>${esc(dateLabel(date))}</h3><p>${s.start}–${s.end} WIB</p></div>${!end&&within?`<button type="button" data-date="${date}">Ajukan sesi ini</button>`:`<span class="clinic-badge">${within?'Tersimpan di arsip':'Di luar tahun pelajaran'}</span>`}</header><div class="clinic-class-grid">${CLASSES.map(c=>{const rows=all.filter(r=>r.date===date&&r.classroom===c&&r.status==='approved');return `<div><h4>Kelas ${c}</h4>${rows.length?rows.map(recordCard).join(''):'<p class="clinic-empty">Belum ada klinik yang disetujui.</p>'}</div>`}).join('')}</div></section>`;
+   return `<section class="clinic-session"><header><div><p class="ui-eyebrow">${esc(s.name)} · ${!within?'Di luar tahun pelajaran':end?'Sesi berakhir':'Sesi mendatang'}</p><h3>${esc(dateLabel(date))}</h3><p>${s.start}–${s.end} WIB</p></div>${!end&&within?`<button type="button" data-date="${date}">Ajukan sesi ini</button>`:`<span class="clinic-badge">${within?'Tersimpan di arsip':'Di luar tahun pelajaran'}</span>`}</header><div class="clinic-class-grid">${CLASSES.map(c=>{const rows=all.filter(r=>r.date===date&&(r.classroom===c||r.classrooms?.includes(c)||r.scope_classrooms?.includes(c))&&r.status==='approved');return `<div><h4>Kelas ${c}</h4>${rows.length?rows.map(recordCard).join(''):'<p class="clinic-empty">Belum ada klinik yang disetujui.</p>'}</div>`}).join('')}</div>${all.filter(r=>r.date===date&&r.status==='approved'&&!r.classroom&&!(r.classrooms||r.scope_classrooms||[]).length).map(recordCard).join('')}</section>`;
   }).join('')}</div>`;
   $('#clinic-prev').onclick=()=>{state.week=addDays(state.week,-7);renderView()};$('#clinic-next').onclick=()=>{state.week=addDays(state.week,7);renderView()};$('#clinic-today').onclick=()=>{state.week=monday(todayWIB());renderView()};$('#clinic-week').onchange=e=>{if(e.target.value){state.week=monday(e.target.value);renderView()}};
   target.querySelectorAll('[data-date]').forEach(b=>b.onclick=()=>openForm(null,b.dataset.date));
  }else if(state.tab==='requests'){
   const mine=[...ownRequests().filter(r=>!state.remote.some(v=>v.id===r.id)),...state.remote].sort((a,b)=>a.date.localeCompare(b.date));
-  target.innerHTML=`<div class="clinic-section-title"><div><h2>${access.has('teacher')?'Usulan & laporan saya':'Permintaan perangkat ini'}</h2><p>Draf perangkat dan usulan yang dikirim melalui akun ini.</p></div><button type="button" id="clinic-refresh">Periksa server</button></div>${mine.length?`<div class="clinic-record-grid">${mine.map(recordCard).join('')}</div>`:'<p class="clinic-empty">Belum ada usulan. Mulai dengan tombol “Ajukan klinik”.</p>'}`;
+  target.innerHTML=`<div class="clinic-section-title"><div><h2>${access.has('teacher')?'Usulan & laporan saya':'Permintaan perangkat ini'}</h2><p>Draf dan bukti pengiriman dari perangkat ini. Keputusan untuk ajuan guru dikirim lewat email.</p></div><button type="button" id="clinic-refresh">Periksa server</button></div>${mine.length?`<div class="clinic-record-grid">${mine.map(recordCard).join('')}</div>`:'<p class="clinic-empty">Belum ada usulan. Mulai dengan tombol “Ajukan klinik”.</p>'}`;
   $('#clinic-refresh').onclick=()=>refresh(true);
  }else{
   const f=state.filters;
@@ -75,47 +76,28 @@ function bindRecordActions(target){
  target.querySelectorAll('[data-remote-edit]').forEach(b=>b.onclick=()=>openForm(state.remote.find(r=>r.id===b.dataset.remoteEdit)));
  target.querySelectorAll('[data-report]').forEach(b=>b.onclick=()=>openForm(state.remote.find(r=>r.id===b.dataset.report),undefined,true));
 }
-function archiveRows(){const f=state.filters;return records().filter(r=>archived(r)&&(!f.from||r.date>=f.from)&&(!f.to||r.date<=f.to)&&(!f.classroom||r.classroom===f.classroom)&&(!f.status||r.status===f.status)).sort((a,b)=>b.date.localeCompare(a.date)||a.classroom.localeCompare(b.classroom));}
+function archiveRows(){const f=state.filters;return records().filter(r=>archived(r)&&(!f.from||r.date>=f.from)&&(!f.to||r.date<=f.to)&&(!f.classroom||r.classroom===f.classroom||r.scope_classrooms?.includes(f.classroom))&&(!f.status||r.status===f.status)).sort((a,b)=>b.date.localeCompare(a.date)||String(a.classroom||'').localeCompare(String(b.classroom||'')));}
 function renderArchive(){const rows=archiveRows(),bad=state.filters.from&&state.filters.to&&state.filters.from>state.filters.to;$('#clinic-archive-list').innerHTML=bad?'<p class="clinic-feedback">Tanggal akhir harus sesudah tanggal awal.</p>':`<p class="clinic-muted">${rows.length} catatan sesuai filter</p>${rows.length?`<div class="clinic-record-grid">${rows.map(recordCard).join('')}</div>`:'<p class="clinic-empty">Tidak ada arsip sesuai filter.</p>'}`;$('#clinic-print').disabled=!!bad||!rows.length;bindRecordActions($('#clinic-archive-list'));}
 function defaultDate(){let d=todayWIB();for(let n=0;n<8;n++,d=addDays(d,1)){const s=slotFor(d);if(s&&!archived({date:d,end:s.end}))return d}return d}
-function openForm(row=null,date=defaultDate(),report=false){
- if(access.has('teacher')&&CLINIC_REMOTE_ENABLED&&!state.teachers.length){notify('Daftar pengampu sedang dimuat. Coba lagi sesaat atau muat ulang agenda.');return;}
+let intakeForm;
+async function openForm(row=null,date=defaultDate(),report=false){
+ if(state.busy)return;
+ let catalog;try{catalog=await intakeCatalog()}catch(error){notify(error.message);return}
  state.editing=row;state.expected=state.raw;state.formId=row?.id||crypto.randomUUID();state.pendingToken=null;
- const dialog=$('#clinic-dialog'),form=$('#clinic-form');form.reset();form.dataset.report=report?'true':'false';
- $('#clinic-form-title').textContent=report?'Catatan laporan':row?'Lanjutkan permintaan':access.has('teacher')?'Usulan Klinik guru':'Ajukan kebutuhan belajar';
- $('#clinic-teacher').innerHTML='<option value="">Pilih pengampu</option>'+state.teachers.map(t=>`<option value="${esc(t.nama)}">${esc(t.nama)}</option>`).join('');
- const current=accountTeacher(access.context,state.teachers);
- $('#clinic-date').value=row?.date||date;$('#clinic-class').value=row?.classroom||'X-1';$('#clinic-teacher').value=row?.teacher||current?.nama||'';
- [0,1,2].forEach(i=>$('#clinic-subject-'+i).value=row?.subjects[i]||'');$('#clinic-topic').value=row?.topic||'';$('#clinic-evidence').value=row?.evidence||'';
- const teacherMode=access.has('teacher');
- $('#clinic-subject-1').closest('.clinic-pair').hidden=teacherMode;
- [1,2].forEach(i=>{$('#clinic-subject-'+i).disabled=teacherMode;if(teacherMode)$('#clinic-subject-'+i).value=''});
- document.querySelector('label[for="clinic-subject-0"]').firstChild.textContent=teacherMode?'Mapel pengampu':'Pilihan mapel utama';
- $('#clinic-subject-0').readOnly=false;
+ const form=$('#clinic-form');form.dataset.report=report?'true':'false';
+ challenge='';challengeWidget=null;
+ intakeForm=mountIntake(form,catalog,{row,date,report,teacherDefault:access.context.teacher_code});
+ $('#clinic-form-title').textContent=report?'Catatan laporan':'Ajukan klinik';
  const ended=row&&archived(row);
- $('#clinic-schedule-fields').disabled=report||ended;$('#clinic-report-fields').disabled=!!(ended&&!report);$('#clinic-form-note').textContent=report?'Catatan dan bukti masuk riwayat revisi. Tanggal dan keputusan tetap.':row?.origin==='Server'?'Perubahan usulan harus dikonfirmasi ulang oleh kurikulum.':access.has('teacher')?'Satu guru mengajukan satu mapel sesuai pengampunya.':'Boleh diajukan tanpa akun. Pilih 1–3 mapel dan tuliskan kebutuhanmu; pengampu dan jadwal resmi ditetapkan kurikulum.';
- $('#clinic-save-draft').hidden=report||row?.origin==='Server'||!!ended;$('#clinic-teacher').required=access.has('teacher');$('#clinic-teacher').closest('label').hidden=!access.has('teacher');if(!access.has('teacher'))$('#clinic-teacher').value='';document.querySelector('label[for="clinic-teacher"]').firstChild.textContent=access.has('teacher')?'Guru pengampu':'Usulan pengampu (opsional)';$('#clinic-evidence').closest('label').hidden=!access.has('teacher');$('#clinic-requester').closest('label').hidden=access.has('teacher');$('#clinic-requester').value=row?.requester_label||'';
- $('#clinic-send').hidden=!!(ended&&!report);$('#clinic-send').textContent=report?'Simpan catatan laporan':row?.origin==='Server'?'Kirim perubahan':access.has('teacher')?'Kirim usulan guru':'Kirim permintaan';$('#clinic-send').disabled=!CLINIC_REMOTE_ENABLED;
- $('#clinic-form-error').textContent=ended&&!report?'Draf terdahulu dipertahankan sebagai arsip. Buat usulan baru untuk sesi mendatang.':'';
- $('#clinic-auth-entry').hidden=access.has('teacher');
- $('#clinic-teacher').disabled=access.context.role==='teacher';
- if(!row||teacherMode&&!report&&!ended)fillTeacherSubjects();
- updateSlot();dialog.showModal();setupChallenge().catch(()=>{$('#clinic-form-error').textContent='Verifikasi permintaan belum dapat dimuat. Simpan draf dan coba lagi saat koneksi tersedia.';});
+ $('#clinic-schedule-fields').disabled=report||!!ended;$('#clinic-report-fields').disabled=!!ended&&!report;
+ $('#clinic-save-draft').hidden=report||row?.origin==='Server'||!!ended;
+ $('#clinic-send').hidden=!!ended&&!report;$('#clinic-send').disabled=!config.clinic_v2_enabled;
+ $('#clinic-cancel').onclick=()=>$('#clinic-dialog').close();$('#clinic-date').onchange=updateSlot;
+ updateSlot();$('#clinic-dialog').showModal();
+ setupChallenge().catch(()=>{$('#clinic-form-error').textContent='Verifikasi permintaan belum dapat dimuat. Simpan draf dan coba lagi.'});
 }
-function fillTeacherSubjects(){
- if(!access.has('teacher'))return;
- const teacher=state.teachers.find(t=>t.nama===$('#clinic-teacher').value);
- const subjects=assignedSubjects(teacher,window.MASTER_DATA?.jadwal_kbm_v2?.matriks_guru||[]);
- $('#clinic-subject-0').value=subjects[0]||'';
- $('#clinic-subject-0').readOnly=subjects.length>0;
- [1,2].forEach(i=>$('#clinic-subject-'+i).value='');
- $('#clinic-form-note').textContent=subjects.length?'Satu guru mengajukan satu mapel sesuai pengampunya. Mapel terisi otomatis; usulan menunggu persetujuan kurikulum.':'Mapel pengampu belum tercatat. Isi satu mapel atau minta pengelola melengkapi data guru.';
-}
-$('#clinic-teacher').onchange=fillTeacherSubjects;
 function updateSlot(){const s=slotFor($('#clinic-date').value);$('#clinic-slot-info').textContent=s?`${s.name} · ${s.start}–${s.end} WIB`:'Pilih hari Senin atau Selasa.';}
-$('#clinic-date').onchange=updateSlot;
 $('#clinic-dialog-close').onclick=()=>$('#clinic-dialog').close();
-$('#clinic-cancel').onclick=()=>$('#clinic-dialog').close();
 async function storeDraft(row){
  if(!state.storageOK)throw Error('Penyimpanan belum dapat dibaca. Cadangkan data sebelum melanjutkan.');
  if(!navigator.locks?.request)throw Error('Penyimpanan aman memerlukan browser terbaru. Isian tetap terbuka untuk disalin.');
@@ -129,11 +111,13 @@ $('#clinic-form').onsubmit=async e=>{
  state.busy=true;$('#clinic-form-error').textContent='';let row=state.editing;
  const buttons=[...e.currentTarget.querySelectorAll('button')];buttons.forEach(b=>b.disabled=true);
  try{
-  const date=$('#clinic-date').value,s=slotFor(date),teacher=state.teachers.find(t=>t.nama===$('#clinic-teacher').value);
-  const proposal=report?{topic:$('#clinic-topic').value.trim(),evidence:$('#clinic-evidence').value.trim()}:(access.has('teacher')?validateProposal:validateRequest)({date,start:s?.start,end:s?.end,classroom:$('#clinic-class').value,teacher_code:teacher?.kode,teacher:teacher?.nama,subjects:proposalSubjects(access.has('teacher'),[0,1,2].map(i=>$('#clinic-subject-'+i).value)),topic:$('#clinic-topic').value,evidence:$('#clinic-evidence').value,requester_label:$('#clinic-requester').value});
-  if(report&&proposal.evidence&&!safeURL(proposal.evidence))throw Error('Gunakan tautan http atau https untuk bukti.');
+  const date=$('#clinic-date').value,s=slotFor(date);
+  const intake=report?null:intakeForm.read();
+  const base={date,intake_version:2,start:$('#clinic-start').value,end:$('#clinic-end').value,classroom:$('#clinic-class').value,...intake,topic:$('#clinic-topic').value};
+  const proposal=report?{topic:$('#clinic-topic').value.trim(),evidence:$('#clinic-evidence').value.trim()}:{...(intake.request_kind==='teacher'?validateProposal:validateRequest)(base),...intake,intake_version:2};
+  if(report&&proposal.evidence&&!safeURL(proposal.evidence))throw Error('Periksa tautan bukti.');
   if(send){
-   if(access.has('teacher')&&!state.owner)throw Error('Sesi guru berakhir. Masuk kembali sebelum mengirim.');
+   if(!config.clinic_v2_enabled)throw Error('Pengiriman alur baru menunggu aktivasi pengelola.');
    if(!report&&row?.origin!=='Server'){
     row={...proposal,id:row?.id||state.formId,status:'draft',revision:(row?.revision||0)+1,origin:'Perangkat ini',saved_at:new Date().toISOString()};
     await storeDraft(row);state.editing=row;state.expected=state.raw;
@@ -142,7 +126,7 @@ $('#clinic-form').onsubmit=async e=>{
    if(state.pendingToken&&state.pendingToken.signature!==signature)throw Error('Hasil pengiriman sebelumnya belum dipastikan. Periksa server sebelum mengubah dan mengirim ulang.');
    state.pendingToken??={signature,token:crypto.randomUUID()};
    let receipt;
-   if(access.has('teacher'))receipt=await api.write({owner:state.owner,action,id:row.id,revision:row?.origin==='Server'?row.revision:0,data:proposal,token:state.pendingToken.token});
+   if(report||row?.origin==='Server')receipt=await api.write({owner:state.owner,action,id:row.id,revision:row?.origin==='Server'?row.revision:0,data:proposal,token:state.pendingToken.token});
    else{if(!challenge)throw Error('Selesaikan verifikasi permintaan di bawah formulir.');const response=await fetch('/api/clinic/request',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:row.id,token:state.pendingToken.token,data:proposal,challenge})});receipt=await response.json();challenge='';if(challengeWidget!==null)window.turnstile?.reset(challengeWidget);if(!response.ok||receipt.id!==row.id||receipt.status!=='pending'||receipt.token!==state.pendingToken.token)throw Error(receipt.error||'Hasil pengiriman belum dapat dipastikan. Periksa nomor permintaan sebelum mencoba kembali.');}
 
    // Retain the draft and receipt in the device backup, but do not offer it for duplicate submission.
@@ -165,9 +149,9 @@ function backup(){try{const content=JSON.stringify({exported_at:new Date().toISO
 function printReport(){
  const rows=archiveRows();if(!rows.length)return;
  const report=$('#clinic-print-report'),f=state.filters;
- report.innerHTML=`<h1>Laporan Arsip Klinik Pembelajaran</h1><p>Curriculum · ${YEAR}</p><p>Periode: ${esc(f.from||'Semua tanggal')} s.d. ${esc(f.to||todayWIB())} · ${esc(f.classroom||'Semua kelas')} · ${esc(labels[f.status]||'Semua status')}</p><p>Dicetak ${esc(new Date().toLocaleString('id-ID',{timeZone:'Asia/Jakarta'}))} WIB · ${rows.length} catatan</p><table><thead><tr><th>Tanggal / sesi</th><th>Kelas / pengampu</th><th>Mapel & status</th><th>Catatan / bukti</th></tr></thead><tbody>${rows.map(r=>`<tr><td>${esc(dateLabel(r.date))}<br>${r.start}–${r.end} WIB</td><td>${esc(r.classroom)}<br>${esc(r.teacher)}</td><td>${esc(r.approved_subject||r.subjects.join(' / '))}<br>${esc(labels[r.status])}${r.status==='legacy'?` (${esc(r.legacyStatus)}, belum diverifikasi)`:''}<br>Asal: ${esc(r.origin)} · Revisi ${r.revision}</td><td>${esc(r.topic)}<br>${esc(r.evidence)}<br>${esc(r.decision_note||'')}</td></tr>`).join('')}</tbody></table><p>Catatan lama dan draf perangkat bukan persetujuan server. Laporan ini mencatat penjadwalan dan tindak lanjut, bukan bukti kelulusan peserta.</p>`;
+ report.innerHTML=`<h1>Laporan Arsip Klinik Pembelajaran</h1><p>Curriculum · ${YEAR}</p><p>Periode: ${esc(f.from||'Semua tanggal')} s.d. ${esc(f.to||todayWIB())} · ${esc(f.classroom||'Semua kelas')} · ${esc(labels[f.status]||'Semua status')}</p><p>Dicetak ${esc(new Date().toLocaleString('id-ID',{timeZone:'Asia/Jakarta'}))} WIB · ${rows.length} catatan</p><table><thead><tr><th>Tanggal / sesi</th><th>Kelas / pengampu</th><th>Mapel & status</th><th>Catatan / bukti</th></tr></thead><tbody>${rows.map(r=>`<tr><td>${esc(dateLabel(r.date))}<br>${r.start}–${r.end} WIB</td><td>${esc(classroomLabel(r))}<br>${esc(r.teacher)}</td><td>${esc(r.approved_subject||r.subjects.join(' / '))}<br>${esc(labels[r.status])}${r.status==='legacy'?` (${esc(r.legacyStatus)}, belum diverifikasi)`:''}<br>Asal: ${esc(r.origin)} · Revisi ${r.revision}</td><td>${esc(r.topic)}<br>${esc(r.evidence)}<br>${esc(r.decision_note||'')}</td></tr>`).join('')}</tbody></table><p>Catatan lama dan draf perangkat bukan persetujuan server. Laporan ini mencatat penjadwalan dan tindak lanjut, bukan bukti kelulusan peserta.</p>`;
  let preview=$('#clinic-print-preview');if(!preview){preview=document.createElement('dialog');preview.id='clinic-print-preview';preview.className='monday-info-dialog';preview.setAttribute('aria-label','Pratinjau laporan klinik');document.body.append(preview)}
- preview.innerHTML=`<h2>Pratinjau laporan</h2><p>${rows.length} catatan · ${esc(f.from||'Semua tanggal')} s.d. ${esc(f.to||todayWIB())} · ${esc(f.classroom||'Semua kelas')}</p><p>Status dan asal data disertakan agar draf atau catatan lama tidak terbaca sebagai persetujuan baru.</p><div class="clinic-print-preview-list">${rows.map(r=>`<article><h3>${esc(r.approved_subject||r.subjects.join(' / '))}</h3><p>${esc(dateLabel(r.date))} · ${r.classroom} · ${esc(labels[r.status])}</p><p>${esc(r.teacher)} · ${esc(r.origin)}</p></article>`).join('')}</div><div class="clinic-row"><button type="button" id="clinic-print-preview-close" class="ui-button ui-button-secondary">Kembali</button><button type="button" id="clinic-print-confirm" class="ui-button ui-button-primary">Cetak / simpan PDF</button></div>`;
+ preview.innerHTML=`<h2>Pratinjau laporan</h2><p>${rows.length} catatan · ${esc(f.from||'Semua tanggal')} s.d. ${esc(f.to||todayWIB())} · ${esc(f.classroom||'Semua kelas')}</p><p>Status dan asal data disertakan agar draf atau catatan lama tidak terbaca sebagai persetujuan baru.</p><div class="clinic-print-preview-list">${rows.map(r=>`<article><h3>${esc(r.approved_subject||r.subjects.join(' / '))}</h3><p>${esc(dateLabel(r.date))} · ${esc(classroomLabel(r))} · ${esc(labels[r.status])}</p><p>${esc(r.teacher)} · ${esc(r.origin)}</p></article>`).join('')}</div><div class="clinic-row"><button type="button" id="clinic-print-preview-close" class="ui-button ui-button-secondary">Kembali</button><button type="button" id="clinic-print-confirm" class="ui-button ui-button-primary">Cetak / simpan PDF</button></div>`;
  $('#clinic-print-preview-close').onclick=()=>preview.close();$('#clinic-print-confirm').onclick=()=>{preview.close();document.body.classList.add('clinic-printing');window.print()};preview.showModal();
 }
 window.addEventListener('afterprint',()=>document.body.classList.remove('clinic-printing'));
@@ -179,7 +163,7 @@ render();refresh();
 access.subscribe(next=>{if(next.user_id!==state.owner||next.role!==initialRole)location.reload()});
 
 async function setupChallenge(){
- if(access.has('teacher')||!CLINIC_REMOTE_ENABLED||!config.clinic_enabled||!config.turnstile_site_key)return;
+ if(!CLINIC_REMOTE_ENABLED||!config.clinic_v2_enabled||!config.turnstile_site_key)return;
  if(!window.turnstile){await new Promise((resolve,reject)=>{const script=document.createElement('script');script.src='https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';script.onload=resolve;script.onerror=reject;document.head.append(script)})}
  if(challengeWidget===null)challengeWidget=window.turnstile.render('#clinic-challenge',{sitekey:config.turnstile_site_key,action:'clinic_request',callback:token=>{challenge=token},'expired-callback':()=>{challenge=''},'error-callback':()=>{challenge=''}});
 }

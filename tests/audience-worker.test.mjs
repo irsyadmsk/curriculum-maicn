@@ -9,12 +9,13 @@ function fixture(){
  const roles=new Map([['teacher-token',{version:1,institution:school,user_id:'teacher-a',role:'teacher',teacher_code:'GU',teacher:'Guru A'}],['manager-token',{version:1,institution:school,user_id:'manager-a',role:'curriculum'}],['member-token',{version:1,institution:school,user_id:'member-a',role:'member'}]]),calls=[],assets=[];
  let challenge={success:true,hostname:'curriculum.example.test',action:'clinic_request'};
  const env={ACCESS_ENABLED:'true',CLINIC_ENABLED:'true',SUPABASE_URL:'https://auth.example.test',SUPABASE_PUBLISHABLE_KEY:'sb_publishable_example',CLINIC_SERVICE_KEY:'server-example',TURNSTILE_SECRET:'secret-example',TURNSTILE_SITE_KEY:'public-site-key',REQUEST_HASH_SECRET:'hash-example',ASSETS:{async fetch(r){assets.push(new URL(r.url).pathname);return new Response('protected asset fixture',{headers:{'Content-Type':'text/plain','Cache-Control':'public,max-age=86400'}})}}};
+ env.CLINIC_V2_ENABLED='true';
  const worker=createWorker({now:()=>Date.parse('2026-10-26T00:00Z'),fetcher:async(url,options)=>{
   calls.push({url,options});if(url.includes('siteverify'))return Response.json(challenge);
   const token=options.headers.Authorization.slice(7),role=roles.get(token);
   if(url.endsWith('/auth/v1/user'))return Response.json(role?{id:role.user_id, user_metadata:{role:'admin'}}:{error:'unauthorized'},{status:role?200:401});
   if(url.endsWith('/curriculum_access_context'))return Response.json(role||{}, {status:role?200:401});
-  if(url.endsWith('/curriculum_clinic_guest_request')){const body=JSON.parse(options.body);return Response.json({id:body.p_id,token:body.p_token,status:'pending',revision:1})}
+  if(url.endsWith('/curriculum_clinic_intake')){const body=JSON.parse(options.body);return Response.json({id:body.p_id,token:body.p_token,status:'pending',revision:1})}
   return Response.json({rows:[],count:0});
  }});
  const request=(path,{token,method='GET',body,requestOrigin=origin,headers={}}={})=>worker.fetch(new Request(origin+path,{method,headers:{...(token?{Cookie:'maicn_session_v1='+token}:{}),...(body!==undefined?{'Content-Type':'application/json',Origin:requestOrigin}:{}),...headers},...(body!==undefined?{body:JSON.stringify(body)}:{})}),env);
@@ -45,8 +46,8 @@ test('session bridge verifies native identity and scope, uses HttpOnly cookie, a
 });
 test('guest clinical request requires action/hostname-bound validation; gateway keeps it pending and hashes the address',async()=>{
  const f=fixture(),body={id:'request-example',token:'receipt-example',challenge:'proof-example',data:{date:'2026-10-26',subjects:['Matematika'],status:'approved'}};
- f.setChallenge({success:true,hostname:'wrong.example.test',action:'clinic_request'});assert.equal((await f.request('/api/clinic/request',{method:'POST',body,headers:{'CF-Connecting-IP':'192.0.2.1'}})).status,400);assert.equal(f.calls.filter(v=>v.url.endsWith('curriculum_clinic_guest_request')).length,0);
- f.setChallenge({success:true,hostname:'curriculum.example.test',action:'clinic_request'});const r=await f.request('/api/clinic/request',{method:'POST',body,headers:{'CF-Connecting-IP':'192.0.2.1'}});assert.equal(r.status,201);assert.equal((await r.json()).status,'pending');const sent=JSON.parse(f.calls.find(v=>v.url.endsWith('curriculum_clinic_guest_request')).options.body);assert.match(sent.p_fingerprint,/^[a-f0-9]{64}$/);assert.ok(!JSON.stringify(sent).includes('192.0.2.1'));
+ f.setChallenge({success:true,hostname:'wrong.example.test',action:'clinic_request'});assert.equal((await f.request('/api/clinic/request',{method:'POST',body,headers:{'CF-Connecting-IP':'192.0.2.1'}})).status,400);assert.equal(f.calls.filter(v=>v.url.endsWith('curriculum_clinic_intake')).length,0);
+ f.setChallenge({success:true,hostname:'curriculum.example.test',action:'clinic_request'});const r=await f.request('/api/clinic/request',{method:'POST',body,headers:{'CF-Connecting-IP':'192.0.2.1'}});assert.equal(r.status,201);assert.equal((await r.json()).status,'pending');const sent=JSON.parse(f.calls.find(v=>v.url.endsWith('curriculum_clinic_intake')).options.body);assert.match(sent.p_fingerprint,/^[a-f0-9]{64}$/);assert.ok(!JSON.stringify(sent).includes('192.0.2.1'));
  assert.equal((await f.request('/api/clinic/request',{method:'POST',body:{...body,challenge:''}})).status,400);
 });
 test('teacher operations and approval RPCs remain separate, even for someone already logged in',async()=>{
@@ -57,6 +58,12 @@ test('held integrations make no outbound auth/DB calls; repository, double-encod
  const f=fixture();f.env.ACCESS_ENABLED='false';f.env.CLINIC_ENABLED='false';assert.equal((await(await f.request('/api/access',{token:'teacher-token'})).json()).role,'guest');assert.equal((await f.request('/assets/student-roster-data.js',{token:'teacher-token'})).status,403);assert.equal((await f.request('/api/clinic/request',{method:'POST',body:{}})).status,503);assert.equal(f.calls.length,0);
  for(const path of ['/docs/source.txt','/server/worker.mjs','/assets/%252e%252e/student-roster-data.js'])assert.ok((await f.request(path)).status>=400,path);
  assert.equal((await f.request('/p5-ppra.html')).status,308);
+});
+test('scheduled email bridge uses only enabled queues and server credential',async()=>{
+ const calls=[];const worker=createWorker({fetcher:async(u,i)=>{calls.push({u,i});return Response.json({provider_accepted:0})}});
+ const env={SUPABASE_URL:'https://project.example',CLINIC_SERVICE_KEY:'server-secret',CURRICULUM_EMAIL_EDGE_ENABLED:'true',CLINIC_EMAIL_ENABLED:'false',SCHOOL_EMAIL_ENABLED:'true'};
+ await worker.scheduled({},env);assert.equal(calls.length,1);assert.equal(calls[0].u,'https://project.example/functions/v1/curriculum-notifications');assert.deepEqual(JSON.parse(calls[0].i.body),{sources:['school']});assert.equal(calls[0].i.headers.Authorization,'Bearer server-secret');
+ await worker.scheduled({},{...env,SCHOOL_EMAIL_ENABLED:'false'});assert.equal(calls.length,1);
 });
 test('curated build keeps workbook/clinic source bytes intact and publishes no private booking notes in public academic bundles',async()=>{
  const manifest=JSON.parse(await fs.readFile('.site/asset-manifest.json','utf8'));assert.ok(manifest.every(r=>!r.path.startsWith('docs/')&&!r.path.startsWith('scripts/')&&!r.path.startsWith('ops/')));assert.equal(manifest.find(r=>r.path==='assets/student-roster-data.js').access,'teacher');assert.equal(manifest.find(r=>r.path==='assets/clinic-legacy-data.js').access,'reviewer');

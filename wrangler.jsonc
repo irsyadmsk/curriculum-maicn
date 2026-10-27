@@ -18,12 +18,22 @@
   "vars": {
     "ACCESS_ENABLED": "true",
     "CLINIC_ENABLED": "true",
+    "CLINIC_V2_ENABLED": "true",
+    "CLINIC_EMAIL_ENABLED": "true",
     "SUPABASE_URL": "https://mqesvxweuygplrdxchkv.supabase.co",
-    "TURNSTILE_SITE_KEY": "0x4AAAAAAFmmrN7OKp5jr_8a"
+    "TURNSTILE_SITE_KEY": "0x4AAAAAAFmmrN7OKp5jr_8a",
+    "SCHOOL_ENABLED": "true",
+    "SCHOOL_EMAIL_ENABLED": "true",
+    "CURRICULUM_EMAIL_EDGE_ENABLED": "true"
   },
   "compatibility_flags": [
     "nodejs_compat"
   ],
+  "triggers": {
+    "crons": [
+      "*/5 * * * *"
+    ]
+  },
   "routes": [
     {
       "pattern": "curriculum.irsyads.com",
