@@ -1,5 +1,16 @@
 # curriculum-maicn — curriculum.irsyads.com
 
+> **⚠️ ATURAN KERJA WAJIB untuk AI dan pengembang (pemilik, 27 Okt 2026)**
+>
+> 1. **Satu versi, satu branch `main`.** Perbaikan dan pembaruan langsung ke kode. Dilarang membuat branch, worktree, salinan folder, atau berkas versi (`-v2`, `-baru`, `-lama`, `-backup`, `copy`) di repo ini.
+> 2. **Ragu atau fitur baru yang perlu uji coba →** kerjakan di `C:\Users\T6N0CV02S35823C\Github\Folder UJI\<repo>-<fitur>`, bukan di sini.
+> 3. **Uji berhasil →** terapkan ke repo ini dengan mengganti kode lama, jalankan tes, commit ke `main`, lalu hapus folder ujinya. **Uji gagal →** hapus folder ujinya.
+> 4. **Jangan membuat repo bengkak:** screenshot, log, hasil build, arsip, dan berkas sementara tidak disimpan di repo ini.
+> 5. Rilis/deploy tetap butuh konfirmasi pemilik; commit yang belum boleh tayang memakai awalan `[skip ci] [CF-Pages-Skip]`.
+>
+> Rincian: `README.md` di folder `Github` dan `Folder UJI\README.md`.
+
+
 Portal **Kurikulum MA Insan Cendekia Nusantara** ("Curriculum OS"): jadwal KBM & guru, kalender akademik, KOM, struktur kurikulum & profil lulusan, program unggulan, kokurikuler/Panca Cinta, klinik pembelajaran, info murid, serta halaman guru (data murid, presensi & jurnal, rapor/leger, buku kerja, asesmen/bank soal, karakter) dan admin. Isi berbahasa Indonesia.
 
 Situs **HTML/JS statis tanpa framework dan tanpa `package.json`**, dilayani Cloudflare Worker `curriculum-maicn` yang menjadi gerbang akses. Branch kerja: `main`. Repo: `irsyadmsk/curriculum-maicn`.
