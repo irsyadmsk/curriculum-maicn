@@ -240,6 +240,8 @@ body.curriculum-ui {
 .curriculum-ui .portal-door-badge { display: none; }
 .ui-footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; padding: 10px 0 0; color: var(--ui-muted); font-size: 9px; }
 .ui-footer a { color: var(--ui-accent); }
+.ui-footer-irsyads { display: inline-flex; align-items: center; gap: 6px; color: var(--ui-ink) !important; font-weight: 700; }
+.ui-footer-irsyads .logo-pena { width: 9px; height: 26px; }
 /* Existing academic pages share the new shell, forms, panels and table treatment. */
 .curriculum-ui .clay-hero-card { background: var(--ui-surface); color: var(--ui-ink); border: 1px solid var(--ui-border); padding: 28px; border-radius: 16px; box-shadow: none; }
 .curriculum-ui :is(.clay-hero-avatar-box,.clay-hero-cactus,.clay-hero-avatar) { display: none !important; }
