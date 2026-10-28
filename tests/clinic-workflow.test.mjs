@@ -50,7 +50,7 @@ test('client checks identity before and after each request, rejects partial read
 });
 test('public clinic has no browser approval control and print report preserves status provenance',()=>{
  const html=fs.readFileSync('klinik.html','utf8')+fs.readFileSync('assets/clinic-intake-form.mjs','utf8'),page=fs.readFileSync('assets/clinic-page.mjs','utf8');
- assert.ok(!html.includes('openKurasiAdminModal'));assert.ok(!page.includes("setItem('maicn_klinik_bookings'"));assert.ok(page.includes("e.submitter?.id==='clinic-send'"));assert.ok(page.includes("state.pendingToken"));assert.ok(html.includes('clinic-print-report'));assert.ok(page.includes('Status tersimpan:'));assert.ok(page.includes('window.print()'));assert.ok(html.includes('type="date"'));assert.ok(page.includes('studio.irsyads.com/?clinic=review#kurikulum'));
+ assert.ok(!html.includes('openKurasiAdminModal'));assert.ok(!page.includes("setItem('maicn_klinik_bookings'"));assert.ok(page.includes("e.submitter?.id==='clinic-send'"));assert.ok(page.includes("state.pendingToken"));assert.ok(html.includes('clinic-print-report'));assert.ok(page.includes('Status tersimpan:'));assert.ok(page.includes('window.print()'));assert.ok(html.includes('type="date"'));assert.ok(page.includes('kurikulum.html#clinic'));
 });
 test('Monday JP1 stays dated and scoped, with no assumed activity or browser-admin write',()=>{
  assert.equal(nextMonday('2026-10-26'),'2026-10-26');assert.equal(nextMonday('2026-10-27'),'2026-11-02');

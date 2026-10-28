@@ -96,7 +96,7 @@ export function createWorker({fetcher=fetch,now=()=>Date.now()}={}){
     }
     if(url.pathname==='/api/school/rpc'&&request.method==='POST'){
      if(env.SCHOOL_ENABLED!=='true')return json({data:null,error:{message:'Integrasi sekolah menunggu aktivasi.'}},503);
-     const payload=await bodyJSON(request),name=payload.name,args=payload.args||{},rules={curriculum_school_read:args.p_mode==='public'?'public':args.p_mode==='review'?'reviewer':'school',curriculum_school_decide:'reviewer',curriculum_school_journal_read:'school',curriculum_school_journal_write:'school',curriculum_school_settings:'reviewer',curriculum_school_assign:'reviewer'};
+     const payload=await bodyJSON(request),name=payload.name,args=payload.args||{},rules={curriculum_school_read:args.p_mode==='public'?'public':args.p_mode==='review'?'reviewer':'school',curriculum_school_decide:'reviewer',curriculum_school_journal_read:'school',curriculum_school_journal_write:'school',curriculum_school_settings:'admin',curriculum_school_assign:'admin'};
      if(!Object.hasOwn(rules,name))return json({data:null,error:{message:'forbidden'}},403);
      const required=rules[name],a=required==='public'?parseAccess(guest(true)):await context(env,cookie(request));if(required!=='public'&&!a.capabilities[required])return json({data:null,error:{message:'forbidden'}},403);
      try{return json({data:await upstream(env,'/rest/v1/rpc/'+name,required==='public'?null:cookie(request),args),error:null})}catch(error){return json({data:null,error:{message:error.message}},409)}
@@ -112,7 +112,7 @@ export function createWorker({fetcher=fetch,now=()=>Date.now()}={}){
     if(url.pathname==='/api/clinic/rpc'&&request.method==='POST'){
      if(env.CLINIC_ENABLED!=='true')return json({data:null,error:{message:'Integrasi belum diaktifkan.'}},503);
      const payload=await bodyJSON(request),args=payload.args||{},name=payload.name;
-     const rules={curriculum_clinic_read:args.p_mode==='public'?'public':args.p_mode==='review'?'reviewer':'teacher',curriculum_clinic_allocate:'reviewer',curriculum_clinic_review_v2:'reviewer',curriculum_clinic_write_v2:'reviewer',curriculum_clinic_enrichment:'reviewer',curriculum_clinic_write:'teacher',curriculum_clinic_history:'teacher',curriculum_monday_read:'public',curriculum_monday_write:'reviewer'};
+     const rules={curriculum_clinic_read:args.p_mode==='public'?'public':args.p_mode==='review'?'reviewer':'teacher',curriculum_clinic_allocate:'reviewer',curriculum_clinic_review_v2:'reviewer',curriculum_clinic_write_v2:'reviewer',curriculum_clinic_enrichment:'reviewer',curriculum_clinic_write:'school',curriculum_clinic_history:'school',curriculum_monday_read:'public',curriculum_monday_write:'admin'};
      if(!Object.hasOwn(rules,name)||args.p_institution&&args.p_institution!==institution||args.p_year&&args.p_year!=='2026/2027')return json({data:null,error:{message:'forbidden'}},403);
      const required=rules[name],access=required==='public'?parseAccess(guest(true)):await context(env,cookie(request));if(required!=='public'&&!access.capabilities[required])return json({data:null,error:{message:'forbidden'}},403);
      const data=await upstream(env,'/rest/v1/rpc/'+name,required==='public'?null:cookie(request),args);return json({data,error:null});
