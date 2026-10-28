@@ -1,0 +1,21 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {createContentLab} from '../scripts/curriculum-content-lab.mjs';
+import {upcomingPrograms,jakartaDate,publicPrograms} from '../assets/curriculum-public-programs.mjs';
+test('public selections use Jakarta dates and expire without claiming completion or exposing internal notes',()=>{assert.equal(jakartaDate(new Date('2026-10-28T18:00:00Z')),'2026-10-29');assert.deepEqual(upcomingPrograms('2026-10-28').map(p=>p.id),['AS-05','IN-06','KK-02']);assert.deepEqual(upcomingPrograms('2027-02-01').map(p=>p.id),['KK-02']);assert.equal(upcomingPrograms('2027-07-01').length,0);assert.ok(publicPrograms.every(p=>!('note' in p)&&!('checked' in p)&&!('source' in p)))});
+const row={id:'PP-01',kind:'program',source:{name:'Sumber asli'},content:{name:'Program contoh',description:'Mekanisme',indicator:'Target',when:'2026',status:'Belum terkonfirmasi',note:'Catatan',checked:false}};
+test('content SQL protects private text, saves revisions, and preserves original and history',async()=>{const l=await createContentLab();try{await l.seed([row,{id:'B-0001',kind:'book',source:{text:'Asli'},content:{text:'Asli'}}]);
+ for(const role of ['guest','teacher','curriculum','member']){await assert.rejects(l.rpc(role,'curriculum_content_read'));await assert.rejects(l.rpc(role,'curriculum_content_write',{p_id:row.id,p_expected:1,p_content:{...row.content,checked:true}}));await assert.rejects(l.transact(role,db=>db.query('select * from private.curriculum_content')))}
+ assert.equal((await l.rpc('admin','curriculum_content_read')).rows.length,2);
+ const updated=await l.rpc('admin','curriculum_content_write',{p_id:row.id,p_expected:1,p_content:{...row.content,checked:true}});assert.equal(updated.revision,2);assert.equal(updated.content.checked,true);assert.deepEqual(updated.source,row.source);
+ await assert.rejects(l.rpc('admin','curriculum_content_write',{p_id:row.id,p_expected:1,p_content:row.content}),/stale_revision/);
+ await assert.rejects(l.rpc('admin','curriculum_content_write',{p_id:row.id,p_expected:2,p_content:{...row.content,checked:'true'}}),/invalid_content/);
+ await assert.rejects(l.rpc('admin','curriculum_content_write',{p_id:row.id,p_expected:2,p_content:{...row.content,unknown:'bad'}}),/invalid_content/);
+ await assert.rejects(l.rpc('admin','curriculum_content_write',{p_id:'B-0001',p_expected:1,p_content:{text:''}}),/invalid_content/);
+ const history=(await l.db.query('select * from private.curriculum_content_history')).rows;assert.equal(history.length,1);assert.equal(history[0].content.checked,false);assert.ok(history[0].actor);
+ }finally{await l.db.close()}});
+test('Worker enforces admin, same origin, feature activation and conditional writes',async()=>{const l=await createContentLab();try{await l.seed([row]);const send=(role,method='GET',body,origin='https://school.test')=>l.worker.fetch(new Request('https://school.test/api/curriculum/content',{method,headers:{...(role==='guest'?{}:{Cookie:'maicn_session_v1=fixture-'+role}),Origin:origin,'Content-Type':'application/json'},...(body?{body:JSON.stringify(body)}:{})}),l.env);
+ for(const role of ['guest','teacher','curriculum','member'])assert.equal((await send(role)).status,403);
+ assert.equal((await send('admin')).status,200);const body={id:row.id,revision:1,content:{...row.content,checked:true}};assert.equal((await send('admin','POST',body,'https://evil.test')).status,403);assert.equal((await send('admin','POST',body)).status,200);assert.equal((await send('admin','POST',body)).status,409);assert.equal((await send('admin','POST',{...body,revision:-1})).status,400);
+ l.env.CURRICULUM_CONTENT_ENABLED='false';assert.equal((await send('admin')).status,503);
+ for(const path of ['program-kurikulum.html','buku-admin.html'])for(const role of ['guest','teacher','curriculum']){const r=await l.worker.fetch(new Request('https://school.test/'+path,{headers:role==='guest'?{}:{Cookie:'maicn_session_v1=fixture-'+role}}),l.env);assert.equal(r.status,303);assert.equal(await r.text(),'')}
+ const page=await l.worker.fetch(new Request('https://school.test/program-kurikulum.html',{headers:{Cookie:'maicn_session_v1=fixture-admin'}}),l.env);assert.equal(page.status,200);assert.equal(page.headers.get('Cache-Control'),'no-store');
+ }finally{await l.db.close()}});

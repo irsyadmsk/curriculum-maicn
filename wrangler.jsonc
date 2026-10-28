@@ -17,6 +17,7 @@
   },
   "vars": {
     "ACCESS_ENABLED": "true",
+    "CURRICULUM_CONTENT_ENABLED": "true",
     "CLINIC_ENABLED": "true",
     "CLINIC_V2_ENABLED": "true",
     "CLINIC_EMAIL_ENABLED": "true",

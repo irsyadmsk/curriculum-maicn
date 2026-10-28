@@ -45,6 +45,10 @@ node --test tests/
 
 Deploy (`wrangler deploy`, build otomatis menjalankan `build-site.mjs`) hanya dengan persetujuan pemilik.
 
+## Buku utama dan monitoring program (aktif, 28 Oktober 2026)
+
+`buku-kurikulum.html` menyediakan ringkasan publik; `program.html` menampilkan program utama/rencana terpilih, sebagian disorot di beranda. Buku lengkap pada `buku-admin.html` terpisah dari checklist/monitoring di `program-kurikulum.html`; keduanya khusus admin langsung di Curriculum. Worker memeriksa admin melalui `assets/curriculum-content-core.mjs`, dan build mencatat akses `admin`, tanpa mengubah paket akses bersama. Isi Word dan catatan internal disimpan di tabel privat; input lokal tetap di `private-inputs/`, tidak masuk aset situs atau repo publik. Flag `CURRICULUM_CONTENT_ENABLED=true` dan penyimpanan sudah diaktifkan. Bukti dan pemulihan: [catatan rilis buku dan program](docs/2026-10-28_BUKU_DAN_PROGRAM_RELEASE.md). Lab akun contoh tetap terpisah dari server aktif.
+
 ## Konfigurasi Worker
 
 `wrangler.jsonc`: aset dari `.site`, `run_worker_first: true`, `html_handling: none`. Variabel: `ACCESS_ENABLED` dan `CLINIC_ENABLED` (keduanya `"true"` sejak klinik terverifikasi diaktifkan), `SUPABASE_URL`, `TURNSTILE_SITE_KEY`, serta `SUPABASE_PUBLISHABLE_KEY` dan `PREVIEW_MODE` yang dibaca worker. Rahasia (`REQUEST_HASH_SECRET`, `CLINIC_SERVICE_KEY`, `TURNSTILE_SECRET`) hanya di Cloudflare/`.dev.vars`, tidak di repo. `_headers` mengatur CSP (`frame-ancestors` hanya irsyads.com) dan `noindex` untuk `*.workers.dev`.

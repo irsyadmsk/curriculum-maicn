@@ -1,5 +1,6 @@
 import {normalizePath,routeAccess,parseAccess,capabilities} from '../assets/access-core.mjs';
 import {sendDecisionEmail} from './clinic-email.mjs';
+import {CONTENT_ADMIN_PAGES,contentWrite} from '../assets/curriculum-content-core.mjs';
 const institution='MA Insan Cendekia Nusantara',cookieName='maicn_session_v1';
 const json=(body,status=200,extra={})=>new Response(JSON.stringify(body),{status,headers:{'Content-Type':'application/json;charset=utf-8','Cache-Control':'no-store','Vary':'Cookie, Authorization',...extra}});
 const guest=enabled=>({version:1,institution,role:'guest',user_id:null,enabled});
@@ -53,6 +54,15 @@ export function createWorker({fetcher=fetch,now=()=>Date.now()}={}){
   try{
    if(url.pathname.startsWith('/api/')){
     if(request.method!=='GET'&&request.headers.get('Origin')!==url.origin)return json({error:'Asal permintaan tidak sesuai.'},403);
+    if(path==='/api/curriculum/content'){
+     if(!['GET','POST'].includes(request.method))return json({error:'Metode tidak tersedia.'},405);
+     const access=await context(env,cookie(request));
+     if(access.role!=='admin')return json({error:'forbidden'},403);
+     if(env.CURRICULUM_CONTENT_ENABLED!=='true')return json({error:'Penyimpanan buku dan program belum diaktifkan.'},503);
+     let args={};if(request.method==='POST'){try{args=contentWrite(await bodyJSON(request,24000))}catch{return json({error:'invalid_content'},400)}}
+     try{return json(await upstream(env,'/rest/v1/rpc/curriculum_content_'+(request.method==='GET'?'read':'write'),cookie(request),args))}
+     catch(e){return json({error:e.message},e.message==='stale_revision'?409:e.message==='forbidden'?403:503)}
+    }
     if(url.pathname==='/api/config'&&request.method==='GET')return json({enabled:env.ACCESS_ENABLED==='true',login_enabled:env.ACCESS_ENABLED==='true'&&env.PREVIEW_MODE!=='true'&&publicKey(env.SUPABASE_PUBLISHABLE_KEY),clinic_enabled:env.CLINIC_ENABLED==='true',clinic_v2_enabled:env.CLINIC_V2_ENABLED==='true',school_enabled:env.SCHOOL_ENABLED==='true',turnstile_site_key:env.TURNSTILE_SITE_KEY||'',...(env.ACCESS_ENABLED==='true'&&env.PREVIEW_MODE!=='true'&&publicKey(env.SUPABASE_PUBLISHABLE_KEY)?{supabase_url:env.SUPABASE_URL,supabase_key:env.SUPABASE_PUBLISHABLE_KEY}:{})});
     if(url.pathname==='/api/clinic/catalog'&&request.method==='GET'){
      if(env.CLINIC_V2_ENABLED!=='true')return json({error:'Daftar peserta menunggu aktivasi pengelola.'},503);
@@ -115,6 +125,10 @@ export function createWorker({fetcher=fetch,now=()=>Date.now()}={}){
    // The build binding contains only curated site assets, never the repository root.
    if(/^\/(?:docs|ops|scripts|tests|scratch|server|node_modules|\.git|\.wrangler)(?:\/|$)/i.test(path)||!/^\/(?:[a-z0-9-]+\.html|data\.js|master-data\.json|favicon\.(?:ico|svg)|assets\/[A-Za-z0-9_./-]+|templates\/[A-Za-z0-9_./-]+|robots\.txt)$/.test(path))return new Response('Tidak ditemukan',{status:404});
    const required=routeAccess(path);
+   if(CONTENT_ADMIN_PAGES.includes(path.slice(1))){
+    let a;try{a=await context(env,cookie(request))}catch{return json({error:'Sesi belum dapat diperiksa.'},401)}
+    if(a.role!=='admin')return new Response(null,{status:303,headers:{Location:'/akun.html?next='+encodeURIComponent(path),'Cache-Control':'no-store','Vary':'Cookie, Authorization'}});
+   }
    if(required!=='public'){
     let access;try{access=await context(env,cookie(request))}catch{return json({error:'Sesi belum dapat diperiksa.'},401)}
     if(!access.capabilities[required]){
@@ -125,6 +139,7 @@ export function createWorker({fetcher=fetch,now=()=>Date.now()}={}){
    const response=await env.ASSETS.fetch(new Request(new URL(path,url),request)),headers=new Headers(response.headers);
    headers.set('X-Content-Type-Options','nosniff');headers.set('Referrer-Policy','strict-origin-when-cross-origin');
    if(required!=='public'){headers.set('Cache-Control','no-store');headers.set('Vary','Cookie, Authorization');headers.set('X-Robots-Tag','noindex, nofollow, noarchive')}
+   if(CONTENT_ADMIN_PAGES.includes(path.slice(1))){headers.set('Cache-Control','no-store');headers.set('Vary','Cookie, Authorization');headers.set('X-Robots-Tag','noindex, nofollow, noarchive')}
    return new Response(request.method==='HEAD'?null:response.body,{status:response.status,headers});
   }catch{return json({error:'Layanan belum dapat menyelesaikan permintaan. Draf tidak dihapus.'},503)}
  },async scheduled(_event,env){
