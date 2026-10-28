@@ -21,7 +21,7 @@ Situs **HTML/JS statis tanpa framework dan tanpa `package.json`**, dilayani Clou
 |---|---|
 | `*.html` (root) | Satu berkas per halaman. Tiap halaman memuat skripnya sendiri dari `assets/` |
 | `data.js`, `master-data.json` | Data akademik utama (`window.MASTER_DATA`: jadwal KBM v2, kalender, klinik, dll.). Dua berkas berisi data yang sama; `build-site.mjs` membuat ulang keduanya untuk publik dan **menghapus** `klinik_pembelajaran.jadwal_booking` |
-| `assets/access-core.mjs` | Peran (`guest` < `member` < `teacher` < `curriculum` < `admin`) dan klasifikasi halaman: `PUBLIC_PAGES`, `TEACHER_PAGES`, `REVIEW_PAGES` (admin), `PRIVATE_ASSETS`. **Tambah halaman baru di sini**, kalau tidak ia tidak ikut build |
+| `assets/access-core.mjs` | Peran (`guest`, `member`, `student`, `teacher`, `curriculum`, `admin`) dan klasifikasi halaman: `PUBLIC_PAGES`, `TEACHER_PAGES`, `REVIEW_PAGES` (`admin.html` khusus admin; `kurikulum.html` admin/staf kurikulum), `PRIVATE_ASSETS`. **Tambah halaman baru di sini**, kalau tidak ia tidak ikut build |
 | `assets/clinic-core.mjs`, `clinic-client.mjs`, `access-core.mjs` | Salinan identik dari `../irsyads/packages/curriculum-clinic/`. Ubah di sana, lalu salin |
 | `assets/irsyads-v1/` | Hasil ekspor design-tokens irsyads (tema, palet, bahasa, navigasi layanan). Jangan sunting manual; ekspor ulang dari monorepo |
 | `assets/ecosystem.css`, `ecosystem.js` | Adapter yang memetakan token lama ke token bersama dan memasang navigasi ekosistem |
