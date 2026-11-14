@@ -332,6 +332,9 @@
   }
 
   function initializePage() {
+    import('./teacher-help.mjs?v=20261102-teal').catch(()=>{
+      document.addEventListener('click',event=>{if(event.target.closest('[data-open-teacher-help]'))window.alert('Panduan belum termuat. Klinik: pilih Guru, nama pengampu, sesi dan peserta; lalu Kirim ajuan. Draf belum masuk server. Buka ulang halaman untuk memuat panduan lengkap.');});
+    });
     const serviceSummary = $('.irsyads-nav-wrapper .irsyads-navigation summary');
     if (serviceSummary) serviceSummary.setAttribute('aria-label', 'Navigasi ekosistem Irsyads');
     const serviceMenu = serviceSummary?.parentElement;

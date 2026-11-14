@@ -43,6 +43,8 @@ node scripts/preview-site.mjs --fixtures
 node --test tests/
 ```
 
+Build menggabungkan dan meminifikasi kelompok stylesheet lokal sambil mempertahankan batas inline style/script dan urutan cascade. Kompiler memakai `esbuild` yang sudah tersedia di `../irsyads/node_modules`. HTML dan import modul memperoleh versi berbasis hash sumber agar pembaruan halaman dan dependensinya konsisten. Aset hasil kompilasi hanya berada di `.site/`; jangan menyuntingnya manual.
+
 Deploy (`wrangler deploy`, build otomatis menjalankan `build-site.mjs`) hanya dengan persetujuan pemilik.
 
 ## Buku utama dan monitoring program (aktif, 28 Oktober 2026)

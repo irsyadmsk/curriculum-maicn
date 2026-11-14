@@ -39,10 +39,10 @@ export function validateIntake(value, catalog) {
     const teacher = catalog.teachers.find(t=>t.kode===value.teacher_code);
     if (!teacher) throw Error('Pilih guru dari daftar pengampu.');
     const email = String(value.contact_email||'').trim();
-    if (email.length>254 || !/^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/.test(email) || /[\r\n]/.test(email)) throw Error('Email guru wajib diisi dengan alamat yang valid.');
+    if (email && (email.length>254 || !/^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/.test(email) || /[\r\n]/.test(email))) throw Error('Periksa format email, atau kosongkan jika tidak digunakan.');
     const evidence = driveEvidence(value.evidence);
-    if (!evidence) throw Error('Guru wajib menyertakan tautan file Google Drive sebagai bukti.');
-    return {...result,teacher_code:teacher.kode,teacher:teacher.nama,subjects:[teacher.mapel],contact_email:email,evidence:evidence.url};
+    if (String(value.evidence||'').trim() && !evidence) throw Error('Gunakan tautan file Google Drive yang valid, atau kosongkan jika bukti menyusul.');
+    return {...result,teacher_code:teacher.kode,teacher:teacher.nama,subjects:[teacher.mapel],contact_email:email,evidence:evidence?.url||''};
   }
   const subjects = [...new Set(catalog.teachers.map(t=>t.mapel))];
   if (!Array.isArray(value.subjects) || value.subjects.length!==1 || !subjects.includes(value.subjects[0])) throw Error('Pilih tepat satu mapel dari daftar.');
@@ -50,7 +50,7 @@ export function validateIntake(value, catalog) {
 }
 export const overlaps = (a,b) => a.date===b.date && a.start<b.end && a.end>b.start;
 export const effectiveParticipants = row => row.status==='approved' ? row.approved_participant_ids??row.participant_ids??[] : row.participant_ids??[];
-export const classroomLabel = row => row.classroom || (row.scope_classrooms||row.classrooms||[]).join(', ') || 'Per nama · lintas kelas';
+export const classroomLabel = row => {const count=row.approved_participant_ids?.length??row.participant_ids?.length??row.participant_count;if(row.target_mode==='students'||row.classroom===null)return 'Per murid'+(count===undefined?'':' · '+count+' peserta')+((row.scope_classrooms||row.classrooms||[]).length?' · '+(row.scope_classrooms||row.classrooms).join(', '):'');return (row.classroom||'Kelas belum dipilih')+((row.participant_exceptions?.length||row.exception_count)?' · kecuali '+(row.participant_exceptions?.length||row.exception_count)+' murid':'')};
 export function participantConflicts(rows, proposal, statuses=['approved']) {
   const ids = new Set(effectiveParticipants(proposal));
   return rows.filter(r=>r.id!==proposal.id && statuses.includes(r.status) && overlaps(r,proposal) && effectiveParticipants(r).some(id=>ids.has(id)));

@@ -14,7 +14,7 @@ export function parseSnapshot(data, mode, year = YEAR, institution = INSTITUTION
   return {...data, rows, teachers};
 }
 export function clinicClient(client, enabled = CLINIC_REMOTE_ENABLED) {
-  const available = () => { if (!enabled || !client) throw Error('Pengiriman dan konfirmasi Studio belum diaktifkan. Draf tetap tersimpan pada perangkat ini.'); };
+  const available = () => { if (!enabled || !client) throw Error('Pengiriman dan konfirmasi Curriculum belum diaktifkan. Draf tetap tersimpan pada perangkat ini.'); };
   async function account(owner) {
     const {data,error} = await client.auth.getSession();
     if (error || !owner || data.session?.user.id !== owner) throw Error('Akun berubah atau sesi berakhir. Muat ulang sebelum melanjutkan.');
@@ -23,12 +23,17 @@ export function clinicClient(client, enabled = CLINIC_REMOTE_ENABLED) {
     available(); if (owner) await account(owner);
     const controller = new AbortController(), abort = () => controller.abort();
     signal?.addEventListener('abort', abort, {once:true});
-    const timer = setTimeout(abort, 15000);
+    const timer = setTimeout(abort, /write|allocate|retarget/.test(name)?45000:20000);
     try {
       if (signal?.aborted) throw Error('Pembacaan dibatalkan.');
       const {data,error} = await client.rpc(name,args).abortSignal(controller.signal);
       if (error) {
         const m = String(error.message || '');
+        if(m.includes('clinic_location_conflict'))throw Error('Lokasi sudah dipakai klinik lain pada jam yang sama. Pilih lokasi berbeda.');
+        if(m.includes('invalid_location'))throw Error('Pilih lokasi yang terdaftar. Admin dapat menambahkan lokasi baru.');
+        if (m.includes('invalid_transition')) throw Error('Status ajuan sudah berubah. Muat ulang sebelum memutuskan atau memindahkan peserta.');
+        if (m.includes('decision_note_required')) throw Error('Isi alasan keputusan atau pemindahan terlebih dahulu.');
+        if (m.includes('identity_or_location_required')) throw Error('Periksa identitas pengaju dan tetapkan lokasi pada tab Identitas & lokasi sebelum menerima.');
         if (m.includes('stale_revision')) throw Error('Usulan sudah diubah di tempat lain. Muat ulang dan tinjau kembali.');
         if (m.includes('clinic_participant_conflict')) throw Error('Peserta sudah diterima di klinik pada waktu yang bertabrakan. Muat ulang daftar ajuan.');
         if (m.includes('clinic_conflict')) throw Error('Bentrok: kelas atau guru sudah terjadwal pada waktu yang sama.');
@@ -44,6 +49,8 @@ export function clinicClient(client, enabled = CLINIC_REMOTE_ENABLED) {
       if (controller.signal.aborted) throw Error('Waktu pemeriksaan habis. Muat ulang untuk memeriksa hasil.');
       if (owner) await account(owner);
       return data;
+    } catch(error) {
+      if(error instanceof TypeError||controller.signal.aborted){const failure=Error('Koneksi terputus atau terlalu lama. Status keputusan perlu diperiksa kembali.');failure.uncertain=true;throw failure}throw error;
     } finally { clearTimeout(timer);signal?.removeEventListener('abort',abort); }
   }
   return {
@@ -58,7 +65,13 @@ export function clinicClient(client, enabled = CLINIC_REMOTE_ENABLED) {
       return parseSnapshot(await rpc(mode==='review'?'curriculum_clinic_review_v2':'curriculum_clinic_read',{p_institution:institution,p_year:year,p_mode:mode},mode==='public'?null:owner,signal),mode,year,institution);
     },
     async write({owner,year=YEAR,institution=INSTITUTION,action,id,revision,data,token,signal}) {
-      const result = await rpc(action==='approve'&&data?.assignments?'curriculum_clinic_allocate':'curriculum_clinic_write',{p_institution:institution,p_year:year,p_action:action,p_id:id,p_expected:revision,p_data:data,p_token:token},owner,signal);
+      const name=action==='retarget'?'curriculum_clinic_retarget':action==='approve'&&data?.assignments?'curriculum_clinic_allocate':'curriculum_clinic_write',args={p_institution:institution,p_year:year,p_action:action,p_id:id,p_expected:revision,p_data:data,p_token:token};
+      let result;
+      try{result=await rpc(name,args,owner,signal)}catch(error){
+        if(!error.uncertain||signal?.aborted)throw error;
+        // Exact same intent/token: SQL returns the prior receipt if already committed.
+        result=await rpc(name,args,owner,signal);
+      }
       if (!result || result.id !== id || result.token !== token || result.revision !== revision + 1 || !['pending','approved','rejected','cancelled'].includes(result.status)) throw Error('Hasil simpan belum dapat dipastikan. Muat ulang sebelum mencoba lagi.');
       return result;
     },

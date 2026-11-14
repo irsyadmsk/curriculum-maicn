@@ -130,8 +130,8 @@
   }
 
   // ── Auth ──
-  async function signIn(email, password) {
-    const { data, error } = await client.auth.signInWithPassword({ email, password });
+  async function signIn(email, password, captchaToken) {
+    const { data, error } = await client.auth.signInWithPassword({ email, password, options: { captchaToken } });
     if (error) throw error;
     return data;
   }
@@ -148,9 +148,9 @@
   async function isAdmin() {
     const session = await getSession();
     if (!session) return false;
-    const { data, error } = await client.from('admins').select('user_id').maybeSingle();
+    const { data, error } = await client.rpc('curriculum_access_context', { p_institution: 'MA Insan Cendekia Nusantara' });
     if (error) throw new Error('Hak akses belum berhasil diperiksa. Coba kembali.');
-    return !!data;
+    return data?.role === 'admin';
   }
 
   // ── Admin write helpers ──
@@ -193,12 +193,18 @@
   // Bridge refreshed native sessions to the HttpOnly site gateway after activation.
   client.auth.onAuthStateChange((event, session) => {
     if (!window.CurriculumAccess?.context.enabled || !['INITIAL_SESSION','SIGNED_IN','TOKEN_REFRESHED','SIGNED_OUT'].includes(event)) return;
+    // The account page bridges intentional sign-ins and sign-outs before navigation.
+    if (location.pathname === '/akun.html' && event !== 'TOKEN_REFRESHED') return;
+    // An empty initial browser session is not a logout of the verified gateway.
+    if (!session?.access_token && event !== 'SIGNED_OUT') return;
     setTimeout(async () => {
       try {
         const response = await fetch('/api/session', !session?.access_token
           ? { method: 'DELETE', credentials: 'same-origin' }
           : { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ token: session?.access_token }) });
-        if (response.ok) window.CurriculumAccess?.refresh();
+        if (response.ok && (event === 'SIGNED_OUT' || (window.CurriculumAccess?.context.user_id && window.CurriculumAccess.context.user_id !== session?.user?.id))) {
+          window.CurriculumAccess?.refresh();
+        }
       } catch { /* Existing drafts stay open; the next access check decides the visible role. */ }
     }, 0);
   });

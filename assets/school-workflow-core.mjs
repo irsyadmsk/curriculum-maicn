@@ -1,4 +1,4 @@
-import {isDate,monday,addDays,todayWIB,CLASSES,YEAR,inSchoolYear} from './clinic-core.mjs';
+import {isDate,monday,addDays,todayWIB,CLASSES,YEAR,inSchoolYear,slotFor,validSession,archived} from './clinic-core.mjs';
 export const KINDS={switch:'Switch jadwal',project:'Proyek kokurikuler',collaboration:'Kolaborasi kokurikuler',remedial:'Remedial',absence:'Dispensasi / izin KBM'};
 export const DAYS=['minggu','senin','selasa','rabu','kamis','jumat','sabtu'];
 export const timeValue=v=>String(v||'').replace('.',':');
@@ -38,14 +38,28 @@ export function dutiesToday(data,date=todayWIB()){
  const day=DAYS[new Date(date+'T12:00:00+07:00').getUTCDay()];
  return (data?.jadwal_kbm_v2?.guru_piket||[]).filter(r=>r.hari.toLocaleLowerCase('id')===day);
 }
-export function validateRequest(kind,data,catalog,context={}){
+export const usesClinicSession=kind=>kind==='project'||kind==='remedial';
+export function nextSchoolSessionDate(now=Date.now()){
+ let date=todayWIB(now);
+ for(let i=0;i<7;i++,date=addDays(date,1)){
+  const slot=slotFor(date);
+  if(slot&&!archived({date,end:slot.end},now))return date;
+ }
+ return todayWIB(now);
+}
+export function validSchoolSession(data,now=Date.now()){
+ return !!data&&inSchoolYear(data.date)&&validSession({...data,intake_version:2})&&!archived(data,now);
+}
+export function validateRequest(kind,data,catalog,context={},now=Date.now()){
  if(!KINDS[kind]||!isDate(data.date)||!inSchoolYear(data.date))throw Error('Pilih jenis ajuan dan tanggal yang benar.');
  if(!String(data.title||'').trim()||data.title.length>200)throw Error('Judul wajib diisi, maksimal 200 karakter.');
  if(kind==='switch')return{...data,body:validateSwitch(data.body,catalog.lessons)};
- if(kind==='remedial'&&!['teacher','student','curriculum','admin'].includes(context.role))throw Error('Remedial wajib login SSO akun guru atau murid sekolah.');
+ if(kind==='remedial'&&!['teacher','student','curriculum','admin'].includes(context.role))throw Error('Masuk dengan akun sekolah untuk mengajukan Remedial.');
  if(['project','collaboration'].includes(kind)&&!String(data.tp||'').trim())throw Error('Tuliskan TP dan kaitannya dengan proyek.');
  if(kind==='collaboration'&&!data.body?.parent_id)throw Error('Pilih proyek yang sudah disetujui.');
  if(!validTime(data.start)||!validTime(data.end)||data.start>=data.end)throw Error('Jam mulai harus sebelum jam selesai.');
+ if(usesClinicSession(kind)&&!validSchoolSession(data,now))throw Error('Pilih sesi yang belum selesai. Senin 20:30–21:30 atau Selasa 16:15–17:00 WIB.');
+ if(kind==='project'&&(!isDate(data.body?.end_date)||!inSchoolYear(data.body.end_date)||data.body.end_date<data.date))throw Error('Tanggal akhir kegiatan harus sama atau setelah tanggal mulai dalam tahun pelajaran ini.');
  if(['absence','remedial'].includes(kind)&&(!Array.isArray(data.student_ids)||!data.student_ids.length||data.student_ids.some(id=>!catalog.students.some(s=>s.id===id))))throw Error('Pilih murid dari daftar resmi.');
  return data;
 }
