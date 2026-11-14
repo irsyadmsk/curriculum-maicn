@@ -4,6 +4,19 @@ Status: **migrasi terpasang, menunggu deploy.** Atas persetujuan pemilik (14 Nov
 
 Verifikasi pascamigrasi: empat tabel privat ber-RLS tanpa hak baca `anon`/`authenticated`; lima fungsi publik hanya dapat dijalankan `authenticated`; `private.curriculum_akg_items()` tertutup. Tidak ada tabel, fungsi, atau data lama yang diubah.
 
+## Pembaruan 14 November 2026 (malam): satu ruang
+
+Setelah digabung dengan pekerjaan lokal, ternyata Ruang kurikulum (`kurikulum.html`) sudah memuat persetujuan klinik, ajuan akademik, pengumuman, dan pengaturan. Halaman Ruang admin terpisah membuat dua tempat untuk hal yang sama, sehingga:
+
+- `ruang-admin.html` dihapus; alamat lamanya dialihkan ke `kurikulum.html#analysis`.
+- Analisis, Catatan guru, dan Supervisi AKG menjadi kelompok **Pembinaan guru** di Ruang kurikulum (khusus admin).
+- Navigasi Ruang kurikulum menjadi dua tingkat: empat tombol kelompok (Harian, Persetujuan, Pembinaan guru, Pengaturan), lalu tab bergaris bawah untuk bagiannya. Sebelas tab sebaris tidak lagi berjejal.
+- Menu sisi: tautan polos di dasar menu diganti kelompok **Ruang kerja** berikon di bagian atas (Layanan & pengajuan, Ruang guru, Ruang kurikulum).
+- Gaya tombol global situs menimpa tombol ruang sehingga tombol utama dan berbahaya tampak sama putihnya; hierarki ditegaskan ulang (utama gelap terisi, sekunder bergaris, berbahaya merah, pilihan aktif gelap).
+- "Menunggu keputusan" hanya menghitung ajuan yang tanggalnya belum lewat; yang terlewat tanpa keputusan disebut terpisah (migrasi `curriculum_room_summary_upcoming_pending`).
+
+Bagian di bawah ini adalah riwayat rancangan awal; nama tab dan alamat Ruang admin di dalamnya sudah tidak berlaku.
+
 ## 1. Temuan sebelum perubahan
 
 | Temuan | Bukti | Akibat |

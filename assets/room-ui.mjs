@@ -87,8 +87,7 @@ export const SERVICES = Object.freeze([
   {group: 'Catat', id: 'note', href: 'ruang-guru.html#catatan', icon: 'note', title: 'Catatan harian guru', text: 'Refleksi singkat pembelajaran dan tindak lanjut setiap hari.', needs: 'teacher'},
   {group: 'Catat', id: 'journal', href: 'jurnal.html', icon: 'journal', title: 'Jurnal kelas dan piket', text: 'Jurnal harian oleh wali kelas, ketua kelas, dan guru piket.', needs: 'school'},
   {group: 'Catat', id: 'supervision', href: 'ruang-guru.html#supervisi', icon: 'eye', title: 'Supervisi saya', text: 'Jadwal dan hasil supervisi akademik format AKG.', needs: 'teacher'},
-  {group: 'Kelola', id: 'review', href: 'kurikulum.html', icon: 'check', title: 'Ruang persetujuan', text: 'Staf kurikulum memutuskan klinik dan switch jadwal.', needs: 'reviewer'},
-  {group: 'Kelola', id: 'admin', href: 'ruang-admin.html', icon: 'shield', title: 'Ruang admin', text: 'Analisis, seluruh persetujuan, catatan guru, dan supervisi.', needs: 'admin'}
+  {group: 'Kelola', id: 'review', href: 'kurikulum.html', icon: 'shield', title: 'Ruang kurikulum', text: 'Persetujuan, pengumuman, analisis, catatan guru, dan supervisi.', needs: 'reviewer'}
 ]);
 export function serviceCards(has, {exclude = [], groups = null} = {}) {
   const visible = SERVICES.filter(s => !exclude.includes(s.id) && (!groups || groups.includes(s.group)) && (!s.needs || has(s.needs)));

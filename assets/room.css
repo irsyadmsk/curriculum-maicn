@@ -276,3 +276,39 @@ body:has(.room, .room-hub) :is(#floating-clock, .floating-portal) { display: non
   body.room-printing .room-details > :not(summary) { display: block; } body.room-printing .room-details summary { display: none; }
   body.room-printing .room-bar i, body.room-printing .room-score-label { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
 }
+
+/* Ruang kurikulum: navigasi dua tingkat. Kelompok kerja = tombol besar; bagian = tab bergaris bawah. */
+.ops-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin: 4px 0 14px; }
+.ops-groups button { min-height: 52px; padding: 10px 16px; border: 1px solid var(--ui-border); border-radius: 12px; background: var(--ui-surface); color: var(--ui-ink); font: 700 15px/1.2 inherit; text-align: left; cursor: pointer; transition: background .2s, border-color .2s, color .2s, transform .12s; }
+.ops-groups button:hover { border-color: var(--ui-accent); background: var(--ui-accent-soft); }
+.ops-groups button:active { transform: scale(.98); }
+.ops-groups button[aria-pressed="true"] { background: var(--ui-ink); border-color: var(--ui-ink); color: var(--ui-surface); }
+.operations .operations-tabs { gap: 4px; padding: 0; margin-bottom: 16px; border-bottom: 1px solid var(--ui-border); }
+.operations .operations-tabs button { min-height: 44px; padding: 10px 16px; border: 0; border-bottom: 3px solid transparent; border-radius: 8px 8px 0 0; background: transparent; color: var(--ui-muted); font: 600 14.5px/1.2 inherit; cursor: pointer; transition: color .2s, border-color .2s, background .2s; }
+.operations .operations-tabs button:hover { color: var(--ui-ink); background: var(--ui-soft); }
+.operations .operations-tabs button[aria-pressed="true"] { background: transparent; color: var(--ui-ink); border-bottom-color: var(--ui-accent); }
+.operations :is(.ops-groups, .operations-tabs) button:focus-visible { outline: 3px solid color-mix(in srgb, var(--ui-accent) 55%, transparent); outline-offset: 2px; }
+.operations #ops-body > .room { max-width: none; }
+@media (max-width: 860px) { .ops-groups { display: none; } }
+
+/* Lembar gaya situs memberi semua tombol bingkai dan ukuran sendiri; pilihan aktif dan angka utama ditegaskan di sini. */
+.curriculum-ui .room .room-segment button { border: 0; background: transparent; color: var(--ui-muted); min-height: 36px; font-size: 13px; border-radius: 9px; box-shadow: none; }
+.curriculum-ui .room .room-segment button[aria-pressed="true"] { background: var(--ui-ink); color: var(--ui-surface); }
+.curriculum-ui .room .room-kpi strong { font-size: 34px; line-height: 1.1; }
+.curriculum-ui .room .room-tile strong { font-size: 24px; line-height: 1.1; }
+.curriculum-ui .room .room-score-value { font-size: 38px; }
+@media (max-width: 640px) { .curriculum-ui .room .room-kpi strong { font-size: 26px; } }
+/* Hierarki tombol ditegaskan terhadap gaya tombol global situs: utama gelap terisi, sekunder bergaris, berbahaya merah. */
+.curriculum-ui .room .room-btn { border: 1px solid var(--ui-border); background: var(--ui-surface); color: var(--ui-ink); border-radius: 11px; min-height: 44px; font-size: 14px; font-weight: 600; box-shadow: none; }
+.curriculum-ui .room .room-btn:hover { border-color: var(--ui-accent); background: var(--ui-accent-soft); }
+.curriculum-ui .room .room-btn.primary { background: var(--ui-ink); border-color: var(--ui-ink); color: var(--ui-surface); box-shadow: 0 4px 12px #0b1d3526; }
+.curriculum-ui .room .room-btn.primary:hover { background: var(--ui-accent); border-color: var(--ui-accent); color: #fff; }
+[data-theme="dark"] .curriculum-ui .room .room-btn.primary:hover, .curriculum-ui[data-theme="dark"] .room .room-btn.primary:hover { color: #0b1d35; }
+.curriculum-ui .room .room-btn.danger { color: var(--room-bad); border-color: color-mix(in srgb, var(--room-bad) 45%, var(--ui-border)); background: var(--ui-surface); }
+.curriculum-ui .room .room-btn.danger:hover { background: var(--room-bad-soft); border-color: var(--room-bad); }
+.curriculum-ui .room .room-list-item { border: 1px solid var(--ui-border); background: var(--ui-surface); }
+.curriculum-ui .room .room-list-item[aria-pressed="true"] { background: var(--ui-accent-soft); border-color: var(--ui-accent); }
+.curriculum-ui .room .room-day[aria-pressed="true"] { background: var(--ui-ink); border-color: var(--ui-ink); color: var(--ui-surface); }
+.curriculum-ui .room .room-tabs button { border: 0; background: transparent; color: var(--ui-muted); }
+.curriculum-ui .room .room-tabs button[aria-selected="true"] { background: var(--ui-ink); color: var(--ui-surface); }
+.curriculum-ui .room .room-tabs button[aria-selected="true"] .room-icon { color: inherit; }
