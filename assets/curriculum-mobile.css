@@ -9,7 +9,7 @@
 .curriculum-ui :is(.school-panel,.ops-form) :is(input,select,textarea){border-radius:var(--ui-control-radius);min-width:0;font:inherit;font-size:16px;line-height:1.5}
 .curriculum-ui :is(.school-panel,.ops-form) :is(input,select):not([type=checkbox]):not([type=radio]){min-height:48px}
 .curriculum-ui :is(.school-actions,.clinic-actions,.today-links){gap:10px}
-.curriculum-ui :is(.school-actions button,.clinic-actions button,.ui-button){min-height:46px;line-height:1.4;white-space:normal;text-align:center}
+.curriculum-ui :is(.school-actions button,.clinic-actions button,.ui-button){min-height:44px;line-height:1.4;white-space:normal;text-align:center}
 .curriculum-ui :is(p,td,th,label,small,.school-record){overflow-wrap:anywhere}
 .curriculum-ui :is(.school-panel,.clinic-review,.ops-form) textarea{resize:vertical}
 .ops-mobile-nav{display:none}.cr-filter-toggle,.cr-back-mobile{display:none!important}
@@ -55,9 +55,6 @@
 .curriculum-ui .ui-breadcrumb{font-size:11px;color:var(--ui-muted)}
 .curriculum-ui :is(.ui-panel,.school-panel,.clay-content-card){box-shadow:var(--ui-shadow)}
 .curriculum-ui :is(.ui-panel,.school-panel) h2{font-weight:750;letter-spacing:-.025em}
-.curriculum-ui .ui-button{font-size:13px;border-radius:10px;min-height:46px}
-.curriculum-ui .ui-button-primary{background:var(--ui-accent);border-color:var(--ui-accent);color:var(--ui-on-accent)}
-.curriculum-ui .ui-button-primary:hover{background:var(--ui-ink);border-color:var(--ui-ink);color:var(--ui-on-accent)}
 .curriculum-ui .ui-eyebrow{font-size:11px;letter-spacing:.1em;font-weight:750;color:var(--ui-accent)}
 .curriculum-ui :is(.school-panel,.ops-form,.clinic-review,#clinic-form) :is(input,select,textarea):not([type=checkbox]):not([type=radio]){border-color:var(--ui-control-border,#82968b);background:var(--ui-surface);border-radius:10px;min-height:48px}
 .curriculum-ui :is(input,select,textarea):focus{outline:2px solid var(--ui-accent);outline-offset:2px;border-color:var(--ui-accent)}
@@ -146,9 +143,9 @@
 .curriculum-ui .clinic-review .cr-request[aria-pressed=true]{border-color:var(--ui-accent);background:var(--ui-accent-soft)}
 .curriculum-ui .clinic-review .cr-badge{color:var(--ui-accent)}
 .curriculum-ui .clinic-review .cr-decision-summary button{border-radius:12px;min-height:90px;gap:4px}
-.curriculum-ui .clinic-review .cr-decision-summary [aria-pressed=true]{background:var(--ui-accent-soft);border-color:var(--ui-accent)}
+.curriculum-ui .clinic-review .cr-decision-summary [aria-pressed=true]{background:var(--ui-ink);color:var(--ui-surface);border-color:var(--ui-ink)}
 .curriculum-ui .clinic-review .cr-decision-summary strong{font-size:30px;font-variant-numeric:tabular-nums}
-.curriculum-ui .clinic-review button.cw-primary,.curriculum-ui .school-actions button.primary{background:var(--ui-accent);color:var(--ui-on-accent);border-color:var(--ui-accent)}
+.curriculum-ui .clinic-review button.cw-primary,.curriculum-ui .school-actions button.primary{background:var(--ui-ink);color:var(--ui-surface);border-color:var(--ui-ink)}
 .curriculum-ui .ops-table th{color:var(--ui-ink);background:var(--ui-soft);font-size:12px}
 .curriculum-ui .teacher-help-trigger{background:var(--ui-warm-soft);border-color:transparent;color:var(--ui-warm);white-space:nowrap;font-size:12px}
 .teacher-help-dialog{width:min(700px,calc(100vw - 28px));max-height:calc(100dvh - 32px);padding:0;border:1px solid var(--ui-border);border-radius:16px;background:var(--ui-surface);color:var(--ui-ink);overflow:auto;box-shadow:0 24px 80px #10203b26}
@@ -197,11 +194,11 @@
 /* Explicit foreground/background pairs for the shared review workspace. */
 .curriculum-ui :is(.operations,.clinic-review,.school-panel){color:var(--ui-ink)}
 .curriculum-ui :is(.operations,.clinic-review,.school-panel) :is(button,input,select,textarea){font-family:inherit}
-.curriculum-ui :is(.operations,.clinic-review) button{background:var(--ui-surface);color:var(--ui-ink);border:1px solid var(--ui-border);border-radius:9px;padding:11px 15px;font-size:14px;font-weight:600;line-height:1.5;min-height:46px}
+.curriculum-ui :is(.operations,.clinic-review) button{background:var(--ui-surface);color:var(--ui-ink);border:1px solid var(--ui-border);border-radius:9px;padding:10px 16px;font-size:14px;font-weight:600;line-height:1.4;min-height:44px}
 .curriculum-ui :is(.operations,.clinic-review) button:hover:not(:disabled){border-color:var(--ui-accent);background:var(--ui-accent-soft)}
-.curriculum-ui :is(.operations,.clinic-review) :is(button.cw-primary,button.ui-button-primary){background:var(--ui-accent);color:var(--ui-on-accent);border-color:var(--ui-accent)}
-.curriculum-ui :is(.operations,.clinic-review) :is(button.cw-primary,button.ui-button-primary):hover:not(:disabled){background:var(--ui-accent);color:var(--ui-on-accent);filter:brightness(.94)}
-.curriculum-ui .operations-tabs [aria-pressed=true]{background:var(--ui-accent-soft);color:var(--ui-accent);border-color:var(--ui-accent)}
+.curriculum-ui :is(.operations,.clinic-review) :is(button.cw-primary,button.ui-button-primary){background:var(--ui-ink);color:var(--ui-surface);border-color:var(--ui-ink)}
+.curriculum-ui :is(.operations,.clinic-review) :is(button.cw-primary,button.ui-button-primary):hover:not(:disabled){background:var(--ui-accent);border-color:var(--ui-accent);color:var(--ui-on-accent)}
+.curriculum-ui .operations-tabs [aria-pressed=true]{background:var(--ui-ink);color:var(--ui-surface);border-color:var(--ui-ink)}
 .curriculum-ui .clinic-review .cr-reject{color:var(--ui-danger);border-color:var(--ui-danger);background:var(--ui-surface)}
 .curriculum-ui :is(.clinic-review,.operations,.school-panel) :is(input,select,textarea){color:var(--ui-ink);background:var(--ui-surface);-webkit-text-fill-color:var(--ui-ink)}
 .curriculum-ui :is(input,textarea)::placeholder{color:var(--ui-muted);opacity:1}
@@ -236,8 +233,7 @@
 .curriculum-ui :is(.ui-panel,.school-panel,.clay-content-card,.clay-widget-card,.admin-card){background:var(--ui-surface);color:var(--ui-ink);border:1px solid var(--ui-border);border-radius:12px;box-shadow:0 2px 6px #14223804}
 .curriculum-ui :is(.ui-panel,.school-panel,.admin-card) h2{font-size:20px;font-weight:700;letter-spacing:-.025em;line-height:1.4}
 .curriculum-ui :is(.ui-panel,.school-panel,.admin-card) h3{font-size:17px;font-weight:650;line-height:1.45}
-.curriculum-ui :is(.ui-button,.school-tabs a,.operations-tabs button){border-radius:8px;font-weight:600}
-.curriculum-ui .ui-button-primary:hover{background:var(--ui-accent);border-color:var(--ui-accent);filter:brightness(.93)}
+.curriculum-ui :is(.school-tabs a,.operations-tabs button){border-radius:10px;font-weight:600}
 .curriculum-ui .ui-account-entry{border-radius:8px;font-size:13px;font-weight:650;padding-inline:14px}
 .curriculum-ui .today-heading{padding-block:4px 8px;gap:16px}
 .curriculum-ui .today-heading h2{font-size:clamp(24px,3vw,32px);font-weight:700;letter-spacing:-.035em}
@@ -265,7 +261,7 @@
 .curriculum-ui .clinic-review .cr-heading{padding-bottom:18px;border-bottom:1px solid var(--ui-border)}
 .curriculum-ui .clinic-review .cr-decision-summary button{background:var(--ui-surface);border-radius:9px;min-height:86px}
 .curriculum-ui .clinic-review .cr-decision-summary strong{font-size:28px;font-weight:700;color:var(--ui-ink)}
-.curriculum-ui .clinic-review .cr-decision-summary [aria-pressed=true]{box-shadow:inset 0 3px 0 var(--ui-accent);background:var(--ui-accent-soft)}
+.curriculum-ui .clinic-review .cr-decision-summary [aria-pressed=true]{background:var(--ui-ink);color:var(--ui-surface)}
 .curriculum-ui .clinic-review .cr-request{border-radius:9px;padding:18px;border-color:var(--ui-border)}
 .curriculum-ui .clinic-review .cr-editor{border-radius:10px;padding:22px}
 .curriculum-ui .clinic-review .cr-overview{padding-bottom:18px}.curriculum-ui .clinic-review .cr-overview h3{font-size:24px;font-weight:700}
@@ -289,17 +285,17 @@
 .curriculum-ui .clinic-review .cr-heading{margin:0 0 8px;padding:0 0 12px;align-items:center}
 .curriculum-ui .clinic-review .cr-heading h2{font-size:20px;margin:0}
 .curriculum-ui .clinic-review .cr-heading p{margin:5px 0 0;font-size:13px}
-.curriculum-ui .clinic-review .cr-heading>button{font-size:13px;min-height:42px;margin:0}
+.curriculum-ui .clinic-review .cr-heading>button{font-size:13px;min-height:44px;margin:0}
 .curriculum-ui .clinic-review .cr-sync-status{background:none;border:0;padding:0;font-size:12px;color:var(--ui-muted);margin:8px 0}
 .curriculum-ui .clinic-review .cr-decision-summary{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
 .curriculum-ui .clinic-review .cr-decision-summary button{display:flex;flex-direction:row;align-items:center;gap:9px;min-height:44px;padding:8px 14px!important;border-radius:24px;box-shadow:none}
 .curriculum-ui .clinic-review .cr-decision-summary strong{font-size:17px;line-height:1.2}
 .curriculum-ui .clinic-review .cr-decision-summary span{font-size:13px}
-.curriculum-ui .clinic-review .cr-decision-summary [aria-pressed=true]{background:var(--ui-accent-soft);border-color:var(--ui-accent);box-shadow:none}
+.curriculum-ui .clinic-review .cr-decision-summary [aria-pressed=true]{background:var(--ui-ink);color:var(--ui-surface);border-color:var(--ui-ink);box-shadow:none}
 .curriculum-ui .clinic-review .cr-find{display:flex;align-items:end;gap:12px;margin:12px 0 20px}
 .curriculum-ui .clinic-review .cr-find label{flex:1;min-width:0;font-size:12px}
 .curriculum-ui .clinic-review .cr-find input{background:var(--ui-soft);border-color:var(--ui-border)}
-.curriculum-ui .clinic-review .cr-find .cr-filter-toggle{display:block!important;width:auto;margin:0;min-height:46px;white-space:normal}
+.curriculum-ui .clinic-review .cr-find .cr-filter-toggle{display:block!important;width:auto;margin:0;min-height:44px;white-space:normal}
 .curriculum-ui .clinic-review .cr-toolbar[data-open=false]{display:none}
 .curriculum-ui .clinic-review .cr-toolbar[data-open=true]{background:var(--ui-soft);padding:16px;border-radius:12px;margin:0 0 20px}
 .curriculum-ui .clinic-review .cr-list{gap:12px;scrollbar-gutter:stable;align-self:start}
@@ -350,7 +346,7 @@
 }
 .curriculum-ui .admin-task-links button[aria-pressed="true"],
 .curriculum-ui .clay-topbar .ui-admin-entry {
-  border-color:var(--ui-accent); background:var(--ui-accent); color:var(--ui-on-accent);
+  border-color:var(--ui-ink); background:var(--ui-ink); color:var(--ui-surface);
 }
 .curriculum-ui .clay-main-content > .admin-wrap { width:100%; padding:16px clamp(16px,3vw,28px); }
 .curriculum-ui #admin-panel-section { margin-top:22px; min-width:0; }

@@ -6,7 +6,7 @@ export const school = 'MA Insan Cendekia Nusantara', uid = n => `83000000-0000-4
 export const identities = {admin: 1, teacher: 2, chemistry: 3, staff: 4, student: 5};
 export async function loadPGlite() {
   for (const candidate of [process.env.PGLITE_MODULE, new URL('../../irsyads/node_modules/@electric-sql/pglite/dist/index.js', import.meta.url).href].filter(Boolean)) {
-    try { return (await import(candidate.startsWith('file:') || candidate.startsWith('/') ? pathToFileURL(candidate.replace(/^file:\/\//, '')).href : candidate)).PGlite; } catch { /* coba kandidat berikutnya */ }
+    try { return (await import(candidate.startsWith('file:') ? candidate : candidate.startsWith('/') || /^[A-Za-z]:[\\/]/.test(candidate) ? pathToFileURL(candidate).href : candidate)).PGlite; } catch { /* coba kandidat berikutnya */ }
   }
   return null;
 }

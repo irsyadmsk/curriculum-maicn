@@ -135,11 +135,15 @@ body.curriculum-ui {
 .ui-welcome h2 em { color: #b9cde3; font-family: 'Playfair Display', Georgia, serif; font-weight: 400; }
 .ui-welcome p { font-size: 12px; line-height: 1.8; color: #c4d5e7; max-width: 440px; margin: 0; }
 .ui-welcome-actions { display: flex; gap: 10px; margin-top: 24px; flex-wrap: wrap; }
-.ui-button { display: inline-flex; justify-content: center; align-items: center; gap: 9px; min-height: 44px; padding: 10px 16px; border: 1px solid var(--ui-border); border-radius: 9px; font-size: 12px; font-weight: 700; color: var(--ui-ink); background: var(--ui-surface); transition: background .16s, border-color .16s; }
-.ui-button:hover { background: var(--ui-soft); border-color: var(--ui-accent); }
+/* Hierarki tombol situs (satu sumber): utama gelap terisi, sekunder bergaris, berbahaya merah, pilihan aktif gelap. */
+.ui-button { display: inline-flex; justify-content: center; align-items: center; gap: 9px; min-height: 44px; padding: 10px 16px; border: 1px solid var(--ui-border); border-radius: 10px; font-size: 14px; font-weight: 600; line-height: 1.3; color: var(--ui-ink); background: var(--ui-surface); cursor: pointer; text-decoration: none; transition: background .16s, border-color .16s; }
+.ui-button:hover { background: var(--ui-accent-soft); border-color: var(--ui-accent); }
 .ui-button:active { opacity: .8; }
-.ui-button-primary { background: var(--ui-accent); border-color: var(--ui-accent); color: #fff; }
-.ui-button-primary:hover { color: #fff; background: #1b4497; }
+.ui-button-primary { background: var(--ui-ink); border-color: var(--ui-ink); color: var(--ui-surface); }
+.ui-button-primary:hover { background: var(--ui-accent); border-color: var(--ui-accent); color: var(--ui-on-accent); }
+.ui-button-danger { background: var(--ui-surface); border-color: color-mix(in srgb, var(--ui-danger) 45%, var(--ui-border)); color: var(--ui-danger); }
+.ui-button-danger:hover { background: color-mix(in srgb, var(--ui-danger) 10%, var(--ui-surface)); border-color: var(--ui-danger); }
+.ui-button:disabled, .ui-button[aria-disabled="true"] { opacity: .6; cursor: not-allowed; }
 .ui-welcome .ui-button-primary { background: #fff; border-color: #fff; color: #0B1D35; }
 .ui-welcome .ui-button-secondary { background: #ffffff08; border-color: #ffffff38; color: white; }
 .ui-welcome .ui-button:hover { background: #dce9f6; color: #0B1D35; }
@@ -297,7 +301,18 @@ body.curriculum-ui {
 .curriculum-ui :is(.clay-tab-btn,.tab-btn) { font-family: inherit; border: 0; border-radius: 7px; padding: 10px 16px; margin: 0; font-size: 12px; min-height: 44px; color: var(--ui-muted); flex-shrink: 0; }
 .curriculum-ui :is(.clay-tab-btn.active,.tab-btn.active) { background: var(--ui-accent-soft); color: var(--ui-accent); box-shadow: none; }
 .curriculum-ui :is(.clay-input,.clay-select,.form-control) { background: var(--ui-surface); color: var(--ui-ink); border: 1px solid var(--ui-border); border-radius: 8px; font-family: inherit; box-shadow: none; }
-.curriculum-ui :is(.btn,.btn-clay-coral,.btn-clay-primary,.btn-clay-secondary) { min-height: 44px; border-radius: 8px; font-family: inherit; box-shadow: none; font-size: 12px; }
+.curriculum-ui :is(.btn,.btn-clay-coral,.btn-clay-primary,.btn-clay-secondary) { min-height: 44px; border-radius: 10px; font-family: inherit; box-shadow: none; font-size: 14px; font-weight: 600; }
+/* Kelas tombol lama dipetakan ke hierarki yang sama dengan .ui-button. */
+.curriculum-ui :is(.btn-aqua,.btn-primary,.btn-clay-coral,.btn-clay-primary) { background: var(--ui-ink); border: 1px solid var(--ui-ink); color: var(--ui-surface); }
+.curriculum-ui :is(.btn-aqua,.btn-primary,.btn-clay-coral,.btn-clay-primary):hover { background: var(--ui-accent); border-color: var(--ui-accent); color: var(--ui-on-accent); }
+.curriculum-ui :is(.btn-ghost,.btn-clay-secondary) { background: var(--ui-surface); border: 1px solid var(--ui-border); color: var(--ui-ink); }
+.curriculum-ui :is(.btn-ghost,.btn-clay-secondary):hover { background: var(--ui-accent-soft); border-color: var(--ui-accent); color: var(--ui-ink); }
+.curriculum-ui .btn-danger { background: var(--ui-surface); border: 1px solid color-mix(in srgb, var(--ui-danger) 45%, var(--ui-border)); color: var(--ui-danger); }
+.curriculum-ui .btn-danger:hover { background: color-mix(in srgb, var(--ui-danger) 10%, var(--ui-surface)); border-color: var(--ui-danger); }
+.curriculum-ui .btn.btn-sm { font-size: 13px; padding: 8px 14px; }
+.curriculum-ui .admin-add { margin-bottom: 16px; }
+.curriculum-ui .admin-room-banner { margin: 0 0 12px; padding: 12px 16px; border-radius: 12px; background: var(--ui-accent-soft); font-size: .9rem; }
+.curriculum-ui .admin-room-link { font-weight: 700; }
 .curriculum-ui :is(.clay-table,table.custom-table) { border: 1px solid var(--ui-border); border-radius: 10px; box-shadow: none; background: var(--ui-surface); }
 .curriculum-ui :is(.clay-table th,table.custom-table th) { background: var(--ui-soft); color: var(--ui-muted); font-size: 10px; letter-spacing: .04em; }
 .curriculum-ui :is(.clay-table td,table.custom-table td) { background: var(--ui-surface); color: var(--ui-ink); font-size: 12px; border-color: var(--ui-border); }
@@ -381,7 +396,6 @@ body.curriculum-ui {
   html { scroll-padding-top: 90px; }
   .curriculum-ui .clay-main-content { padding: 0 16px 100px; }
   .curriculum-ui .clay-topbar { min-height: 76px; gap: 10px; margin-bottom: 16px; padding: 14px 0; flex-direction: row; }
-  .curriculum-ui .clay-topbar { flex-wrap: nowrap; }
   .curriculum-ui .clay-topbar-left { gap: 10px; }
   .curriculum-ui .clay-page-title { font-size: 13px !important; line-height: 1.4; }
   .ui-breadcrumb { font-size: 9px; }

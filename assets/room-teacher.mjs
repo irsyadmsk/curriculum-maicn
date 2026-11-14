@@ -12,7 +12,7 @@ const draftKey = date => `maicn_note_draft_${ctx.user_id}_${date}`;
 let notes = null, selectedDate = today, supervisions = null, alive = true, tabs = null;
 
 if (!access.has('teacher') || !ctx.teacher_code) {
-  host.innerHTML = notice('Ruang guru memerlukan akun yang sudah ditautkan ke pengampu. Admin membaca catatan guru dan supervisi melalui Ruang admin.', 'error');
+  host.innerHTML = notice('Ruang guru memerlukan akun yang sudah ditautkan ke pengampu. Admin membaca catatan guru dan supervisi melalui Ruang kurikulum > Pembinaan guru.', 'error');
 } else {
   host.innerHTML = `<header class="room-hero"><div><p class="room-eyebrow">${esc(longDate(today))}</p><h2>Assalamu’alaikum, ${esc(ctx.teacher || 'Bapak/Ibu Guru')}</h2><p>Catat pembelajaran hari ini, pantau supervisi, dan ajukan layanan dari satu ruang.</p></div></header>`;
   tabs = mountTabs(host, [{id: 'catatan', label: 'Catatan harian', icon: 'note'}, {id: 'supervisi', label: 'Supervisi saya', icon: 'eye'}, {id: 'layanan', label: 'Layanan', icon: 'swap'}], (id, panel) => ({catatan: showNotes, supervisi: showSupervision, layanan: showServices})[id](panel), {label: 'Bagian ruang guru'});
