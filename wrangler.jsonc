@@ -25,7 +25,8 @@
     "TURNSTILE_SITE_KEY": "0x4AAAAAAFmmrN7OKp5jr_8a",
     "SCHOOL_ENABLED": "true",
     "SCHOOL_EMAIL_ENABLED": "true",
-    "CURRICULUM_EMAIL_EDGE_ENABLED": "true"
+    "CURRICULUM_EMAIL_EDGE_ENABLED": "true",
+    "ROOM_ENABLED": "true"
   },
   "compatibility_flags": [
     "nodejs_compat"
