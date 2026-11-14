@@ -1,26 +1,36 @@
 /* Curriculum / academic workspace. Local presentation layer, 26 October 2026.
    Shared navigation exports and academic data retain their own ownership. */
 :root {
-  --ui-bg: #f6f7f9;
+  --ui-bg: #f3f5f9;
   --ui-surface: #ffffff;
-  --ui-soft: #f0f3f7;
-  --ui-ink: #0B1D35;
-  --ui-muted: #586574;
-  --ui-border: #e2e7ed;
-  --ui-accent: #376A9B;
-  --ui-accent-soft: #eaf1f8;
-  --ui-green: #216653;
-  --ui-green-soft: #eaf5ef;
-  --ui-ivory: #F3EDE2;
+  --ui-soft: #edf1f7;
+  --ui-ink: #17243b;
+  --ui-muted: #526078;
+  --ui-border: #d6deea;
+  --ui-accent: #2456b8;
+  --ui-on-accent: #ffffff;
+  --ui-control-border: #8796ae;
+  --ui-accent-soft: #eaf0fc;
+  --ui-green: #16704d;
+  --ui-green-soft: #e4f4e8;
+  --ui-ivory: #f5f7fb;
+  --ui-warm: #8b4a08;
+  --ui-warm-soft: #fff3d8;
+  --ui-danger: #ab3540;
+  --ui-sidebar-bg: #142238;
+  --ui-sidebar-ink: #e4ecfa;
   --ui-sidebar: 248px;
-  --ui-radius: 16px;
-  --ui-shadow: 0 4px 20px #0b1d3505;
+  --ui-radius: 12px;
+  --ui-shadow: 0 3px 12px #17243b06;
 }
 [data-theme="dark"] {
-  --ui-bg: #101822; --ui-surface: #182330; --ui-soft: #202f40;
-  --ui-ink: #edf3fb; --ui-muted: #b4c2d2; --ui-border: #344456;
-  --ui-accent: #a5c9ef; --ui-accent-soft: #253e57;
-  --ui-green: #a2d9bb; --ui-green-soft: #1f3a34; --ui-ivory: #2c302e;
+  --ui-bg: #0e1625; --ui-surface: #172338; --ui-soft: #202f47;
+  --ui-ink: #edf2fc; --ui-muted: #bdc9dd; --ui-border: #40506a;
+  --ui-accent: #9fbeff; --ui-accent-soft: #24385c;
+  --ui-on-accent: #102040;
+  --ui-control-border: #8b9bb5;
+  --ui-green: #b2e2bd; --ui-green-soft: #25432f; --ui-ivory: #443a22;
+  --ui-warm: #f2cc80; --ui-warm-soft: #3e321e; --ui-danger: #ffabb1;
 }
 html { scroll-padding-top: 100px; }
 body.curriculum-ui {
@@ -30,12 +40,18 @@ body.curriculum-ui {
   --deep-navy: var(--ui-ink); --slate-gray: var(--ui-muted); --soft-beige: var(--ui-border);
   --color-bg: var(--ui-bg); --color-surface: var(--ui-surface); --color-surface-2: var(--ui-soft);
   --color-ink: var(--ui-ink); --color-muted: var(--ui-muted); --color-line: var(--ui-border);
+  --color-accent: var(--ui-accent); --color-line-2: var(--ui-border); --color-border: var(--ui-border);
+  --color-ink-2: var(--ui-muted); --color-accent-ink: var(--ui-accent); --color-on-brand: var(--ui-on-accent);
+  --color-bg-2: var(--ui-soft); --color-accent-2: var(--ui-accent);
+  --primary: var(--ui-accent); --primary-dark: var(--ui-accent); --primary-light: var(--ui-accent-soft);
   --text-primary: var(--ui-ink); --text-secondary: var(--ui-muted); --text-soft: var(--ui-muted);
   --surface: var(--ui-surface); --border: var(--ui-border); --bg: var(--ui-bg);
   background: var(--ui-bg); color: var(--ui-ink); font-size: 15px; line-height: 1.6;
   font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+  color-scheme: light;
 }
+[data-theme="dark"] body.curriculum-ui,body.curriculum-ui[data-theme="dark"] { color-scheme: dark; }
 .curriculum-ui *, .curriculum-ui *::before, .curriculum-ui *::after { box-sizing: border-box; }
 .curriculum-ui [hidden] { display: none !important; }
 .curriculum-ui :is(h1,h2,h3,h4,h5,h6,button,input,select,textarea,.font-serif,.font-mono) { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
@@ -122,8 +138,8 @@ body.curriculum-ui {
 .ui-button { display: inline-flex; justify-content: center; align-items: center; gap: 9px; min-height: 44px; padding: 10px 16px; border: 1px solid var(--ui-border); border-radius: 9px; font-size: 12px; font-weight: 700; color: var(--ui-ink); background: var(--ui-surface); transition: background .16s, border-color .16s; }
 .ui-button:hover { background: var(--ui-soft); border-color: var(--ui-accent); }
 .ui-button:active { opacity: .8; }
-.ui-button-primary { background: #376A9B; border-color: #376A9B; color: white; }
-.ui-button-primary:hover { color: white; background: #2e5b86; }
+.ui-button-primary { background: var(--ui-accent); border-color: var(--ui-accent); color: #fff; }
+.ui-button-primary:hover { color: #fff; background: #1b4497; }
 .ui-welcome .ui-button-primary { background: #fff; border-color: #fff; color: #0B1D35; }
 .ui-welcome .ui-button-secondary { background: #ffffff08; border-color: #ffffff38; color: white; }
 .ui-welcome .ui-button:hover { background: #dce9f6; color: #0B1D35; }
@@ -373,9 +389,6 @@ body.curriculum-ui {
   .ui-search-trigger { width: 44px; padding: 0; }
   .ui-search-trigger :is(span,kbd) { display: none; }
   .curriculum-ui .clay-topbar-right > a.clay-circle-btn { display: none; }
-  .curriculum-ui .irsyads-nav-wrapper { max-width: 44px; }
-  .curriculum-ui .irsyads-nav-wrapper .irsyads-navigation summary { width: 44px; max-width: 44px; padding: 0; border-radius: 9px; }
-  .curriculum-ui .irsyads-nav-wrapper .irsyads-navigation summary > :not(.irsyads-navigation-logo) { display: none; }
   .curriculum-ui .irsyads-nav-wrapper .irsyads-navigation summary .irsyads-navigation-logo { margin: 0; }
   .curriculum-ui .irsyads-nav-wrapper .irsyads-navigation summary > .irsyads-navigation-logo { display: block; }
   .curriculum-ui .clay-topbar .irsyads-navigation-panel { position: fixed; inset-inline: 12px; top: 76px; width: auto; max-width: calc(100vw - 24px); }

@@ -9,7 +9,7 @@ function read(rel) {
   return fs.readFileSync(path.join(REPO_ROOT, rel), 'utf8');
 }
 
-test('AG-CURR-03: Header and Ecosystem Doors to Irsyads, Academy, and Studio', () => {
+test('AG-CURR-03: Header and Ecosystem Doors with Curriculum-local review', () => {
   const pages = ['index.html', 'kalender.html', 'jadwal.html'];
   for (const p of pages) {
     const html = read(p);
@@ -19,7 +19,7 @@ test('AG-CURR-03: Header and Ecosystem Doors to Irsyads, Academy, and Studio', (
     assert.ok(html.includes('data-door="academy"'), `${p} must have door to academy.irsyads.com`);
     assert.ok(html.includes('https://academy.irsyads.com/'), `${p} must link to https://academy.irsyads.com/`);
     assert.ok(html.includes('data-door="studio"'), `${p} must have door to studio.irsyads.com`);
-    assert.ok(html.includes('https://studio.irsyads.com/?lang=id#kurikulum'), `${p} must link to studio kurikulum gateway`);
+    assert.ok(html.includes('href="kurikulum.html"'), `${p} must link to the local Curriculum review room`);
   }
 });
 

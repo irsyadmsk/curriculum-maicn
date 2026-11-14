@@ -56,6 +56,6 @@ test('Monday JP1 stays dated and scoped, with no assumed activity or browser-adm
  assert.equal(nextMonday('2026-10-26'),'2026-10-26');assert.equal(nextMonday('2026-10-27'),'2026-11-02');
  const block={date:'2026-10-26',activity:'KTI',note:'',reason:'Rencana pekan ini'};assert.equal(validateBlock(block).activity,'KTI');assert.throws(()=>validateBlock({...block,date:'2026-10-27'}));assert.throws(()=>validateBlock({...block,reason:''}));
  const source={version:1,institution,year,can_review:false,read_at:new Date(now).toISOString(),count:1,rows:[{...block,institution,year,revision:1,updated_at:new Date(now).toISOString()}]};assert.equal(parseBlockSnapshot(source).rows[0].activity,'KTI');assert.throws(()=>parseBlockSnapshot({...source,count:2}));
- const home=fs.readFileSync('index.html','utf8');assert.ok(home.indexOf('id="clinic-home-title"')<home.indexOf('id="monday-title"'));assert.ok(home.indexOf('id="monday-title"')<home.indexOf('id="ui-schedule-title"'));
+ const home=fs.readFileSync('index.html','utf8');const today=fs.readFileSync(new URL('../assets/curriculum-today.mjs',import.meta.url),'utf8');assert.ok(today.includes('Klinik terdekat'));assert.ok(today.includes('Senin · JP 1'));assert.ok(home.indexOf('id="today-root"')<home.indexOf('class="home-references"'));
  assert.ok(fs.readFileSync('jadwal.html','utf8').includes('window.openMondayBlock()'));assert.ok(fs.readFileSync('assets/curriculum-ui.js','utf8').includes('Dikembangkan oleh'));
 });

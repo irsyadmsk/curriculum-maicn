@@ -16,10 +16,10 @@
       body.classList.toggle('drawer-open');
     }
 
-    const menuBtn = document.querySelector('.clay-mobile-menu-btn');
-    if (menuBtn) {
-      menuBtn.setAttribute('aria-expanded', body.classList.contains('drawer-open') ? 'true' : 'false');
-    }
+    const expanded = String(body.classList.contains('drawer-open'));
+    document.querySelectorAll('.clay-mobile-menu-btn, .clay-bottom-nav-item[aria-controls="main-clay-sidebar"]').forEach(button => {
+      button.setAttribute('aria-expanded', expanded);
+    });
   };
 
   // 2. Toggle desktop collapsible sidebar (minimize/expand)

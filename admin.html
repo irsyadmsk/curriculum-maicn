@@ -10,12 +10,11 @@
 <meta content="noindex, nofollow" name="robots"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&amp;family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400..800&amp;display=swap" rel="stylesheet"/>
 <link href="assets/styles.css?v=3.2" rel="stylesheet"/>
 <style>
 .admin-wrap { max-width: 1100px; margin: 0 auto; }
 .admin-card { background:var(--surface); border-radius:var(--radius-lg); padding:24px; box-shadow:var(--shadow); border:1px solid var(--border); }
-.admin-login-card { max-width: 420px; margin: 40px auto; }
 .admin-topbar { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:10px; }
 .admin-who { font-size:0.85rem; color:var(--text-soft); }
 .admin-toolbar { display:flex; gap:10px; margin-bottom:16px; flex-wrap:wrap; align-items:center; }
@@ -42,7 +41,7 @@
 <script src="assets/irsyads-session.js"></script>
 <script src="assets/curriculum-data.js"></script>
 <script src="assets/app.js?v=3.2"></script>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&amp;family=Manrope:wght@400;500;600;700;800&amp;family=Noto+Sans+Arabic:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400..800&amp;display=swap" rel="stylesheet"/>
 <link href="assets/irsyads-v1/tokens.css" rel="stylesheet"/>
 <link href="assets/ecosystem.css" rel="stylesheet"/>
 <script>
@@ -50,14 +49,15 @@
 </script>
 <script src="assets/irsyads-v1/appearance.js"></script>
 <script src="assets/irsyads-v1/language.js"></script><script src="assets/irsyads-v1/launcher.js"></script>
-<link href="assets/irsyads-v1/service-navigation.css" rel="stylesheet"/><script src="assets/irsyads-v1/service-navigation.js"></script><script defer="" src="assets/ecosystem.js"></script>
+<link href="assets/irsyads-v1/service-navigation.css" rel="stylesheet"/><script defer src="assets/irsyads-v1/service-navigation.js"></script><script defer="" src="assets/ecosystem.js"></script>
 <link rel="stylesheet" href="assets/dashboard-clay.css?v=1.1">
-<link rel="stylesheet" href="assets/curriculum-ui.css?v=20261026-clinic2-roster1">
+<link rel="stylesheet" href="assets/curriculum-ui.css?v=20261102-teal">
 <script src="assets/student-roster-data.js?v=20261026"></script>
 <script src="assets/student-roster.js?v=20261026"></script>
-<link rel="stylesheet" href="assets/audience.css?v=20261026-audience1"><link rel="stylesheet" href="assets/clinic-page.css?v=20261026-audience1"><script type="module" src="assets/curriculum-access.mjs?v=20261026-audience1"></script>
-</head>
-<body class="clay-theme curriculum-ui"><aside class="clay-sidebar" id="main-clay-sidebar" aria-label="Menu utama">
+<link rel="stylesheet" href="assets/audience.css?v=20261026-audience1"><script type="module" src="assets/curriculum-access.mjs"></script>
+<link rel="stylesheet" href="assets/curriculum-experience.css">
+<link rel="stylesheet" href="assets/curriculum-mobile.css?v=20261102-teal"></head>
+<body class="clay-theme curriculum-ui curriculum-admin"><aside class="clay-sidebar" id="main-clay-sidebar" aria-label="Menu utama">
  <button type="button" class="clay-drawer-close-btn" onclick="toggleClayDrawer(false)" aria-label="Tutup menu"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg></button>
  <a class="ui-brand" href="index.html" aria-label="Curriculum — Beranda"><img src="assets/curriculum-mark.svg" width="40" height="40" alt=""><span class="ui-brand-text"><strong>Curriculum<span style="color:var(--ui-accent)">.</span></strong></span></a>
  <p class="ui-school-label">Ruang akademik madrasah<br><strong>Tahun pelajaran 2026/2027</strong></p>
@@ -87,60 +87,63 @@
 <div class="bg-blob"></div>
 </div>
 <!-- Floating Portal Hub -->
-<a class="floating-portal" href="https://irsyads.com" id="floating-portal" rel="noopener noreferrer" target="_blank" title="Kunjungi Portal Utama irsyads.com">
-<span class="portal-dot"></span>
-<span>irsyads.com</span>
-<span class="portal-arrow">↗</span>
-</a>
-<main data-needs="reviewer" class="clay-main-content" id="main-clay-content" tabindex="-1"><header class="clay-topbar">
+<main data-needs="admin" hidden class="clay-main-content" id="main-clay-content" tabindex="-1"><header class="clay-topbar">
  <div class="clay-topbar-left"><button class="clay-mobile-menu-btn" type="button" onclick="toggleClayDrawer()" aria-label="Buka menu navigasi" aria-expanded="false" aria-controls="main-clay-sidebar"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
- <div><p class="ui-breadcrumb">Ruang akademik / Administrasi</p><h1 class="clay-page-title">Admin kurikulum</h1></div></div>
+ <div><p class="ui-breadcrumb">Ruang akademik / Administrasi</p><h1 class="clay-page-title">Admin Kurikulum</h1></div></div>
  <div class="clay-topbar-right"><button type="button" class="ui-search-trigger" data-open-search aria-label="Cari halaman dan layanan"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="7"/><path d="m16 16 5 5"/></svg><span>Cari di Curriculum</span><kbd>Ctrl K</kbd></button><div id="irsyads-service-nav" class="irsyads-nav-wrapper"></div></div>
 </header>
-<div class="page-header">
-<div class="container">
-<h1 class="animate-up">Admin Kurikulum</h1>
-<p class="animate-up delay-100">Kelola kalender akademik &amp; jadwal KBM — khusus Waka Kurikulum &amp; Administrator.</p>
-</div>
-</div>
 <div class="container admin-wrap">
-<div id="admin-login-section">
-<div class="admin-card admin-login-card">
-<div class="modal-title" style="margin-bottom:4px;">Masuk Admin</div>
-<p class="small-note" style="margin-bottom:16px;">Gunakan akun Supabase yang sama dengan irsyads.com.</p>
-<div id="admin-login-msg"></div>
-<button class="btn btn-ghost btn-sm" hidden="" id="admin-exit-session" type="button">Keluar akun ini</button>
-<form id="admin-login-form">
-<div class="form-group"><label for="admin-email">Email</label>
-<input autocomplete="username" id="admin-email" placeholder="nama@irsyads.com" required="" type="email"/>
-</div>
-<div class="form-group"><label for="admin-pass">Password</label>
-<input autocomplete="current-password" id="admin-pass" placeholder="••••••••" required="" type="password"/>
-</div>
-<button class="btn btn-primary btn-full" type="submit">Masuk →</button>
-</form>
-</div>
-</div>
-<p class="admin-msg err" hidden="" id="admin-auth-error" role="alert" tabindex="-1"></p>
-<div id="admin-panel-section" style="display:none;">
 <div class="admin-topbar">
-<div class="admin-who" id="admin-who"></div>
-<button class="btn btn-ghost btn-sm" id="admin-logout">Keluar</button>
+ <div class="admin-who" id="admin-who">Akses administrator</div>
 </div>
-<div class="admin-tabs" style="overflow-x:auto; white-space:nowrap; padding-bottom:4px; display:flex; gap:6px;">
-<button class="admin-tab active" data-tab="kalender">📅 Kalender</button>
-<button class="admin-tab" data-tab="jadwal">🕐 Jadwal KBM</button>
-<button class="admin-tab" data-tab="guru">👤 21 Guru &amp; Piket</button>
-<button class="admin-tab" data-tab="klinik">🏥 Kurasi Klinik Belajar</button>
-<button class="admin-tab" data-tab="inval">🔄 Izin &amp; Switch JP</button>
-<button class="admin-tab" data-tab="p5" onclick="window.location.href='kokurikuler.html'">🌿 Kokurikuler &amp; Panca Cinta</button>
-<button class="admin-tab" data-tab="jurnal">📖 Jurnal KBM Harian</button>
-<button class="admin-tab" data-tab="perangkat">📚 Perangkat Ajar</button>
-<button class="admin-tab" data-tab="supervisi">🔍 Supervisi Guru</button>
-<button class="admin-tab" data-tab="ekuivalensi">⚖️ Beban &amp; Ekuivalensi</button>
-</div>
+<button id="admin-menu-toggle" class="admin-menu-toggle" type="button" aria-expanded="true" aria-controls="admin-task-menu">
+ <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+ <span>Menu admin</span>
+ <svg class="admin-menu-chevron ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+</button>
+<nav id="admin-task-menu" class="admin-task-menu" aria-label="Tugas administrasi">
+ <section class="admin-task-group" aria-labelledby="admin-approvals">
+  <h2 id="admin-approvals">Persetujuan &amp; operasional</h2>
+  <div class="admin-task-links">
+   <a href="kurikulum.html#clinic">Persetujuan Klinik</a>
+   <a href="kurikulum.html#switch">Ajuan akademik &amp; akses</a>
+   <a href="kurikulum.html#summary">Ringkasan operasional</a>
+  </div>
+ </section>
+ <section class="admin-task-group" aria-labelledby="admin-planning">
+  <h2 id="admin-planning">Kalender &amp; jadwal</h2>
+  <div class="admin-task-links">
+   <button type="button" class="admin-tab" data-tab="kalender" aria-controls="panel-kalender" aria-pressed="true">Kalender akademik</button>
+   <button type="button" class="admin-tab" data-tab="jadwal" aria-controls="panel-jadwal" aria-pressed="false">Jadwal KBM</button>
+   <button type="button" class="admin-tab" data-tab="guru" aria-controls="panel-guru" aria-pressed="false">Guru &amp; piket</button>
+  </div>
+ </section>
+ <section class="admin-task-group" aria-labelledby="admin-documents">
+  <h2 id="admin-documents">Buku &amp; program</h2>
+  <div class="admin-task-links">
+   <a href="buku-admin.html">Buku kurikulum</a>
+   <a href="program-kurikulum.html">Monitoring program</a>
+   <a href="kokurikuler.html">Kokurikuler &amp; Panca Cinta</a>
+  </div>
+ </section>
+ <details class="admin-task-group">
+  <summary>Catatan di perangkat ini</summary>
+  <div class="admin-task-links">
+   <button type="button" class="admin-tab" data-tab="klinik" aria-controls="panel-klinik" aria-pressed="false">Catatan Klinik</button>
+   <button type="button" class="admin-tab" data-tab="inval" aria-controls="panel-inval" aria-pressed="false">Catatan izin &amp; switch</button>
+   <button type="button" class="admin-tab" data-tab="jurnal" aria-controls="panel-jurnal" aria-pressed="false">Jurnal KBM</button>
+   <button type="button" class="admin-tab" data-tab="perangkat" aria-controls="panel-perangkat" aria-pressed="false">Perangkat ajar</button>
+   <button type="button" class="admin-tab" data-tab="supervisi" aria-controls="panel-supervisi" aria-pressed="false">Supervisi guru</button>
+   <button type="button" class="admin-tab" data-tab="ekuivalensi" aria-controls="panel-ekuivalensi" aria-pressed="false">Beban &amp; ekuivalensi</button>
+  </div>
+ </details>
+</nav>
+<p id="admin-auth-error" class="admin-msg err" role="status" hidden></p>
+<div id="admin-panel-section" hidden>
+<h2 id="admin-section-title" tabindex="-1">Kalender akademik</h2>
+<p class="admin-table-note">Geser tabel ke samping untuk melihat kolom lain.</p>
 <!-- ═══ KALENDER ═══ -->
-<div class="admin-panel-content active" id="panel-kalender">
+<div class="admin-panel-content" id="panel-kalender">
 <div class="admin-card">
 <button class="btn btn-aqua btn-sm" id="btn-new-program" style="margin-bottom:16px;">+ Tambah Rentang Program</button>
 <div class="add-form-box" id="program-form-box" style="display:none;"></div>
@@ -148,7 +151,7 @@
 <label class="sr-only" for="program-search">Cari judul / kategori…</label><input id="program-search" placeholder="Cari judul / kategori…" type="text"/>
 <span class="small-note" id="program-count"></span>
 </div>
-<div class="admin-table-wrap">
+<div class="admin-table-wrap" role="region" aria-labelledby="admin-section-title" tabindex="0">
 <table class="admin-table">
 <thead><tr><th>Judul</th><th>Mulai</th><th>Selesai</th><th>Kategori</th><th>Sem.</th><th>JP</th><th></th></tr></thead>
 <tbody id="program-tbody"></tbody>
@@ -157,7 +160,7 @@
 </div>
 </div>
 <!-- ═══ JADWAL KBM ═══ -->
-<div class="admin-panel-content" id="panel-jadwal">
+<div class="admin-panel-content" id="panel-jadwal" hidden>
 <div class="admin-card">
 <div class="admin-toolbar">
 <div class="pill-toggle" id="jadwal-kelas-toggle"></div>
@@ -165,7 +168,7 @@
 </div>
 <button class="btn btn-aqua btn-sm" id="btn-new-lesson" style="margin-bottom:16px;">+ Tambah Baris</button>
 <div class="add-form-box" id="lesson-form-box" style="display:none;"></div>
-<div class="admin-table-wrap">
+<div class="admin-table-wrap" role="region" aria-labelledby="admin-section-title" tabindex="0">
 <table class="admin-table">
 <thead><tr><th width="70">JP</th><th width="150">Waktu</th><th>Mapel / Kegiatan</th><th width="160">Guru</th><th width="120">Jenis</th><th></th></tr></thead>
 <tbody id="lesson-tbody"></tbody>
@@ -174,19 +177,20 @@
 </div>
 </div>
 <!-- ═══ GURU ═══ -->
-<div class="admin-panel-content" id="panel-guru">
+<div class="admin-panel-content" id="panel-guru" hidden>
 <div class="admin-card">
 <button class="btn btn-aqua btn-sm" id="btn-new-teacher" style="margin-bottom:16px;">+ Tambah Guru</button>
 <div class="add-form-box" id="teacher-form-box" style="display:none;"></div>
-<div class="admin-table-wrap">
+<div class="admin-table-wrap" role="region" aria-labelledby="admin-section-title" tabindex="0">
 <table class="admin-table">
 <thead><tr><th width="70">Kode</th><th>Nama</th><th>Mapel</th><th width="60">JP</th><th>Hari Mengajar</th><th>Hari Kosong</th><th></th></tr></thead>
 <tbody id="teacher-tbody"></tbody>
 </table>
 </div>
 </div>
+</div>
 <!-- ═══ KLINIK PEMBELAJARAN (KURASI ADMIN) ═══ -->
-<div class="admin-panel-content" id="panel-klinik">
+<div class="admin-panel-content" id="panel-klinik" hidden>
 <div class="admin-card">
 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:10px;">
 <div>
@@ -199,7 +203,7 @@
 </div>
 <button class="btn btn-primary btn-sm" onclick="exportKlinikData()">📥 Ekspor Data Klinik</button>
 </div>
-<div class="admin-table-wrap">
+<div class="admin-table-wrap" role="region" aria-labelledby="admin-section-title" tabindex="0">
 <table class="admin-table">
 <thead>
 <tr>
@@ -220,7 +224,7 @@
 </div>
 </div>
 <!-- ═══ IZIN & SWITCH JADWAL GURU ═══ -->
-<div class="admin-panel-content" id="panel-inval">
+<div class="admin-panel-content" id="panel-inval" hidden>
 <div class="admin-card">
 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:10px;">
 <div>
@@ -232,7 +236,7 @@
             </p>
 </div>
 </div>
-<div class="admin-table-wrap">
+<div class="admin-table-wrap" role="region" aria-labelledby="admin-section-title" tabindex="0">
 <table class="admin-table">
 <thead>
 <tr>
@@ -253,7 +257,7 @@
 </div>
 </div>
 <!-- ═══ JURNAL KBM HARIAN ═══ -->
-<div class="admin-panel-content" id="panel-jurnal">
+<div class="admin-panel-content" id="panel-jurnal" hidden>
 <div class="admin-card">
 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:10px;">
 <div>
@@ -287,7 +291,7 @@
 </div>
 </form>
 </div>
-<div class="admin-table-wrap">
+<div class="admin-table-wrap" role="region" aria-labelledby="admin-section-title" tabindex="0">
 <table class="admin-table">
 <thead>
 <tr>
@@ -309,7 +313,7 @@
 </div>
 </div>
 <!-- ═══ PERANGKAT AJAR ═══ -->
-<div class="admin-panel-content" id="panel-perangkat">
+<div class="admin-panel-content" id="panel-perangkat" hidden>
 <div class="admin-card">
 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:10px;">
 <div>
@@ -345,7 +349,7 @@
 </div>
 </form>
 </div>
-<div class="admin-table-wrap">
+<div class="admin-table-wrap" role="region" aria-labelledby="admin-section-title" tabindex="0">
 <table class="admin-table">
 <thead>
 <tr>
@@ -364,7 +368,7 @@
 </div>
 </div>
 <!-- ═══ SUPERVISI GURU ═══ -->
-<div class="admin-panel-content" id="panel-supervisi">
+<div class="admin-panel-content" id="panel-supervisi" hidden>
 <div class="admin-card">
 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:10px;">
 <div>
@@ -397,7 +401,7 @@
 </div>
 </form>
 </div>
-<div class="admin-table-wrap">
+<div class="admin-table-wrap" role="region" aria-labelledby="admin-section-title" tabindex="0">
 <table class="admin-table">
 <thead>
 <tr>
@@ -419,7 +423,7 @@
 </div>
 </div>
 <!-- ═══ BEBAN & EKUIVALENSI JAM ═══ -->
-<div class="admin-panel-content" id="panel-ekuivalensi">
+<div class="admin-panel-content" id="panel-ekuivalensi" hidden>
 <div class="admin-card">
 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:10px;">
 <div>
@@ -432,7 +436,7 @@
 </div>
 <button class="btn btn-ghost btn-sm" onclick="window.print()">🖨️ Cetak Rekap Beban Mengajar</button>
 </div>
-<div class="admin-table-wrap">
+<div class="admin-table-wrap" role="region" aria-labelledby="admin-section-title" tabindex="0">
 <table class="admin-table">
 <thead>
 <tr>
@@ -449,7 +453,6 @@
 <!-- Rendered via JS -->
 </tbody>
 </table>
-</div>
 </div>
 </div>
 </div>
@@ -475,108 +478,72 @@
   let teachers = [];
   let jadwalKelas = 'X-1';
   let jadwalHari = 'senin';
-  let authRevision = 0;
-  let logoutBusy = false;
-  let displayedSession = null;
   const authError = document.getElementById('admin-auth-error');
-  function authFailure(message) { authError.textContent = message; authError.hidden = false; authError.focus(); }
+  const panelSection = document.getElementById('admin-panel-section');
+  const sectionTitle = document.getElementById('admin-section-title');
 
   function esc(s) { return String(s == null ? '' : s).replace(/"/g, '&quot;').replace(/</g, '&lt;'); }
   function toast(msg) { window.AppUtils.toast(msg); }
 
-  // ── Auth flow ──
-  async function refreshAuthView() {
-    const revision = ++authRevision;
-    authError.hidden = true;
-    let session;
-    try {
-    session = await DB.getSession();
-    if (revision !== authRevision) return;
-    displayedSession = session;
-    document.getElementById('admin-exit-session').hidden = !session;
-    if (!session) {
-      document.getElementById('admin-login-section').style.display = '';
-      document.getElementById('admin-panel-section').style.display = 'none';
-      return;
-    }
-    const admin = await DB.isAdmin();
-    if (revision !== authRevision) return;
-    if (!admin) {
-      document.getElementById('admin-login-section').style.display = '';
-      document.getElementById('admin-panel-section').style.display = 'none';
-      document.getElementById('admin-login-msg').innerHTML =
-        `<div class="admin-msg err">Akun ${esc(session.user.email)} masuk, tapi bukan admin kurikulum. Hubungi Waka Kurikulum untuk akses.</div>`;
-      return;
-    }
-    document.getElementById('admin-login-section').style.display = 'none';
-    document.getElementById('admin-panel-section').style.display = '';
-    document.getElementById('admin-who').textContent = 'Masuk sebagai ' + session.user.email;
-    await loadAll();
-    } catch {
-      if (revision !== authRevision) return;
-      document.getElementById('admin-login-section').style.display = '';
-      document.getElementById('admin-panel-section').style.display = 'none';
-      document.getElementById('admin-exit-session').hidden = !session;
-      authFailure('Sesi atau hak akses belum berhasil diperiksa. Coba kembali; akun Anda tidak dikeluarkan otomatis.');
-    }
+  const sections = [...document.querySelectorAll('.admin-tab[data-tab]')];
+  const menuToggle = document.getElementById('admin-menu-toggle');
+  const taskMenu = document.getElementById('admin-task-menu');
+  const compactMenu = matchMedia('(max-width: 860px)');
+  function setMenu(open) {
+    taskMenu.hidden = !open;
+    menuToggle.setAttribute('aria-expanded', String(open));
   }
-
-  document.getElementById('admin-login-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = document.getElementById('admin-email').value.trim();
-    const pass = document.getElementById('admin-pass').value;
-    const msgEl = document.getElementById('admin-login-msg');
-    msgEl.innerHTML = '';
-
-    // Quick Local Administrator Passcode bypass for Waka Kurikulum
-    if ((email === 'admin' || email.includes('admin') || email.includes('waka') || email.includes('irsyad')) && 
-        (pass === 'admin' || pass === 'kurikulum2026' || pass === 'maicn2026' || pass.length >= 4)) {
-      document.getElementById('admin-login-section').style.display = 'none';
-      document.getElementById('admin-panel-section').style.display = '';
-      document.getElementById('admin-who').textContent = 'Masuk sebagai Administrator Kurikulum (Waka Kurikulum Curriculum)';
-      await loadAll();
-      toast('Selamat datang di Panel Administrasi Kurikulum Curriculum!');
-      return;
+  setMenu(!compactMenu.matches);
+  compactMenu.addEventListener('change', event => {
+    if (event.matches && taskMenu.contains(document.activeElement)) menuToggle.focus();
+    setMenu(!event.matches);
+  });
+  menuToggle.onclick = () => setMenu(taskMenu.hidden);
+  function showSection(focus = false) {
+    const selected = sections.find(button => button.dataset.tab === location.hash.slice(1)) || sections[0];
+    if (selected.closest('details')) selected.closest('details').open = true;
+    for (const button of sections) {
+      const active = button === selected;
+      button.setAttribute('aria-pressed', String(active));
+      const panel = document.getElementById(button.getAttribute('aria-controls'));
+      panel.hidden = !active;
+      panel.classList.toggle('active', active);
     }
+    sectionTitle.textContent = selected.textContent;
+    if (focus && !panelSection.hidden) sectionTitle.focus();
+  }
+  for (const button of sections) {
+    button.onclick = () => {
+      const hash = '#' + button.dataset.tab;
+      if (location.hash !== hash) history.pushState(null, '', hash);
+      if (compactMenu.matches) setMenu(false);
+      showSection(true);
+      if (panelSection.hidden) menuToggle.focus();
+    };
+  }
+  addEventListener('popstate', () => showSection());
+  addEventListener('hashchange', () => showSection());
+  showSection();
 
+  let adminStarted = false;
+  async function startAdmin() {
+    const access = window.CurriculumAccess;
+    if (!access?.has('admin') || adminStarted) return;
+    adminStarted = true;
+    document.getElementById('main-clay-content').hidden = false;
     try {
-      await DB.signIn(email, pass);
-      await refreshAuthView();
-    } catch (err) {
-      // If Supabase credentials failed, check if user typed standard admin pass
-      if (pass === 'admin' || pass === 'kurikulum2026') {
-        document.getElementById('admin-login-section').style.display = 'none';
-        document.getElementById('admin-panel-section').style.display = '';
-        document.getElementById('admin-who').textContent = 'Masuk sebagai ' + email;
-        await loadAll();
-        return;
+      const session = await DB?.getSession();
+      if (!session || session.user.id !== access.context.user_id || !await DB.isAdmin()) {
+        throw Error('Admin session unavailable');
       }
-      msgEl.innerHTML = `<div class="admin-msg err">Gagal masuk: ${esc(err.message || err)} (Gunakan akun Waka Kurikulum atau hubungi administrator).</div>`;
+      document.getElementById('admin-who').textContent = 'Masuk sebagai ' + session.user.email;
+      await loadAll();
+      panelSection.hidden = false;
+    } catch {
+      authError.textContent = 'Sesi untuk mengedit kalender, jadwal, dan catatan belum tersambung. Buka Akun & keluar untuk menyambungkan ulang.';
+      authError.hidden = false;
     }
-  });
-
-  async function requestLogout() {
-    if (logoutBusy) return;
-    logoutBusy = true; authError.hidden = true;
-    const captured = displayedSession, revision = authRevision;
-    const buttons = ['admin-logout', 'admin-exit-session'].map(id => document.getElementById(id));
-    buttons.forEach(button => button.disabled = true);
-    try { await DB.signOut(captured); if (revision === authRevision) await refreshAuthView(); }
-    catch { if (revision === authRevision) authFailure('Logout belum terkonfirmasi. Periksa koneksi dan akun aktif sebelum mencoba lagi.'); }
-    finally { logoutBusy = false; buttons.forEach(button => button.disabled = false); }
   }
-  document.getElementById('admin-logout').addEventListener('click', requestLogout);
-  document.getElementById('admin-exit-session').addEventListener('click', requestLogout);
-
-  // ── Tabs ──
-  document.querySelectorAll('.admin-tab').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.admin-tab').forEach(b => b.classList.remove('active'));
-      document.querySelectorAll('.admin-panel-content').forEach(p => p.classList.remove('active'));
-      btn.classList.add('active');
-      document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
-    });
-  });
 
   async function loadAll() {
     try {
@@ -876,11 +843,7 @@
     });
   }
 
-  refreshAuthView();
-  DB.client.auth.onAuthStateChange(() => {
-    authRevision++;
-    setTimeout(() => { void refreshAuthView(); }, 0);
-  });
+  window.addEventListener('curriculum-access-changed', startAdmin);
 
   // ── Local Fallback & Multi-Panel Handlers ──
   let adminJurnalList = JSON.parse(localStorage.getItem('maicn_admin_jurnal') || '[]');
@@ -1155,6 +1118,6 @@
   </main>
 <nav class="clay-mobile-bottom-nav" aria-label="Navigasi cepat ponsel"><a href="index.html" class="clay-bottom-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7v10H3z"/><path d="M9 20v-7h6v7"/></svg><span>Beranda</span></a><a href="jadwal.html" class="clay-bottom-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4m8-4v4M3 10h18m-13 4h3m-3 3h6m2-3h1"/></svg><span>Jadwal</span></a><a href="kalender.html" class="clay-bottom-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18m-13 4h2m4 0h2"/></svg><span>Kalender</span></a><a href="klinik.html" class="clay-bottom-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5C8 2 3 3 3 3v16s5-1 9 2c4-3 9-2 9-2V3s-5-1-9 2Zm0 0v16"/></svg><span>Klinik</span></a><button type="button" class="clay-bottom-nav-item" onclick="toggleClayDrawer()" aria-label="Buka menu lengkap" aria-controls="main-clay-sidebar" aria-expanded="false"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span>Menu</span></button></nav>
   <script src="assets/dashboard-clay.js"></script>
-<script src="assets/curriculum-ui.js?v=20261026-audience1"></script>
+<script src="assets/curriculum-ui.js?v=20261102-teal"></script>
 </body>
 </html>
