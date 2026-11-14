@@ -51,7 +51,7 @@ Deploy (`wrangler deploy`, build otomatis menjalankan `build-site.mjs`) hanya de
 
 ## Ruang admin dan ruang guru (kandidat, 14 November 2026)
 
-`ruang-admin.html` (khusus admin) memuat ringkasan analisis, persetujuan klinik dan seluruh ajuan, catatan harian guru, serta supervisi format AKG. `ruang-guru.html` (guru tertaut) memuat catatan harian dan hasil supervisi sendiri. `layanan.html` memuat peluncur semua layanan. Gerbang halaman dan daftar izin RPC ada di `assets/room-core.mjs` (`ROOM_PAGES`, `roomRule`); Worker meneruskan lewat `/api/room/rpc`; SQL kandidat di `server/curriculum-room.sql` **belum dipasang** dan `ROOM_ENABLED` masih `"false"`. Lab: `scripts/preview-room.mjs` (port 4584, butuh `PGLITE_MODULE`). Rincian, rencana desain, dan langkah aktivasi: [catatan 14 November](docs/2026-11-14_RUANG_ADMIN_GURU_DAN_RENCANA_DESAIN.md).
+`ruang-admin.html` (khusus admin) memuat ringkasan analisis, persetujuan klinik dan seluruh ajuan, catatan harian guru, serta supervisi format AKG. `ruang-guru.html` (guru tertaut) memuat catatan harian dan hasil supervisi sendiri. `layanan.html` memuat peluncur semua layanan. Gerbang halaman dan daftar izin RPC ada di `assets/room-core.mjs` (`ROOM_PAGES`, `roomRule`); Worker meneruskan lewat `/api/room/rpc`; SQL `server/curriculum-room.sql` sudah dipasang (migrasi `curriculum_room_workspace`) dan `ROOM_ENABLED` bernilai `"true"`; berlaku setelah deploy. Lab: `scripts/preview-room.mjs` (port 4584, butuh `PGLITE_MODULE`). Rincian, rencana desain, dan langkah aktivasi: [catatan 14 November](docs/2026-11-14_RUANG_ADMIN_GURU_DAN_RENCANA_DESAIN.md).
 
 ## Konfigurasi Worker
 

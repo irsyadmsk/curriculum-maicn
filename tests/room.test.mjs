@@ -102,7 +102,7 @@ test('pages, hub and legacy admin point to the rooms; nothing links curriculum r
   for (const file of ['assets/school-services.mjs', 'assets/school-journals.mjs']) assert.ok(!read(file).includes('studio.irsyads.com'), file);
   const services = read('assets/school-services.mjs'); for (const value of ['sakit', 'izin', 'dispensasi']) assert.ok(services.includes(`value="${value}"`));
   const legacy = read('admin.html'); for (const tab of ['klinik', 'inval', 'jurnal', 'supervisi']) assert.ok(!legacy.includes(`class="admin-tab" data-tab="${tab}"`), tab); assert.ok(legacy.includes('ruang-admin.html#supervisi'));
-  assert.match(read('wrangler.jsonc'), /"ROOM_ENABLED": "false"/);
+  assert.match(read('wrangler.jsonc'), /"ROOM_ENABLED": "true"/);
   assert.ok(read('assets/room.css').includes('prefers-reduced-motion'));
 });
 

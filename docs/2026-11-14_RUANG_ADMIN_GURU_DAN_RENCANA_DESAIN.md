@@ -1,6 +1,8 @@
 # Ruang admin, ruang guru, dan rencana perbaikan desain — 14 November 2026
 
-Status: **kandidat lokal**. Kode, tes, dan lab sudah ada di repo. Belum ada migrasi yang dipasang ke basis data produksi, belum deploy, dan flag `ROOM_ENABLED` masih `"false"`. Aktivasi menunggu persetujuan pemilik (lihat bagian Aktivasi).
+Status: **migrasi terpasang, menunggu deploy.** Atas persetujuan pemilik (14 November 2026), `server/curriculum-room.sql` dipasang ke produksi sebagai migrasi `curriculum_room_workspace` dan `ROOM_ENABLED` diubah menjadi `"true"` di `wrangler.jsonc`. Worker yang tayang baru memakai flag ini setelah PR digabung ke `main` dan di-deploy oleh pemilik.
+
+Verifikasi pascamigrasi: empat tabel privat ber-RLS tanpa hak baca `anon`/`authenticated`; lima fungsi publik hanya dapat dijalankan `authenticated`; `private.curriculum_akg_items()` tertutup. Tidak ada tabel, fungsi, atau data lama yang diubah.
 
 ## 1. Temuan sebelum perubahan
 
@@ -71,9 +73,9 @@ Rujukan: W3C, *Web Content Accessibility Guidelines 2.2* (2023), kriteria 2.5.8 
 
 ## 6. Aktivasi (butuh persetujuan pemilik)
 
-1. Cadangkan, lalu pasang `server/curriculum-room.sql` sebagai migrasi.
+1. ~~Pasang `server/curriculum-room.sql` sebagai migrasi.~~ Selesai 14 November 2026.
 2. Pastikan guru sudah ditautkan ke pengampu (Ruang admin → Ajuan & jurnal → Penugasan akun). Saat ini `curriculum_teacher_access` di produksi berisi 0 tautan aktif, sehingga belum ada guru yang dapat membuka Ruang guru.
-3. Ubah `ROOM_ENABLED` menjadi `"true"` di `wrangler.jsonc`, bangun, dan deploy.
+3. `ROOM_ENABLED` sudah `"true"` di `wrangler.jsonc`; gabungkan PR ke `main`, bangun, dan deploy.
 4. Uji dengan satu akun admin dan satu akun guru sebelum diumumkan.
 
 Pemulihan: kembalikan `ROOM_ENABLED` ke `"false"`. Halaman tetap terbuka tetapi tidak membaca atau menulis data; tab Klinik dan Ajuan tetap berfungsi. Jangan menghapus tabel yang sudah berisi catatan.

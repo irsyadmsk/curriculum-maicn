@@ -26,7 +26,7 @@
     "SCHOOL_ENABLED": "true",
     "SCHOOL_EMAIL_ENABLED": "true",
     "CURRICULUM_EMAIL_EDGE_ENABLED": "true",
-    "ROOM_ENABLED": "false"
+    "ROOM_ENABLED": "true"
   },
   "compatibility_flags": [
     "nodejs_compat"
