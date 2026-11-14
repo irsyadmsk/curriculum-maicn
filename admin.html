@@ -35,6 +35,7 @@
 .admin-msg.ok { background:#dcfce7; color:#166534; }
 .admin-msg.err { background:#fee2e2; color:#991b1b; }
 .small-note { font-size:0.75rem; color:var(--text-soft); margin-top:6px; }
+.admin-link-tab{display:inline-flex;align-items:center;padding:8px 14px;border-radius:999px;border:1.5px dashed var(--border,#d9ccb9);color:inherit;font-size:.85rem;font-weight:600;text-decoration:none;white-space:nowrap}.admin-link-tab:hover{border-style:solid}
 </style>
 <script src="data.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
@@ -96,6 +97,8 @@
 <div class="admin-topbar">
  <div class="admin-who" id="admin-who">Akses administrator</div>
 </div>
+<p class="admin-room-banner" style="margin:0 0 12px;padding:12px 16px;border-radius:12px;background:var(--ui-accent-soft,#eaf1f8);font-size:.9rem;">Persetujuan, analisis, catatan guru, dan supervisi kini berada di <a href="ruang-admin.html" data-access-fixed="true" style="font-weight:700;">Ruang admin</a> dan tersimpan di server. Halaman ini memuat data master.</p>
+
 <button id="admin-menu-toggle" class="admin-menu-toggle" type="button" aria-expanded="true" aria-controls="admin-task-menu">
  <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
  <span>Menu admin</span>
@@ -129,11 +132,11 @@
  <details class="admin-task-group">
   <summary>Catatan di perangkat ini</summary>
   <div class="admin-task-links">
-   <button type="button" class="admin-tab" data-tab="klinik" aria-controls="panel-klinik" aria-pressed="false">Catatan Klinik</button>
-   <button type="button" class="admin-tab" data-tab="inval" aria-controls="panel-inval" aria-pressed="false">Catatan izin &amp; switch</button>
-   <button type="button" class="admin-tab" data-tab="jurnal" aria-controls="panel-jurnal" aria-pressed="false">Jurnal KBM</button>
+   <a class="admin-link-tab" href="ruang-admin.html#klinik" data-access-fixed="true">Persetujuan Klinik ↗</a>
+   <a class="admin-link-tab" href="ruang-admin.html#layanan" data-access-fixed="true">Izin, sakit &amp; switch ↗</a>
+   <a class="admin-link-tab" href="ruang-admin.html#catatan" data-access-fixed="true">Catatan &amp; jurnal KBM ↗</a>
    <button type="button" class="admin-tab" data-tab="perangkat" aria-controls="panel-perangkat" aria-pressed="false">Perangkat ajar</button>
-   <button type="button" class="admin-tab" data-tab="supervisi" aria-controls="panel-supervisi" aria-pressed="false">Supervisi guru</button>
+   <a class="admin-link-tab" href="ruang-admin.html#supervisi" data-access-fixed="true">Supervisi AKG ↗</a>
    <button type="button" class="admin-tab" data-tab="ekuivalensi" aria-controls="panel-ekuivalensi" aria-pressed="false">Beban &amp; ekuivalensi</button>
   </div>
  </details>
