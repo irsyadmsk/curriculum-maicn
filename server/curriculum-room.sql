@@ -201,8 +201,10 @@ begin
   'clinic',(select coalesce(jsonb_agg(jsonb_build_object('status',status,'n',n)),'[]') from (select status,count(*) n from private.curriculum_clinic_requests where institution=school and date between p_from and p_to group by 1) q),
   'journals',(select coalesce(jsonb_agg(jsonb_build_object('kind',kind,'n',n)),'[]') from (select kind,count(*) n from private.curriculum_school_journals where institution=school and date between p_from and p_to group by 1) q),
   'pending',jsonb_build_object(
-   'school',(select count(*) from private.curriculum_school_requests where institution=school and status='pending'),
-   'clinic',(select count(*) from private.curriculum_clinic_requests where institution=school and status='pending')),
+   'school',(select count(*) from private.curriculum_school_requests where institution=school and status='pending' and date>=(now() at time zone 'Asia/Jakarta')::date),
+   'clinic',(select count(*) from private.curriculum_clinic_requests where institution=school and status='pending' and date>=(now() at time zone 'Asia/Jakarta')::date),
+   'expired',(select count(*) from private.curriculum_school_requests where institution=school and status='pending' and date<(now() at time zone 'Asia/Jakarta')::date)
+    +(select count(*) from private.curriculum_clinic_requests where institution=school and status='pending' and date<(now() at time zone 'Asia/Jakarta')::date)),
   'notes',(select coalesce(jsonb_agg(jsonb_build_object('teacher_code',t.kode,'teacher',t.nama,'subject',t.mapel,'n',coalesce(q.n,0),'last',q.last) order by coalesce(q.n,0) desc,t.nama),'[]') from public.curriculum_teachers t left join (select teacher_code,count(*) n,max(date) last from private.curriculum_teacher_notes where institution=school and date between p_from and p_to group by 1) q on q.teacher_code=t.kode),
   'supervision',(select jsonb_build_object('planned',count(*) filter(where status='planned'),'done',count(*) filter(where status='done'),'cancelled',count(*) filter(where status='cancelled'),'acknowledged',count(*) filter(where status='done' and acknowledged_at is not null),'average',round(avg(score) filter(where status='done'),2)) from private.curriculum_supervisions where institution=school and date between p_from and p_to),
   'weekly',(select coalesce(jsonb_agg(jsonb_build_object('week',w::date,

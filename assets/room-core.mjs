@@ -1,7 +1,7 @@
 /** Ruang guru dan ruang admin Curriculum: logika murni tanpa DOM, dipakai browser, Worker, dan tes. */
 
 // Halaman ruang beserta kemampuan akun yang diwajibkan Worker sebelum berkas dikirim.
-export const ROOM_PAGES = Object.freeze({'ruang-admin.html': 'admin', 'ruang-guru.html': 'teacher'});
+export const ROOM_PAGES = Object.freeze({'ruang-guru.html': 'teacher'});
 
 // RPC yang boleh diteruskan Worker, dengan kemampuan minimum per pemanggilan.
 export function roomRule(name, args = {}) {
@@ -125,7 +125,7 @@ export function summarize(summary) {
   return {
     rows, total: rows.reduce((sum, r) => sum + r.total, 0),
     pending: Number(summary.pending?.school || 0) + Number(summary.pending?.clinic || 0),
-    pendingSchool: Number(summary.pending?.school || 0), pendingClinic: Number(summary.pending?.clinic || 0),
+    pendingSchool: Number(summary.pending?.school || 0), pendingClinic: Number(summary.pending?.clinic || 0), expired: Number(summary.pending?.expired || 0),
     approvalRate: decided ? Math.round(approved / decided * 100) : null,
     absence: Object.keys(ABSENCE_CATEGORIES).map(category => { const row = (summary.absence || []).find(r => r.category === category); return {category, label: ABSENCE_CATEGORIES[category], n: Number(row?.n || 0), students: Number(row?.students || 0)}; }),
     journals: {duty: count(summary.journals || [], r => r.kind === 'duty'), class: count(summary.journals || [], r => r.kind === 'class')},

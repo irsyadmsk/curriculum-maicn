@@ -166,7 +166,7 @@ export function createWorker({fetcher=fetch,now=()=>Date.now()}={}){
     }
     return json({error:'Layanan tidak ditemukan.'},404);
    }
-   const oldPages={'/p5-ppra.html':'/kokurikuler.html','/modul.html':'/buku-kerja.html','/profil.html':'/akun.html'};
+   const oldPages={'/p5-ppra.html':'/kokurikuler.html','/modul.html':'/buku-kerja.html','/profil.html':'/akun.html','/ruang-admin.html':'/kurikulum.html#analysis'};
    if(Object.hasOwn(oldPages,path))return Response.redirect(url.origin+oldPages[path],308);
    if(!['GET','HEAD'].includes(request.method))return new Response(null,{status:405});
    // The build binding contains only curated site assets, never the repository root.

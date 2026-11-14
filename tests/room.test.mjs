@@ -52,7 +52,7 @@ test('room RPC rules: per-action capability, unknown names and odd arguments are
     const rule = roomRule(name, args); assert.equal(roomAllows(rule, teacher), t, name); assert.equal(roomAllows(rule, admin), a, name); assert.equal(roomAllows(rule, staff), false, name);
   }
   assert.equal(roomAllows(null, admin), false);
-  assert.deepEqual(ROOM_PAGES, {'ruang-admin.html': 'admin', 'ruang-guru.html': 'teacher'});
+  assert.deepEqual(ROOM_PAGES, {'ruang-guru.html': 'teacher'});
 });
 
 function gateway(extra = {}) {
@@ -69,12 +69,12 @@ function gateway(extra = {}) {
   return {page, rpc, calls};
 }
 
-test('Worker sends the admin room only to admins and the teacher room only to linked teachers, never cached', async () => {
+test('Worker sends the teacher room only to linked teachers, never cached; the retired admin page redirects into Ruang kurikulum', async () => {
   const g = gateway();
-  for (const token of [null, 't-member', 't-teacher', 't-staff']) { const r = await g.page('ruang-admin.html', token); assert.equal(r.status, 303, String(token)); assert.match(r.headers.get('Location'), /^\/akun\.html\?next=%2Fruang-admin\.html&access=admin$/); }
-  for (const token of [null, 't-member', 't-staff']) assert.equal((await g.page('ruang-guru.html', token)).status, 303, String(token));
-  for (const [path, token] of [['ruang-admin.html', 't-admin'], ['ruang-guru.html', 't-teacher']]) { const r = await g.page(path, token); assert.equal(r.status, 200); assert.equal(r.headers.get('Cache-Control'), 'no-store'); assert.match(r.headers.get('X-Robots-Tag'), /noindex/); }
-  assert.equal((await g.page('RUANG-ADMIN.html', null)).status, 404);
+  for (const token of [null, 't-member', 't-staff']) { const r = await g.page('ruang-guru.html', token); assert.equal(r.status, 303, String(token)); assert.match(r.headers.get('Location'), /^\/akun\.html\?next=%2Fruang-guru\.html&access=teacher$/); }
+  const r = await g.page('ruang-guru.html', 't-teacher'); assert.equal(r.status, 200); assert.equal(r.headers.get('Cache-Control'), 'no-store'); assert.match(r.headers.get('X-Robots-Tag'), /noindex/);
+  for (const token of [null, 't-admin']) { const old = await g.page('ruang-admin.html', token); assert.equal(old.status, 308); assert.equal(old.headers.get('Location'), 'https://school.test/kurikulum.html#analysis'); }
+  assert.equal((await g.page('RUANG-GURU.html', null)).status, 404);
 });
 
 test('Worker room RPC: flag off makes no upstream call; capability, origin and allowlist are enforced', async () => {
@@ -96,14 +96,20 @@ test('client rejects incomplete snapshots and unconfirmed receipts; server codes
   await assert.rejects(client.supervisions('mine'), /14 hari/);
 });
 
-test('pages, hub and legacy admin point to the rooms; nothing links curriculum review to Studio any more', () => {
-  for (const [page, module] of [['ruang-admin.html', 'room-admin.mjs'], ['ruang-guru.html', 'room-teacher.mjs']]) { const html = read(page); assert.ok(html.includes(`assets/${module}`)); assert.ok(html.includes('assets/room.css')); assert.ok(html.includes('id="room-root"')); assert.ok(html.includes('noindex')); }
-  assert.ok(read('layanan.html').includes('assets/service-hub.mjs'));
+test('one curriculum room: coaching sections live in Ruang kurikulum behind grouped navigation; links point there', () => {
+  const html = read('ruang-guru.html'); for (const part of ['assets/room-teacher.mjs', 'assets/room.css', 'id="room-root"', 'noindex']) assert.ok(html.includes(part), part);
+  assert.ok(!fs.existsSync(new URL('../ruang-admin.html', import.meta.url)), 'separate admin page is retired');
+  const ops = read('assets/curriculum-operations.mjs');
+  for (const part of ["['analysis','Analisis']", "['notes','Catatan guru']", "['supervision','Supervisi AKG']", 'class="ops-groups"', "import('./room-admin.mjs')", "access.context.role==='admin'"]) assert.ok(ops.includes(part), part);
+  const admin = read('assets/room-admin.mjs'); assert.ok(admin.includes('export function mountRoomSection')); assert.ok(!/^await /m.test(admin), 'library module has no page-level side effects');
+  assert.ok(read('kurikulum.html').includes('assets/room.css')); assert.ok(read('layanan.html').includes('assets/service-hub.mjs'));
+  for (const file of ['assets/school-services.mjs', 'assets/school-journals.mjs', 'assets/room-ui.mjs', 'assets/curriculum-access.mjs', 'admin.html']) { const text = read(file); assert.ok(!text.includes('ruang-admin'), file); }
   for (const file of ['assets/school-services.mjs', 'assets/school-journals.mjs']) assert.ok(!read(file).includes('studio.irsyads.com'), file);
-  const services = read('assets/school-services.mjs'); for (const value of ['sakit', 'izin', 'dispensasi']) assert.ok(services.includes(`value="${value}"`));
-  const legacy = read('admin.html'); for (const tab of ['klinik', 'inval', 'jurnal', 'supervisi']) assert.ok(!legacy.includes(`class="admin-tab" data-tab="${tab}"`), tab); assert.ok(legacy.includes('ruang-admin.html#supervisi'));
+  const services = read('assets/school-services.mjs'); for (const value of ['sakit', 'izin', 'dispensasi']) assert.ok(services.includes(`value="${value}"`)); assert.ok(services.includes('id="ajukan"'));
+  const legacy = read('admin.html'); for (const tab of ['klinik', 'inval', 'jurnal', 'supervisi']) assert.ok(!legacy.includes(`class="admin-tab" data-tab="${tab}"`), tab); assert.ok(legacy.includes('kurikulum.html#supervision'));
+  const nav = read('assets/curriculum-access.mjs'); assert.ok(nav.includes('RUANG KERJA')); assert.ok(nav.includes('<svg class="ui-icon"'), 'work-room links carry icons');
   assert.match(read('wrangler.jsonc'), /"ROOM_ENABLED": "true"/);
-  assert.ok(read('assets/room.css').includes('prefers-reduced-motion'));
+  const css = read('assets/room.css'); assert.ok(css.includes('prefers-reduced-motion')); assert.ok(css.includes('.ops-groups button[aria-pressed="true"]'));
 });
 
 const PGlite = await loadPGlite();
@@ -161,7 +167,7 @@ test('candidate SQL: ownership, roles, revisions, idempotency, AKG scoring and a
   for (const who of [null, 'teacher', 'staff', 'student']) await assert.rejects(rpc(who, 'curriculum_room_summary', {p_from: '2026-11-01', p_to: '2026-11-30'}), /forbidden|permission denied/, String(who));
   const s = summarize(await rpc('admin', 'curriculum_room_summary', {p_from: '2026-11-01', p_to: '2026-11-30'}));
   assert.equal(s.rows.find(r => r.kind === 'absence').total, 2); assert.equal(s.rows.find(r => r.kind === 'switch').total, 1, 'out-of-range request excluded'); assert.equal(s.rows.find(r => r.kind === 'clinic').total, 2);
-  assert.equal(s.pendingSchool, 2); assert.equal(s.pendingClinic, 1); assert.equal(s.absence.find(a => a.category === 'sakit').students, 2); assert.equal(s.absence.find(a => a.category === 'dispensasi').n, 1);
+  assert.equal(s.pendingSchool + s.pendingClinic + s.expired, 3, 'every undecided request is counted once, as upcoming or as overdue'); assert.equal(s.absence.find(a => a.category === 'sakit').students, 2); assert.equal(s.absence.find(a => a.category === 'dispensasi').n, 1);
   assert.equal(s.journals.duty, 1); assert.equal(s.notes.teachers, 3); assert.equal(s.notes.active, today >= '2026-11-01' && today <= '2026-11-30' ? 2 : 0);
   assert.equal(s.supervision.done, 1); assert.equal(s.supervision.cancelled, 1); assert.equal(s.supervision.acknowledged, 1); assert.equal(s.supervision.average, 77.78); assert.ok(s.weekly.length >= 4);
   // Tabel tidak dapat dibaca langsung oleh peran klien.
