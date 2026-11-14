@@ -1,6 +1,7 @@
 import {normalizePath,routeAccess,parseAccess,capabilities} from '../assets/access-core.mjs';
 import {sendDecisionEmail} from './clinic-email.mjs';
 import {CONTENT_ADMIN_PAGES,contentWrite} from '../assets/curriculum-content-core.mjs';
+import {ROOM_PAGES,roomRule,roomAllows} from '../assets/room-core.mjs';
 const institution='MA Insan Cendekia Nusantara',cookieName='maicn_session_v1';
 const json=(body,status=200,extra={})=>new Response(JSON.stringify(body),{status,headers:{'Content-Type':'application/json;charset=utf-8','Cache-Control':'no-store','Vary':'Cookie, Authorization',...extra}});
 const guest=enabled=>({version:1,institution,role:'guest',user_id:null,enabled});
@@ -16,7 +17,7 @@ export function createWorker({fetcher=fetch,now=()=>Date.now()}={}){
   const key=service?env.CLINIC_SERVICE_KEY:env.SUPABASE_PUBLISHABLE_KEY;
   if(!env.SUPABASE_URL||!key||!service&&!publicKey(key))throw Error('Integration unavailable');
   const response=await fetcher(env.SUPABASE_URL+path,{method:body===undefined?'GET':'POST',headers:{apikey:key,Authorization:'Bearer '+(service?key:token||key),'Content-Type':'application/json'},...(body===undefined?{}:{body:JSON.stringify(body)}),signal:AbortSignal.timeout(12000)});
-  if(!response.ok){const detail=await response.json().catch(()=>({}));const code=String(detail.message||'');throw Error(/invalid_switch|switch_slot_used|teacher_conflict|schedule_conflict|student_link_required|login_required|assign_teacher|invalid_assignment|assignment_overlap|journal_incomplete|tp_required|invalid_project|active_collaborations|source_changed|forbidden|active_class_role|teacher_contact_required|clinic_participant_conflict|clinic_conflict|enrichment_finalized|invalid_participants|invalid_teacher_contact|invalid_subjects|stale_revision|request_limit/.exec(code)?.[0]||'Upstream unavailable')}return response.json();
+  if(!response.ok){const detail=await response.json().catch(()=>({}));const code=String(detail.message||'');throw Error(/invalid_switch|switch_slot_used|teacher_conflict|schedule_conflict|student_link_required|login_required|assign_teacher|invalid_assignment|assignment_overlap|journal_incomplete|tp_required|invalid_project|active_collaborations|source_changed|forbidden|active_class_role|teacher_contact_required|clinic_participant_conflict|clinic_conflict|enrichment_finalized|invalid_participants|invalid_teacher_contact|invalid_subjects|stale_revision|request_limit|note_window|invalid_supervision|room_scope|token_mismatch/.exec(code)?.[0]||'Upstream unavailable')}return response.json();
  }
  async function context(env,token){
   if(env.ACCESS_ENABLED!=='true'||!token)return parseAccess(guest(env.ACCESS_ENABLED==='true'));
@@ -63,7 +64,7 @@ export function createWorker({fetcher=fetch,now=()=>Date.now()}={}){
      try{return json(await upstream(env,'/rest/v1/rpc/curriculum_content_'+(request.method==='GET'?'read':'write'),cookie(request),args))}
      catch(e){return json({error:e.message},e.message==='stale_revision'?409:e.message==='forbidden'?403:503)}
     }
-    if(url.pathname==='/api/config'&&request.method==='GET')return json({enabled:env.ACCESS_ENABLED==='true',login_enabled:env.ACCESS_ENABLED==='true'&&env.PREVIEW_MODE!=='true'&&publicKey(env.SUPABASE_PUBLISHABLE_KEY),clinic_enabled:env.CLINIC_ENABLED==='true',clinic_v2_enabled:env.CLINIC_V2_ENABLED==='true',school_enabled:env.SCHOOL_ENABLED==='true',turnstile_site_key:env.TURNSTILE_SITE_KEY||'',...(env.ACCESS_ENABLED==='true'&&env.PREVIEW_MODE!=='true'&&publicKey(env.SUPABASE_PUBLISHABLE_KEY)?{supabase_url:env.SUPABASE_URL,supabase_key:env.SUPABASE_PUBLISHABLE_KEY}:{})});
+    if(url.pathname==='/api/config'&&request.method==='GET')return json({enabled:env.ACCESS_ENABLED==='true',login_enabled:env.ACCESS_ENABLED==='true'&&env.PREVIEW_MODE!=='true'&&publicKey(env.SUPABASE_PUBLISHABLE_KEY),clinic_enabled:env.CLINIC_ENABLED==='true',clinic_v2_enabled:env.CLINIC_V2_ENABLED==='true',school_enabled:env.SCHOOL_ENABLED==='true',room_enabled:env.ROOM_ENABLED==='true',turnstile_site_key:env.TURNSTILE_SITE_KEY||'',...(env.ACCESS_ENABLED==='true'&&env.PREVIEW_MODE!=='true'&&publicKey(env.SUPABASE_PUBLISHABLE_KEY)?{supabase_url:env.SUPABASE_URL,supabase_key:env.SUPABASE_PUBLISHABLE_KEY}:{})});
     if(url.pathname==='/api/clinic/catalog'&&request.method==='GET'){
      if(env.CLINIC_V2_ENABLED!=='true')return json({error:'Daftar peserta menunggu aktivasi pengelola.'},503);
      const catalog=await upstream(env,'/rest/v1/rpc/curriculum_clinic_catalog',null,{p_institution:institution,p_year:'2026/2027'},true);
@@ -101,6 +102,14 @@ export function createWorker({fetcher=fetch,now=()=>Date.now()}={}){
      const required=rules[name],a=required==='public'?parseAccess(guest(true)):await context(env,cookie(request));if(required!=='public'&&!a.capabilities[required])return json({data:null,error:{message:'forbidden'}},403);
      try{return json({data:await upstream(env,'/rest/v1/rpc/'+name,required==='public'?null:cookie(request),args),error:null})}catch(error){return json({data:null,error:{message:error.message}},409)}
     }
+    if(url.pathname==='/api/room/rpc'&&request.method==='POST'){
+     // Ruang guru/admin: aturan per-RPC di room-core, lalu SQL memeriksa ulang peran dan kepemilikan.
+     if(env.ROOM_ENABLED!=='true'||env.ACCESS_ENABLED!=='true')return json({data:null,error:{message:'room_disabled'}},503);
+     const payload=await bodyJSON(request),args=payload.args||{},rule=roomRule(payload.name,args);
+     if(!rule)return json({data:null,error:{message:'forbidden'}},403);
+     const a=await context(env,cookie(request));if(!roomAllows(rule,a.capabilities))return json({data:null,error:{message:'forbidden'}},403);
+     try{return json({data:await upstream(env,'/rest/v1/rpc/'+payload.name,cookie(request),args),error:null})}catch(error){return json({data:null,error:{message:error.message}},409)}
+    }
     if(url.pathname==='/api/access'&&request.method==='GET'){try{return json(await context(env,cookie(request)))}catch{return json({error:'Sesi belum dapat diperiksa. Masuk kembali.'},401)}}
     if(url.pathname==='/api/session'&&request.method==='DELETE')return json({ok:true},200,{'Set-Cookie':sessionCookie('',url,0)});
     if(url.pathname==='/api/session'&&request.method==='POST'){
@@ -129,6 +138,11 @@ export function createWorker({fetcher=fetch,now=()=>Date.now()}={}){
     let a;try{a=await context(env,cookie(request))}catch{return json({error:'Sesi belum dapat diperiksa.'},401)}
     if(a.role!=='admin')return new Response(null,{status:303,headers:{Location:'/akun.html?next='+encodeURIComponent(path),'Cache-Control':'no-store','Vary':'Cookie, Authorization'}});
    }
+   const room=ROOM_PAGES[path.slice(1)];
+   if(room){
+    let a;try{a=await context(env,cookie(request))}catch{return json({error:'Sesi belum dapat diperiksa.'},401)}
+    if(!a.capabilities[room])return new Response(null,{status:303,headers:{Location:'/akun.html?next='+encodeURIComponent(path)+'&access='+room,'Cache-Control':'no-store','Vary':'Cookie, Authorization'}});
+   }
    if(required!=='public'){
     let access;try{access=await context(env,cookie(request))}catch{return json({error:'Sesi belum dapat diperiksa.'},401)}
     if(!access.capabilities[required]){
@@ -139,7 +153,7 @@ export function createWorker({fetcher=fetch,now=()=>Date.now()}={}){
    const response=await env.ASSETS.fetch(new Request(new URL(path,url),request)),headers=new Headers(response.headers);
    headers.set('X-Content-Type-Options','nosniff');headers.set('Referrer-Policy','strict-origin-when-cross-origin');
    if(required!=='public'){headers.set('Cache-Control','no-store');headers.set('Vary','Cookie, Authorization');headers.set('X-Robots-Tag','noindex, nofollow, noarchive')}
-   if(CONTENT_ADMIN_PAGES.includes(path.slice(1))){headers.set('Cache-Control','no-store');headers.set('Vary','Cookie, Authorization');headers.set('X-Robots-Tag','noindex, nofollow, noarchive')}
+   if(room||CONTENT_ADMIN_PAGES.includes(path.slice(1))){headers.set('Cache-Control','no-store');headers.set('Vary','Cookie, Authorization');headers.set('X-Robots-Tag','noindex, nofollow, noarchive')}
    return new Response(request.method==='HEAD'?null:response.body,{status:response.status,headers});
   }catch{return json({error:'Layanan belum dapat menyelesaikan permintaan. Draf tidak dihapus.'},503)}
  },async scheduled(_event,env){

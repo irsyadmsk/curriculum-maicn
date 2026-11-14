@@ -4,10 +4,11 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import vm from 'node:vm';
 import {PUBLIC_PAGES,TEACHER_PAGES,REVIEW_PAGES,routeAccess} from '../assets/access-core.mjs';
+import {ROOM_PAGES} from '../assets/room-core.mjs';
 const root=fileURLToPath(new URL('../',import.meta.url)),target=path.join(root,'.site');
 await fs.access(path.join(root,'assets/student-roster-data.js')).catch(()=>{throw Error('Private pupil roster is required. Import the owner workbook locally before building; never commit the generated roster to a public repository.');});
 await fs.mkdir(target,{recursive:true});
-const files=[...PUBLIC_PAGES,...TEACHER_PAGES,...REVIEW_PAGES,'program-kurikulum.html','buku-admin.html','buku-kurikulum.html','program.html','p5-ppra.html','data.js','master-data.json','favicon.svg','favicon.ico','_headers'];
+const files=[...PUBLIC_PAGES,...TEACHER_PAGES,...REVIEW_PAGES,...Object.keys(ROOM_PAGES),'program-kurikulum.html','buku-admin.html','buku-kurikulum.html','program.html','p5-ppra.html','data.js','master-data.json','favicon.svg','favicon.ico','_headers'];
 async function walk(dir){for(const item of await fs.readdir(path.join(root,dir),{withFileTypes:true})){if(item.isSymbolicLink())throw Error('Symlink is not a site asset');const name=dir+'/'+item.name;if(item.isDirectory())await walk(name);else if(/\.(?:css|js|mjs|json|svg|png|jpg|jpeg|webp|gif|woff2?|ttf|ico|docx|pdf)$/i.test(name))files.push(name)}}
 await walk('assets');
 const manifest=[];
@@ -23,5 +24,5 @@ for(const name of new Set(files)){
  try{let bytes=await fs.readFile(source);if(name==='data.js')bytes=Buffer.from('window.MASTER_DATA = '+JSON.stringify(publicData)+';\n');if(name==='master-data.json')bytes=Buffer.from(JSON.stringify(publicData,null,2)+'\n');await fs.mkdir(path.dirname(dest),{recursive:true});await fs.writeFile(dest,bytes);manifest.push({path:name,access:routeAccess(name),bytes:bytes.length})}catch(e){if(e.code!=='ENOENT')throw e;else if(name.endsWith('.html'))throw Error('Required page missing: '+name)}
 }
 const legacyName='assets/clinic-legacy-data.js',legacyBytes=Buffer.from('window.MAICN_CLINIC_LEGACY = '+JSON.stringify(legacy)+';\n');await fs.writeFile(path.join(target,legacyName),legacyBytes);manifest.push({path:legacyName,access:'reviewer',bytes:legacyBytes.length});
- await fs.writeFile(path.join(target,'asset-manifest.json'),JSON.stringify(manifest.map(r=>['program-kurikulum.html','buku-admin.html'].includes(r.path)?{...r,access:'admin'}:r),null,2)+'\n');
+ await fs.writeFile(path.join(target,'asset-manifest.json'),JSON.stringify(manifest.map(r=>['program-kurikulum.html','buku-admin.html'].includes(r.path)?{...r,access:'admin'}:ROOM_PAGES[r.path]?{...r,access:ROOM_PAGES[r.path]}:r),null,2)+'\n');
 console.log(`Built ${manifest.length} curated assets; protected pages/data require the Worker gateway.`);
